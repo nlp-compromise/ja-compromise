@@ -5,6 +5,8 @@ let here = '[de-match] '
 test('match:', function (t) {
   let arr = [
     ['234', '#Value'],
+    ['永吉佑也', '#LastName #FirstName'],
+    ['伊井田 栄吉', '#LastName #FirstName'],
     // ['chicago', '#City'],
     // ['Jamaika', '#Country'],
     // ['colorado', '#Place'],
