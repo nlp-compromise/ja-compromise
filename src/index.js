@@ -1,4 +1,5 @@
 import nlp from './_lib.js'
+import lexicon from './01-one/lexicon/plugin.js'
 import toTerms from './01-one/tokenizer/methods/tokenize.js'
 import romanji from './01-one/romanji/plugin.js'
 import tokenizer from './01-one/tokenizer/plugin.js'
@@ -8,6 +9,7 @@ import version from './_version.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
+nlp.plugin(lexicon)
 nlp.plugin(romanji)
 nlp.plugin(preTagger)
 

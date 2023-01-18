@@ -7,6 +7,7 @@ test('match:', function (t) {
     ['234', '#Value'],
     ['永吉佑也', '#LastName #FirstName'],
     ['伊井田 栄吉', '#LastName #FirstName'],
+    ['静かな人。', '#Adjective #Noun'],//quiet person
     // ['chicago', '#City'],
     // ['Jamaika', '#Country'],
     // ['colorado', '#Place'],

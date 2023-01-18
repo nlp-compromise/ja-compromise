@@ -2,8 +2,8 @@
 import fs from 'fs'
 import { pack } from 'efrt'
 import { compress } from 'suffix-thumb'
-import lexicon from '../data/lexicon/index.js'
-import models from '../data/models/index.js'
+import lexicon from '../lexicon/index.js'
+// import models from '../data/models/index.js'
 // import switches from '../lib/switches/index.js'
 // import senses from '../lib/senses/index.js'
 
