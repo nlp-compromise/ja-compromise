@@ -1,6 +1,21 @@
 const anything = ['Noun', 'Verb', 'Adjective', 'Adverb', 'Value', 'QuestionWord']
 
 export default {
+  // japanese scripts as tags
+  Hiragana: {
+    not: ['Katakana', 'Kanji', 'Ascii']
+  },
+  Kanji: {
+    not: ['Hiragana', 'Katakana', 'Ascii']
+  },
+  Katakana: {
+    not: ['Hiragana', 'Kanji', 'Ascii']
+  },
+  Ascii: {
+    not: ['Hiragana', 'Kanji', 'Katakana']
+  },
+
+
   Adjective: {
     not: ['Noun', 'Verb', 'Adverb', 'Value'],
   },

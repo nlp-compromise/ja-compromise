@@ -6,9 +6,11 @@ export default function (View) {
     let out = ''
     this.docs.forEach(terms => {
       terms.forEach(term => {
-        out += term.pre + (term.romanji || term.text) + term.post
+        out += term.pre + (term.romanji || term.text) + (term.post || ' ')
       })
     })
+    // convert inter-bang
+    out = out.replace(/・/, ' ')
     return out
   }
 }

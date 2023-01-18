@@ -1,13 +1,15 @@
 import nlp from './_lib.js'
 import toTerms from './01-one/tokenizer/methods/tokenize.js'
-import tagset from './01-one/tagset/plugin.js'
 import romanji from './01-one/romanji/plugin.js'
 import tokenizer from './01-one/tokenizer/plugin.js'
+import tagset from './02-two/tagset/plugin.js'
+import preTagger from './02-two/preTagger/plugin.js'
 import version from './_version.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
 nlp.plugin(romanji)
+nlp.plugin(preTagger)
 
 const ja = function (txt, lex) {
   // split sentences
@@ -19,7 +21,8 @@ const ja = function (txt, lex) {
     }
     return toTerms(a[0].text)
   })
-  // doc.compute('pre-tagger')
+  const world = nlp.world()
+  doc.compute(world.hooks)
   return doc
 }
 
