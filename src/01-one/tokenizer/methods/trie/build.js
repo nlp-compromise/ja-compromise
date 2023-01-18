@@ -1,42 +1,21 @@
-import { makeTrie, findMatch, addWord } from './trie.js'
-import lexicon from '../../../lexicon/lexicon.js'
+const addWord = function (str, root) {
+  let chars = str.split('')
+  let node = root
+  chars.forEach(c => {
+    node.more[c] = node.more[c] || { more: {} }
+    node = node.more[c]
+  })
+  node.end = true
+}
 
-
-let words = Object.keys(lexicon)
-// let words = ['abcd', 'abc', 'zz', 'gh']
-
-let trie = makeTrie(words)
-
-const getGreedy = function (chars, i, node) {
-  let best = []
-  let n = i
-  while (node.more[chars[n]]) {
-    // console.log('✅', chars[n])
-    if (node.more[chars[n]].end) {
-      best = chars.slice(i, n + 1)
-    }
-    node = node.more[chars[n]]
-    n += 1
+// construct a nested character trie, from given words
+const buildTrie = function (arr) {
+  let root = {
+    more: {}
   }
-  if (best.length === 0) {
-    // console.log('❌', chars[i])
-    return chars[i]
-  }
-  return best.join('')
+  arr.forEach(str => addWord(str, root))
+  return root
 }
 
 
-const splitUp = function (txt, root) {
-  let chars = txt.split('')
-  let out = []
-  for (let i = 0; i < chars.length; i += 1) {
-    let run = getGreedy(chars, i, root)
-    out.push(run)
-    i += run.length - 1
-  }
-  return out
-}
-export default trie
-
-console.log(splitUp('O4ことごとくと0', trie))
-// console.log(splitUp('abcdefgg', trie))
+export default buildTrie

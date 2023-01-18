@@ -21,7 +21,7 @@ const data = [
   [adjectives, 'Adjective'],
   [adverbs, 'Adverb'],
   [numbers, 'Value'],
-  [particles, 'Particle'],
+  [particles, 'Preposition'],
   [weekdays, 'Weekday'],
 ]
 let lex = {}
