@@ -1,6 +1,8 @@
 // import unicode from './unicode.js'
 // import contractions from './contractions.js'
 import isSentence from './is-sentence.js'
+import toTerms from './methods/terms.js'
+
 
 export default {
   mutate: (world) => {
@@ -8,4 +10,7 @@ export default {
     // world.model.one.contractions = contractions
     world.methods.one.tokenize.isSentence = isSentence
   },
+  methods: {
+    toTerms: toTerms
+  }
 }

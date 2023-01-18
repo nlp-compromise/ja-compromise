@@ -1,21 +1,26 @@
 import nlp from './_lib.js'
-// import lexicon from './01-one/lexicon/plugin.js'
+import toTerms from './01-one/tokenizer/methods/tokenize.js'
 import tagset from './01-one/tagset/plugin.js'
+import romanji from './01-one/romanji/plugin.js'
 import tokenizer from './01-one/tokenizer/plugin.js'
-// import tagger from './02-two/preTagger/plugin.js'
-// import postTagger from './02-two/postTagger/plugin.js'
-// import numbers from './03-three/numbers/plugin.js'
-// import verbs from './03-three/verbs/plugin.js'
 import version from './_version.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
-// nlp.plugin(lexicon)
-// nlp.plugin(tagger)
+nlp.plugin(romanji)
 
 const ja = function (txt, lex) {
-  let dok = nlp(txt, lex)
-  return dok
+  // split sentences
+  let doc = nlp.tokenize(txt, lex)
+  // tokenize terms ourselves
+  doc.document = doc.document.map(a => {
+    if (a.length > 1) {
+      return a
+    }
+    return toTerms(a[0].text)
+  })
+  // doc.compute('pre-tagger')
+  return doc
 }
 
 // copy constructor methods over
