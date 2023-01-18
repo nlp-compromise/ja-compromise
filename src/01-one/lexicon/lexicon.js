@@ -11,4 +11,4 @@ Object.keys(lexData).forEach(tag => {
 })
 export default lexicon
 
-console.log(lexicon['圭吾'])
+// console.log(lexicon['圭吾'])

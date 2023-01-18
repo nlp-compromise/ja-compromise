@@ -13,9 +13,9 @@ import weekdays from './weekdays.js'
 
 //add-in the generic, flat word-lists
 const data = [
-  [femaleNames, 'FemaleName'],
-  [maleNames, 'MaleName'],
-  [lastNames, 'LastName'],
+  // [femaleNames, 'FemaleName'],
+  // [maleNames, 'MaleName'],
+  // [lastNames, 'LastName'],
   [cities, 'City'],
   [countries, 'Country'],
   [adjectives, 'Adjective'],
