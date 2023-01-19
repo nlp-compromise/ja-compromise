@@ -55,6 +55,22 @@ const fromPast = (str, neg) => {
   let model = neg ? rev.past_negative : rev.past
   return convert(str, model)
 }
+const toPolite = (str, neg) => {
+  let model = neg ? fwd.polite_negative : fwd.polite
+  return convert(str, model)
+}
+const fromPolite = (str, neg) => {
+  let model = neg ? rev.polite_negative : rev.polite
+  return convert(str, model)
+}
+const toPastPolite = (str, neg) => {
+  let model = neg ? fwd.past_polite_negative : fwd.past_polite
+  return convert(str, model)
+}
+const fromPastPolite = (str, neg) => {
+  let model = neg ? rev.past_polite_negative : rev.past_polite
+  return convert(str, model)
+}
 
 const all = function (str) {
   return [
@@ -70,6 +86,10 @@ const all = function (str) {
     toCausative(str, true),
     toPresent(str),
     toPresent(str, true),
+    toPolite(str),
+    toPolite(str, true),
+    toPastPolite(str),
+    toPastPolite(str, true)
   ]
 }
 
@@ -81,7 +101,9 @@ export default {
   toPassive, fromPassive,
   toConditional, fromConditional,
   toCausative, fromCausative,
-  toPresent, fromPresent
+  toPresent, fromPresent,
+  toPolite, fromPolite,
+  toPastPolite, fromPastPolite
 }
 
 

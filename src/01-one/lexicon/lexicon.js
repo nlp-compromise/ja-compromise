@@ -15,15 +15,15 @@ Object.keys(lexData).forEach(tag => {
       if (str && str !== w) {
         lexicon[str] = 'PresentTense'
       }
-      // add past tense
-      str = conjugate.toPast(w)
-      if (str && str !== w) {
-        lexicon[str] = 'PastTense'
-      }
       // add imparative
       str = conjugate.toImperative(w)
       if (str && str !== w) {
         lexicon[str] = 'Imperative'
+      }
+      // add past tense
+      str = conjugate.toPast(w)
+      if (str && str !== w) {
+        lexicon[str] = 'PastTense'
       }
       // add passive
       str = conjugate.toPassive(w)
@@ -39,6 +39,16 @@ Object.keys(lexData).forEach(tag => {
       str = conjugate.toCausative(w)
       if (str && str !== w) {
         lexicon[str] = 'Causative'
+      }
+      // add Polite Present
+      str = conjugate.toPolite(w)
+      if (str && str !== w) {
+        lexicon[str] = ['PresentTense', 'Polite']
+      }
+      // add Polite Past
+      str = conjugate.toPastPolite(w)
+      if (str && str !== w) {
+        lexicon[str] = ['PastTense', 'Polite']
       }
     }
   })

@@ -15,6 +15,9 @@ export default {
     not: ['Hiragana', 'Kanji', 'Katakana']
   },
 
+  Polite: {
+  },
+
 
   Adjective: {
     not: ['Noun', 'Verb', 'Adverb', 'Value'],

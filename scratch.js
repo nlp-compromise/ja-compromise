@@ -21,6 +21,12 @@ txt = '静かな人。'
 
 // pass conditional plain
 txt = '過ぎたら'
+// the boy opens the door
+txt = '少年はドアを開ける'
+// the boy opened the door
+txt = '少年はドアを開けた'
+
+// txt = '少年はドアを開けていた'
 
 // txt = '圭吾'
 let doc = nlp(txt).debug()//.compute('romanji')
