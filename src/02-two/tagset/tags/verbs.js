@@ -2,6 +2,15 @@ export default {
   Verb: {
     not: ['Noun', 'Adjective', 'Adverb', 'Value', 'Expression'],
   },
+  ConditionalVerb: {
+    is: 'Verb',
+  },
+  Passive: {
+    is: 'Verb',
+  },
+  Causative: {
+    is: 'Verb',
+  },
   PresentTense: {
     is: 'Verb',
     not: ['PastTense'],

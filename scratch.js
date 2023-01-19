@@ -23,7 +23,7 @@ txt = '静かな人。'
 txt = '過ぎたら'
 
 // txt = '圭吾'
-let doc = nlp(txt).debug().compute('romanji')
+let doc = nlp(txt).debug()//.compute('romanji')
 // console.log(doc.romanji())
 
 // 小さな - small

@@ -9,6 +9,9 @@ import numbers from './numbers.js'
 import particles from './particles.js'
 import weekdays from './weekdays.js'
 
+import infinitives from './verbs/infinitives.js'
+import auxiliaries from './verbs/auxiliaries.js'
+
 
 
 //add-in the generic, flat word-lists
@@ -23,6 +26,9 @@ const data = [
   [numbers, 'Value'],
   [particles, 'Preposition'],
   [weekdays, 'Weekday'],
+
+  [auxiliaries, 'Auxiliary'],
+  [infinitives, 'Infinitive'],
 ]
 let lex = {}
 for (let i = 0; i < data.length; i++) {
