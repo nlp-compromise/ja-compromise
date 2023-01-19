@@ -6,8 +6,6 @@ let txt = ''
 // txt = '少年は店に向かった。 彼はパンを買った。'
 
 // '小さな | 子 | 供は | 食料品店 | に | 歩いた'
-// his name is john smith
-txt = '彼の名前はジョン・スミスです'
 
 
 // Wooden structures catch fire easily
@@ -17,16 +15,21 @@ txt = `木造建築物は火がつきやすい`
 txt = '小さな子供は食料品店に歩いた'
 
 // quiet person
-txt = '静かな人。'
+// txt = '静かな人。'
 
+// his name is john smith
+// txt = '彼の名前はジョン・スミスです'
 // pass conditional plain
-txt = '過ぎたら'
+// txt = '過ぎたら'
 // the boy opens the door
-txt = '少年はドアを開ける'
+// txt = '少年はドアを開ける'
 // the boy opened the door
-txt = '少年はドアを開けた'
+// txt = '少年はドアを開けた'
 
 // txt = '少年はドアを開けていた'
+// txt = '静かな人。'
+// txt = '234'
+// txt = '彼の名前はジョン・スミスです'
 
 // txt = '圭吾'
 let doc = nlp(txt).debug()//.compute('romanji')

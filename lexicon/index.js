@@ -12,6 +12,7 @@ import weekdays from './weekdays.js'
 import infinitives from './verbs/infinitives.js'
 import auxiliaries from './verbs/auxiliaries.js'
 
+import nouns from './nouns.js'
 
 
 //add-in the generic, flat word-lists
@@ -29,6 +30,7 @@ const data = [
 
   [auxiliaries, 'Auxiliary'],
   [infinitives, 'Infinitive'],
+  [nouns, 'Noun'],
 ]
 let lex = {}
 for (let i = 0; i < data.length; i++) {

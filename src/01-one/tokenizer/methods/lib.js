@@ -21,7 +21,26 @@ const isNumber = function (c) {
 }
 
 const isAscii = function (c) {
-  return /[a-zA-Z]/.test(c)
+  return /[a-zA-Z0-9]/.test(c)
 }
 
-export { isHiragana, isKatakana, isKanji, isNumber, isAscii }
+
+const getType = function (c) {
+  if (isHiragana(c)) {
+    return 'hiragana'
+  }
+  if (isKatakana(c)) {
+    return 'katakana'
+  }
+  if (isKanji(c)) {
+    return 'kanji'
+  }
+  // if (isNumber(c)) {
+  //   return 'number'
+  // }
+  if (isAscii(c)) {
+    return 'ascii'
+  }
+}
+
+export { isHiragana, isKatakana, isKanji, isNumber, isAscii, getType }
