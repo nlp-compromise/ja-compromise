@@ -19,6 +19,9 @@ txt = '小さな子供は食料品店に歩いた'
 // quiet person
 txt = '静かな人。'
 
+// pass conditional plain
+txt = '過ぎたら'
+
 // txt = '圭吾'
 let doc = nlp(txt).debug().compute('romanji')
 // console.log(doc.romanji())
