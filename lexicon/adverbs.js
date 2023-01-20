@@ -1,6 +1,65 @@
 export default [
   'とても',//very
 
+
+
+  '極めて',//	extremely
+  '非常に',//	very much
+  '実に',// really
+  '本当に',//	really
+  '大変',//	very
+  'ずいぶん',//	very
+
+  'かなり',//fairly
+  '相当',//	considerably
+  'だいぶ',//quite
+
+  'ゆっくり',//slowly
+  'のんびり',//quietly
+  'だんだん',//gradually
+
+
+  'なかなか',//	quite
+  'まあまあ',//	passably
+  'そこそこ',//	reasonably
+  'たいして',//*	not very
+  'あまり',//*	not very
+  'ぜんぜん',//*	not at all
+
+
+  'いつも',//	always
+  '普通',//
+  '普段',//	usually
+  'よく',//
+  'しょっちゅう',//
+  'たびたび',//	often
+  'ときどき',//	sometimes
+  'たまに',//	occasionally
+  'あまり',//*	rarely
+  'めったに',//*	hardly
+
+  'すっかり',//	completely, thoroughly
+  'たくさん',//	a lot, many
+  'あまり',//*	not very
+  '少すこし',//	a little
+  'ちょっと',//	just a little
+  'ほとんど',//*	mostly, nearly, almost [zero]
+
+  'ようやく',//
+  'やっと',//	at last (for good things)
+  'とうとう',//
+  'ついに',//	finally (for good and bad things)
+  'むしろ',//	rather
+  'ますます',//	increasingly, more and more
+
+  'やはり',
+  'やっぱり',
+
+  'たしかに',//	certainly
+  'きっと',//	surely
+  'おそらく',//	probably
+  'たぶん',//	maybe
+
   'ああ',//ah; yes	N4
   '敢えて',
   'あえて',//dare to; daringly; deliberately; purposely ~	N1

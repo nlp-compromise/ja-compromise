@@ -410,4 +410,5 @@ export default [
   '加え',//add to
   '現れ',//appear
   '足し',//add
+  '勉強',//study
 ]

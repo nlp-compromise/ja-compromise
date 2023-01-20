@@ -53,9 +53,11 @@ txt = '服がとても汚い'
 // the clothing was dirty
 // txt = '服が汚れていた'
 
-txt = '私は歩いた'//i walked
-txt = '彼女が歩いた'//she walked
+// txt = '私は歩いた'//i walked
+// txt = '彼女が歩いた'//she walked
 txt = '私たちは笑いました'//we laughed
+txt = '彼が笑いました'//he laughed
+txt = '彼は大声で笑った'//he laughed loudly
 // txt = '私たちは勉強しました'//we studied
 
 // There are apples and oranges on the table.
