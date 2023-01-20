@@ -55,14 +55,16 @@ txt = '服がとても汚い'
 
 // txt = '私は歩いた'//i walked
 // txt = '彼女が歩いた'//she walked
-txt = '私たちは笑いました'//we laughed
-txt = '彼が笑いました'//he laughed
-txt = '彼は大声で笑った'//he laughed loudly
+// txt = '私たちは笑いました'//we laughed
+// txt = '彼が笑いました'//he laughed
+// txt = '彼は大声で笑った'//he laughed loudly
 // txt = '私たちは勉強しました'//we studied
 
+// txt = '美しいベッド'//the beautiful bed
+txt = 'ベッドは美しくない'//the bed is not beatiful
 // There are apples and oranges on the table.
 // txt = 'テーブルの上にりんごやみかんがあります。'
-// txt = 'や'
+
 let doc = nlp(txt).debug().compute('romanji')
 console.log(doc.romanji())
 // console.log(doc.json()[0])

@@ -6,15 +6,16 @@ import countries from './places/countries.js'
 import adjectives from './adjectives.js'
 import adverbs from './adverbs.js'
 import numbers from './numbers.js'
-import particles from './particles.js'
 import weekdays from './weekdays.js'
 
 import infinitives from './verbs/infinitives.js'
 import auxiliaries from './verbs/auxiliaries.js'
 
 import nouns from './nouns.js'
-import determiners from './determiners.js'
-import conjunctions from './conjunctions.js'
+import particles from './misc/particles.js'
+import determiners from './misc/determiners.js'
+import conjunctions from './misc/conjunctions.js'
+import interjections from './misc/interjections.js'
 import pronouns from './pronouns.js'
 
 
@@ -37,6 +38,7 @@ const data = [
   [determiners, 'Determiner'],
   [conjunctions, 'Conjunction'],
   [pronouns, 'Pronoun'],
+  [interjections, 'Expression'],
 ]
 let lex = {}
 for (let i = 0; i < data.length; i++) {
