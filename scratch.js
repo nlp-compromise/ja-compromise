@@ -41,13 +41,25 @@ txt = '真面目な'//, 'まじめな', //serious
 txt = '強い'//, 'つよい',//	tsuyoi	Strong 
 
 // There is a big bed and a small chair in the room.
-txt = '部屋に大きいベッドと小さい椅子があります。'
+// txt = '部屋に大きいベッドと小さい椅子があります。'
 
 // This bag is heavy.
 txt = 'このカバンは重いです。'
+// the clothing is dirty
+txt = '服が汚い'
+// the clothing is very dirty
+txt = '服がとても汚い'
+
+// the clothing was dirty
+// txt = '服が汚れていた'
+
+txt = '私は歩いた'//i walked
+txt = '彼女が歩いた'//she walked
+txt = '私たちは笑いました'//we laughed
+// txt = '私たちは勉強しました'//we studied
 
 // There are apples and oranges on the table.
-txt = 'テーブルの上にりんごやみかんがあります。'
+// txt = 'テーブルの上にりんごやみかんがあります。'
 // txt = 'や'
 let doc = nlp(txt).debug().compute('romanji')
 console.log(doc.romanji())

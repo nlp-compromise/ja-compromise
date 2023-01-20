@@ -15,6 +15,7 @@ import auxiliaries from './verbs/auxiliaries.js'
 import nouns from './nouns.js'
 import determiners from './determiners.js'
 import conjunctions from './conjunctions.js'
+import pronouns from './pronouns.js'
 
 
 //add-in the generic, flat word-lists
@@ -35,6 +36,7 @@ const data = [
   [nouns, 'Noun'],
   [determiners, 'Determiner'],
   [conjunctions, 'Conjunction'],
+  [pronouns, 'Pronoun'],
 ]
 let lex = {}
 for (let i = 0; i < data.length; i++) {

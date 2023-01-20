@@ -14,5 +14,7 @@ let lex = {
   'でしょう': ['Copula', 'Volitional', 'Polite'],
   '（でありまして': ['Copula', 'Gerund', 'Polite'],//te-form
   '（であれば': ['Copula', 'Conditional', 'Polite'],//te-form
+
+  'たち': 'PluralSuffix'
 }
 export default lex

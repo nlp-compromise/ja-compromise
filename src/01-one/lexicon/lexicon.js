@@ -1,8 +1,9 @@
 import lexData from './_data.js'
 import { unpack } from 'efrt'
 import conjugate from './methods/verb.js'
+import misc from './misc.js'
 
-let lexicon = {}
+let lexicon = Object.assign({}, misc)
 Object.keys(lexData).forEach(tag => {
   let wordsObj = unpack(lexData[tag])
   Object.keys(wordsObj).forEach(w => {

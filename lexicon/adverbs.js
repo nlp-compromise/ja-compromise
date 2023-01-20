@@ -1,4 +1,6 @@
 export default [
+  'とても',//very
+
   'ああ',//ah; yes	N4
   '敢えて',
   'あえて',//dare to; daringly; deliberately; purposely ~	N1
