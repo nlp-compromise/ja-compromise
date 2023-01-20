@@ -74,3 +74,9 @@ npm test
 npm watch
 ```
 
+### See also
+* [spacy/japanese](https://spacy.io/models/ja) - python tagger/tokenizer, by [explosionAI](https://explosion.ai/)
+* [meCab](https://taku910.github.io/mecab/) - C/C++ tokenizer/tagger, by Taku Kudo
+* [fugashi](https://github.com/polm/fugashi) - Cython wrapper for MeCab, by [Paul O'Leary McCann](https://www.dampfkraft.com/)
+* [janome](https://mocobeta.github.io/janome/en/) - python tokenizer/tagger, by Tomoko Uchida
+* [sudachi](https://github.com/WorksApplications/Sudachi) - tokenizer/tagger, by Arseny Tolmachev

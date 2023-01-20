@@ -12,7 +12,7 @@ let txt = ''
 txt = `木造建築物は火がつきやすい`
 
 // the small child walked to the grocery store
-txt = '小さな子供は食料品店に歩いた'
+// txt = '小さな子供は食料品店に歩いた'
 
 // quiet person
 // txt = '静かな人。'
@@ -23,6 +23,8 @@ txt = '小さな子供は食料品店に歩いた'
 // txt = '過ぎたら'
 // the boy opens the door
 // txt = '少年はドアを開ける'
+
+// console.log('\'the boy opened the door\'')
 // the boy opened the door
 // txt = '少年はドアを開けた'
 
@@ -32,8 +34,24 @@ txt = '小さな子供は食料品店に歩いた'
 // txt = '彼の名前はジョン・スミスです'
 
 // txt = '圭吾'
-let doc = nlp(txt).debug()//.compute('romanji')
-// console.log(doc.romanji())
+// txt = '林'
+// txt = '新聞'
+
+txt = '真面目な'//, 'まじめな', //serious
+txt = '強い'//, 'つよい',//	tsuyoi	Strong 
+
+// There is a big bed and a small chair in the room.
+txt = '部屋に大きいベッドと小さい椅子があります。'
+
+// This bag is heavy.
+txt = 'このカバンは重いです。'
+
+// There are apples and oranges on the table.
+txt = 'テーブルの上にりんごやみかんがあります。'
+// txt = 'や'
+let doc = nlp(txt).debug().compute('romanji')
+console.log(doc.romanji())
+// console.log(doc.json()[0])
 
 // 小さな - small
 // 子 - child
@@ -58,3 +76,11 @@ let doc = nlp(txt).debug()//.compute('romanji')
 
 // 'spencer walked
 // スペンサーが歩いた
+
+
+
+// '古い', 'ふるい',//	furui	Old
+//   '古い', 'ふるい', //old
+
+//   '若い', 'わかい',//	wakai	Young
+//   '若い', 'わかい', //young
