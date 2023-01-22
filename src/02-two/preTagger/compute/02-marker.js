@@ -1,21 +1,22 @@
+const reason = 'marker'
 
-const tagMarker = function (terms) {
+const tagMarker = function (terms, setTag, world) {
   for (let i = 1; i < terms.length; i += 1) {
     let t = terms[i]
     // topic marker
     if (t.text === 'は') {
-      terms[i].tags.add('Preposition')
-      terms[i - 1].tags.add('Noun')
+      setTag([t], 'Preposition', world, null, reason)
+      setTag([terms[i - 1]], 'Noun', world, null, reason)
     }
     // subject marker
     if (t.text === 'が') {
-      terms[i].tags.add('Preposition')
-      terms[i - 1].tags.add('Noun')
+      setTag([t], 'Preposition', world, null, reason)
+      setTag([terms[i - 1]], 'Noun', world, null, reason)
     }
     // possessive marker
     if (t.text === 'の') {
-      terms[i].tags.add('Preposition')
-      terms[i - 1].tags.add('Possessive')
+      setTag([t], 'Preposition', world, null, reason)
+      setTag([terms[i - 1]], 'Possessive', world, null, reason)
     }
   }
 }

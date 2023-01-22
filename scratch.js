@@ -1,7 +1,7 @@
 import nlp from './src/index.js'
 import spacey from '/Users/spencer/mountain/compromise-versus/spacy-ja/run.js'
 import corpus from '/Users/spencer/mountain/ja-compromise/tests/corpus/index.js'
-// nlp.verbose('tagger')
+nlp.verbose('tagger')
 
 let [en, ja] = corpus[corpus.length - 1]
 console.log(en, '\n', ja, '\n')

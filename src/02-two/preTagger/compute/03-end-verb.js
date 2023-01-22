@@ -45,15 +45,16 @@ Object.entries(forms).forEach(a => {
     }
   })
 })
+const reason = 'endVerbPhrase'
 
-const endVerb = function (terms) {
+const endVerb = function (terms, setTag, world) {
   let end = terms[terms.length - 1]
   if (isAux.has(end.text)) {
-    end.tags.add('Auxiliary')
+    setTag([end], 'Auxiliary', world, null, reason)
     // also assume the next word in is a verb?
     let t = terms[terms.length - 2]
     if (t && t.tags.has('Kanji')) {
-      t.tags.add('Verb')
+      setTag([t], 'Verb', world, null, reason)
     }
 
   }

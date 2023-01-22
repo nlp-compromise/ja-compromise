@@ -22,24 +22,26 @@ const isAscii = function (c) {
   return /[a-zA-Z]/.test(c)
 }
 
-const tagScript = function (terms) {
+const tagScript = function (terms, setTag, world) {
+  const reason = 'script'
+
   terms.forEach(term => {
     let str = term.text
     if (isHiragana(str)) {
-      term.tags.add('Hiragana')
+      setTag([term], 'Hiragana', world, null, reason)
       return
     }
     if (isKatakana(str)) {
-      term.tags.add('Katakana')
-      term.tags.add('Noun')//pretty safe
+      setTag([term], 'Katakana', world, null, reason)
+      setTag([term], 'Noun', world, null, reason)//pretty safe bet
       return
     }
     if (isKanji(str)) {
-      term.tags.add('Kanji')
+      setTag([term], 'Kanji', world, null, reason)
       return
     }
     if (isAscii(str)) {
-      term.tags.add('Ascii')
+      setTag([term], 'Ascii', world, null, reason)
       return
     }
   })

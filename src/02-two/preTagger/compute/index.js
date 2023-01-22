@@ -4,30 +4,35 @@ import tagEndVerb from './03-end-verb.js'
 import tagAdjSuffix from './04-adj-suffixes.js'
 import tagNounSuffix from './05-noun-suffixes.js'
 
-const fallback = function (terms) {
+
+const reason = 'noun-fallback'
+const fallback = function (terms, setTag, world) {
   terms.forEach(term => {
-    if (term.tags.size === 0) {
-      term.tags.add('Noun')
-    } else if (term.tags.size === 1 && term.tags.has('Kanji') || term.tags.has('Hiragana')) {
-      term.tags.add('Noun')
+    let tags = term.tags
+    if (tags.size === 0) {
+      setTag([term], 'Noun', world, null, reason)
+    } else if (tags.size === 1 && (tags.has('Kanji') || tags.has('Hiragana') || tags.has('Katagana'))) {
+      setTag([term], 'Noun', world, null, reason)
     }
   })
 }
 
 const preTagger = function (view) {
+  const setTag = view.methods.one.setTag || function () { }
+  const world = view.world
   view.document.forEach(terms => {
     // hirigana, katakana, kani, or ascii
-    tagScript(terms)
+    tagScript(terms, setTag, world)
     // case marker
-    tagMarker(terms)
+    tagMarker(terms, setTag, world)
     // tag end verb
-    tagEndVerb(terms)
+    tagEndVerb(terms, setTag, world)
     // 
-    tagAdjSuffix(terms)
+    tagAdjSuffix(terms, setTag, world)
     // 
-    tagNounSuffix(terms)
+    tagNounSuffix(terms, setTag, world)
     // noun fallback
-    fallback(terms)
+    fallback(terms, setTag, world)
   })
   return view
 }
