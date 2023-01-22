@@ -1,8 +1,3 @@
-let markers = new Set([
-  'は',// - topic marker
-  'が',// - subject
-  'を',// - direct object
-])
 
 const tagMarker = function (terms) {
   for (let i = 1; i < terms.length; i += 1) {

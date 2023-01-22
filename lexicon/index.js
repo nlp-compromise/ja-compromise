@@ -12,7 +12,7 @@ import infinitives from './verbs/infinitives.js'
 import auxiliaries from './verbs/auxiliaries.js'
 
 import nouns from './nouns.js'
-import particles from './misc/particles.js'
+import prepositions from './misc/prepositions.js'
 import determiners from './misc/determiners.js'
 import conjunctions from './misc/conjunctions.js'
 import interjections from './misc/interjections.js'
@@ -29,7 +29,7 @@ const data = [
   [adjectives, 'Adjective'],
   [adverbs, 'Adverb'],
   [numbers, 'Value'],
-  [particles, 'Preposition'],
+  [prepositions, 'Preposition'],
   [weekdays, 'Weekday'],
 
   [auxiliaries, 'Auxiliary'],

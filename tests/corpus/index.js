@@ -48,4 +48,8 @@ export default [
   [`The Oscar-winning film about this bruiser was titled \"Raging Bull\"`, `このブルーザーに関するオスカー賞を受賞した映画のタイトルは「レイジング・ブル」`],
   [`It's the ultimate ego-blow.`, `それは究極のエゴブローです。`],
   [`Having a girlfriend is a real commitment`, `ガールフレンドを持つことは本当のコミットメントです`],
+  [`he swims and walks`, `彼は泳いだり歩いたりする`],
+  [`she swam and walked`, `彼女は泳いだり歩いたりした`],
+  // [``,``],
+  // [``,``],
 ]

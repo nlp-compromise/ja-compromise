@@ -145,7 +145,7 @@ export default [
   // 'のみ',// (nomi)	used to express “not only…but also”
   'ば',// (ba)	Used as a conjunction to express a probable results
   // 'ば',// (ba)	Used to enumerate two or more actions or states
-  // 'は',// (wa)	Emphasizes contrasting elements
+  'は',// (wa)	Emphasizes contrasting elements
   // 'は',// (wa)	Indicantes the topic of a sentence
   // 'は',// (wa)	Indicates a contrast between 2 items
   // 'は',// (wa)	Indicates that a number is the higher or lowest limit

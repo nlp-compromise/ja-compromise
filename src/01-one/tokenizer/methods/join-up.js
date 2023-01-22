@@ -14,6 +14,16 @@ let suffixes = {
   'たち': true //plural suffix
 }
 
+const mergeTypes = function (a, b) {
+  if (a === b) {
+    return true
+  }
+  if (a === 'kanji' && b === 'hiragana') {
+    return true
+  }
+  return false
+}
+
 // join-up unknown chars by kanji/hiragana/kanji
 const joinUp = function (arr) {
   for (let i = 0; i < arr.length; i += 1) {
@@ -22,12 +32,12 @@ const joinUp = function (arr) {
       arr[i - 1] += c
       arr[i] = null
     }
-    if (c !== null && c.length === 1) { //add ! lexicon[c]
+    if (c !== null && c.length === 1 && !lexicon[c]) {
       let type = getType(c)
       // race-ahead and join forward
       for (let o = i + 1; o < arr.length; o += 1) {
         let k = arr[o]
-        if (k.length === 1 && getType(k) === type && !lexicon[k]) {
+        if (k.length === 1 && !lexicon[k] && mergeTypes(type, getType(k))) {
           arr[i] += k
           arr[o] = null
           // stop at any punctuation mark
