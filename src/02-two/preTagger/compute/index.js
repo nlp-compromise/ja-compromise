@@ -6,7 +6,9 @@ import tagNounSuffix from './05-noun-suffixes.js'
 
 const fallback = function (terms) {
   terms.forEach(term => {
-    if (term.tags.size <= 1) {
+    if (term.tags.size === 0) {
+      term.tags.add('Noun')
+    } else if (term.tags.size === 1 && term.tags.has('Kanji') || term.tags.has('Hiragana')) {
       term.tags.add('Noun')
     }
   })

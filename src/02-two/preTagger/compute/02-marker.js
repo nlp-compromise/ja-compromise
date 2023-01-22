@@ -17,6 +17,11 @@ const tagMarker = function (terms) {
       terms[i].tags.add('Preposition')
       terms[i - 1].tags.add('Noun')
     }
+    // possessive marker
+    if (t.text === 'の') {
+      terms[i].tags.add('Preposition')
+      terms[i - 1].tags.add('Possessive')
+    }
   }
 }
 export default tagMarker
