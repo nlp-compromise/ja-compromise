@@ -189,5 +189,7 @@ export default [
   '貧しい', 'まずしい', //poor
   '平均的な', 'へいきんてきな', //average
 
-  '無料'//free
+  '無料',//free
+  'よかっ',//good
+  // '良',//good
 ]

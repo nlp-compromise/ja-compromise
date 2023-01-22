@@ -26,6 +26,14 @@ test('match:', function (t) {
     ['ベッドは美しいです', '#Noun #Preposition #Adjective #PresentTense'],//the bed is beautiful
     // ['ベッドは美しくない', '#Noun #Preposition #Adjective #PresentTense'],//the bed is not beautiful
 
+    [`泳ぎはよかった`, `#Noun #Preposition #Adjective #Verb`],//the swim was nice
+    [`ベッドはよかった`, `#Noun #Preposition #Adjective #Verb`],//the bed was nice
+    [`家はきれいだった`, `#Noun #Preposition #Adjective #Verb`],//`the house was clean`
+    [`キッチンは本当にきれいでした`, `#Noun #Preposition #Adverb #Adjective #Verb`],//`the kitchen was really clean`
+
+    [`太郎は紀子を見ました`, `#Topic #Preposition #Object #Preposition #Verb+`],//
+    [`たろう は のりこ を みました。`, `#Topic #Preposition #Object #Preposition #Verb+`],//
+
     // ['永吉佑也', '#LastName #FirstName'],
     // ['伊井田 栄吉', '#LastName #FirstName'],
     // ['chicago', '#City'],

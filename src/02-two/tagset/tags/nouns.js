@@ -4,6 +4,13 @@ export default {
   Noun: {
     not: ['Verb', 'Adjective', 'Adverb', 'Value', 'Determiner'],
   },
+
+  Topic: {
+    is: 'Noun',
+  },
+  Object: {
+    is: 'Noun',
+  },
   Singular: {
     is: 'Noun',
     not: ['Plural'],

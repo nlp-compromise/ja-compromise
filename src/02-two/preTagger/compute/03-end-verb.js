@@ -56,7 +56,9 @@ const endVerb = function (terms, setTag, world) {
     if (t && t.tags.has('Kanji')) {
       setTag([t], 'Verb', world, null, reason)
     }
-
+  } else if (terms.length > 4) {
+    //assume last word is a verb
+    setTag([terms[terms.length - 1]], 'Verb', world, null, reason)
   }
 }
 export default endVerb

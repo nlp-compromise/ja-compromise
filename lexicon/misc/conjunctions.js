@@ -73,7 +73,7 @@ export default [
   // however
   'しかし',// (shikashi)
   'でも',// (demo)
-  'が',// (ga)
+  // 'が',// (ga)
   'だが',// (daga)
   'ところが',// (tokoroga)
   'なのに',// (nanoni)

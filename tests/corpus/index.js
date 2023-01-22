@@ -49,7 +49,18 @@ export default [
   [`It's the ultimate ego-blow.`, `それは究極のエゴブローです。`],
   [`Having a girlfriend is a real commitment`, `ガールフレンドを持つことは本当のコミットメントです`],
   [`he swims and walks`, `彼は泳いだり歩いたりする`],
-  // [`she swam and walked`, `彼女は泳いだり歩いたりした`],
+  [`she swam and walked`, `彼女は泳いだり歩いたりした`],
   [`the swim was nice`, `泳ぎはよかった`],
+  [`the bed was nice`, `ベッドはよかった`],
+  [`the house was not good`, `家が良くなかった`],
+  [`the house was clean`, `家はきれいだった`],
+  [`the house was really clean`, `家は本当にきれいだった`],
+  [`the car was not cheap`, `車は安くなかった`],
+  // [``,``],
+  // [``,``],
+  // [``,``],
   // [``,``],
 ]
+
+// arr=arr.map(a=>a.reverse())
+// console.log(JSON.stringify(arr, null, 2))
