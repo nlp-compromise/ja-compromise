@@ -4,7 +4,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.jaCompromise = factory());
 })(this, (function () { 'use strict';
 
-  let methods$m = {
+  let methods$n = {
     one: {},
     two: {},
     three: {},
@@ -16,10 +16,10 @@
     two: {},
     three: {},
   };
-  let compute$9 = {};
+  let compute$a = {};
   let hooks = [];
 
-  var tmpWrld = { methods: methods$m, model: model$4, compute: compute$9, hooks };
+  var tmpWrld = { methods: methods$n, model: model$4, compute: compute$a, hooks };
 
   const isArray$9 = input => Object.prototype.toString.call(input) === '[object Array]';
 
@@ -51,7 +51,7 @@
       return this
     },
   };
-  var compute$8 = fns$4;
+  var compute$9 = fns$4;
 
   // wrappers for loops in javascript arrays
 
@@ -290,11 +290,11 @@
   utils.firstTerm = utils.firstTerms;
   var util = utils;
 
-  const methods$l = Object.assign({}, util, compute$8, loops);
+  const methods$m = Object.assign({}, util, compute$9, loops);
 
   // aliases
-  methods$l.get = methods$l.eq;
-  var api$c = methods$l;
+  methods$m.get = methods$m.eq;
+  var api$d = methods$m;
 
   class View {
     constructor(document, pointer, groups = {}) {
@@ -419,10 +419,10 @@
       return m
     }
   }
-  Object.assign(View.prototype, api$c);
+  Object.assign(View.prototype, api$d);
   var View$1 = View;
 
-  var version$1 = '14.8.1';
+  var version$1 = '14.8.2';
 
   const isObject$6 = function (item) {
     return item && typeof item === 'object' && !Array.isArray(item)
@@ -722,13 +722,13 @@
   };
   var cacheDoc = createCache;
 
-  var methods$k = {
+  var methods$l = {
     one: {
       cacheDoc,
     },
   };
 
-  const methods$j = {
+  const methods$k = {
     /** */
     cache: function () {
       this._cache = this.methods.one.cacheDoc(this.document);
@@ -741,20 +741,20 @@
     },
   };
   const addAPI$3 = function (View) {
-    Object.assign(View.prototype, methods$j);
+    Object.assign(View.prototype, methods$k);
   };
-  var api$b = addAPI$3;
+  var api$c = addAPI$3;
 
-  var compute$7 = {
+  var compute$8 = {
     cache: function (view) {
       view._cache = view.methods.one.cacheDoc(view.document);
     }
   };
 
   var cache$1 = {
-    api: api$b,
-    compute: compute$7,
-    methods: methods$k,
+    api: api$c,
+    compute: compute$8,
+    methods: methods$l,
   };
 
   var caseFns = {
@@ -1255,7 +1255,7 @@
     return ptrs
   };
 
-  const methods$i = {
+  const methods$j = {
     /** */
     remove: function (reg) {
       const { indexN } = this.methods.one.pointer;
@@ -1301,10 +1301,10 @@
   };
 
   // aliases
-  methods$i.delete = methods$i.remove;
-  var remove = methods$i;
+  methods$j.delete = methods$j.remove;
+  var remove = methods$j;
 
-  const methods$h = {
+  const methods$i = {
     /** add this punctuation or whitespace before each match: */
     pre: function (str, concat) {
       if (str === undefined && this.found) {
@@ -1406,10 +1406,10 @@
       return this
     },
   };
-  methods$h.deHyphenate = methods$h.dehyphenate;
-  methods$h.toQuotation = methods$h.toQuotations;
+  methods$i.deHyphenate = methods$i.dehyphenate;
+  methods$i.toQuotation = methods$i.toQuotations;
 
-  var whitespace = methods$h;
+  var whitespace = methods$i;
 
   /** alphabetical order */
   const alpha = (a, b) => {
@@ -1479,7 +1479,7 @@
     return arr
   };
 
-  var methods$g = { alpha, length, wordCount: wordCount$2, sequential, byFreq };
+  var methods$h = { alpha, length, wordCount: wordCount$2, sequential, byFreq };
 
   // aliases
   const seqNames = new Set(['index', 'sequence', 'seq', 'sequential', 'chron', 'chronological']);
@@ -1525,12 +1525,12 @@
     }
     // sort by frequency
     if (freqNames.has(input)) {
-      arr = methods$g.byFreq(arr);
+      arr = methods$h.byFreq(arr);
       return this.update(arr.map(o => o.pointer))
     }
     // apply sort method on each phrase
-    if (typeof methods$g[input] === 'function') {
-      arr = arr.sort(methods$g[input]);
+    if (typeof methods$h[input] === 'function') {
+      arr = arr.sort(methods$h[input]);
       return this.update(arr.map(o => o.pointer))
     }
     return this
@@ -1644,14 +1644,14 @@
   };
   var harden$1 = { harden, soften };
 
-  const methods$f = Object.assign({}, caseFns, insert$1, replace, remove, whitespace, sort$1, concat, harden$1);
+  const methods$g = Object.assign({}, caseFns, insert$1, replace, remove, whitespace, sort$1, concat, harden$1);
 
   const addAPI$2 = function (View) {
-    Object.assign(View.prototype, methods$f);
+    Object.assign(View.prototype, methods$g);
   };
-  var api$a = addAPI$2;
+  var api$b = addAPI$2;
 
-  const compute$5 = {
+  const compute$6 = {
     id: function (view) {
       let docs = view.docs;
       for (let n = 0; n < docs.length; n += 1) {
@@ -1663,11 +1663,11 @@
     }
   };
 
-  var compute$6 = compute$5;
+  var compute$7 = compute$6;
 
   var change = {
-    api: api$a,
-    compute: compute$6,
+    api: api$b,
+    compute: compute$7,
   };
 
   var contractions$3 = [
@@ -2052,11 +2052,11 @@
   };
   var contractions$2 = contractions$1;
 
-  var compute$4 = { contractions: contractions$2 };
+  var compute$5 = { contractions: contractions$2 };
 
   const plugin = {
     model: model$3,
-    compute: compute$4,
+    compute: compute$5,
     hooks: ['contractions'],
   };
   var contractions = plugin;
@@ -2165,7 +2165,7 @@
     });
   };
 
-  var compute$3 = {
+  var compute$4 = {
     lexicon: lexicon$5
   };
 
@@ -2196,7 +2196,7 @@
   };
   var expandLexicon = expand$1;
 
-  var methods$e = {
+  var methods$f = {
     one: {
       expandLexicon,
     }
@@ -2243,8 +2243,8 @@
 
   var lexicon$4 = {
     model: model$2,
-    methods: methods$e,
-    compute: compute$3,
+    methods: methods$f,
+    compute: compute$4,
     lib: lib$5,
     hooks: ['lexicon']
   };
@@ -2390,7 +2390,7 @@
     return Object.prototype.toString.call(val) === '[object Object]'
   };
 
-  function api$9 (View) {
+  function api$a (View) {
 
     /** find all matches in this document */
     View.prototype.lookup = function (input, opts = {}) {
@@ -2448,7 +2448,7 @@
   lib$4.compile = lib$4.buildTrie;
 
   var lookup = {
-    api: api$9,
+    api: api$a,
     lib: lib$4
   };
 
@@ -2732,9 +2732,9 @@
     return ptr
   };
 
-  const methods$d = {};
+  const methods$e = {};
   // [before], [match], [after]
-  methods$d.splitOn = function (m, group) {
+  methods$e.splitOn = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2751,7 +2751,7 @@
   };
 
   // [before], [match after]
-  methods$d.splitBefore = function (m, group) {
+  methods$e.splitBefore = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2773,7 +2773,7 @@
   };
 
   // [before match], [after]
-  methods$d.splitAfter = function (m, group) {
+  methods$e.splitAfter = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2792,23 +2792,23 @@
     res = res.map(p => addIds$1(p, this));
     return this.update(res)
   };
-  methods$d.split = methods$d.splitAfter;
+  methods$e.split = methods$e.splitAfter;
 
-  var split$1 = methods$d;
+  var split$1 = methods$e;
 
-  const methods$c = Object.assign({}, match$3, lookaround, split$1);
+  const methods$d = Object.assign({}, match$3, lookaround, split$1);
   // aliases
-  methods$c.lookBehind = methods$c.before;
-  methods$c.lookBefore = methods$c.before;
+  methods$d.lookBehind = methods$d.before;
+  methods$d.lookBefore = methods$d.before;
 
-  methods$c.lookAhead = methods$c.after;
-  methods$c.lookAfter = methods$c.after;
+  methods$d.lookAhead = methods$d.after;
+  methods$d.lookAfter = methods$d.after;
 
-  methods$c.notIf = methods$c.ifNo;
+  methods$d.notIf = methods$d.ifNo;
   const matchAPI = function (View) {
-    Object.assign(View.prototype, methods$c);
+    Object.assign(View.prototype, methods$d);
   };
-  var api$8 = matchAPI;
+  var api$9 = matchAPI;
 
   // match  'foo /yes/' and not 'foo/no/bar'
   const bySlashes = /(?:^|\s)([![^]*(?:<[^<]*>)?\/.*?[^\\/]\/[?\]+*$~]*)(?:\s|$)/;
@@ -3425,7 +3425,7 @@
   /** search the term's 'pre' punctuation  */
   const hasPre = (term, punct) => term.pre.indexOf(punct) !== -1;
 
-  const methods$b = {
+  const methods$c = {
     /** does it have a quotation symbol?  */
     hasQuote: term => startQuote.test(term.pre) || endQuote.test(term.post),
     /** does it have a comma?  */
@@ -3460,9 +3460,9 @@
     isUpperCase: term => /^\p{Lu}+$/u.test(term.text),
   };
   // aliases
-  methods$b.hasQuotation = methods$b.hasQuote;
+  methods$c.hasQuotation = methods$c.hasQuote;
 
-  var termMethods = methods$b;
+  var termMethods = methods$c;
 
   //declare it up here
   let wrapMatch = function () { };
@@ -4300,7 +4300,7 @@
 
   var match$1 = runMatch$2;
 
-  const methods$9 = {
+  const methods$a = {
     one: {
       termMethods,
       parseMatch,
@@ -4308,7 +4308,7 @@
     },
   };
 
-  var methods$a = methods$9;
+  var methods$b = methods$a;
 
   var lib$3 = {
     /** pre-parse any match statements */
@@ -4323,8 +4323,8 @@
   };
 
   var match = {
-    api: api$8,
-    methods: methods$a,
+    api: api$9,
+    methods: methods$b,
     lib: lib$3,
   };
 
@@ -4677,7 +4677,7 @@
   };
 
 
-  const methods$8 = {
+  const methods$9 = {
     /** return data */
     json: function (n) {
       let res = toJSON(this, n);
@@ -4687,8 +4687,8 @@
       return res
     },
   };
-  methods$8.data = methods$8.json;
-  var json = methods$8;
+  methods$9.data = methods$9.json;
+  var json = methods$9;
 
   /* eslint-disable no-console */
   const logClientSide = function (view) {
@@ -4711,44 +4711,44 @@
   var logClientSide$1 = logClientSide;
 
   // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
-  const reset = '\x1b[0m';
+  const reset$1 = '\x1b[0m';
 
   //cheaper than requiring chalk
-  const cli = {
-    green: str => '\x1b[32m' + str + reset,
-    red: str => '\x1b[31m' + str + reset,
-    blue: str => '\x1b[34m' + str + reset,
-    magenta: str => '\x1b[35m' + str + reset,
-    cyan: str => '\x1b[36m' + str + reset,
-    yellow: str => '\x1b[33m' + str + reset,
-    black: str => '\x1b[30m' + str + reset,
-    dim: str => '\x1b[2m' + str + reset,
-    i: str => '\x1b[3m' + str + reset,
+  const cli$2 = {
+    green: str => '\x1b[32m' + str + reset$1,
+    red: str => '\x1b[31m' + str + reset$1,
+    blue: str => '\x1b[34m' + str + reset$1,
+    magenta: str => '\x1b[35m' + str + reset$1,
+    cyan: str => '\x1b[36m' + str + reset$1,
+    yellow: str => '\x1b[33m' + str + reset$1,
+    black: str => '\x1b[30m' + str + reset$1,
+    dim: str => '\x1b[2m' + str + reset$1,
+    i: str => '\x1b[3m' + str + reset$1,
   };
-  var cli$1 = cli;
+  var cli$3 = cli$2;
 
   /* eslint-disable no-console */
 
-  const tagString = function (tags, model) {
+  const tagString$1 = function (tags, model) {
     if (model.one.tagSet) {
       tags = tags.map(tag => {
         if (!model.one.tagSet.hasOwnProperty(tag)) {
           return tag
         }
         const c = model.one.tagSet[tag].color || 'blue';
-        return cli$1[c](tag)
+        return cli$3[c](tag)
       });
     }
     return tags.join(', ')
   };
 
-  const showTags = function (view) {
+  const showTags$2 = function (view) {
     let { docs, model } = view;
     if (docs.length === 0) {
-      console.log(cli$1.blue('\n     ──────'));
+      console.log(cli$3.blue('\n     ──────'));
     }
     docs.forEach(terms => {
-      console.log(cli$1.blue('\n  ┌─────────'));
+      console.log(cli$3.blue('\n  ┌─────────'));
       terms.forEach(t => {
         let tags = [...(t.tags || [])];
         let text = t.text || '-';
@@ -4758,19 +4758,19 @@
         if (t.implicit) {
           text = '[' + t.implicit + ']';
         }
-        text = cli$1.yellow(text);
+        text = cli$3.yellow(text);
         let word = "'" + text + "'";
         if (t.reference) {
           let str = view.update([t.reference]).text('normal');
-          word += ` - ${cli$1.dim(cli$1.i('[' + str + ']'))}`;
+          word += ` - ${cli$3.dim(cli$3.i('[' + str + ']'))}`;
         }
         word = word.padEnd(18);
-        let str = cli$1.blue('  │ ') + cli$1.i(word) + '  - ' + tagString(tags, model);
+        let str = cli$3.blue('  │ ') + cli$3.i(word) + '  - ' + tagString$1(tags, model);
         console.log(str);
       });
     });
   };
-  var showTags$1 = showTags;
+  var showTags$3 = showTags$2;
 
   /* eslint-disable no-console */
 
@@ -4781,13 +4781,13 @@
       let out = [];
       terms.forEach(term => {
         if (term.chunk === 'Noun') {
-          out.push(cli$1.blue(term.implicit || term.normal));
+          out.push(cli$3.blue(term.implicit || term.normal));
         } else if (term.chunk === 'Verb') {
-          out.push(cli$1.green(term.implicit || term.normal));
+          out.push(cli$3.green(term.implicit || term.normal));
         } else if (term.chunk === 'Adjective') {
-          out.push(cli$1.yellow(term.implicit || term.normal));
+          out.push(cli$3.yellow(term.implicit || term.normal));
         } else if (term.chunk === 'Pivot') {
-          out.push(cli$1.red(term.implicit || term.normal));
+          out.push(cli$3.red(term.implicit || term.normal));
         } else {
           out.push(term.implicit || term.normal);
         }
@@ -4809,7 +4809,7 @@
 
   const spliceIn = function (txt, offset, index) {
     let parts = split(txt, offset, index);
-    return `${parts[0]}${cli$1.blue(parts[1])}${parts[2]}`
+    return `${parts[0]}${cli$3.blue(parts[1])}${parts[2]}`
   };
 
   const showHighlight = function (doc) {
@@ -4836,23 +4836,23 @@
 
   /* eslint-disable no-console */
 
-  function isClientSide() {
+  function isClientSide$1() {
     return typeof window !== 'undefined' && window.document
   }
   //output some helpful stuff to the console
-  const debug = function (opts = {}) {
+  const debug$2 = function (opts = {}) {
     let view = this;
     if (typeof opts === 'string') {
       let tmp = {};
       tmp[opts] = true; //allow string input
       opts = tmp;
     }
-    if (isClientSide()) {
+    if (isClientSide$1()) {
       logClientSide$1(view);
       return view
     }
     if (opts.tags !== false) {
-      showTags$1(view);
+      showTags$3(view);
       console.log('\n');
     }
     // output chunk-view, too
@@ -4867,7 +4867,7 @@
     }
     return view
   };
-  var debug$1 = debug;
+  var debug$3 = debug$2;
 
   const toText = function (term) {
     let pre = term.pre || '';
@@ -4997,9 +4997,9 @@
     return this.text()
   };
 
-  const methods$7 = {
+  const methods$8 = {
     /** */
-    debug: debug$1,
+    debug: debug$3,
     /** */
     out,
     /** */
@@ -5008,7 +5008,7 @@
     },
   };
 
-  var out$1 = methods$7;
+  var out$1 = methods$8;
 
   const isObject$1 = val => {
     return Object.prototype.toString.call(val) === '[object Object]'
@@ -5045,15 +5045,15 @@
     },
   };
 
-  const methods$6 = Object.assign({}, out$1, text, json, html$1);
+  const methods$7 = Object.assign({}, out$1, text, json, html$1);
 
   const addAPI$1 = function (View) {
-    Object.assign(View.prototype, methods$6);
+    Object.assign(View.prototype, methods$7);
   };
-  var api$7 = addAPI$1;
+  var api$8 = addAPI$1;
 
-  var output = {
-    api: api$7,
+  var output$1 = {
+    api: api$8,
     methods: {
       one: {
         hash: md5
@@ -5284,7 +5284,7 @@
     return arr
   };
 
-  var methods$5 = {
+  var methods$6 = {
     one: {
       termList,
       getDoc: getDoc$2,
@@ -5414,19 +5414,19 @@
     })
   };
 
-  const methods$4 = {};
+  const methods$5 = {};
 
   // all parts, minus duplicates
-  methods$4.union = function (m) {
+  methods$5.union = function (m) {
     m = getDoc(m, this);
     let ptrs = getUnion$1(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
     return this.toView(ptrs)
   };
-  methods$4.and = methods$4.union;
+  methods$5.and = methods$5.union;
 
   // only parts they both have
-  methods$4.intersection = function (m) {
+  methods$5.intersection = function (m) {
     m = getDoc(m, this);
     let ptrs = getIntersection$1(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
@@ -5434,16 +5434,16 @@
   };
 
   // only parts of a that b does not have
-  methods$4.not = function (m) {
+  methods$5.not = function (m) {
     m = getDoc(m, this);
     let ptrs = getDifference(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
     return this.toView(ptrs)
   };
-  methods$4.difference = methods$4.not;
+  methods$5.difference = methods$5.not;
 
   // get opposite of a
-  methods$4.complement = function () {
+  methods$5.complement = function () {
     let doc = this.all();
     let ptrs = getDifference(doc.fullPointer, this.fullPointer);
     ptrs = addIds(ptrs, this.document);
@@ -5451,7 +5451,7 @@
   };
 
   // remove overlaps
-  methods$4.settle = function () {
+  methods$5.settle = function () {
     let ptrs = this.fullPointer;
     ptrs.forEach(ptr => {
       ptrs = getUnion$1(ptrs, [ptr]);
@@ -5463,13 +5463,13 @@
 
   const addAPI = function (View) {
     // add set/intersection/union
-    Object.assign(View.prototype, methods$4);
+    Object.assign(View.prototype, methods$5);
   };
-  var api$6 = addAPI;
+  var api$7 = addAPI;
 
   var pointers = {
-    methods: methods$5,
-    api: api$6,
+    methods: methods$6,
+    api: api$7,
   };
 
   var lib$2 = {
@@ -5482,7 +5482,7 @@
     }
   };
 
-  const api$4 = function (View) {
+  const api$5 = function (View) {
 
     /** speedy match a sequence of matches */
     View.prototype.sweep = function (net, opts = {}) {
@@ -5526,7 +5526,7 @@
     };
 
   };
-  var api$5 = api$4;
+  var api$6 = api$5;
 
   // extract the clear needs for an individual match token
   const getTokenNeeds = function (reg) {
@@ -5860,7 +5860,7 @@
   };
   var bulkTagger = tagger;
 
-  var methods$3 = {
+  var methods$4 = {
     buildNet: buildNet$1,
     bulkMatch,
     bulkTagger
@@ -5868,9 +5868,9 @@
 
   var sweep = {
     lib: lib$2,
-    api: api$5,
+    api: api$6,
     methods: {
-      one: methods$3,
+      one: methods$4,
     }
   };
 
@@ -6134,7 +6134,7 @@
   var validate$1 = validate;
 
   // 'fill-down' parent logic inference
-  const compute$2 = function (allTags) {
+  const compute$3 = function (allTags) {
     // setup graph-lib format
     const flatList = Object.keys(allTags).map(k => {
       let o = allTags[k];
@@ -6163,14 +6163,14 @@
     let allTags = Object.assign({}, already, tags);
     // do some basic setting-up
     // 'fill-down' parent logic
-    const nodes = compute$2(allTags);
+    const nodes = compute$3(allTags);
     // convert it to our final format
     const res = fmt$1(nodes);
     return res
   };
   var addTags$2 = addTags$1;
 
-  var methods$2 = {
+  var methods$3 = {
     one: {
       setTag: setTag$1,
       unTag: unTag$1,
@@ -6264,7 +6264,7 @@
   const tagAPI = function (View) {
     Object.assign(View.prototype, tag$1);
   };
-  var api$3 = tagAPI;
+  var api$4 = tagAPI;
 
   // wire-up more pos-tags to our model
   const addTags = function (tags) {
@@ -6317,8 +6317,8 @@
     compute: {
       tagRank: tagRank$1
     },
-    methods: methods$2,
-    api: api$3,
+    methods: methods$3,
+    api: api$4,
     lib: lib$1
   };
 
@@ -6707,7 +6707,7 @@
 
   //we have slightly different rules for start/end - like #hashtags.
   const isLetter = /\p{Letter}/u;
-  const isNumber$1 = /[\p{Number}\p{Currency_Symbol}]/u;
+  const isNumber = /[\p{Number}\p{Currency_Symbol}]/u;
   const hasAcronym = /^[a-z]\.([a-z]\.)+/i;
   const chillin = /[sn]['’]$/;
 
@@ -6733,15 +6733,15 @@
         continue//keep it
       }
       // keep '+' or '-' only before a number
-      if ((c === '+' || c === '-') && isNumber$1.test(chars[1])) {
+      if ((c === '+' || c === '-') && isNumber.test(chars[1])) {
         break//done
       }
       // '97 - year short-form
-      if (c === "'" && c.length === 3 && isNumber$1.test(chars[1])) {
+      if (c === "'" && c.length === 3 && isNumber.test(chars[1])) {
         break//done
       }
       // start of word
-      if (isLetter.test(c) || isNumber$1.test(c)) {
+      if (isLetter.test(c) || isNumber.test(c)) {
         break //done
       }
       // punctuation
@@ -6757,7 +6757,7 @@
         continue//keep it
       }
       // start of word
-      if (isLetter.test(c) || isNumber$1.test(c)) {
+      if (isLetter.test(c) || isNumber.test(c)) {
         break //done
       }
       // F.B.I.
@@ -6952,7 +6952,7 @@
   };
   var isSentence$3 = isSentence$2;
 
-  var methods$1 = {
+  var methods$2 = {
     one: {
       killUnicode: killUnicode$1,
       tokenize: {
@@ -6974,7 +6974,7 @@
   };
   var aliases$1 = aliases;
 
-  var misc$1 = [
+  var misc$2 = [
     'approx',
     'apt',
     'bc',
@@ -7194,7 +7194,7 @@
 
   // add our abbreviation list to our lexicon
   let list = [
-    [misc$1],
+    [misc$2],
     [units, 'Unit'],
     [nouns$1, 'Noun'],
     [honorifics, 'Honorific'],
@@ -7268,7 +7268,7 @@
 
   // dashed suffixes that are not independent words
   //  'flower-like', 'president-elect'
-  var suffixes = {
+  var suffixes$1 = {
     'like': true,
     'ish': true,
     'less': true,
@@ -7372,7 +7372,7 @@
       aliases: aliases$1,
       abbreviations,
       prefixes,
-      suffixes,
+      suffixes: suffixes$1,
       prePunctuation,
       postPunctuation,
       lexicon: lexicon$3, //give this one forward
@@ -7533,7 +7533,7 @@
     }
   };
 
-  const methods = {
+  const methods$1 = {
     alias: (view) => termLoop(view, alias),
     machine: (view) => termLoop(view, machine),
     normal: (view) => termLoop(view, normal),
@@ -7542,11 +7542,11 @@
     index: index$1,
     wordCount: wordCount$1,
   };
-  var compute$1 = methods;
+  var compute$2 = methods$1;
 
   var tokenize$2 = {
-    compute: compute$1,
-    methods: methods$1,
+    compute: compute$2,
+    methods: methods$2,
     model: model$1,
     hooks: ['alias', 'machine', 'index', 'id'],
   };
@@ -7591,7 +7591,7 @@
     }
   };
 
-  var compute = { typeahead: typeahead$1 };
+  var compute$1 = { typeahead: typeahead$1 };
 
   // assume any discovered prefixes
   const autoFill = function () {
@@ -7608,10 +7608,10 @@
     return this
   };
 
-  const api$1 = function (View) {
+  const api$2 = function (View) {
     View.prototype.autoFill = autoFill;
   };
-  var api$2 = api$1;
+  var api$3 = api$2;
 
   // generate all the possible prefixes up-front
   const getPrefixes = function (arr, opts, world) {
@@ -7693,15 +7693,15 @@
   };
   var typeahead = {
     model,
-    api: api$2,
+    api: api$3,
     lib,
-    compute,
+    compute: compute$1,
     hooks: ['typeahead']
   };
 
   // order here matters
   nlp$1.extend(change); //0kb
-  nlp$1.extend(output); //0kb
+  nlp$1.extend(output$1); //0kb
   nlp$1.extend(match); //10kb
   nlp$1.extend(pointers); //2kb
   nlp$1.extend(tag); //2kb
@@ -7717,13 +7717,18 @@
   var lexData = {
     "City": "true¦0:3O;1:54;2:3U;3:4P;4:4I;5:3P;6:38;あ58い56う54えび53か52さ51たつ53つ4Zにかほ市,ひたちなか市,ふじみ1み4Yむつ市,一4X七尾市,三4W上4U下4T世田谷区,中4Q串4P丸亀市,丹波4N久4L亀4K二4I五4H井3交1京4G人吉市,今治市,仙4F伊4B会津若4J佐4A倉49備48光市,入4P八45出44函館市,刈43別42前41加3Z勝3Y北3S匝瑳市,十3R千3P半0南3M印3L厚3K取3J古3I可児市,台東区,各務3合3H吉3G名3F向日市,君6吹0呉市,周3D和3C品3B唐6善通3A喜多39嘉麻市,四37国36土33坂32垂35城陽市,堺市,塩31境港市,墨3Q士30壱岐市,夕張市,多2Y大2T天2S太2R奄美市,奈2Q奥3X妙高市,姫2P姶2Q嬉1宇2N守2M安2K宍粟市,宗像市,宜野湾市,宝2J室2I宮2G宿毛市,富2E寒河2D寝屋2対3O射35小2B尼2A尾28山27岐阜市,岡26岩25岸和0島24川23市22帯広市,常20平1Z幸3J広5庄3府中市,座4P延1Y廿日38弘48弥富市,彦1X御1W徳5志1V恵1U愛3L成0我孫46戸0所29指宿市,掛2摂6敦1T文京区,新1S日1R旭4R明1Q春日1P昭5曽於市,有0朝1O木1N本1M札幌市,杉並区,村1L東1I杵築市,松1H板橋区,枕2A枚39柏4D柳1G栃3K栗1F根室市,桐生市,桑1E桜1G桶2横1D橋1C橿3歌志1B武19気仙3N水18氷2Z江17池0沖縄市,河内長1沼16泉15津14洲1C流4浅口市,浜13浦12海11淡2P深10清0Z渋0Y港区,湖0X湯29滑2滝0W潟上市,潮来市,瀬戸0V焼6熊0U熱海市,燕市,牛久市,牧之3犬4狛2D狭4玉0T珠洲市,瑞0S生駒市,田0R由0Q甲0P男0O町0留萌市,登0N白0M益0盛1Y目黒区,直39相0L真0K矢板市,知0J石0I砂2砺波市,碧3D磐0神0H福0G秋0秦1秩0F稚1B稲0E立2竹24笛吹市,笠0D筑0C箕面市,米0B糸0A紀の2紋30結3T網走市,綾09総社市,練馬区,美07羽06習志1胎1B能05臼杵市,舞鶴市,船41芦04花巻市,苫小牧市,茂3茅03茨3K草02荒01菊00萩市,葛Z蒲郡市,蓮0蕨市,薩摩川1B藤Y行X袋2C袖ヶ浦市,裾1西W見附市,観音3A角0調布市,諏訪市,諫早市,豊U貝2J赤T越S足R輪5近江八幡市,逗46遠1那P郡1L都O酒0野N金29釜1Q釧2P鈴0O鉾0銚46鎌M長K門真市,関市,阪3D防42阿J陸前高0雲I霧5青H静1Y韮2A須G飛騨市,飯F養0F館E香D駒ヶ1X高C魚B鯖2D鳥A鳴門市,鴨2鴻巣市,鶴9鹿8黒7龍ヶ2A;石市,部市;児5屋市,島市,嶋市,沼市,角市;ヶ5岡市;取市,栖市,羽市;沼市,津市;山市,岡市,島市,崎市,松市,梁市,槻市,浜市,知市,石市,砂市,萩市;南市,取市,美市,芝市;山市,林市;塚市,山市,田市,能市;坂市,崎市,賀2;梅市,森市;仙市,南市;久1K南市,波市,蘇市,賀1;久35井市,岡7崎市,浜市,野市,門市;京市,市;ヶ3N倉市;々2R洲市,田市;城市,留市;珂48覇市,須7;塩3烏4;利市,立区;前市,谷市;平市,磐市,穂市;中市,前市,岡市,島区,川市,後7明市,橋市,田市,見35;大1高0;之表市,予市,宮市,尾市,条市,東京市,海市,脇市,都市;方市,橋市,田市;井2I岡市,枝市,沢市;城市,飾区;川市,池市;尾市,川区;加市,津市;ヶ1D野市;別市,屋市;代市,美市;咋市,島市,曳1村市,生市;作市,唄市,濃7祢市,馬市;加茂市,市;瀬市,部市;島市,満市,魚2;原市,子市,沢市;後市,紫1西市;岡市,間市;城市,敷市,沢市;父市;井市,山市,岡市,島市,津市,生市,知4;埼市,戸市,栖市;垣市,岡市,巻市,狩市;多市,立市;岡市,庭市;模3生市,馬市;井市,山市,岡市,河市,石市;別市,米市;鹿市;州市,府市,斐市,賀市;利本荘市,布市;原市,川市,村市,辺市;浪市,穂市;名市,野市;本市,谷市,野市;内市,市;川市,沢市;南市,西市;川市,谷区;瀬市,須市;川市,谷市;南市,津市,老J;安市,添市;松市,田市;久11山市,島市,市;佐1南市,大6;津市,田市;別市,南市,戸1A東区,津市,田5;俣市,戸市;蔵7雄市;村4野市;内市;本市;手市,浜市,須M;名市;原市,東市;井市,川市;原市,山市,戸市,本市,江市,浦市,阪市;かがわ市,久留2A京特別区部,大8広5御市,村4松7根市,海市,温市,近01金市;山市,島市;和市,阪市;上市,山市;宮市,巣市,庄市;更6津2;倉市,来市,霞市;井市,市,部市;石市;光市,南市,向市,田市,立市,置市,進市,野市,高市;城市,宮市,宿区,居浜市,庄市,座市,潟市,発0見市;賀市;庭市,那市;布0S摩市,木市;前K坊市,所市,殿場市;根市;岡市;塚市,川市,戸市;滑市,総市,陸7;大T太0;原市,川市;口市,崎市,西市,越市;原市,田市;倉市,出市,国市,沼市,見A;山市,崎市,谷市;口市,形市,梨市,武市,県市,陽小野0鹿市;張旭市,花7道市,鷲市;沢市;崎市;千0Y城市,山市,平市,松C林市,樽市,浜市,牧市,田3矢部市,美玉市,諸市,郡市,野市,金7;井市;江市;士7山市,岡市,津市,田林市,良1谷市,里市;吉0宮市,市,見市;古7崎市,津市,若市;島市,市;戸市,蘭市;塚市;中市,城市,曇1来市,芸7;市,高0;口市,山市,谷市;佐市,和5土市,城市,治市,部市,都7陀市;宮市;路市;良市;宰0H田市;理市,童市,草市;仙市,分市,和A垣市,崎市,川市,府市,月市,村市,東市,津市,洲市,牟0田9町市,竹市,網白0R船渡市,野8阪7館市;市,狭4;城市,市;区,原市,市;市,郡4高0;久市,摩市,治7賀01;見市;別市;尻市,竈市;井市,出市,戸市,東市;佐7岐市,浦市;市,清7;水市;分A東市,立市;万十市,国中央市,日7條畷市,街道市;市市;方市;寺市;川区;光市,歌4泉市;南市;津市;取市,古N寄市,張市,護市;川市,野2;志市;河市,賀市;手市;木市;西市;あわじ市,さつ0Pアルプス市,丹市,九H国市,城市,島3房総市,相8砺市,足柄市,陽市,魚7;沼市;馬市;代7曲市,歳市,葉市;田区;和0日町市;上市,九B区,名古A広5斗市,本市,杜市,秋0茨7見市;城市;田市;島市;屋市;州市;山市,浦市;古2東市,茂市,西市,賀市,須市;川市;橋市;府市;谷市;水市,雲市;代市,千代市,女市,尾市,幡8戸市,潮市,王7街市;子市;市,平市,浜市;前市;吉市,敷市;世保市,久市,伯市,倉市,渡市,賀市,野市;万9丹市,予市,佐市,勢8東市,豆7賀市,達市,那市;の国市,市;原市,崎市,市;里市;北市,台市;丹後市,田辺市,都市;島市,所川3條市,泉市;戸市,本7;松市;山市,岡市;喜市,慈市,留7;米市;市,篠4;山市;間市;央8津7野8間市;川市,市;区,市;呂市,妻市,松市,田市,野市,関市;天草市,尾市,山市,田市,越市,野3;原市;原市,好市,島市,木市,条市,次市,沢市,浦市,田市,笠市,豊市,郷市,鷹市;宮市,関市;どり市,やDよし市;がる市,くば7;みらい市,市;いたAくEぬC;すみがうDほく市;の市;きは市,る7;ま市;すみ市,ちき串木1なべ市,わ7;き市;きる1ま市,わ7;ら市;野市",
     "Country": "true¦0:17;1:1F;ア15イ11ウ0Xエ0Vオ0Sカ0Qガ0Oキ0Mギ0Kク0Hグ0Gケ0コ0Dサ0Bザン0Pシ0Aジ09ス04セ01ソZタYチXツバル,デンマWトUドSナRニQネパ0Rノルウェー,ハPバOパMフKブIベHペルー,ホンジュラス,ボGポFマEミDメキシコ,モ9ヨル05ラ8リ7ル6レ5ロ13中4北3南2台湾,日本,東ティモ0R沿ドニエストル,西サハラ,赤道ギ0韓国;アフ1Aオセ0Hスー04;キプ0L朝鮮;国,央アフリカ共0C;ソト,バノン;クセンブルク,ワ0Vーマ0;トア0ヒテンシュタ02ビア,ベ13;オス,ト0I;ザンビOナコ,ル4ロッコ,ン3ーリ2;シャス,タ0;ゴル,テネグロ;ディブ,ドバ;クロネシア0Yャンマー;ケドニア旧ユーゴスラビア共02ダガスカル,ラウイ,リ,ルタ,レー0Qーシャル06;ルトPーラ1;スニア・ヘルツェゴビナ,ツワナ,リ0A;トナム,ナン,ネズエラ,ラルーシ,リーズ,ルギー;ラジル,ル2ー0X;ガ0Rキナファソ,ネイ,ンジ;ィ2ランス;ジー,リピン,ンラ1;キス0Tナマ,プアニューギ0ラ2レスチナ;オ,グ0C;チカン,ヌアツ,ハマ,ルバドス,ングラデシュ,ーレ07;イチ,ンガリー;ウエ,カラグア,ジェ02ュージーラ1;イジェ0Jウル,ゴルノ・カラバフ,ミZ;イツ,ミニカ2;共N国;リニダード・トバゴ,ル2ンガ,ーゴ;クメ0Jコ;ーク;ェコ,ャド,ュニ0Gリ;イ,ジ02ンザ0;マリ2ロモンL;ア,ラ1;ネ3ルPント2ーシェル;クリストファー・ネイビス,ビンセントおよびグレナディーンIル02;ガル;イス,ウェーデン,ペ5リ4ロ3ワジラ1ー2;ダン;バキア,ベ0;ナム,ランカ;イン;ブチ,ャマイカ,ョー04ンバブエ;エラレオネ,リア,ンガポI;ウジアラFモア,ン2;トメ・プリンシペ,マリノ;スタZソボ,モロ,ロンDンゴ2ートジボワF;共2民主共2;和国;アテマラ,レナダ;ウェート,ック3ロア2;チア;諸島;ニア2リシャ;!ビサウ;プ2ューバ,リバス,ルギス;ロス;イアナ,ボン,ン2ーナ;ビア;ザフスPタ2ナダ,メル5ンボNーボベルデ;ール;マ3ラ9ースト2;ラHリア;ーン;クア2ジプト,スト0チオピア,リトFルサルバ2;ドル;ガ4クライナ,ズベ3ルグ2;アイ;キスG;ンダ;エメン,ギリス,スラエル,タ9ラ4ンド2;!ネ2;シア;ク,ン;イBゼルバイジャン,フガ9ブハ8メ7ラブ首長国6ル3ン2;ゴラ,ティグア・バーブーダ,ドラ;ジェ3ゼンチン,バ0メ0;ニア;リア;連邦;リカ;ジア;ニス2;タン;スラ1ルラ1;ンド",
-    "Adjective": "true¦あQいPうすい,おLかKきJくNげんき,さIざんねん,しGじょうFすEせまい,たDちBつ9ていねい,とおい,ながい,にぎ8ねIはやい,ひ7ふ6へ5べんり,ほそい,ま4みじUむずかTや3ゆうめい,よわい,わ2丁寧,丈夫,上手,下手,不味い,丸い,低い,便利,元気,冷A危R厚い,古い,可愛い,固い,変,多い,大きい,太い,奇麗,好き,嫌い,安1寒い,小C少R広い,弱い,強い,忙T悪い,新0早い,明るい,易T暇,暑い,暖U暗い,有名,柔らU楽T正T残念,汚い,涼T温U熱い,狭い,甘い,痛い,白い,眠い,短い,簡単,素敵,細い,美味T良い,色々,若い,薄い,複雑,親切,詰まらR賑8赤い,軽い,辛い,近い,速い,遅い,遠い,重い,長い,難T青い,静か,面白い,高い,黒い;しい,鮮;い,全;かい,るい;さPすい,わらQ;ずい,るい;た,ん;くざつ,とい,るい;くい,ま,ろい;やか;まらHめ0よい;たい;い0かい;さい;かい,だFのF;き,くCずEてき;ず,ぶ;ずか,ろい,んせ0;つ,ん;むい;た7らい,れい;たい,らい,るい,わいい,んたん;い7お2そい,も0;い,し0;ろい;い,きい;い,そが3たい;おい,か4た1つい,ぶ0まい,んぜん;ない;た1ら0;しい;かい;い,るい",
-    "Preposition": "true¦かNがMきり,くらい,けれども,こそ,さLしJすら,ぜ,ぞ,だHてGでFとCどころか,なBにAねLの8ば6へ,ほど,まで5も3や2よ1わ,を0;!する;!り;!いなや,ら;!の0;!か,の;!もない;!いい,かり0;!でなく,に;!で0に,み;!す;!しては,ついて,とって;!あ,がら,ど,ら,り;! いう,か,ころ1して,も0;!…とも,あろうひと;!で;!も;は,も;け0の;!に;!か0;!ない;!え;!はやいか;しら,な0ら;!いうちに",
-    "Adverb": "true¦あ07いWかTきSぎゃくに,くする,けっQこPごとき / ごとく / ごとし,じゅうぶん,だNちょMできるだけ,どJはFひEびっくり,ふDべつCま7み6めったCも4一3丁度,万一,今に06以2全A再び,初I別C前に,十分,反面,大1後で,必ず,急に,意外,敢えて,普通 ,果たH案の定,決しR真っ直ぐ,結0色々 ,逆に,間に,非常に;局,構;丈夫,分;上に,外;人,体,層,度に,応,旦,気に,番,種,緒に;し0はや;!かしたら;たいに,んな;えに,ず,だ3っ1でに,る0んいち;っ7で;すぐ,た0;く～Y;!しも,～ていません;に～W;たたび,つう,と;じょMとり;じ2た1っ0んめん;きり;して;めて;う1ん0;どん,なに～J;!してKせ,ぞ,にも～Nも,やら;うど,っと;い0んだん;じょうぶ,ぶ;う,とごとく;きょく,こう,し0;て～H;っと,ゅ8;た1つて,どうか,な0何か;にか,らず;がた,わら;か8がい,きなり,く5じょ4ち3っ0つも,まに9ろいろ;きに,し1そう,た0ぱい;い,ん;ゅ,ょに;おう,どに,ばん;うに;つ,ら0;!～0;ても;が,に0;!も;あ,いだに,えて,くまでも,とで,まり0らかじめ,るいは,んのじょう;!にも,～0;ない",
+    "Adjective": "true¦0:0Y;1:0U;あ0Uい0Sう0Rお0Lか0Kがんこな,き0Gく0Nげんき1こ0Fさ0Eざんねん,し09じ07す05せ04た03ち01つZていねい,とYなXにVねUはTひSびょうきの,ふQへPべんり,ほそい,ぼんやり0JまNみLむKやJゆうめい,よIりっぽ0HわH丁寧,丈夫,三角の,上手,下手,不味い,丸いG低い,便利,優0元気1冷00危F厚い,古い,可愛い,四角い,固い,塩辛い,変1多い,大E太R奇麗,好き,嫌い,嬉0孤独な,安D寒い,小02少0X平均C年老0O広い,弱い,強い,忙0怒0W悪い,悲0新B早い,明るい,易0暇,暑い,暖10暗い,有名,柔ら10楽0正A残念,汚い,涼0温10滑ら11無料,熱い,狭い,球9甘い,異常な,病気の,痛い,痩せた,白い,真面目な,眠い,短い,硬い・固い,社交C立方9簡単1素8細い,綺麗な,緊急の,緑の,美7肌寒い,良い,色々,若い,苦い,荒い,落ち着0O蒸し蒸し0J薄い,複雑1親6詰まら0X誤0W貧0賑W赤い,軽い,辛い,近い,速い,遅い,遠い,酸っ06醜い,重5長4難0青い,静か,面白い,頑固な,高3魅力2鮮や11黄色い,黒い;の0W的な;い,価な;い,方形の;い,要な;し07切;しい,味0;敵1晴ら0;体の;しい,常な;しい,鮮;的な;い,全1;きい,人0;ない,険な;!・円い;かい,るい;い,かっ,わい;さ0すい,せた,わら0I;しむし00ずか0;じ0Gどりの,にTりょく2;てQの0C;じめな,ず2るい;い,しい;いきんてNた,ん1;くざつ1と2るい;い,った;くい,どい,ま,ろい;だざ2やい;むい;がい,ぎ2;やか;がい,めら05;おい,しおR;まらZめ2よい;たい;い2かい,ょうほうけI;さい;かい,だ0の0;いじょQまい;き,くTず0っ2てき1ばら0;ぱい;ゅうよNょう2;ず,ぶ;おからい,か5ずか,たし4ゃこうて3ろい,んせ2;つ,ん;きな;みやすい;くい;むい,んかくの;うNどくな;い8けんな,たIちんと4ゅ2らい,れい1んきゅうの;うた2;いの;した;たい,な0らい,るい,わいい,んたん1;い0お6かねも5こCそい,ちつ4とな0も2金持5;い,し2;ろい;いた;ちな;い,きい;すい,つく0れ0;い,じょ2そが0;うな;おい,か9ざや8た5つい,ぶ4まい,やま3らい,んぜん1;!な;った;ない;た3ら0;しい;かい;かな;い,るい",
+    "Preposition": "true¦かJがはやいか,きり,くらい,こそ,さIしGすら,ぜ,ぞ,だEてDとBなAに9ね,の8は,ば6へ,ほど,まで5も3や2よ1わ,を0;!する;!り;いなや,ら;!の0;!か,の;!もない;!いい,かり0;!でなく,に;!です,に,み;!しては,ついて,とって;!あ,がら,ど,り; いう,か,ころ,して,も0;!…とも,あろうひと;は,も;け0の;!に;!か0;!ない;!え;しら,な0;!いうちに",
+    "Auxiliary": "true¦いZえYおう,かXがWきVぎUくTけSげYこRごう,さOしLす06せKたIちHっGてCとう,な7にUねYのう,ばWびUべYぼう,ま2みUめYもう,ら1りUるな,れYろう,わWん0;じ06だ03で;ず,せる,ない,れN;し2す,ず,せ0ない,れる;る,ん0;!でした1;た0ょう;!ら;い1かった0ければ,さい,ず,せる,ない,れる;!だ2でしAら;!　だ1で0; くだSし8;ろう; 0ば,る;い0くだP;た,ま0る;した,す,せんL;たNちQて;すOそう,たい,なLまIゃう;い,ず,せる,でし0ない,り,れる,ろう;ょう;ず,ば,よ,る;すKそう,た1ちLて,な0まEよう,ろ;い,さい;!い,り;ず,せ0ない,れる;ない,ま0る;す,せん;い,う,させる,ず,ない,よう,られる,れる;ば,る,れば;ありません7て,ない;すBそう,たい,な8ま5;すAそう,た9ちBて,な7ま4;ず,せる,ない,れる;ず,せる,った6ない,れる;ば,る;じ7す6そう,た5だ4ち7て,で,な3ま0;し1す,せん0;!でした;た,ょう;さい;!ら,り;!い,ら,り;ぎる;ゃう",
+    "Adverb": "true¦あ0Hい06おそらく,か03き02くする,けっ00ことごとく,ごとき / ごとく / ごとし,しょっちゅう,じゅうZすっかり,ずいZぜんぜん,そこそこ,たWだUちょTつSできるだけ,とRどOなかなか,のんびり,はLひKびJふIべつHほとんど,まCみBむしろ,めったにAも9や7ゆJよ6一5丁度,万一,今に0G以4全F再び,初N別H前に,十分,大3実に,少すこし,後で,必ず,急に,意外,敢えて,普1本当に,果たY案の定,極N決し01相当,真っ直ぐ,結0色々 ,間に,非常に;局,構;段,通0;! ;丈夫,分,変;上に,外;人,体,層,度に,応,旦,気に,番,種,緒に;うやく,く;っ0はり;と,ぱり;しかしたら,はや;!～08;たGんな;あまあ,えに,すます,だ3っ1でに,る0んいち;っ8で;すぐ,た0;く～03;!しも,～ていません;に～01;たEつう,と;っくり;じょQとり;じ1たCっ0;きり;めて;う1ん0;どん,なに～O;!してPせ,にも～Sやら;うとう,きどき,ても;いに;うど,っと;い0んだん;じょうぶ,ぶ;い1くさん,しかに,び0ぶん,まに;たび;して;ぶん;きょく,こう,し0;て～H;っと,ゅ8;た1つて,どうか,な0何か;にか,らず,り;がた,わら;か8がい,きなり,く5じょ4ち3っ0つも,まに9ろいろ;きに,し1そう,た0ぱい;い,ん;ゅ,ょに;おう,どに,ばん;うに;つ,ら0;!～0;ても;が,に0;!も;いだに,えて,くまでも,とで,まり0らかじめ,んのじょう;!にも,～0;ない",
+    "Expression": "true¦あ13い10う0Xえ0Uお0Nきゃ0Mぎ0Jぐふ0Iげっ,こ0Dご0Aさ08ざまあみろ,じゃ11す06そ03ただいま02どXなTねSはQひ0RふPへMほLまKもJやIよDわCアAイヤ,ウ9エ8オ7ガーン,キャ6コンニチワ,ゴメン,サヨナラ,デヘヘ,トホホ,ノー,ハ5バカヤロー,ヒヒヒ,フ3メリークリスマス,モシモシ,ヤ2ヨロシク,ワ1何だ,南無,嗚呼,御0有難う;意,馳走0P;ァー,ーッ;ダー,ッター,レヤレ;ェ0ムフム;!ーン;ア,ッハッハ,テ;ッ,ー;ヤスミ,ー;イ,ッ;イ,ヒャー,ン,ーン,～ン;ッ0ハハ,リガトウ;!カンベー,プップ～;ぁ03あ,っ,んわん,ーい;い3う2お,くもまあ,し1っ0ーし;こら2しゃ;!っ,ゃ;!こそ,し;しょ;ぁ,あ,れやれ,ァ;ぉ,しもし;ぁ,あVァ,ア;う,ら,んと;ぇ,え1っ,ー0;!え,っ;!え,ッ,ー;うん,ふふ,むふむ,ん,ーん;ぁ,あ,い,じめAっ,て0ーい;!な;ぇ,え;あ2む,るほど,ん0;てこった,と0;!まあ,もはや;に,んだ;う2っこい1れどれ,ー0;ぞ,も;!しょ;いたし0ぞ,も;まして;!ッ;う1ら0;!そら;!ですね,ね;い0まん,み0ん0;ません;ぁ,あ7てと,よ0らば;うなら,なら;きげんEくろうさん,ちそうFっつぁん,めん1苦労さ0馳走F;ま,ん;!くだGなG;ら3りゃ2れこれ,ん0;にち0ばん0;は,わ;!ー;!ぁ;!っ;ゃ1ょ0;!い,ぎょ;あ,ふん;あ,ー;い,ぉ,お,かえり4ぎ3す,そまつ2っ,つかれ様,は1めでとう,や0ーい,早う,疲れ2粗末2;!すみ3っ;よう;さま,様;ゃー;!な0;さい;え1っ,ッ,ー0;!っ,ッ;!い;うん,ふ1わ,ん,ー0;む,ん;!っ,ふ;いえ,え1ただきます,や0ーえ;!ぁ,あ,ー;!いえ;ぁ,あ,いた,かん7きまへん,っ6ら5り2れ1ゝ,ッ,ー0～;!あ;!よあれよ,れ,ー;がと1ゃ0;!りゃ;!う;!ッ,ー;!かんべー;!べ",
+    "Conjunction": "true¦あ0Yいっぽう,お0Rか0Pが0Oぎゃくに,け0Mこう0Qさ0Kし0Fじゃが,す0Eそ00たXだTちなSってか,つPてOでLとIど05なDにもかかわらず,のCはんめん,ふんBほ8ま6も4や0Oゆえに0Oよ0Hわけ03んB一方3並びに,乃至,亦,但Z併0Z例Y即ち,又H及び,反面,同0T否,因S実は,尚,尤も,従0H恐0U惜し0W或2故に,本当は,次1然し0若し0X譬Y追0H逆に;!な0U乍ら;いで,に;いは,は;!で;、,し0っとも,また;!くは;してや,ずは,た0;!は0G;な1ん0;じゃ,で,なら;!ら;じゃ;ため,で;いし3お,かん2ぜなら,の1ら0;!ば,びに;で,に;ずく,づく;!は;!、,いうのも,ころ1す02も0同時に;あれ,す01に;が,で;!す1な0は,も;いと,けY;から,が,けれど;か,ゆーか;い1ま0;り,るところ;ては,で;みに;から2が,け1って,とす0;ると,れば;ど,れども;!、,こそ,といK;だ1と0め,ら;えば,へば;!し;う9こで,し8の6もそも,やさかい,りゃ,れ0ーいや;からMだQで4とLど3な2に0も,ゆえに、;!し0;ても;のに,ら;ころか;!、,いて,は,も;うえ0上,後;!で,に;たら,てE;い2し1す0ですが,な0;ると;たら,て;えば,や;なわち,ると;か2た0;が0ら;って;し0も;!、,なB;て,もなけ0らに,りとて,れど;れば;ど,れど0;!も;!、;!く0たや,つ,ら;して;し4そ2な1ま0よび;けに;じく;れな0;がら;むら0;くは;るいは,わ0;せて",
     "Value": "true¦一,七,三,九,二,五,八,六,十,千,四,百",
-    "Weekday": "true¦土,日,月,木,水,火,金",
-    "Auxiliary": "true¦させIたGてAな5ま1よう,られIる0れば,ろ;!な;し1す,せん0;!でした1;た0ょう;!ら;い1かった0ければ;!だ2でしAら;!　だ1で0; く3し8;ろう;! 0;い1く0;ださい;た,ま0る;した,す,せん0;!でした;!でし0ら,ろう;ょう;ない,ま0る;す,せん",
-    "Infinitive": "true¦0:04;ふけり,上0K下0J並0I乗り0H乾0G仄めかし,仰ぎ,企0F伏せ,休み,会い,似,住み,作り,使い,侍り,信じ,倒0E借り,偽り,傷つけ,傾き,働き,優れ,儲0D光り,入0C冷0A凝09出08分かり,切0C別れ,刺し,加え,劣り,助0D励07動き,勝ち,勤め,包み,参り,及び,取06口説き,可愛0K叱り,合い,向かい,吸い,吹き,呉れ,呼び,咲き,喋り,喜05噛み,回り,困り,囲み,固0基づき,増03壊0E売0C変02外し,太り,好み,妨げ,始0威張り,嫌0K学び,守り,定め,実り,寄00寝,届Z履き,崩0E干し,広0庇い,座り,引きY張り,強0弾き,待ち,得,志し,忘れ,怒り,怖0K思いX怠け,急ぎ,恐れ,悲W惚れ,惜W感じ,慌て,慣れ,慰め,戒め,戻V手伝い,払い,抑え,投げ,折れ,抜Z抱U押し,担ぎ,招き,拵え,拾い,持ち,挟み,捨て,捻り,掘り,掛0D探し,掲げ,握り,支え,救い,教え,散り,数え,敷き,晴れ,暖T暮S曇り,曲0J書き,枯S楽W構R次ぎ,欲し0K歌い,止T歩き,死に,残V殴り,殺し,比べ,気Q求め,汚れ,污し,決0沈み,沸0G泊T泣き,泳ぎ,洗い,流P浴び,消O混N減M渡V満たし,溶L滅K滑り,漏S濡れ,点け,無くJ焦I焼Z熟し,片付け,狂い,現0E生H異なり,畳み,疲れ,痛み,登り,盗み,目立ち,直V眠り,眩み,眺め,着G睨み,知F砕き,磨き,示し,祈り,祝い,禁じ,稼ぎ,空き,立E笑い,答え,終D組み,結び,続Z練り,縛り,繰り返し,置き,罵り,習い,考え,聞C育E脂ぎり,脱ぎ,腐り,腰掛け,臥せり,舐め,苦しB落A蓄え,虐め,行き,被り,褒め,襲い,要り,見9覚え,解Z触0C言い8試し,話し,認め,誘い,読み,調べ,負L貰い,買い,貸し,走り,起7越し,足V踊り,踏み,蹴り,転び,輝き,込み,迎え,返V迷い,追い,送り,逃げ,通6連れ,進み,遅れ,遊び,運び,過5違い,適い,選び,避け,重4釣り,長け,閉0開け,間違R関D降3限り,隠2集0離0E霞み,静T頑張り,頼み,飛び,食1飲み,飼い,飾り,馴染み,騒ぎ,騙し,驚き,魂消り,黙り,齧り;い違い,べ;し,れり;り,ろし;なり,ね;ぎ,ごし;い,り;き,こO;!つけ,ふ01出し,換えり,表し;!え,せ,つ04做し,張り,逃し;ち,とし;ませ,み;き,こえ;わり;ち,て;らせ,り;!き,換え;え,き,まれ,やし;げ,り;し,なり;びり,ぼし;かし,け;らし,り;じり,ぜ;え,し;れ,行り;付き,遣い;い,え;らし,れ;まり;え,き;し,り;しみ;!つき;!受け;き,け;せ,り;張り;え,わり;え,やし;まり,め;ばし,び;りBれ;まし,み;!かけ,し,来;らし;え,や1;かし,し;り,れ;かり,け;し,れ;て,み;かし,き;!換え;び,べ;がり,げ;がり"
+    "Weekday": "true¦土0日0月0木0水0火0金0;曜日",
+    "Infinitive": "true¦0:04;ふけり,上0K下0J並0I乗り0H乾0G仄めかし,仰ぎ,企0F伏せ,休み,会い,似,住み,作り,使い,侍り,信じ,倒0E借り,偽り,傷つけ,傾き,働き,優れ,儲0D光り,入0C冷0A凝09出08分かり,切0C別れ,刺し,加え,劣り,助0D励07勉強,動き,勝ち,勤め,包み,参り,取06口説き,可愛0K叱り,合い,向かい,吸い,吹き,呉れ,呼び,咲き,喋り,喜05噛み,回り,困り,囲み,固0基づき,増03壊0E売0C変02外し,太り,好み,妨げ,始0威張り,嫌0K学び,守り,定め,実り,寄00寝,届Z履き,崩0E干し,広0庇い,座り,引きY張り,強0弾き,待ち,得,志し,忘れ,怒り,怖0K思いX怠け,急ぎ,恐れ,悲W惚れ,惜W感じ,慌て,慣れ,慰め,戒め,戻V手伝い,払い,抑え,投げ,折れ,抜Z抱U押し,担ぎ,招き,拵え,拾い,持ち,挟み,捨て,捻り,掘り,掛0D探し,掲げ,握り,支え,救い,教え,散り,数え,敷き,晴れ,暖T暮S曇り,曲0J書き,枯S楽W構R次ぎ,欲し0K歌い,止T歩き,死に,残V殴り,殺し,比べ,気Q求め,汚れ,污し,決0沈み,沸0G泊T泣き,泳ぎ,洗い,流P浴び,消O混N減M渡V満たし,溶L滅K滑り,漏S濡れ,点け,無くJ焦I焼Z熟し,片付け,狂い,現0E生H異なり,畳み,疲れ,痛み,登り,盗み,目立ち,直V眠り,眩み,眺め,着G睨み,知F砕き,磨き,示し,祈り,祝い,禁じ,稼ぎ,空き,立E笑い,答え,終D組み,結び,続Z練り,縛り,繰り返し,置き,罵り,習い,考え,聞C育E脂ぎり,脱ぎ,腐り,腰掛け,臥せり,舐め,苦しB落A蓄え,虐め,行き,被り,褒め,襲い,要り,見9覚え,解Z触0C言い8試し,話し,認め,誘い,読み,調べ,負L貰い,買い,貸し,走り,起7越し,足V踊り,踏み,蹴り,転び,輝き,込み,迎え,返V迷い,追い,送り,逃げ,通6連れ,進み,遅れ,遊び,運び,過5違い,適い,選び,避け,重4釣り,長け,閉0開け,間違R関D降3限り,隠2集0離0E霞み,静T頑張り,頼み,飛び,食1飲み,飼い,飾り,馴染み,騒ぎ,騙し,驚き,魂消り,黙り,齧り;い違い,べ;し,れり;り,ろし;なり,ね;ぎ,ごし;い,り;き,こO;!つけ,ふ01出し,換えり,表し;!え,せ,つ04做し,張り,逃し;ち,とし;ませ,み;き,こえ;わり;ち,て;らせ,り;!き,換え;え,き,まれ,やし;げ,り;し,なり;びり,ぼし;かし,け;らし,り;じり,ぜ;え,し;れ,行り;付き,遣い;い,え;らし,れ;まり;え,き;し,り;しみ;!つき;!受け;き,け;せ,り;張り;え,わり;え,やし;まり,め;ばし,び;りBれ;まし,み;!かけ,し,来;らし;え,や1;かし,し;り,れ;かり,け;し,れ;て,み;かし,き;!換え;び,べ;がり,げ;がり",
+    "Noun": "true¦人",
+    "Determiner": "true¦あの,この,その",
+    "Pronoun": "true¦あJうち,おHかFきDこCしょうせい,じぶん,そBてAへいIぼく,やつ,わ6俺5僕,儂,其奴,君,奴,小生,弊社,彼4御社,我2手前,此奴,私1自分,貴0;下,官,様,社;!たち;々,が0等;!社;!女,奴,等;!様;が2し,た1て,れ0;!ら,われ;くし,し;!しゃ;まえ,めえ;いつ,やつ,れ;いつ,やつ;か0さま,しゃ,み;!ん;のじょ,れ0;!ら;いら,たく,まえ,ら,れ,ん0前;しゃ;いつ,た1なた,の0やつ,んた;かた,ひと,人,方;い,くし,し"
   };
 
   const BASE = 36;
@@ -8262,7 +8267,28 @@
   // console.log(fromImperative('褒めろ') === '褒め')
   // console.log(fromImperative('褒めるな', true) === '褒め')
 
-  let lexicon$1 = {};
+  let lex = {
+    // copula forms
+    // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
+    'だ': ['Copula', 'PresentTense'],
+    'だった': ['Copula', 'PastTense'],
+    'では': ['Copula'],
+    'だろう': ['Copula', 'Volitional'],
+    'で': ['Copula', 'Gerund'], //te form
+    'なら': ['Copula', 'ConditionalVerb'],
+    'ならば': ['Copula', 'ConditionalVerb'],
+    // polite copula
+    'です': ['Copula', 'PresentTense', 'Polite'],
+    'でした': ['Copula', 'PresentTense', 'Polite'],
+    'でしょう': ['Copula', 'Volitional', 'Polite'],
+    '（でありまして': ['Copula', 'Gerund', 'Polite'],//te-form
+    '（であれば': ['Copula', 'Conditional', 'Polite'],//te-form
+
+    'たち': 'PluralSuffix'
+  };
+  var misc$1 = lex;
+
+  let lexicon$1 = Object.assign({}, misc$1);
   Object.keys(lexData).forEach(tag => {
     let wordsObj = unpack$1(lexData[tag]);
     Object.keys(wordsObj).forEach(w => {
@@ -8405,12 +8431,8 @@
       ch === "𠮟";
   };
 
-  const isNumber = function (c) {
-    return c >= '0' && c <= '9';
-  };
-
   const isAscii$1 = function (c) {
-    return /[a-zA-Z]/.test(c)
+    return /[a-zA-Z0-9]/.test(c)
   };
 
 
@@ -8424,31 +8446,60 @@
     if (isKanji$1(c)) {
       return 'kanji'
     }
-    if (isNumber(c)) {
-      return 'number'
-    }
+    // if (isNumber(c)) {
+    //   return 'number'
+    // }
     if (isAscii$1(c)) {
       return 'ascii'
     }
   };
 
-  let words = Object.keys(lexicon$2);
+  let punctuation = new Set([
+    '・', //word-splitter
+    '、',//comma
+    '：', //colon
+    ' ',//space
+    '\t',//tab
+    '\n',//newline
+  ]);
 
-  let trie = buildTrie$1(words);
+  let suffixes = {
+    'たち': true //plural suffix
+  };
+
+  const mergeTypes = function (a, b) {
+    if (a === b) {
+      return true
+    }
+    if (a === 'kanji' && b === 'hiragana') {
+      return true
+    }
+    return false
+  };
 
   // join-up unknown chars by kanji/hiragana/kanji
   const joinUp = function (arr) {
     for (let i = 0; i < arr.length; i += 1) {
       let c = arr[i];
-      if (c !== null && c.length === 1 && !words[c]) {
+      if (suffixes[c] && arr[i - 1]) {
+        arr[i - 1] += c;
+        arr[i] = null;
+      }
+      if (c !== null && c.length === 1 && !lexicon$2[c]) {
         let type = getType(c);
         // race-ahead and join forward
         for (let o = i + 1; o < arr.length; o += 1) {
           let k = arr[o];
-          if (k.length === 1 && !words[k] && getType(k) === type) {
+          if (k.length === 1 && !lexicon$2[k] && mergeTypes(type, getType(k))) {
             arr[i] += k;
             arr[o] = null;
+            // stop at any punctuation mark
+            if (punctuation.has(k)) {
+              i = o - 1;
+              break
+            }
           } else {
+            i = o - 1;
             break
           }
         }
@@ -8458,11 +8509,16 @@
     return arr
   };
 
+  var joinUp$1 = joinUp;
+
+  let words = Object.keys(lexicon$2);
+  let trie = buildTrie$1(words);
+
   const tokenize$1 = function (txt) {
     // split by know-word segments
     let arr = splitUp$1(txt, trie);
     // join-up neighbouring chars 
-    arr = joinUp(arr);
+    arr = joinUp$1(arr);
 
     return arr
   };
@@ -8502,6 +8558,23 @@
     })
   };
   var toTerms = tokenize;
+
+  function api$1 (View) {
+
+    /**  */
+    View.prototype.romanji = function () {
+      this.compute('romanji');
+      let out = '';
+      this.docs.forEach(terms => {
+        terms.forEach(term => {
+          out += term.pre + (term.romanji || term.text) + (term.post || ' ');
+        });
+      });
+      // convert inter-bang
+      out = out.replace(/・/, ' ');
+      return out
+    };
+  }
 
   // https://github.com/zkayser/jay_verb/blob/master/lib/japanese/to_romaji.rb
   var hMap = [
@@ -8728,37 +8801,921 @@
   // console.log(toRomanji('ひらがな　カタカナ'))
   // console.log(toRomanji('あっきょっつああ'))
 
-  function api (View) {
+  // kun|on readings
+  var readings$1 = {
+    '一': 'ひと-|イチ',
+    '二': 'ふた|ニ',
+    '三': 'み|サン',
+    '四': 'よ|シ',
+    '五': 'いつ|ゴ',
+    '六': 'む|ロク',
+    '七': 'なな|シチ',
+    '八': 'や|ハチ',
+    '九': 'ここの|キュウ',
+    '十': 'とお|ジュウ',
+    '百': 'もも|ヒャク',
+    '千': 'ち|セン',
+    '上': 'うえ|ジョウ',
+    '下': 'した|カ',
+    '左': 'ひだり|サ',
+    '右': 'みぎ|ウ',
+    '中': 'なか|チュウ',
+    '大': 'おお-|ダイ',
+    '小': 'ちい.さい|ショウ',
+    '月': 'つき|ゲツ',
+    '日': 'ひ|ニチ',
+    '年': 'とし|ネン',
+    '早': 'はや.い|ソウ',
+    '木': 'き|ボク',
+    '林': 'はやし|リン',
+    '山': 'やま|サン',
+    '川': 'かわ|セン',
+    '土': 'つち|ド',
+    '空': 'そら|クウ',
+    '田': 'た|デン',
+    '天': 'あまつ|テン',
+    '生': 'い.きる|セイ',
+    '花': 'はな|カ',
+    '草': 'くさ|ソウ',
+    '虫': 'むし|チュウ',
+    '犬': 'いぬ|ケン',
+    '人': 'ひと|ジン',
+    '名': 'な|メイ',
+    '女': 'おんな|ジョ',
+    '男': 'おとこ|ダン',
+    '子': 'こ|シ',
+    '目': 'め|モク',
+    '耳': 'みみ|ジ',
+    '口': 'くち|コウ',
+    '手': 'て|シュ',
+    '足': 'あし|ソク',
+    '見': 'み.る|ケン',
+    '音': 'おと|オン',
+    '力': 'ちから|リョク',
+    '気': 'いき|キ',
+    '円': 'まる.い|エン',
+    '入': 'い.る|ニュウ',
+    '出': 'で.る|シュツ',
+    '立': 'た.つ|リツ',
+    '休': 'やす.む|キュウ',
+    '先': 'さき|セン',
+    '夕': 'ゆう|セキ',
+    '本': 'もと|ホン',
+    '文': 'ふみ|ブン',
+    '字': 'あざ|ジ',
+    '学': 'まな.ぶ|ガク',
+    '村': 'むら|ソン',
+    '町': 'まち|チョウ',
+    '森': 'もり|シン',
+    '正': 'ただ.しい|セイ',
+    '水': 'みず|スイ',
+    '火': 'ひ|カ',
+    '玉': 'たま|ギョク',
+    '石': 'いし|セキ',
+    '竹': 'たけ|チク',
+    '糸': 'いと|シ',
+    '貝': 'かい|バイ',
+    '車': 'くるま|シャ',
+    '金': 'かね|キン',
+    '雨': 'あめ|ウ',
+    '赤': 'あか|セキ',
+    '青': 'あお|セイ',
+    '白': 'しろ|ハク',
+    '数': 'かず|スウ',
+    '多': 'おお.い|タ',
+    '少': 'すく.ない|ショウ',
+    '万': 'よろず|マン',
+    '半': 'なか.ば|ハン',
+    '形': 'かた|ケイ',
+    '太': 'ふと.い|タイ',
+    '細': 'ほそ.い|サイ',
+    '広': 'ひろ.い|コウ',
+    '長': 'なが.い|チョウ',
+    '点': 'つ.ける|テン',
+    '丸': 'まる|ガン',
+    '交': 'まじ.わる|コウ',
+    '光': 'ひか.る|コウ',
+    '角': 'かど|カク',
+    '計': 'はか.る|ケイ',
+    '直': 'ただ.ちに|チョク',
+    '線': 'すじ|セン',
+    '矢': 'や|シ',
+    '弱': 'よわ.い|ジャク',
+    '強': 'つよ.い|キョウ',
+    '高': 'たか.い|コウ',
+    '同': 'おな.じ|ドウ',
+    '親': 'おや|シン',
+    '母': 'はは|ボ',
+    '父': 'ちち|フ',
+    '姉': 'あね|シ',
+    '兄': 'あに|ケイ',
+    '弟': 'おとうと|テイ',
+    '妹': 'いもうと|マイ',
+    '自': 'みずか.ら|ジ',
+    '友': 'とも|ユウ',
+    '体': 'からだ|タイ',
+    '毛': 'け|モウ',
+    '頭': 'あたま|トウ',
+    '顔': 'かお|ガン',
+    '首': 'くび|シュ',
+    '心': 'こころ|シン',
+    '時': 'とき|ジ',
+    '朝': 'あさ|チョウ',
+    '昼': 'ひる|チュウ',
+    '夜': 'よ|ヤ',
+    '分': 'わ.ける|ブン',
+    '春': 'はる|シュン',
+    '夏': 'なつ|カ',
+    '秋': 'あき|シュウ',
+    '冬': 'ふゆ|トウ',
+    '今': 'いま|コン',
+    '新': 'あたら.しい|シン',
+    '古': 'ふる.い|コ',
+    '間': 'あいだ|カン',
+    '方': 'かた|ホウ',
+    '北': 'きた|ホク',
+    '南': 'みなみ|ナン',
+    '東': 'ひがし|トウ',
+    '西': 'にし|セイ',
+    '遠': 'とお.い|エン',
+    '近': 'ちか.い|キン',
+    '前': 'まえ|ゼン',
+    '後': 'のち|ゴ',
+    '内': 'うち|ナイ',
+    '外': 'そと|ガイ',
+    '場': 'ば|ジョウ',
+    '国': 'くに|コク',
+    '園': 'その|エン',
+    '谷': 'たに|コク',
+    '野': 'の|ヤ',
+    '原': 'はら|ゲン',
+    '里': 'さと|リ',
+    '市': 'いち|シ',
+    '京': 'みやこ|キョウ',
+    '風': 'かぜ|フウ',
+    '雪': 'ゆき|セツ',
+    '雲': 'くも|ウン',
+    '池': 'いけ|チ',
+    '海': 'うみ|カイ',
+    '岩': 'いわ|ガン',
+    '星': 'ほし|セイ',
+    '室': 'むろ|シツ',
+    '戸': 'と|コ',
+    '家': 'いえ|カ',
+    '寺': 'てら|ジ',
+    '通': 'とお.る|ツウ',
+    '門': 'かど|モン',
+    '道': 'みち|ドウ',
+    '話': 'はな.す|ワ',
+    '言': 'い.う|ゲン',
+    '答': 'こた.える|トウ',
+    '声': 'こえ|セイ',
+    '聞': 'き.く|ブン',
+    '語': 'かた.る|ゴ',
+    '読': 'よ.む|ドク',
+    '書': 'か.く|ショ',
+    '記': 'しる.す|キ',
+    '紙': 'かみ|シ',
+    '画': 'えが.く|ガ',
+    '図': 'え|ズ',
+    '教': 'おし.える|キョウ',
+    '晴': 'は.れる|セイ',
+    '思': 'おも.う|シ',
+    '考': 'かんが.える|コウ',
+    '知': 'し.る|チ',
+    '理': 'ことわり|リ',
+    '算': 'そろ|サン',
+    '作': 'つく.る|サク',
+    '元': 'もと|ゲン',
+    '食': 'く.う|ショク',
+    '肉': 'しし|ニク',
+    '馬': 'うま|バ',
+    '牛': 'うし|ギュウ',
+    '魚': 'うお|ギョ',
+    '鳥': 'とり|チョウ',
+    '羽': 'は|ウ',
+    '鳴': 'な.く|メイ',
+    '麦': 'むぎ|バク',
+    '米': 'こめ|ベイ',
+    '色': 'いろ|ショク',
+    '黄': 'き|コウ',
+    '黒': 'くろ|コク',
+    '来': 'く.る|ライ',
+    '行': 'い.く|コウ',
+    '帰': 'かえ.る|キ',
+    '歩': 'ある.く|ホ',
+    '走': 'はし.る|ソウ',
+    '止': 'と.まる|シ',
+    '活': 'い.きる|カツ',
+    '店': 'みせ|テン',
+    '買': 'か.う|バイ',
+    '売': 'う.る|バイ',
+    '午': 'うま|ゴ',
+    '弓': 'ゆみ|キュウ',
+    '回': 'まわ.る|カイ',
+    '会': 'あ.う|カイ',
+    '組': 'く.む|ソ',
+    '船': 'ふね|セン',
+    '明': 'あ.かり|メイ',
+    '社': 'やしろ|シャ',
+    '切': 'き.る|セツ',
+    '毎': 'ごと|マイ',
+    '合': 'あ.う|ゴウ',
+    '当': 'あ.たる|トウ',
+    '台': 'うてな|ダイ',
+    '楽': 'たの.しい|ガク',
+    '公': 'おおやけ|コウ',
+    '引': 'ひ.く|イン',
+    '歌': 'うた|カ',
+    '刀': 'かたな|トウ',
+    '番': 'つが.い|バン',
+    '用': 'もち.いる|ヨウ',
+    '何': 'なに|カ',
+    '丁': 'ひのと|チョウ',
+    '世': 'よ|セイ',
+    '両': 'てる|リョウ',
+    '主': 'ぬし|シュ',
+    '乗': 'の.る|ジョウ',
+    '予': 'あらかじ.め|ヨ',
+    '事': 'こと|ジ',
+    '仕': 'つか.える|シ',
+    '他': 'ほか|タ',
+    '代': 'か.わる|ダイ',
+    '住': 'す.む|ジュウ',
+    '使': 'つか.う|シ',
+    '係': 'かか.る|ケイ',
+    '全': 'まった.く|ゼン',
+    '具': 'そな.える|グ',
+    '写': 'うつ.す|シャ',
+    '助': 'たす.ける|ジョ',
+    '勉': 'つと.める|ベン',
+    '動': 'うご.く|ドウ',
+    '勝': 'か.つ|ショウ',
+    '化': 'ば.ける|カ',
+    '医': 'い.やす|イ',
+    '去': 'さ.る|キョ',
+    '反': 'そ.る|ハン',
+    '取': 'と.る|シュ',
+    '受': 'う.ける|ジュ',
+    '号': 'さけ.ぶ|ゴウ',
+    '向': 'む.く|コウ',
+    '君': 'きみ|クン',
+    '味': 'あじ|ミ',
+    '命': 'いのち|メイ',
+    '和': 'やわ.らぐ|ワ',
+    '品': 'しな|ヒン',
+    '商': 'あきな.う|ショウ',
+    '問': 'と.う|モン',
+    '坂': 'さか|ハン',
+    '始': 'はじ.める|シ',
+    '委': 'ゆだ.ねる|イ',
+    '守': 'まも.る|シュ',
+    '安': 'やす.い|アン',
+    '定': 'さだ.める|テイ',
+    '実': 'み|ジツ',
+    '宮': 'みや|キュウ',
+    '宿': 'やど|シュク',
+    '寒': 'さむ.い|カン',
+    '対': 'あいて|タイ',
+    '局': 'つぼね|キョク',
+    '屋': 'や|オク',
+    '岸': 'きし|ガン',
+    '島': 'しま|トウ',
+    '州': 'す|シュウ',
+    '帳': 'とばり|チョウ',
+    '平': 'たい.ら|ヘイ',
+    '幸': 'さいわ.い|コウ',
+    '度': 'たび|ド',
+    '庫': 'くら|コ',
+    '庭': 'にわ|テイ',
+    '待': 'ま.つ|タイ',
+    '急': 'いそ.ぐ|キュウ',
+    '息': 'いき|ソク',
+    '悪': 'わる.い|アク',
+    '悲': 'かな.しい|ヒ',
+    '想': 'おも.う|ソウ',
+    '所': 'ところ|ショ',
+    '打': 'う.つ|ダ',
+    '投': 'な.げる|トウ',
+    '拾': 'ひろ.う|シュウ',
+    '持': 'も.つ|ジ',
+    '指': 'ゆび|シ',
+    '放': 'はな.す|ホウ',
+    '整': 'ととの.える|セイ',
+    '旅': 'たび|リョ',
+    '昔': 'むかし|セキ',
+    '暑': 'あつ.い|ショ',
+    '暗': 'くら.い|アン',
+    '曲': 'ま.がる|キョク',
+    '有': 'あ.る|ユウ',
+    '板': 'いた|ハン',
+    '柱': 'はしら|チュウ',
+    '根': 'ね|コン',
+    '植': 'う.える|ショク',
+    '業': 'わざ|ギョウ',
+    '様': 'さま|ヨウ',
+    '横': 'よこ|オウ',
+    '橋': 'はし|キョウ',
+    '次': 'つ.ぐ|ジ',
+    '歯': 'よわい|シ',
+    '死': 'し.ぬ|シ',
+    '氷': 'こおり|ヒョウ',
+    '決': 'き.める|ケツ',
+    '油': 'あぶら|ユ',
+    '波': 'なみ|ハ',
+    '注': 'そそ.ぐ|チュウ',
+    '泳': 'およ.ぐ|エイ',
+    '流': 'なが.れる|リュウ',
+    '消': 'き.える|ショウ',
+    '深': 'ふか.い|シン',
+    '温': 'あたた.か|オン',
+    '港': 'みなと|コウ',
+    '湖': 'みずうみ|コ',
+    '湯': 'ゆ|トウ',
+    '炭': 'すみ|タン',
+    '物': 'もの|ブツ',
+    '球': 'たま|キュウ',
+    '由': 'よし|ユ',
+    '申': 'もう.す|シン',
+    '病': 'や.む|ビョウ',
+    '発': 'た.つ|ハツ',
+    '登': 'のぼ.る|トウ',
+    '皮': 'かわ|ヒ',
+    '皿': 'さら|ベイ',
+    '相': 'あい-|ソウ',
+    '県': 'か.ける|ケン',
+    '真': 'ま|シン',
+    '着': 'き.る|チャク',
+    '短': 'みじか.い|タン',
+    '研': 'と.ぐ|ケン',
+    '神': 'かみ|シン',
+    '祭': 'まつ.る|サイ',
+    '究': 'きわ.める|キュウ',
+    '童': 'わらべ|ドウ',
+    '笛': 'ふえ|テキ',
+    '筆': 'ふで|ヒツ',
+    '等': 'ひと.しい|トウ',
+    '箱': 'はこ|ソウ',
+    '終': 'お.わる|シュウ',
+    '緑': 'みどり|リョク',
+    '練': 'ね.る|レン',
+    '羊': 'ひつじ|ヨウ',
+    '美': 'うつく.しい|ビ',
+    '習': 'なら.う|シュウ',
+    '者': 'もの|シャ',
+    '育': 'そだ.つ|イク',
+    '苦': 'くる.しい|ク',
+    '荷': 'に|カ',
+    '落': 'お.ちる|ラク',
+    '葉': 'は|ヨウ',
+    '薬': 'くすり|ヤク',
+    '血': 'ち|ケツ',
+    '表': 'おもて|ヒョウ',
+    '詩': 'うた|シ',
+    '調': 'しら.べる|チョウ',
+    '豆': 'まめ|トウ',
+    '負': 'ま.ける|フ',
+    '起': 'お.きる|キ',
+    '路': '-じ|ロ',
+    '身': 'み|シン',
+    '転': 'ころ.がる|テン',
+    '軽': 'かる.い|ケイ',
+    '返': 'かえ.す|ヘン',
+    '追': 'お.う|ツイ',
+    '送': 'おく.る|ソウ',
+    '速': 'はや.い|ソク',
+    '進': 'すす.む|シン',
+    '遊': 'あそ.ぶ|ユウ',
+    '運': 'はこ.ぶ|ウン',
+    '部': '-べ|ブ',
+    '都': 'みやこ|ト',
+    '配': 'くば.る|ハイ',
+    '酒': 'さけ|シュ',
+    '重': 'え|ジュウ',
+    '鉄': 'くろがね|テツ',
+    '銀': 'しろがね|ギン',
+    '開': 'ひら.く|カイ',
+    '陽': 'ひ|ヨウ',
+    '階': 'きざはし|カイ',
+    '集': 'あつ.まる|シュウ',
+    '面': 'おも|メン',
+    '飲': 'の.む|イン',
+    '館': 'やかた|カン',
+    '鼻': 'はな|ビ',
+    '争': 'あらそ.う|ソウ',
+    '付': 'つ.ける|フ',
+    '以': 'もっ.て|イ',
+    '仲': 'なか|チュウ',
+    '伝': 'つた.わる|デン',
+    '位': 'くらい|イ',
+    '低': 'ひく.い|テイ',
+    '例': 'たと.える|レイ',
+    '便': 'たよ.り|ベン',
+    '倉': 'くら|ソウ',
+    '候': 'そうろう|コウ',
+    '借': 'か.りる|シャク',
+    '停': 'と.める|テイ',
+    '健': 'すこ.やか|ケン',
+    '側': 'かわ|ソク',
+    '働': 'はたら.く|ドウ',
+    '兆': 'きざ.す|チョウ',
+    '児': 'こ|ジ',
+    '共': 'とも|キョウ',
+    '兵': 'つわもの|ヘイ',
+    '冷': 'つめ.たい|レイ',
+    '初': 'はじ.め|ショ',
+    '別': 'わか.れる|ベツ',
+    '利': 'き.く|リ',
+    '刷': 'す.る|サツ',
+    '功': 'いさお|コウ',
+    '加': 'くわ.える|カ',
+    '努': 'つと.める|ド',
+    '労': 'ろう.する|ロウ',
+    '勇': 'いさ.む|ユウ',
+    '包': 'つつ.む|ホウ',
+    '卒': 'そっ.する|ソツ',
+    '単': 'ひとえ|タン',
+    '印': 'しるし|イン',
+    '参': 'まい.る|サン',
+    '司': 'つかさど.る|シ',
+    '各': 'おのおの|カク',
+    '告': 'つ.げる|コク',
+    '周': 'まわ.り|シュウ',
+    '唱': 'とな.える|ショウ',
+    '喜': 'よろこ.ぶ|キ',
+    '器': 'うつわ|キ',
+    '囲': 'かこ.む|イ',
+    '固': 'かた.める|コ',
+    '型': 'かた|ケイ',
+    '塩': 'しお|エン',
+    '士': 'さむらい|シ',
+    '変': 'か.わる|ヘン',
+    '夫': 'おっと|フ',
+    '失': 'うしな.う|シツ',
+    '好': 'この.む|コウ',
+    '孫': 'まご|ソン',
+    '巣': 'す|ソウ',
+    '差': 'さ.す|サ',
+    '希': 'まれ|キ',
+    '席': 'むしろ|セキ',
+    '帯': 'お.びる|タイ',
+    '底': 'そこ|テイ',
+    '建': 'た.てる|ケン',
+    '径': 'みち|ケイ',
+    '徒': 'いたずら|ト',
+    '得': 'え.る|トク',
+    '必': 'かなら.ず|ヒツ',
+    '愛': 'いと.しい|アイ',
+    '成': 'な.る|セイ',
+    '戦': 'いくさ|セン',
+    '折': 'お.る|セツ',
+    '挙': 'あ.げる|キョ',
+    '改': 'あらた.める|カイ',
+    '救': 'すく.う|キュウ',
+    '敗': 'やぶ.れる|ハイ',
+    '散': 'ち.る|サン',
+    '旗': 'はた|キ',
+    '最': 'もっと.も|サイ',
+    '望': 'のぞ.む|ボウ',
+    '未': 'いま.だ|ミ',
+    '末': 'すえ|マツ',
+    '札': 'ふだ|サツ',
+    '束': 'たば|ソク',
+    '松': 'まつ|ショウ',
+    '果': 'は.たす|カ',
+    '栄': 'さか.える|エイ',
+    '案': 'つくえ|アン',
+    '梅': 'うめ|バイ',
+    '械': 'かせ|カイ',
+    '極': 'きわ.める|キョク',
+    '標': 'しるべ|ヒョウ',
+    '機': 'はた|キ',
+    '欠': 'か.ける|ケツ',
+    '残': 'のこ.る|ザン',
+    '殺': 'ころ.す|サツ',
+    '氏': 'うじ|シ',
+    '民': 'たみ|ミン',
+    '求': 'もと.める|キュウ',
+    '治': 'おさ.める|ジ',
+    '法': 'のり|ホウ',
+    '泣': 'な.く|キュウ',
+    '浅': 'あさ.い|セン',
+    '浴': 'あ.びる|ヨク',
+    '清': 'きよ.い|セイ',
+    '満': 'み.ちる|マン',
+    '漁': 'あさ.る|ギョ',
+    '灯': 'ひ|トウ',
+    '無': 'な.い|ム',
+    '然': 'しか|ゼン',
+    '焼': 'や.く|ショウ',
+    '照': 'て.る|ショウ',
+    '熱': 'あつ.い|ネツ',
+    '牧': 'まき|ボク',
+    '産': 'う.む|サン',
+    '的': 'まと|テキ',
+    '省': 'かえり.みる|セイ',
+    '祝': 'いわ.う|シュク',
+    '種': 'たね|シュ',
+    '積': 'つ.む|セキ',
+    '競': 'きそ.う|キョウ',
+    '笑': 'わら.う|ショウ',
+    '管': 'くだ|カン',
+    '節': 'ふし|セツ',
+    '粉': 'デシメートル|フン',
+    '約': 'つづ.まる|ヤク',
+    '結': 'むす.ぶ|ケツ',
+    '給': 'たま.う|キュウ',
+    '続': 'つづ.く|ゾク',
+    '置': 'お.く|チ',
+    '老': 'お.いる|ロウ',
+    '脈': 'すじ|ミャク',
+    '腸': 'はらわた|チョウ',
+    '良': 'よ.い|リョウ',
+    '芸': 'う.える|ゲイ',
+    '芽': 'め|ガ',
+    '英': 'はなぶさ|エイ',
+    '菜': 'な|サイ',
+    '街': 'まち|ガイ',
+    '衣': 'ころも|イ',
+    '要': 'い.る|ヨウ',
+    '覚': 'おぼ.える|カク',
+    '観': 'み.る|カン',
+    '訓': 'おし.える|クン',
+    '試': 'こころ.みる|シ',
+    '説': 'と.く|セツ',
+    '象': 'かたど.る|ショウ',
+    '貨': 'たから|カ',
+    '貯': 'た.める|チョ',
+    '費': 'つい.やす|ヒ',
+    '賞': 'ほ.める|ショウ',
+    '軍': 'いくさ|グン',
+    '輪': 'わ|リン',
+    '辞': 'や.める|ジ',
+    '辺': 'あた.り|ヘン',
+    '連': 'つら.なる|レン',
+    '達': '-たち|タツ',
+    '選': 'えら.ぶ|セン',
+    '郡': 'こおり|グン',
+    '量': 'はか.る|リョウ',
+    '録': 'しる.す|ロク',
+    '鏡': 'かがみ|キョウ',
+    '関': 'せき|カン',
+    '陸': 'おか|リク',
+    '静': 'しず-|セイ',
+    '願': 'ねが.う|ガン',
+    '類': 'たぐ.い|ルイ',
+    '飛': 'と.ぶ|ヒ',
+    '飯': 'めし|ハン',
+    '養': 'やしな.う|ヨウ',
+    '験': 'あかし|ケン',
+    '久': 'ひさ.しい|キュウ',
+    '仏': 'ほとけ|ブツ',
+    '仮': 'かり|カ',
+    '件': 'くだん|ケン',
+    '任': 'まか.せる|ニン',
+    '似': 'に.る|ジ',
+    '余': 'あま.る|ヨ',
+    '価': 'あたい|カ',
+    '保': 'たも.つ|ホ',
+    '修': 'おさ.める|シュウ',
+    '俵': 'たわら|ヒョウ',
+    '備': 'そな.える|ビ',
+    '再': 'ふたた.び|サイ',
+    '判': 'わか.る|ハン',
+    '則': 'のっと.る|ソク',
+    '効': 'き.く|コウ',
+    '務': 'つと.める|ム',
+    '勢': 'いきお.い|セイ',
+    '厚': 'あつ.い|コウ',
+    '可': '-べ.き|カ',
+    '営': 'いとな.む|エイ',
+    '因': 'よ.る|イン',
+    '団': 'かたまり|ダン',
+    '圧': 'お.す|アツ',
+    '在': 'あ.る|ザイ',
+    '均': 'なら.す|キン',
+    '基': 'もと|キ',
+    '報': 'むく.いる|ホウ',
+    '境': 'さかい|キョウ',
+    '墓': 'はか|ボ',
+    '増': 'ま.す|ゾウ',
+    '夢': 'ゆめ|ム',
+    '妻': 'つま|サイ',
+    '婦': 'よめ|フ',
+    '容': 'い.れる|ヨウ',
+    '寄': 'よ.る|キ',
+    '富': 'と.む|フ',
+    '導': 'みちび.く|ドウ',
+    '居': 'い.る|キョ',
+    '属': 'さかん|ゾク',
+    '布': 'ぬの|フ',
+    '師': 'いくさ|シ',
+    '常': 'つね|ジョウ',
+    '幹': 'みき|カン',
+    '序': 'つい.で|ジョ',
+    '弁': 'かんむり|ベン',
+    '張': 'は.る|チョウ',
+    '往': 'い.く|オウ',
+    '復': 'また|フク',
+    '志': 'シリング|シ',
+    '応': 'あた.る|オウ',
+    '快': 'こころよ.い|カイ',
+    '性': 'さが|セイ',
+    '情': 'なさ.け|ジョウ',
+    '態': 'わざ.と|タイ',
+    '慣': 'な.れる|カン',
+    '承': 'うけたまわ.る|ショウ',
+    '技': 'わざ|ギ',
+    '招': 'まね.く|ショウ',
+    '授': 'さず.ける|ジュ',
+    '採': 'と.る|サイ',
+    '接': 'つ.ぐ|セツ',
+    '提': 'さ.げる|テイ',
+    '損': 'そこ.なう|ソン',
+    '支': 'ささ.える|シ',
+    '政': 'まつりごと|セイ',
+    '故': 'ゆえ|コ',
+    '敵': 'かたき|テキ',
+    '断': 'た.つ|ダン',
+    '旧': 'ふる.い|キュウ',
+    '易': 'やさ.しい|エキ',
+    '暴': 'あば.く|ボウ',
+    '条': 'えだ|ジョウ',
+    '枝': 'えだ|シ',
+    '桜': 'さくら|オウ',
+    '検': 'しら.べる|ケン',
+    '構': 'かま.える|コウ',
+    '武': 'たけ|ブ',
+    '比': 'くら.べる|ヒ',
+    '永': 'なが.い|エイ',
+    '河': 'かわ|カ',
+    '混': 'ま.じる|コン',
+    '減': 'へ.る|ゲン',
+    '測': 'はか.る|ソク',
+    '準': 'じゅん.じる|ジュン',
+    '潔': 'いさぎよ.い|ケツ',
+    '災': 'わざわ.い|サイ',
+    '燃': 'も.える|ネン',
+    '犯': 'おか.す|ハン',
+    '独': 'ひと.り|ドク',
+    '率': 'ひき.いる|ソツ',
+    '現': 'あらわ.れる|ゲン',
+    '留': 'と.める|リュウ',
+    '略': 'ほぼ|リャク',
+    '益': 'ま.す|エキ',
+    '眼': 'まなこ|ガン',
+    '破': 'やぶ.る|ハ',
+    '確': 'たし.か|カク',
+    '示': 'しめ.す|ジ',
+    '移': 'うつ.る|イ',
+    '程': 'ほど|テイ',
+    '築': 'きず.く|チク',
+    '素': 'もと|ソ',
+    '経': 'へ.る|ケイ',
+    '統': 'す.べる|トウ',
+    '絶': 'た.える|ゼツ',
+    '綿': 'わた|メン',
+    '総': 'す.べて|ソウ',
+    '編': 'あ.む|ヘン',
+    '織': 'お.る|ショク',
+    '罪': 'つみ|ザイ',
+    '群': 'む.れる|グン',
+    '耕': 'たがや.す|コウ',
+    '肥': 'こ.える|ヒ',
+    '能': 'よ.く|ノウ',
+    '興': 'おこ.る|コウ',
+    '舌': 'した|ゼツ',
+    '舎': 'やど.る|シャ',
+    '術': 'すべ|ジュツ',
+    '解': 'と.く|カイ',
+    '設': 'もう.ける|セツ',
+    '許': 'ゆる.す|キョ',
+    '証': 'あかし|ショウ',
+    '謝': 'あやま.る|シャ',
+    '識': 'し.る|シキ',
+    '護': 'まも.る|ゴ',
+    '豊': 'ゆた.か|ホウ',
+    '財': 'たから|ザイ',
+    '貧': 'まず.しい|ヒン',
+    '責': 'せ.める|セキ',
+    '貸': 'か.す|タイ',
+    '賛': 'たす.ける|サン',
+    '質': 'たち|シツ',
+    '述': 'の.べる|ジュツ',
+    '迷': 'まよ.う|メイ',
+    '退': 'しりぞ.く|タイ',
+    '逆': 'さか|ギャク',
+    '造': 'つく.る|ゾウ',
+    '過': 'す.ぎる|カ',
+    '適': 'かな.う|テキ',
+    '酸': 'す.い|サン',
+    '鉱': 'あらがね|コウ',
+    '銅': 'あかがね|ドウ',
+    '銭': 'ぜに|セン',
+    '防': 'ふせ.ぐ|ボウ',
+    '限': 'かぎ.る|ゲン',
+    '険': 'けわ.しい|ケン',
+    '際': 'きわ|サイ',
+    '雑': 'まじ.える|ザツ',
+    '非': 'あら.ず|ヒ',
+    '預': 'あず.ける|ヨ',
+    '領': 'えり|リョウ',
+    '額': 'ひたい|ガク',
+    '飼': 'か.う|シ',
+    '並': 'な.み|ヘイ',
+    '乱': 'みだ.れる|ラン',
+    '乳': 'ちち|ニュウ',
+    '亡': 'な.い|ボウ',
+    '供': 'そな.える|キョウ',
+    '値': 'ね|チ',
+    '傷': 'きず|ショウ',
+    '優': 'やさ.しい|ユウ',
+    '党': 'なかま|トウ',
+    '冊': 'ふみ|サツ',
+    '処': 'ところ|ショ',
+    '刻': 'きざ.む|コク',
+    '割': 'わ.る|カツ',
+    '創': 'つく.る|ソウ',
+    '勤': 'つと.める|キン',
+    '危': 'あぶ.ない|キ',
+    '卵': 'たまご|ラン',
+    '厳': 'おごそ.か|ゲン',
+    '収': 'おさ.める|シュウ',
+    '后': 'きさき|コウ',
+    '否': 'いな|ヒ',
+    '吸': 'す.う|キュウ',
+    '呼': 'よ.ぶ|コ',
+    '善': 'よ.い|ゼン',
+    '困': 'こま.る|コン',
+    '垂': 'た.れる|スイ',
+    '城': 'しろ|ジョウ',
+    '奏': 'かな.でる|ソウ',
+    '奮': 'ふる.う|フン',
+    '姿': 'すがた|シ',
+    '存': 'ながら.える|ソン',
+    '宗': 'むね|シュウ',
+    '宝': 'たから|ホウ',
+    '宣': 'のたま.う|セン',
+    '密': 'ひそ.か|ミツ',
+    '専': 'もっぱ.ら|セン',
+    '射': 'い.る|シャ',
+    '将': 'まさ.に|ショウ',
+    '尊': 'たっと.い|ソン',
+    '就': 'つ.く|シュウ',
+    '届': 'とど.ける|カイ',
+    '己': 'おのれ|コ',
+    '巻': 'ま.く|カン',
+    '幕': 'とばり|マク',
+    '干': 'ほ.す|カン',
+    '幼': 'おさな.い|ヨウ',
+    '庁': 'やくしょ|チョウ',
+    '座': 'すわ.る|ザ',
+    '延': 'の.びる|エン',
+    '従': 'したが.う|ジュウ',
+    '忘': 'わす.れる|ボウ',
+    '我': 'われ|ガ',
+    '担': 'かつ.ぐ|タン',
+    '拝': 'おが.む|ハイ',
+    '拡': 'ひろ.がる|カク',
+    '捨': 'す.てる|シャ',
+    '探': 'さぐ.る|タン',
+    '推': 'お.す|スイ',
+    '揮': 'ふる.う|キ',
+    '操': 'みさお|ソウ',
+    '敬': 'うやま.う|ケイ',
+    '映': 'うつ.る|エイ',
+    '暖': 'あたた.か|ダン',
+    '暮': 'く.れる|ボ',
+    '朗': 'ほが.らか|ロウ',
+    '机': 'つくえ|キ',
+    '染': 'そ.める|セン',
+    '株': 'かぶ|シュ',
+    '権': 'おもり|ケン',
+    '樹': 'き|ジュ',
+    '欲': 'ほっ.する|ヨク',
+    '沿': 'そ.う|エン',
+    '泉': 'いずみ|セン',
+    '洗': 'あら.う|セン',
+    '済': 'す.む|サイ',
+    '源': 'みなもと|ゲン',
+    '潮': 'しお|チョウ',
+    '激': 'はげ.しい|ゲキ',
+    '灰': 'はい|カイ',
+    '熟': 'う.れる|ジュク',
+    '片': 'かた-|ヘン',
+    '異': 'こと|イ',
+    '疑': 'うたが.う|ギ',
+    '痛': 'いた.い|ツウ',
+    '盛': 'も.る|セイ',
+    '看': 'み.る|カン',
+    '砂': 'すな|サ',
+    '私': 'わたくし|シ',
+    '秘': 'ひ.める|ヒ',
+    '穴': 'あな|ケツ',
+    '窓': 'まど|ソウ',
+    '筋': 'すじ|キン',
+    '簡': 'えら.ぶ|カン',
+    '紅': 'べに|コウ',
+    '納': 'おさ.める|ノウ',
+    '絹': 'きぬ|ケン',
+    '縦': 'たて|ジュウ',
+    '縮': 'ちぢ.む|シュク',
+    '聖': 'ひじり|セイ',
+    '背': 'せ|ハイ',
+    '胸': 'むね|キョウ',
+    '脳': 'のうずる|ノウ',
+    '腹': 'はら|フク',
+    '臓': 'はらわた|ゾウ',
+    '臨': 'のぞ.む|リン',
+    '至': 'いた.る|シ',
+    '若': 'わか.い|ジャク',
+    '著': 'あらわ.す|チョ',
+    '蒸': 'む.す|ジョウ',
+    '蔵': 'くら|ゾウ',
+    '蚕': 'かいこ|サン',
+    '衆': 'おお.い|シュウ',
+    '裁': 'た.つ|サイ',
+    '装': 'よそお.う|ソウ',
+    '裏': 'うら|リ',
+    '補': 'おぎな.う|ホ',
+    '視': 'み.る|シ',
+    '覧': 'み.る|ラン',
+    '討': 'う.つ|トウ',
+    '訪': 'おとず.れる|ホウ',
+    '訳': 'わけ|ヤク',
+    '認': 'みと.める|ニン',
+    '誠': 'まこと|セイ',
+    '誤': 'あやま.る|ゴ',
+    '諸': 'もろ|ショ',
+    '警': 'いまし.める|ケイ',
+    '貴': 'たっと.い|キ',
+    '遺': 'のこ.す|イ',
+    '郷': 'さと|キョウ',
+    '針': 'はり|シン',
+    '鋼': 'はがね|コウ',
+    '閉': 'と.じる|ヘイ',
+    '降': 'お.りる|コウ',
+    '除': 'のぞ.く|ジョ',
+    '障': 'さわ.る|ショウ',
+    '難': 'かた.い|ナン',
+    '革': 'かわ|カク',
+    '頂': 'いただ.く|チョウ',
+    '骨': 'ほね|コツ'
+  };
 
-    /**  */
-    View.prototype.romanji = function () {
-      this.compute('romanji');
-      let out = '';
-      this.docs.forEach(terms => {
-        terms.forEach(term => {
-          out += term.pre + (term.romanji || term.text) + (term.post || ' ');
-        });
-      });
-      // convert inter-bang
-      out = out.replace(/・/, ' ');
-      return out
-    };
-  }
+  const spellKanji = function (kanji, type) {
+    let out = '';
+    let chars = kanji.split('');
+    if (!type) {
+      type = kanji.length === 1 ? 'kun' : 'on';
+    }
+    chars.forEach(char => {
+      let r = readings$1[char];
+      if (!r) {
+        out += char;
+        return
+      }
+      let [kun, on] = r.split('|');
+      if (type === 'kun') {
+        out += kun;
+      } else {
+        out += on;
+      }
+    });
+    return out
+  };
+  var toReading = spellKanji;
 
-  const romanji = function (view) {
+  // console.log(spellKanji('林'))
+
+  const romanji$1 = function (view) {
     view.document.forEach(terms => {
       terms.forEach(term => {
-        term.romanji = toRomanji$1(term.normal);
+        let word = term.normal;
+        if (term.tags.has('Kanji')) {
+          word = toReading(word);
+        }
+        term.romanji = toRomanji$1(word);
       });
     });
     return view
   };
 
+  const readings = function (view) {
+    view.document.forEach(terms => {
+      terms.forEach(term => {
+        if (term.tags.has('Kanji')) {
+          term.reading = toReading(term.normal);
+        }
+      });
+    });
+    return view
+  };
+  var compute = { romanji: romanji$1, readings };
 
-
-  var romanji$1 = {
-    compute: { romanji },
-    api
+  var romanji = {
+    compute,
+    api: api$1
   };
 
   const isAcronym = /[ .][A-Z]\.? *$/i;
@@ -8813,11 +9770,151 @@
     }
   };
 
+  // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+  const reset = '\x1b[0m';
+
+  //cheaper than requiring chalk
+  const cli = {
+    green: str => '\x1b[32m' + str + reset,
+    red: str => '\x1b[31m' + str + reset,
+    blue: str => '\x1b[34m' + str + reset,
+    magenta: str => '\x1b[35m' + str + reset,
+    cyan: str => '\x1b[36m' + str + reset,
+    yellow: str => '\x1b[33m' + str + reset,
+    black: str => '\x1b[30m' + str + reset,
+    dim: str => '\x1b[2m' + str + reset,
+    i: str => '\x1b[3m' + str + reset,
+  };
+  var cli$1 = cli;
+
+  /* eslint-disable no-console */
+
+  const skip = {
+    Kanji: 'dim',
+    Hiragana: 'dim',
+    Katagana: 'dim',
+    Ascii: 'dim'
+  };
+  const tagString = function (tags, model) {
+    if (model.one.tagSet) {
+      tags = tags.filter(str => !skip[str]);
+      tags = tags.map(tag => {
+        if (!model.one.tagSet.hasOwnProperty(tag)) {
+          return tag
+        }
+        const c = model.one.tagSet[tag].color || skip[tag] || 'blue';
+        return cli$1[c](tag)
+      });
+    }
+    return tags.join(', ')
+  };
+
+  const showTags = function (view) {
+    let { docs, model } = view;
+    if (docs.length === 0) {
+      console.log(cli$1.blue('\n     ──────'));
+    }
+    docs.forEach(terms => {
+      console.log(cli$1.blue('\n  ┌─────────'));
+      terms.forEach(t => {
+        let tags = [...(t.tags || [])];
+        let text = t.text || '-';
+        if (t.sense) {
+          text = `{${t.normal}/${t.sense}}`;
+        }
+        if (t.implicit) {
+          text = '[' + t.implicit + ']';
+        }
+        text = cli$1.yellow(text);
+        let word = "'" + text + "'";
+        // word = word.padEnd(15)
+        if (t.english) {
+          word += cli$1.i(` {${t.english}}`.padEnd(6));
+        }
+        if (t.reference) {
+          let str = view.update([t.reference]).text('normal');
+          word += ` - ${cli$1.dim(cli$1.i('[' + str + ']'))}`;
+        }
+        word = word.padEnd(18);
+        let str = cli$1.blue('  │ ') + cli$1.i(word) + '  - ' + tagString(tags, model);
+        console.log(str);
+      });
+    });
+  };
+  var showTags$1 = showTags;
+
+  /* eslint-disable no-console */
+
+  function isClientSide() {
+    return typeof window !== 'undefined' && window.document
+  }
+  //output some helpful stuff to the console
+  const debug = function (opts = {}) {
+    let view = this;
+    if (typeof opts === 'string') {
+      let tmp = {};
+      tmp[opts] = true; //allow string input
+      opts = tmp;
+    }
+    if (isClientSide()) {
+      return view
+    }
+    if (opts.tags !== false) {
+      showTags$1(view);
+      console.log('\n');
+    }
+    return view
+  };
+  var debug$1 = debug;
+
+  var dict = {
+    は: '-',
+    が: '-',
+    目: 'eye',
+    '私たち': 'we',
+    '彼': 'he',
+    '彼女': 'she',
+    '泳い': 'swim',
+    '泳ぎ': 'swimming',
+    '歩い': 'walk',
+    'する': '(do)',
+    '家': 'house'
+  };
+
+  const addEnglish = function (view) {
+    view.docs.forEach(terms => {
+      terms.forEach(term => {
+        if (dict[term.normal]) {
+          term.english = dict[term.normal];
+        }
+      });
+    });
+    return view
+  };
+  var english = addEnglish;
+
+  const methods = { debug: debug$1 };
+
+  const api = function (View) {
+    Object.assign(View.prototype, methods);
+  };
+  var output = {
+    compute: { english },
+    api
+  };
+
   const entity = ['Person', 'Place', 'Organization'];
 
   var nouns = {
     Noun: {
       not: ['Verb', 'Adjective', 'Adverb', 'Value', 'Determiner'],
+    },
+
+    Topic: {
+      is: 'Noun',
+    },
+    Object: {
+      is: 'Noun',
     },
     Singular: {
       is: 'Noun',
@@ -9205,42 +10302,66 @@
     return /[a-zA-Z]/.test(c)
   };
 
-  const tagScript = function (terms) {
+  const tagScript = function (terms, setTag, world) {
+    const reason = 'script';
+
     terms.forEach(term => {
       let str = term.text;
       if (isHiragana(str)) {
-        term.tags.add('Hiragana');
+        setTag([term], 'Hiragana', world, null, reason);
         return
       }
       if (isKatakana(str)) {
-        term.tags.add('Katakana');
-        term.tags.add('Noun');//pretty safe
+        setTag([term], 'Katakana', world, null, reason);
+        setTag([term], 'Noun', world, null, reason);//pretty safe bet
         return
       }
       if (isKanji(str)) {
-        term.tags.add('Kanji');
+        setTag([term], 'Kanji', world, null, reason);
         return
       }
       if (isAscii(str)) {
-        term.tags.add('Ascii');
+        setTag([term], 'Ascii', world, null, reason);
         return
       }
     });
   };
   var tagScript$1 = tagScript;
 
-  const tagMarker = function (terms) {
+  const reason$4 = 'marker';
+
+  const tagMarker = function (terms, setTag, world) {
     for (let i = 1; i < terms.length; i += 1) {
       let t = terms[i];
       // topic marker
       if (t.text === 'は') {
-        terms[i].tags.add('Preposition');
-        terms[i - 1].tags.add('Noun');
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Topic', world, null, reason$4);
       }
       // subject marker
       if (t.text === 'が') {
-        terms[i].tags.add('Preposition');
-        terms[i - 1].tags.add('Noun');
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
+      }
+      // object marker
+      if (t.text === 'を') {
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Object', world, null, reason$4);
+      }
+      // 'at' marker
+      if (t.text === 'で') {
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
+      }
+      // 'from' marker
+      if (t.text === 'から') {
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
+      }
+      // possessive marker
+      if (t.text === 'の') {
+        setTag([t], 'Preposition', world, null, reason$4);
+        setTag([terms[i - 1]], 'Possessive', world, null, reason$4);
       }
     }
   };
@@ -9293,31 +10414,77 @@
       }
     });
   });
+  const reason$3 = 'endVerbPhrase';
 
-  const endVerb = function (terms) {
+  const endVerb = function (terms, setTag, world) {
     let end = terms[terms.length - 1];
     if (isAux.has(end.text)) {
-      end.tags.add('Auxiliary');
+      setTag([end], 'Auxiliary', world, null, reason$3);
       // also assume the next word in is a verb?
       let t = terms[terms.length - 2];
       if (t && t.tags.has('Kanji')) {
-        t.tags.add('Verb');
+        setTag([t], 'Verb', world, null, reason$3);
       }
-
+    } else if (terms.length > 4) {
+      //assume last word is a verb
+      setTag([terms[terms.length - 1]], 'Verb', world, null, reason$3);
     }
   };
   var tagEndVerb = endVerb;
 
+  const reason$2 = 'adjSuffix';
+
+  const adjSuffixes = function (terms, setTag, world) {
+    terms.forEach(term => {
+      // i-adjectives always end in the Hiragana character: 「い」
+      if (term.text.endsWith('い')) {
+        setTag([term], 'Adjective', world, null, reason$2);
+      }
+    });
+  };
+  var tagAdjSuffix = adjSuffixes;
+
+  const reason$1 = 'nounSuffix';
+
+  const nounSuffixes = function (terms, setTag, world) {
+    terms.forEach(term => {
+      // 'たち' is the plural suffix
+      if (term.text.endsWith('たち')) {
+        setTag([term], 'Plural', world, null, reason$1);
+      }
+    });
+  };
+  var tagNounSuffix = nounSuffixes;
+
+  const reason = 'noun-fallback';
+  const fallback = function (terms, setTag, world) {
+    terms.forEach(term => {
+      let tags = term.tags;
+      if (tags.size === 0) {
+        setTag([term], 'Noun', world, null, reason);
+      } else if (tags.size === 1 && (tags.has('Kanji') || tags.has('Hiragana') || tags.has('Katagana'))) {
+        setTag([term], 'Noun', world, null, reason);
+      }
+    });
+  };
+
   const preTagger$1 = function (view) {
+    const setTag = view.methods.one.setTag || function () { };
+    const world = view.world;
     view.document.forEach(terms => {
       // hirigana, katakana, kani, or ascii
-      tagScript$1(terms);
+      tagScript$1(terms, setTag, world);
       // case marker
-      tagMarker$1(terms);
+      tagMarker$1(terms, setTag, world);
       // tag end verb
-      tagEndVerb(terms);
+      tagEndVerb(terms, setTag, world);
+      // 
+      tagAdjSuffix(terms, setTag, world);
+      // 
+      tagNounSuffix(terms, setTag, world);
+      // noun fallback
+      fallback(terms, setTag, world);
     });
-
     return view
   };
   var preTagger$2 = preTagger$1;
@@ -9335,7 +10502,8 @@
   nlp$1.plugin(tokenizer);
   nlp$1.plugin(tagset);
   nlp$1.plugin(lexicon);
-  nlp$1.plugin(romanji$1);
+  nlp$1.plugin(output);
+  nlp$1.plugin(romanji);
   nlp$1.plugin(preTagger);
 
   const ja = function (txt, lex) {
