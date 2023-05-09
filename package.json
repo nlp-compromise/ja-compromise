@@ -10,7 +10,8 @@
   "exports": {
     ".": {
       "import": "./builds/ja-compromise.mjs",
-      "require": "./builds/ja-compromise.cjs"
+      "require": "./builds/ja-compromise.cjs",
+      "types": "./types/index.d.ts"
     }
   },
   "types": "types/index.d.ts",
@@ -20,7 +21,7 @@
   },
   "scripts": {
     "test": "tape \"./tests/**/*.test.js\" | tap-dancer",
-    "testb": "TESTENV=prod npm run test",
+    "testb": "cross-env TESTENV=prod npm run test",
     "build": "npm run version && rollup -c --silent",
     "version": "node ./scripts/version.js",
     "pack": "node ./scripts/pack.js",
@@ -31,7 +32,8 @@
   },
   "files": [
     "builds/",
-    "docs/"
+    "types/",
+    "src/"
   ],
   "dependencies": {
     "compromise": "14.8.2",
