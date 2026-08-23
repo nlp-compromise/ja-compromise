@@ -35,8 +35,9 @@ roughly a third of tokens mis-tagged to 100% on the 25-sentence gold file
 - **[new]** - `deconjugate()` walks a surface-form back to its dictionary-form,
   so an unknown verb can still be tagged. It disambiguates 話した (話す) from
   勉強しました (勉強する) by how long the head is.
-- **[new]** - `tests/conjugate-corpus.test.js` checks 1,620 generated forms against
-  the reference table's four trustworthy columns. All of them match.
+- **[new]** - `tests/conjugate-corpus.test.js` checks every generated form against
+  the independent reference table in `learn/verbs/` - 16,798 forms across 367
+  verbs, plus their verb-class. All of them match.
 
 #### Tokenizer
 
@@ -150,6 +151,45 @@ roughly a third of tokens mis-tagged to 100% on the 25-sentence gold file
 - **[new]** - `.compute('root')` sets each term's dictionary-form, so
   `.text('root')` turns 映画を見ました into 映画を見る.
 - **[new]** - `.verbs()`, `.nouns()`, `.adjectives()`, `.particles()`.
+
+#### The reference verb-table
+
+`learn/verbs/verbs.js` is the scraped table the old conjugation model was
+learned from. It's now cleaned up, and `npm run audit` re-checks all of it.
+
+- **[fix]** - **44 rows lost columns during the scrape, and the scraper zipped the
+  surviving values against the wrong labels.** `書く`'s `passive_plain_positive`
+  held `書ける` (the potential), its `causative_plain_positive` held `書いたら`
+  (a conditional). The values are all real forms of the verb, just filed under
+  the wrong names - which is precisely what `suffix-thumb` learned. Those rows
+  can't be recovered (the original scrape input is gone), so they now carry
+  `trusted: false` and keep only their dictionary-form, class, gloss and stem.
+- **[fix]** - four rows were conjugated as the wrong verb-class: 言い換える, 滅びる,
+  臥せる and 隠れる are ichidan. There's no structural tell for this - 混じる,
+  脂ぎる, 蹴る and ふける look identical and really are godan - so the corrections
+  are listed by hand in `audit.js` with their evidence.
+- **[fix]** - 17 truncated volitionals (`喜ぼ` for `喜ぼう`, `泳ご` for `泳ごう`).
+- **[fix]** - 72 `causative_plain_negative` cells were a copy of the plain negative
+  (`喜ばない` where `喜ばせない` belongs). Dropped rather than guessed at.
+- **[fix]** - one row was keyed by its masu-stem (`ふけ`) instead of its
+  dictionary-form (`ふける`), and one key had a leading space (`' 寄る'`).
+- **[change]** - the `infinitive` column is renamed `masu_stem`. It always held the
+  連用形, and reading it as a dictionary-form is what put stems like 見 and 行き
+  into the lexicon where 見る and 行く belonged.
+- **[change]** - 2,784 values had stray internal whitespace (`書いて います`).
+- **[new]** - `npm run audit` checks the table against the conjugator in both
+  directions - verb-class and every column. 16,798 forms across 367 verbs, with
+  no disagreements. Since the table is an outside source, that's real
+  cross-validation rather than a self-check.
+- **[change]** - deleted `learn/verbs/learn.js` (it retrains the broken
+  `suffix-thumb` model), `cleanup.js` (its input file no longer exists), and the
+  `index.js`/`easy-forms.js` scratch files. `audit.js` and `columns.js` replace them.
+
+Two bugs in this library turned up because the cleaned table disagreed with it:
+`出来る` was being treated as a 来る-compound (it's an ordinary ichidan verb - a
+来る compound is always て-form + 来る), and `くれる`'s imperative is `くれ`, not
+`くれろ`. `蹴る` was the reverse - the table was right and this library had it
+filed as ichidan when modern 蹴る is godan (`蹴った`, not `蹴た`).
 
 #### Housekeeping
 

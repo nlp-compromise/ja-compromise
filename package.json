@@ -24,7 +24,8 @@
     "build": "npm run version && rollup -c --silent",
     "version": "node ./scripts/version.js",
     "pack": "node ./scripts/pack.js",
-    "score": " node ./learn/test/index.js",
+    "score": "node ./learn/test/index.js",
+    "audit": "node ./learn/verbs/audit.js",
     "watch": "amble ./scratch.js",
     "stress": "node scripts/stress.js"
   },

@@ -4,7 +4,7 @@ import { iRowKana, eRowKana, godanEnding } from './kana.js'
 // when the stem is spelled in kanji the vowel is hidden, so we need word-lists.
 
 // 一段 verbs the vowel-heuristic can't see (kanji sits right before the る)
-const ichidan = `見る 着る 似る 煮る 干る 射る 鋳る 居る 出る 得る 経る 寝る 蹴る
+const ichidan = `見る 着る 似る 煮る 干る 射る 鋳る 居る 出る 得る 経る 寝る
   生きる 起きる 過ぎる 落ちる 尽きる 飽きる 降りる 借りる 足りる 浴びる 滅びる 錆びる
   感じる 信じる 禁じる 命じる 応じる 通じる 生じる 存じる 論じる 演じる 転じる 案じる 講じる 恥じる
   老いる 用いる 報いる 強いる 悔いる 延びる 伸びる 帯びる 詫びる 綻びる 懲びる 出来る
@@ -14,7 +14,7 @@ const ichidan = `見る 着る 似る 煮る 干る 射る 鋳る 居る 出る 
 // mostly matters for the kana spellings - kanji spellings already default to godan.
 const godanRu = `帰る 返る 入る 要る 走る 知る 切る 限る 減る 練る 照る 滑る 握る 焦る
   脂ぎる 覆る 遮る 罵る 湿る 茂る 参る 交じる 混じる 陥る 侮る 嘲る 憚る 滾る 捻る 抓る 契る 齧る
-  喋る 縋る 蘇る 甦る 詰る 罷る 迸る 阿る 熱る 散る italic misc
+  喋る 縋る 蘇る 甦る 詰る 罷る 迸る 阿る 熱る 散る 蹴る 耽る ふける
   かえる はいる はしる しる きる かぎる へる ねる てる すべる にぎる あせる ちる
   まじる しゃべる かじる ひねる くつがえる さえぎる ののしる しめる しげる まいる おちいる
   あなどる あざける はばかる なじる まかる ほとばしる ほてる ちぎる よみがえる すがる つねる
@@ -24,8 +24,6 @@ const godanRu = `帰る 返る 入る 要る 走る 知る 切る 限る 減る 
 
 let isIchidan = new Set(ichidan.filter(w => /る$/.test(w)))
 let isGodanRu = new Set(godanRu)
-// 蹴る is ichidan in modern standard japanese, 練る/照る are godan homophones
-isGodanRu.delete('蹴る')
 
 // verbs with a paradigm of their own
 const irregular = {
@@ -64,12 +62,17 @@ const verbClass = function (dict, hint) {
   if (hint === 'Ichidan' || hint === 'Godan') {
     return hint.toLowerCase()
   }
+  // an explicit listing beats any compound-guess - 出来る ends in 来る but is
+  // an ordinary ichidan verb, not a compound of 来る
+  if (isIchidan.has(dict)) {
+    return 'ichidan'
+  }
   // -する compounds, like 勉強する
   if (dict.length > 2 && dict.endsWith('する')) {
     return 'suru'
   }
-  // -来る compounds, like 持って来る
-  if (dict.length > 2 && (dict.endsWith('来る') || dict.endsWith('くる'))) {
+  // -来る compounds are always て-form + 来る: 持って来る, やって来る
+  if (dict.length > 3 && /[てで](来る|くる)$/.test(dict)) {
     return 'kuru'
   }
   let last = dict[dict.length - 1]

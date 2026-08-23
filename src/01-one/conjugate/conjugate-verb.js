@@ -21,8 +21,10 @@ const toBases = function (dict, cls) {
       }
     case 'ichidan': {
       let s = dict.slice(0, -1) // 食べ
+      // くれる is the one ichidan verb with a bare imperative - くれ, not くれろ
+      let imper = /(呉れる|くれる)$/.test(dict) ? s : s + 'ろ'
       return {
-        negStem: s, stem: s, cond: s + 'れ', imper: s + 'ろ',
+        negStem: s, stem: s, cond: s + 'れ', imper: imper,
         volit: s + 'よう', te: s + 'て',
         potential: s + 'られる', passive: s + 'られる', causative: s + 'させる',
       }

@@ -1,5 +1,8 @@
 // 五段 (godan/u-verb) dictionary-forms
 export default [
+  'ふける',
+  '蹴る',
+  '耽る',
   'つながる',
   'つなぐ',
   '伴う',
