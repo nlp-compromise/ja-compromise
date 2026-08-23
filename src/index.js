@@ -7,6 +7,7 @@ import output from './01-one/output/plugin.js'
 import tagset from './02-two/tagset/plugin.js'
 import preTagger from './02-two/preTagger/plugin.js'
 import version from './_version.js'
+import { methods as lexMethods } from './01-one/lexicon/api.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
@@ -18,12 +19,24 @@ nlp.plugin(preTagger)
 const ja = function (txt, lex) {
   // split sentences
   let doc = nlp.tokenize(txt, lex)
-  // tokenize terms ourselves
+  // tokenize terms ourselves - compromise splits on whitespace, which japanese
+  // mostly doesn't use.  every whitespace-chunk still needs splitting, so run
+  // the tokenizer over each of them and keep their surrounding punctuation.
   doc.document = doc.document.map(a => {
-    if (a.length > 1) {
-      return a
-    }
-    return toTerms(a[0].text)
+    let out = []
+    // if the sentence has spaces in it, they're real word-boundaries
+    let spaced = a.length > 1
+    a.forEach(term => {
+      let terms = toTerms(term.text, spaced)
+      if (terms.length === 0) {
+        out.push(term)
+        return
+      }
+      terms[0].pre = (term.pre || '') + terms[0].pre
+      terms[terms.length - 1].post += term.post || ''
+      out = out.concat(terms)
+    })
+    return out
   })
   const world = nlp.world()
   doc.compute(world.hooks)
@@ -50,6 +63,9 @@ ja.verbose = function (set) {
   env.DEBUG_CHUNKS = set === 'chunker' || set === true ? true : ''
   return this
 }
+
+// conjugation helpers, usable without a document
+Object.assign(ja, lexMethods)
 
 ja.version = version
 

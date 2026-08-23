@@ -51,9 +51,12 @@ The goal of this project is to provide a small, basic, rule-based POS-tagger.
 ```js
 import nlp from 'ja-compromise'
 
-let doc = ldv('小さな子供は食料品店に歩いた')
+let doc = nlp('小さな子供は食料品店に歩いた')
 doc.match('#Noun').out('array')
-// [ '子', '食料品店']
+// [ '子供', '食料品店' ]
+
+doc.match('#Verb').json()[0].terms[0].tags
+// [ 'Verb', 'PastTense' ]
 ```
 
 
@@ -73,6 +76,95 @@ doc.match('#Noun').out('array')
 
 
 see [en-compromise/api](https://github.com/spencermountain/compromise#api) for full API documentation.
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 助詞 - particles
+日本語には前置詞がなく、助詞があります。
+
+Japanese has no prepositions - it has 助詞, which follow the word they mark.
+Which kind of particle it is tells you most of what you need to know about the
+words around it, so each kind gets its own tag:
+
+| tag | 種類 | examples |
+|---|---|---|
+| `#CaseParticle` | 格助詞 | が を に へ で と から より まで |
+| `#TopicParticle` | 係助詞 | は も こそ さえ しか |
+| `#AdverbialParticle` | 副助詞 | だけ ばかり ほど くらい など |
+| `#ConjunctiveParticle` | 接続助詞 | て ば たら ながら ので のに けれど |
+| `#SentenceParticle` | 終助詞 | か ね よ わ ぞ ぜ |
+| `#AdnominalParticle` | 連体助詞 | の |
+| `#QuotativeParticle` | 引用の と | と |
+
+They all inherit `#Particle`, and the case-marking ones also answer to
+`#Preposition`, so older matches keep working.
+
+```js
+nlp('私は本を読む').match('#TopicParticle').text()  // 'は'
+nlp('私は本を読む').match('#Topic').text()          // '私'
+nlp('私は本を読む').match('#Object').text()         // '本'
+```
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 活用 - conjugation
+Verb conjugation is rule-based - the verb's class (五段/一段/irregular) decides
+everything else.
+
+```js
+nlp.verbClass('書く')   // 'godan'
+nlp.verbClass('食べる') // 'ichidan'
+
+nlp.conjugate('書く')
+// {
+//   Infinitive: '書く',     Stem: '書き',        PastTense: '書いた',
+//   Negative: '書かない',    Gerund: '書いて',     Polite: '書きます',
+//   PolitePast: '書きました', Imperative: '書け',   Volitional: '書こう',
+//   Potential: '書ける',     Passive: '書かれる',  Causative: '書かせる',
+//   Conditional: '書いたら',  Provisional: '書けば', Desire: '書きたい', ..
+// }
+
+nlp.deconjugate('書きました')
+// { root: '書く', tags: [ 'Verb', 'PastTense', 'Polite' ] }
+```
+
+い-adjectives conjugate too - they carry tense themselves, without the copula:
+
+```js
+nlp('この本は高かった').match('#Adjective').json()[0].terms[0].tags
+// [ 'Adjective', 'IAdjective', 'PastTense' ]
+```
+
+`.compute('root')` puts every word back in its dictionary-form:
+
+```js
+nlp('映画を見ました。').compute('root').text('root')
+// '映画を見る。'
+```
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 分かち書き - tokenizing
+Japanese isn't written with spaces, so the tokenizer segments by longest-match
+against the lexicon, then repairs what that gets wrong:
+
+```js
+nlp('本を読んでいる人').terms().out('array')
+// [ '本', 'を', '読んでいる', '人' ]
+
+// an unknown verb is still one word - 含む isn't in the lexicon
+nlp('含まれている').terms().out('array')
+// [ '含まれている' ]
+```
+
+Run `npm run score` to check segmentation and tagging against
+[learn/test/gold.js](./learn/test/gold.js).
 
 
 ## API
@@ -229,6 +321,14 @@ npm install
 npm test
 npm watch
 ```
+
+### 制限 / Known gaps
+* kanji readings are per-character with a small override table, so romanization
+  of unfamiliar compounds is often wrong
+* segmentation is greedy longest-match, with no way to weigh one reading of an
+  ambiguous kana string against another
+* compound verbs (吐き出す) split at the first stem unless they're in the lexicon
+* personal names are found from an honorific suffix, not from a name-list
 
 ### See also
 * [spacy/japanese](https://spacy.io/models/ja) - python tagger/tokenizer, by [explosionAI](https://explosion.ai/)

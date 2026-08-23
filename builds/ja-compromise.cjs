@@ -4,7 +4,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.jaCompromise = factory());
 })(this, (function () { 'use strict';
 
-  let methods$n = {
+  let methods$o = {
     one: {},
     two: {},
     three: {},
@@ -19,7 +19,7 @@
   let compute$a = {};
   let hooks = [];
 
-  var tmpWrld = { methods: methods$n, model: model$4, compute: compute$a, hooks };
+  var tmpWrld = { methods: methods$o, model: model$4, compute: compute$a, hooks };
 
   const isArray$9 = input => Object.prototype.toString.call(input) === '[object Array]';
 
@@ -290,11 +290,11 @@
   utils.firstTerm = utils.firstTerms;
   var util = utils;
 
-  const methods$m = Object.assign({}, util, compute$9, loops);
+  const methods$n = Object.assign({}, util, compute$9, loops);
 
   // aliases
-  methods$m.get = methods$m.eq;
-  var api$d = methods$m;
+  methods$n.get = methods$n.eq;
+  var api$e = methods$n;
 
   class View {
     constructor(document, pointer, groups = {}) {
@@ -419,7 +419,7 @@
       return m
     }
   }
-  Object.assign(View.prototype, api$d);
+  Object.assign(View.prototype, api$e);
   var View$1 = View;
 
   var version$1 = '14.8.2';
@@ -722,13 +722,13 @@
   };
   var cacheDoc = createCache;
 
-  var methods$l = {
+  var methods$m = {
     one: {
       cacheDoc,
     },
   };
 
-  const methods$k = {
+  const methods$l = {
     /** */
     cache: function () {
       this._cache = this.methods.one.cacheDoc(this.document);
@@ -741,9 +741,9 @@
     },
   };
   const addAPI$3 = function (View) {
-    Object.assign(View.prototype, methods$k);
+    Object.assign(View.prototype, methods$l);
   };
-  var api$c = addAPI$3;
+  var api$d = addAPI$3;
 
   var compute$8 = {
     cache: function (view) {
@@ -752,9 +752,9 @@
   };
 
   var cache$1 = {
-    api: api$c,
+    api: api$d,
     compute: compute$8,
-    methods: methods$l,
+    methods: methods$m,
   };
 
   var caseFns = {
@@ -972,7 +972,7 @@
 
   // are we inserting inside a contraction?
   // expand it first
-  const expand$2 = function (m) {
+  const expand$1 = function (m) {
     if (m.has('@hasContraction') && typeof m.contractions === 'function') {//&& m.after('^.').has('@hasContraction')
       let more = m.grow('@hasContraction');
       more.contractions().expand();
@@ -1025,10 +1025,10 @@
       }
       terms = addIds$2(terms);
       if (prepend) {
-        expand$2(view.update([ptr]).firstTerm());
+        expand$1(view.update([ptr]).firstTerm());
         cleanPrepend(home, ptr, terms, document);
       } else {
-        expand$2(view.update([ptr]).lastTerm());
+        expand$1(view.update([ptr]).lastTerm());
         cleanAppend(home, ptr, terms, document);
       }
       // harden the pointer
@@ -1255,7 +1255,7 @@
     return ptrs
   };
 
-  const methods$j = {
+  const methods$k = {
     /** */
     remove: function (reg) {
       const { indexN } = this.methods.one.pointer;
@@ -1301,10 +1301,10 @@
   };
 
   // aliases
-  methods$j.delete = methods$j.remove;
-  var remove = methods$j;
+  methods$k.delete = methods$k.remove;
+  var remove = methods$k;
 
-  const methods$i = {
+  const methods$j = {
     /** add this punctuation or whitespace before each match: */
     pre: function (str, concat) {
       if (str === undefined && this.found) {
@@ -1406,10 +1406,10 @@
       return this
     },
   };
-  methods$i.deHyphenate = methods$i.dehyphenate;
-  methods$i.toQuotation = methods$i.toQuotations;
+  methods$j.deHyphenate = methods$j.dehyphenate;
+  methods$j.toQuotation = methods$j.toQuotations;
 
-  var whitespace = methods$i;
+  var whitespace = methods$j;
 
   /** alphabetical order */
   const alpha = (a, b) => {
@@ -1479,7 +1479,7 @@
     return arr
   };
 
-  var methods$h = { alpha, length, wordCount: wordCount$2, sequential, byFreq };
+  var methods$i = { alpha, length, wordCount: wordCount$2, sequential, byFreq };
 
   // aliases
   const seqNames = new Set(['index', 'sequence', 'seq', 'sequential', 'chron', 'chronological']);
@@ -1525,19 +1525,19 @@
     }
     // sort by frequency
     if (freqNames.has(input)) {
-      arr = methods$h.byFreq(arr);
+      arr = methods$i.byFreq(arr);
       return this.update(arr.map(o => o.pointer))
     }
     // apply sort method on each phrase
-    if (typeof methods$h[input] === 'function') {
-      arr = arr.sort(methods$h[input]);
+    if (typeof methods$i[input] === 'function') {
+      arr = arr.sort(methods$i[input]);
       return this.update(arr.map(o => o.pointer))
     }
     return this
   };
 
   /** reverse the order of the matches, but not the words or index */
-  const reverse$2 = function () {
+  const reverse = function () {
     let ptrs = this.pointer || this.docs.map((_d, n) => [n]);
     ptrs = [].concat(ptrs);
     ptrs = ptrs.reverse();
@@ -1562,7 +1562,7 @@
     return res//.compute('index')
   };
 
-  var sort$1 = { unique, reverse: reverse$2, sort };
+  var sort$1 = { unique, reverse, sort };
 
   const isArray$6 = (arr) => Object.prototype.toString.call(arr) === '[object Array]';
 
@@ -1644,12 +1644,12 @@
   };
   var harden$1 = { harden, soften };
 
-  const methods$g = Object.assign({}, caseFns, insert$1, replace, remove, whitespace, sort$1, concat, harden$1);
+  const methods$h = Object.assign({}, caseFns, insert$1, replace, remove, whitespace, sort$1, concat, harden$1);
 
   const addAPI$2 = function (View) {
-    Object.assign(View.prototype, methods$g);
+    Object.assign(View.prototype, methods$h);
   };
-  var api$b = addAPI$2;
+  var api$c = addAPI$2;
 
   const compute$6 = {
     id: function (view) {
@@ -1666,7 +1666,7 @@
   var compute$7 = compute$6;
 
   var change = {
-    api: api$b,
+    api: api$c,
     compute: compute$7,
   };
 
@@ -2101,7 +2101,7 @@
   };
   var multiWord$1 = multiWord;
 
-  const prefix$2 = /^(under|over|mis|re|un|dis|semi|pre|post)-?/;
+  const prefix = /^(under|over|mis|re|un|dis|semi|pre|post)-?/;
   // anti|non|extra|inter|intra|over
   const allowPrefix = new Set(['Verb', 'Infinitive', 'PastTense', 'Gerund', 'PresentTense', 'Adjective', 'Participle']);
 
@@ -2133,8 +2133,8 @@
       }
     }
     // prefixing for verbs/adjectives
-    if (prefix$2.test(word) === true) {
-      let stem = word.replace(prefix$2, '');
+    if (prefix.test(word) === true) {
+      let stem = word.replace(prefix, '');
       if (lexicon.hasOwnProperty(stem) && stem.length > 3) {
         // only allow prefixes for verbs/adjectives
         if (allowPrefix.has(lexicon[stem])) {
@@ -2170,7 +2170,7 @@
   };
 
   // derive clever things from our lexicon key-value pairs
-  const expand$1 = function (words) {
+  const expand = function (words) {
     // const { methods, model } = world
     let lex = {};
     // console.log('start:', Object.keys(lex).length)
@@ -2194,9 +2194,9 @@
     delete lex[' '];
     return { lex, _multi }
   };
-  var expandLexicon = expand$1;
+  var expandLexicon = expand;
 
-  var methods$f = {
+  var methods$g = {
     one: {
       expandLexicon,
     }
@@ -2243,7 +2243,7 @@
 
   var lexicon$4 = {
     model: model$2,
-    methods: methods$f,
+    methods: methods$g,
     compute: compute$4,
     lib: lib$5,
     hooks: ['lexicon']
@@ -2259,7 +2259,7 @@
   };
 
   // turn an array or object into a compressed aho-corasick structure
-  const buildTrie$2 = function (phrases, world) {
+  const buildTrie = function (phrases, world) {
 
     // const tokenize=methods.one.
     let goNext = [{}];
@@ -2320,7 +2320,7 @@
     }
     return { goNext, endAs, failTo }
   };
-  var build = buildTrie$2;
+  var build = buildTrie;
 
   // console.log(buildTrie(['smart and cool', 'smart and nice']))
 
@@ -2390,7 +2390,7 @@
     return Object.prototype.toString.call(val) === '[object Object]'
   };
 
-  function api$a (View) {
+  function api$b (View) {
 
     /** find all matches in this document */
     View.prototype.lookup = function (input, opts = {}) {
@@ -2448,7 +2448,7 @@
   lib$4.compile = lib$4.buildTrie;
 
   var lookup = {
-    api: api$a,
+    api: api$b,
     lib: lib$4
   };
 
@@ -2732,9 +2732,9 @@
     return ptr
   };
 
-  const methods$e = {};
+  const methods$f = {};
   // [before], [match], [after]
-  methods$e.splitOn = function (m, group) {
+  methods$f.splitOn = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2751,7 +2751,7 @@
   };
 
   // [before], [match after]
-  methods$e.splitBefore = function (m, group) {
+  methods$f.splitBefore = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2773,7 +2773,7 @@
   };
 
   // [before match], [after]
-  methods$e.splitAfter = function (m, group) {
+  methods$f.splitAfter = function (m, group) {
     const { splitAll } = this.methods.one.pointer;
     let splits = getDoc$3(m, this, group).fullPointer;
     let all = splitAll(this.fullPointer, splits);
@@ -2792,23 +2792,23 @@
     res = res.map(p => addIds$1(p, this));
     return this.update(res)
   };
-  methods$e.split = methods$e.splitAfter;
+  methods$f.split = methods$f.splitAfter;
 
-  var split$1 = methods$e;
+  var split$1 = methods$f;
 
-  const methods$d = Object.assign({}, match$3, lookaround, split$1);
+  const methods$e = Object.assign({}, match$3, lookaround, split$1);
   // aliases
-  methods$d.lookBehind = methods$d.before;
-  methods$d.lookBefore = methods$d.before;
+  methods$e.lookBehind = methods$e.before;
+  methods$e.lookBefore = methods$e.before;
 
-  methods$d.lookAhead = methods$d.after;
-  methods$d.lookAfter = methods$d.after;
+  methods$e.lookAhead = methods$e.after;
+  methods$e.lookAfter = methods$e.after;
 
-  methods$d.notIf = methods$d.ifNo;
+  methods$e.notIf = methods$e.ifNo;
   const matchAPI = function (View) {
-    Object.assign(View.prototype, methods$d);
+    Object.assign(View.prototype, methods$e);
   };
-  var api$9 = matchAPI;
+  var api$a = matchAPI;
 
   // match  'foo /yes/' and not 'foo/no/bar'
   const bySlashes = /(?:^|\s)([![^]*(?:<[^<]*>)?\/.*?[^\\/]\/[?\]+*$~]*)(?:\s|$)/;
@@ -3137,7 +3137,7 @@
   };
 
   // add all inflections of this adjective
-  const addAdjective = function (token, world) {
+  const addAdjective$1 = function (token, world) {
     let { all } = world.methods.two.transform.adjective || {};
     if (!all) {
       return [token.root]
@@ -3161,13 +3161,13 @@
             } else if (token.pos === 'Noun') {
               choices = choices.concat(addNoun(token, world));
             } else if (token.pos === 'Adjective') {
-              choices = choices.concat(addAdjective(token, world));
+              choices = choices.concat(addAdjective$1(token, world));
             }
           } else {
             // do verb/noun/adj by default
             choices = choices.concat(addVerbs(token, world));
             choices = choices.concat(addNoun(token, world));
-            choices = choices.concat(addAdjective(token, world));
+            choices = choices.concat(addAdjective$1(token, world));
           }
           choices = choices.filter(str => str);
           if (choices.length > 0) {
@@ -3425,7 +3425,7 @@
   /** search the term's 'pre' punctuation  */
   const hasPre = (term, punct) => term.pre.indexOf(punct) !== -1;
 
-  const methods$c = {
+  const methods$d = {
     /** does it have a quotation symbol?  */
     hasQuote: term => startQuote.test(term.pre) || endQuote.test(term.post),
     /** does it have a comma?  */
@@ -3460,9 +3460,9 @@
     isUpperCase: term => /^\p{Lu}+$/u.test(term.text),
   };
   // aliases
-  methods$c.hasQuotation = methods$c.hasQuote;
+  methods$d.hasQuotation = methods$d.hasQuote;
 
-  var termMethods = methods$c;
+  var termMethods = methods$d;
 
   //declare it up here
   let wrapMatch = function () { };
@@ -3592,7 +3592,7 @@
   // value, and leaving it can cause failures for anchored greedy
   // matches.  ditto for end-greedy matches: we need an earlier non-
   // ending match to succceed until we get to the actual end.
-  const getGreedy$1 = function (state, endReg) {
+  const getGreedy = function (state, endReg) {
     let reg = Object.assign({}, state.regs[state.r], { start: false, end: false });
     let start = state.t;
     for (; state.t < state.terms.length; state.t += 1) {
@@ -3932,7 +3932,7 @@
   const greedyMatch = function (state) {
     const { regs, phrase_length } = state;
     let reg = regs[state.r];
-    state.t = getGreedy$1(state, regs[state.r + 1]);
+    state.t = getGreedy(state, regs[state.r + 1]);
     if (state.t === null) {
       return null //greedy was too short
     }
@@ -4300,7 +4300,7 @@
 
   var match$1 = runMatch$2;
 
-  const methods$a = {
+  const methods$b = {
     one: {
       termMethods,
       parseMatch,
@@ -4308,7 +4308,7 @@
     },
   };
 
-  var methods$b = methods$a;
+  var methods$c = methods$b;
 
   var lib$3 = {
     /** pre-parse any match statements */
@@ -4323,8 +4323,8 @@
   };
 
   var match = {
-    api: api$9,
-    methods: methods$b,
+    api: api$a,
+    methods: methods$c,
     lib: lib$3,
   };
 
@@ -4677,7 +4677,7 @@
   };
 
 
-  const methods$9 = {
+  const methods$a = {
     /** return data */
     json: function (n) {
       let res = toJSON(this, n);
@@ -4687,8 +4687,8 @@
       return res
     },
   };
-  methods$9.data = methods$9.json;
-  var json = methods$9;
+  methods$a.data = methods$a.json;
+  var json = methods$a;
 
   /* eslint-disable no-console */
   const logClientSide = function (view) {
@@ -4997,7 +4997,7 @@
     return this.text()
   };
 
-  const methods$8 = {
+  const methods$9 = {
     /** */
     debug: debug$3,
     /** */
@@ -5008,7 +5008,7 @@
     },
   };
 
-  var out$1 = methods$8;
+  var out$1 = methods$9;
 
   const isObject$1 = val => {
     return Object.prototype.toString.call(val) === '[object Object]'
@@ -5045,15 +5045,15 @@
     },
   };
 
-  const methods$7 = Object.assign({}, out$1, text, json, html$1);
+  const methods$8 = Object.assign({}, out$1, text, json, html$1);
 
   const addAPI$1 = function (View) {
-    Object.assign(View.prototype, methods$7);
+    Object.assign(View.prototype, methods$8);
   };
-  var api$8 = addAPI$1;
+  var api$9 = addAPI$1;
 
   var output$1 = {
-    api: api$8,
+    api: api$9,
     methods: {
       one: {
         hash: md5
@@ -5284,7 +5284,7 @@
     return arr
   };
 
-  var methods$6 = {
+  var methods$7 = {
     one: {
       termList,
       getDoc: getDoc$2,
@@ -5414,19 +5414,19 @@
     })
   };
 
-  const methods$5 = {};
+  const methods$6 = {};
 
   // all parts, minus duplicates
-  methods$5.union = function (m) {
+  methods$6.union = function (m) {
     m = getDoc(m, this);
     let ptrs = getUnion$1(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
     return this.toView(ptrs)
   };
-  methods$5.and = methods$5.union;
+  methods$6.and = methods$6.union;
 
   // only parts they both have
-  methods$5.intersection = function (m) {
+  methods$6.intersection = function (m) {
     m = getDoc(m, this);
     let ptrs = getIntersection$1(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
@@ -5434,16 +5434,16 @@
   };
 
   // only parts of a that b does not have
-  methods$5.not = function (m) {
+  methods$6.not = function (m) {
     m = getDoc(m, this);
     let ptrs = getDifference(this.fullPointer, m.fullPointer);
     ptrs = addIds(ptrs, this.document);
     return this.toView(ptrs)
   };
-  methods$5.difference = methods$5.not;
+  methods$6.difference = methods$6.not;
 
   // get opposite of a
-  methods$5.complement = function () {
+  methods$6.complement = function () {
     let doc = this.all();
     let ptrs = getDifference(doc.fullPointer, this.fullPointer);
     ptrs = addIds(ptrs, this.document);
@@ -5451,7 +5451,7 @@
   };
 
   // remove overlaps
-  methods$5.settle = function () {
+  methods$6.settle = function () {
     let ptrs = this.fullPointer;
     ptrs.forEach(ptr => {
       ptrs = getUnion$1(ptrs, [ptr]);
@@ -5463,13 +5463,13 @@
 
   const addAPI = function (View) {
     // add set/intersection/union
-    Object.assign(View.prototype, methods$5);
+    Object.assign(View.prototype, methods$6);
   };
-  var api$7 = addAPI;
+  var api$8 = addAPI;
 
   var pointers = {
-    methods: methods$6,
-    api: api$7,
+    methods: methods$7,
+    api: api$8,
   };
 
   var lib$2 = {
@@ -5482,7 +5482,7 @@
     }
   };
 
-  const api$5 = function (View) {
+  const api$6 = function (View) {
 
     /** speedy match a sequence of matches */
     View.prototype.sweep = function (net, opts = {}) {
@@ -5526,7 +5526,7 @@
     };
 
   };
-  var api$6 = api$5;
+  var api$7 = api$6;
 
   // extract the clear needs for an individual match token
   const getTokenNeeds = function (reg) {
@@ -5860,7 +5860,7 @@
   };
   var bulkTagger = tagger;
 
-  var methods$4 = {
+  var methods$5 = {
     buildNet: buildNet$1,
     bulkMatch,
     bulkTagger
@@ -5868,9 +5868,9 @@
 
   var sweep = {
     lib: lib$2,
-    api: api$6,
+    api: api$7,
     methods: {
-      one: methods$4,
+      one: methods$5,
     }
   };
 
@@ -6170,7 +6170,7 @@
   };
   var addTags$2 = addTags$1;
 
-  var methods$3 = {
+  var methods$4 = {
     one: {
       setTag: setTag$1,
       unTag: unTag$1,
@@ -6264,7 +6264,7 @@
   const tagAPI = function (View) {
     Object.assign(View.prototype, tag$1);
   };
-  var api$4 = tagAPI;
+  var api$5 = tagAPI;
 
   // wire-up more pos-tags to our model
   const addTags = function (tags) {
@@ -6317,8 +6317,8 @@
     compute: {
       tagRank: tagRank$1
     },
-    methods: methods$3,
-    api: api$4,
+    methods: methods$4,
+    api: api$5,
     lib: lib$1
   };
 
@@ -6707,7 +6707,7 @@
 
   //we have slightly different rules for start/end - like #hashtags.
   const isLetter = /\p{Letter}/u;
-  const isNumber = /[\p{Number}\p{Currency_Symbol}]/u;
+  const isNumber$1 = /[\p{Number}\p{Currency_Symbol}]/u;
   const hasAcronym = /^[a-z]\.([a-z]\.)+/i;
   const chillin = /[sn]['’]$/;
 
@@ -6733,15 +6733,15 @@
         continue//keep it
       }
       // keep '+' or '-' only before a number
-      if ((c === '+' || c === '-') && isNumber.test(chars[1])) {
+      if ((c === '+' || c === '-') && isNumber$1.test(chars[1])) {
         break//done
       }
       // '97 - year short-form
-      if (c === "'" && c.length === 3 && isNumber.test(chars[1])) {
+      if (c === "'" && c.length === 3 && isNumber$1.test(chars[1])) {
         break//done
       }
       // start of word
-      if (isLetter.test(c) || isNumber.test(c)) {
+      if (isLetter.test(c) || isNumber$1.test(c)) {
         break //done
       }
       // punctuation
@@ -6757,7 +6757,7 @@
         continue//keep it
       }
       // start of word
-      if (isLetter.test(c) || isNumber.test(c)) {
+      if (isLetter.test(c) || isNumber$1.test(c)) {
         break //done
       }
       // F.B.I.
@@ -6952,7 +6952,7 @@
   };
   var isSentence$3 = isSentence$2;
 
-  var methods$2 = {
+  var methods$3 = {
     one: {
       killUnicode: killUnicode$1,
       tokenize: {
@@ -7221,7 +7221,7 @@
 
   // dashed prefixes that are not independent words
   //  'mid-century', 'pre-history'
-  var prefixes = [
+  var prefixes$1 = [
     'anti',
     'bi',
     'co',
@@ -7268,7 +7268,7 @@
 
   // dashed suffixes that are not independent words
   //  'flower-like', 'president-elect'
-  var suffixes$1 = {
+  var suffixes$2 = {
     'like': true,
     'ish': true,
     'less': true,
@@ -7371,8 +7371,8 @@
     one: {
       aliases: aliases$1,
       abbreviations,
-      prefixes,
-      suffixes: suffixes$1,
+      prefixes: prefixes$1,
+      suffixes: suffixes$2,
       prePunctuation,
       postPunctuation,
       lexicon: lexicon$3, //give this one forward
@@ -7533,7 +7533,7 @@
     }
   };
 
-  const methods$1 = {
+  const methods$2 = {
     alias: (view) => termLoop(view, alias),
     machine: (view) => termLoop(view, machine),
     normal: (view) => termLoop(view, normal),
@@ -7542,11 +7542,11 @@
     index: index$1,
     wordCount: wordCount$1,
   };
-  var compute$2 = methods$1;
+  var compute$2 = methods$2;
 
   var tokenize$2 = {
     compute: compute$2,
-    methods: methods$2,
+    methods: methods$3,
     model: model$1,
     hooks: ['alias', 'machine', 'index', 'id'],
   };
@@ -7608,10 +7608,10 @@
     return this
   };
 
-  const api$2 = function (View) {
+  const api$3 = function (View) {
     View.prototype.autoFill = autoFill;
   };
-  var api$3 = api$2;
+  var api$4 = api$3;
 
   // generate all the possible prefixes up-front
   const getPrefixes = function (arr, opts, world) {
@@ -7693,7 +7693,7 @@
   };
   var typeahead = {
     model,
-    api: api$3,
+    api: api$4,
     lib,
     compute: compute$1,
     hooks: ['typeahead']
@@ -7717,18 +7717,26 @@
   var lexData = {
     "City": "true¦0:3O;1:54;2:3U;3:4P;4:4I;5:3P;6:38;あ58い56う54えび53か52さ51たつ53つ4Zにかほ市,ひたちなか市,ふじみ1み4Yむつ市,一4X七尾市,三4W上4U下4T世田谷区,中4Q串4P丸亀市,丹波4N久4L亀4K二4I五4H井3交1京4G人吉市,今治市,仙4F伊4B会津若4J佐4A倉49備48光市,入4P八45出44函館市,刈43別42前41加3Z勝3Y北3S匝瑳市,十3R千3P半0南3M印3L厚3K取3J古3I可児市,台東区,各務3合3H吉3G名3F向日市,君6吹0呉市,周3D和3C品3B唐6善通3A喜多39嘉麻市,四37国36土33坂32垂35城陽市,堺市,塩31境港市,墨3Q士30壱岐市,夕張市,多2Y大2T天2S太2R奄美市,奈2Q奥3X妙高市,姫2P姶2Q嬉1宇2N守2M安2K宍粟市,宗像市,宜野湾市,宝2J室2I宮2G宿毛市,富2E寒河2D寝屋2対3O射35小2B尼2A尾28山27岐阜市,岡26岩25岸和0島24川23市22帯広市,常20平1Z幸3J広5庄3府中市,座4P延1Y廿日38弘48弥富市,彦1X御1W徳5志1V恵1U愛3L成0我孫46戸0所29指宿市,掛2摂6敦1T文京区,新1S日1R旭4R明1Q春日1P昭5曽於市,有0朝1O木1N本1M札幌市,杉並区,村1L東1I杵築市,松1H板橋区,枕2A枚39柏4D柳1G栃3K栗1F根室市,桐生市,桑1E桜1G桶2横1D橋1C橿3歌志1B武19気仙3N水18氷2Z江17池0沖縄市,河内長1沼16泉15津14洲1C流4浅口市,浜13浦12海11淡2P深10清0Z渋0Y港区,湖0X湯29滑2滝0W潟上市,潮来市,瀬戸0V焼6熊0U熱海市,燕市,牛久市,牧之3犬4狛2D狭4玉0T珠洲市,瑞0S生駒市,田0R由0Q甲0P男0O町0留萌市,登0N白0M益0盛1Y目黒区,直39相0L真0K矢板市,知0J石0I砂2砺波市,碧3D磐0神0H福0G秋0秦1秩0F稚1B稲0E立2竹24笛吹市,笠0D筑0C箕面市,米0B糸0A紀の2紋30結3T網走市,綾09総社市,練馬区,美07羽06習志1胎1B能05臼杵市,舞鶴市,船41芦04花巻市,苫小牧市,茂3茅03茨3K草02荒01菊00萩市,葛Z蒲郡市,蓮0蕨市,薩摩川1B藤Y行X袋2C袖ヶ浦市,裾1西W見附市,観音3A角0調布市,諏訪市,諫早市,豊U貝2J赤T越S足R輪5近江八幡市,逗46遠1那P郡1L都O酒0野N金29釜1Q釧2P鈴0O鉾0銚46鎌M長K門真市,関市,阪3D防42阿J陸前高0雲I霧5青H静1Y韮2A須G飛騨市,飯F養0F館E香D駒ヶ1X高C魚B鯖2D鳥A鳴門市,鴨2鴻巣市,鶴9鹿8黒7龍ヶ2A;石市,部市;児5屋市,島市,嶋市,沼市,角市;ヶ5岡市;取市,栖市,羽市;沼市,津市;山市,岡市,島市,崎市,松市,梁市,槻市,浜市,知市,石市,砂市,萩市;南市,取市,美市,芝市;山市,林市;塚市,山市,田市,能市;坂市,崎市,賀2;梅市,森市;仙市,南市;久1K南市,波市,蘇市,賀1;久35井市,岡7崎市,浜市,野市,門市;京市,市;ヶ3N倉市;々2R洲市,田市;城市,留市;珂48覇市,須7;塩3烏4;利市,立区;前市,谷市;平市,磐市,穂市;中市,前市,岡市,島区,川市,後7明市,橋市,田市,見35;大1高0;之表市,予市,宮市,尾市,条市,東京市,海市,脇市,都市;方市,橋市,田市;井2I岡市,枝市,沢市;城市,飾区;川市,池市;尾市,川区;加市,津市;ヶ1D野市;別市,屋市;代市,美市;咋市,島市,曳1村市,生市;作市,唄市,濃7祢市,馬市;加茂市,市;瀬市,部市;島市,満市,魚2;原市,子市,沢市;後市,紫1西市;岡市,間市;城市,敷市,沢市;父市;井市,山市,岡市,島市,津市,生市,知4;埼市,戸市,栖市;垣市,岡市,巻市,狩市;多市,立市;岡市,庭市;模3生市,馬市;井市,山市,岡市,河市,石市;別市,米市;鹿市;州市,府市,斐市,賀市;利本荘市,布市;原市,川市,村市,辺市;浪市,穂市;名市,野市;本市,谷市,野市;内市,市;川市,沢市;南市,西市;川市,谷区;瀬市,須市;川市,谷市;南市,津市,老J;安市,添市;松市,田市;久11山市,島市,市;佐1南市,大6;津市,田市;別市,南市,戸1A東区,津市,田5;俣市,戸市;蔵7雄市;村4野市;内市;本市;手市,浜市,須M;名市;原市,東市;井市,川市;原市,山市,戸市,本市,江市,浦市,阪市;かがわ市,久留2A京特別区部,大8広5御市,村4松7根市,海市,温市,近01金市;山市,島市;和市,阪市;上市,山市;宮市,巣市,庄市;更6津2;倉市,来市,霞市;井市,市,部市;石市;光市,南市,向市,田市,立市,置市,進市,野市,高市;城市,宮市,宿区,居浜市,庄市,座市,潟市,発0見市;賀市;庭市,那市;布0S摩市,木市;前K坊市,所市,殿場市;根市;岡市;塚市,川市,戸市;滑市,総市,陸7;大T太0;原市,川市;口市,崎市,西市,越市;原市,田市;倉市,出市,国市,沼市,見A;山市,崎市,谷市;口市,形市,梨市,武市,県市,陽小野0鹿市;張旭市,花7道市,鷲市;沢市;崎市;千0Y城市,山市,平市,松C林市,樽市,浜市,牧市,田3矢部市,美玉市,諸市,郡市,野市,金7;井市;江市;士7山市,岡市,津市,田林市,良1谷市,里市;吉0宮市,市,見市;古7崎市,津市,若市;島市,市;戸市,蘭市;塚市;中市,城市,曇1来市,芸7;市,高0;口市,山市,谷市;佐市,和5土市,城市,治市,部市,都7陀市;宮市;路市;良市;宰0H田市;理市,童市,草市;仙市,分市,和A垣市,崎市,川市,府市,月市,村市,東市,津市,洲市,牟0田9町市,竹市,網白0R船渡市,野8阪7館市;市,狭4;城市,市;区,原市,市;市,郡4高0;久市,摩市,治7賀01;見市;別市;尻市,竈市;井市,出市,戸市,東市;佐7岐市,浦市;市,清7;水市;分A東市,立市;万十市,国中央市,日7條畷市,街道市;市市;方市;寺市;川区;光市,歌4泉市;南市;津市;取市,古N寄市,張市,護市;川市,野2;志市;河市,賀市;手市;木市;西市;あわじ市,さつ0Pアルプス市,丹市,九H国市,城市,島3房総市,相8砺市,足柄市,陽市,魚7;沼市;馬市;代7曲市,歳市,葉市;田区;和0日町市;上市,九B区,名古A広5斗市,本市,杜市,秋0茨7見市;城市;田市;島市;屋市;州市;山市,浦市;古2東市,茂市,西市,賀市,須市;川市;橋市;府市;谷市;水市,雲市;代市,千代市,女市,尾市,幡8戸市,潮市,王7街市;子市;市,平市,浜市;前市;吉市,敷市;世保市,久市,伯市,倉市,渡市,賀市,野市;万9丹市,予市,佐市,勢8東市,豆7賀市,達市,那市;の国市,市;原市,崎市,市;里市;北市,台市;丹後市,田辺市,都市;島市,所川3條市,泉市;戸市,本7;松市;山市,岡市;喜市,慈市,留7;米市;市,篠4;山市;間市;央8津7野8間市;川市,市;区,市;呂市,妻市,松市,田市,野市,関市;天草市,尾市,山市,田市,越市,野3;原市;原市,好市,島市,木市,条市,次市,沢市,浦市,田市,笠市,豊市,郷市,鷹市;宮市,関市;どり市,やDよし市;がる市,くば7;みらい市,市;いたAくEぬC;すみがうDほく市;の市;きは市,る7;ま市;すみ市,ちき串木1なべ市,わ7;き市;きる1ま市,わ7;ら市;野市",
     "Country": "true¦0:17;1:1F;ア15イ11ウ0Xエ0Vオ0Sカ0Qガ0Oキ0Mギ0Kク0Hグ0Gケ0コ0Dサ0Bザン0Pシ0Aジ09ス04セ01ソZタYチXツバル,デンマWトUドSナRニQネパ0Rノルウェー,ハPバOパMフKブIベHペルー,ホンジュラス,ボGポFマEミDメキシコ,モ9ヨル05ラ8リ7ル6レ5ロ13中4北3南2台湾,日本,東ティモ0R沿ドニエストル,西サハラ,赤道ギ0韓国;アフ1Aオセ0Hスー04;キプ0L朝鮮;国,央アフリカ共0C;ソト,バノン;クセンブルク,ワ0Vーマ0;トア0ヒテンシュタ02ビア,ベ13;オス,ト0I;ザンビOナコ,ル4ロッコ,ン3ーリ2;シャス,タ0;ゴル,テネグロ;ディブ,ドバ;クロネシア0Yャンマー;ケドニア旧ユーゴスラビア共02ダガスカル,ラウイ,リ,ルタ,レー0Qーシャル06;ルトPーラ1;スニア・ヘルツェゴビナ,ツワナ,リ0A;トナム,ナン,ネズエラ,ラルーシ,リーズ,ルギー;ラジル,ル2ー0X;ガ0Rキナファソ,ネイ,ンジ;ィ2ランス;ジー,リピン,ンラ1;キス0Tナマ,プアニューギ0ラ2レスチナ;オ,グ0C;チカン,ヌアツ,ハマ,ルバドス,ングラデシュ,ーレ07;イチ,ンガリー;ウエ,カラグア,ジェ02ュージーラ1;イジェ0Jウル,ゴルノ・カラバフ,ミZ;イツ,ミニカ2;共N国;リニダード・トバゴ,ル2ンガ,ーゴ;クメ0Jコ;ーク;ェコ,ャド,ュニ0Gリ;イ,ジ02ンザ0;マリ2ロモンL;ア,ラ1;ネ3ルPント2ーシェル;クリストファー・ネイビス,ビンセントおよびグレナディーンIル02;ガル;イス,ウェーデン,ペ5リ4ロ3ワジラ1ー2;ダン;バキア,ベ0;ナム,ランカ;イン;ブチ,ャマイカ,ョー04ンバブエ;エラレオネ,リア,ンガポI;ウジアラFモア,ン2;トメ・プリンシペ,マリノ;スタZソボ,モロ,ロンDンゴ2ートジボワF;共2民主共2;和国;アテマラ,レナダ;ウェート,ック3ロア2;チア;諸島;ニア2リシャ;!ビサウ;プ2ューバ,リバス,ルギス;ロス;イアナ,ボン,ン2ーナ;ビア;ザフスPタ2ナダ,メル5ンボNーボベルデ;ール;マ3ラ9ースト2;ラHリア;ーン;クア2ジプト,スト0チオピア,リトFルサルバ2;ドル;ガ4クライナ,ズベ3ルグ2;アイ;キスG;ンダ;エメン,ギリス,スラエル,タ9ラ4ンド2;!ネ2;シア;ク,ン;イBゼルバイジャン,フガ9ブハ8メ7ラブ首長国6ル3ン2;ゴラ,ティグア・バーブーダ,ドラ;ジェ3ゼンチン,バ0メ0;ニア;リア;連邦;リカ;ジア;ニス2;タン;スラ1ルラ1;ンド",
-    "Adjective": "true¦0:0Y;1:0U;あ0Uい0Sう0Rお0Lか0Kがんこな,き0Gく0Nげんき1こ0Fさ0Eざんねん,し09じ07す05せ04た03ち01つZていねい,とYなXにVねUはTひSびょうきの,ふQへPべんり,ほそい,ぼんやり0JまNみLむKやJゆうめい,よIりっぽ0HわH丁寧,丈夫,三角の,上手,下手,不味い,丸いG低い,便利,優0元気1冷00危F厚い,古い,可愛い,四角い,固い,塩辛い,変1多い,大E太R奇麗,好き,嫌い,嬉0孤独な,安D寒い,小02少0X平均C年老0O広い,弱い,強い,忙0怒0W悪い,悲0新B早い,明るい,易0暇,暑い,暖10暗い,有名,柔ら10楽0正A残念,汚い,涼0温10滑ら11無料,熱い,狭い,球9甘い,異常な,病気の,痛い,痩せた,白い,真面目な,眠い,短い,硬い・固い,社交C立方9簡単1素8細い,綺麗な,緊急の,緑の,美7肌寒い,良い,色々,若い,苦い,荒い,落ち着0O蒸し蒸し0J薄い,複雑1親6詰まら0X誤0W貧0賑W赤い,軽い,辛い,近い,速い,遅い,遠い,酸っ06醜い,重5長4難0青い,静か,面白い,頑固な,高3魅力2鮮や11黄色い,黒い;の0W的な;い,価な;い,方形の;い,要な;し07切;しい,味0;敵1晴ら0;体の;しい,常な;しい,鮮;的な;い,全1;きい,人0;ない,険な;!・円い;かい,るい;い,かっ,わい;さ0すい,せた,わら0I;しむし00ずか0;じ0Gどりの,にTりょく2;てQの0C;じめな,ず2るい;い,しい;いきんてNた,ん1;くざつ1と2るい;い,った;くい,どい,ま,ろい;だざ2やい;むい;がい,ぎ2;やか;がい,めら05;おい,しおR;まらZめ2よい;たい;い2かい,ょうほうけI;さい;かい,だ0の0;いじょQまい;き,くTず0っ2てき1ばら0;ぱい;ゅうよNょう2;ず,ぶ;おからい,か5ずか,たし4ゃこうて3ろい,んせ2;つ,ん;きな;みやすい;くい;むい,んかくの;うNどくな;い8けんな,たIちんと4ゅ2らい,れい1んきゅうの;うた2;いの;した;たい,な0らい,るい,わいい,んたん1;い0お6かねも5こCそい,ちつ4とな0も2金持5;い,し2;ろい;いた;ちな;い,きい;すい,つく0れ0;い,じょ2そが0;うな;おい,か9ざや8た5つい,ぶ4まい,やま3らい,んぜん1;!な;った;ない;た3ら0;しい;かい;かな;い,るい",
-    "Preposition": "true¦かJがはやいか,きり,くらい,こそ,さIしGすら,ぜ,ぞ,だEてDとBなAに9ね,の8は,ば6へ,ほど,まで5も3や2よ1わ,を0;!する;!り;いなや,ら;!の0;!か,の;!もない;!いい,かり0;!でなく,に;!です,に,み;!しては,ついて,とって;!あ,がら,ど,り; いう,か,ころ,して,も0;!…とも,あろうひと;は,も;け0の;!に;!か0;!ない;!え;しら,な0;!いうちに",
-    "Auxiliary": "true¦いZえYおう,かXがWきVぎUくTけSげYこRごう,さOしLす06せKたIちHっGてCとう,な7にUねYのう,ばWびUべYぼう,ま2みUめYもう,ら1りUるな,れYろう,わWん0;じ06だ03で;ず,せる,ない,れN;し2す,ず,せ0ない,れる;る,ん0;!でした1;た0ょう;!ら;い1かった0ければ,さい,ず,せる,ない,れる;!だ2でしAら;!　だ1で0; くだSし8;ろう; 0ば,る;い0くだP;た,ま0る;した,す,せんL;たNちQて;すOそう,たい,なLまIゃう;い,ず,せる,でし0ない,り,れる,ろう;ょう;ず,ば,よ,る;すKそう,た1ちLて,な0まEよう,ろ;い,さい;!い,り;ず,せ0ない,れる;ない,ま0る;す,せん;い,う,させる,ず,ない,よう,られる,れる;ば,る,れば;ありません7て,ない;すBそう,たい,な8ま5;すAそう,た9ちBて,な7ま4;ず,せる,ない,れる;ず,せる,った6ない,れる;ば,る;じ7す6そう,た5だ4ち7て,で,な3ま0;し1す,せん0;!でした;た,ょう;さい;!ら,り;!い,ら,り;ぎる;ゃう",
-    "Adverb": "true¦あ0Hい06おそらく,か03き02くする,けっ00ことごとく,ごとき / ごとく / ごとし,しょっちゅう,じゅうZすっかり,ずいZぜんぜん,そこそこ,たWだUちょTつSできるだけ,とRどOなかなか,のんびり,はLひKびJふIべつHほとんど,まCみBむしろ,めったにAも9や7ゆJよ6一5丁度,万一,今に0G以4全F再び,初N別H前に,十分,大3実に,少すこし,後で,必ず,急に,意外,敢えて,普1本当に,果たY案の定,極N決し01相当,真っ直ぐ,結0色々 ,間に,非常に;局,構;段,通0;! ;丈夫,分,変;上に,外;人,体,層,度に,応,旦,気に,番,種,緒に;うやく,く;っ0はり;と,ぱり;しかしたら,はや;!～08;たGんな;あまあ,えに,すます,だ3っ1でに,る0んいち;っ8で;すぐ,た0;く～03;!しも,～ていません;に～01;たEつう,と;っくり;じょQとり;じ1たCっ0;きり;めて;う1ん0;どん,なに～O;!してPせ,にも～Sやら;うとう,きどき,ても;いに;うど,っと;い0んだん;じょうぶ,ぶ;い1くさん,しかに,び0ぶん,まに;たび;して;ぶん;きょく,こう,し0;て～H;っと,ゅ8;た1つて,どうか,な0何か;にか,らず,り;がた,わら;か8がい,きなり,く5じょ4ち3っ0つも,まに9ろいろ;きに,し1そう,た0ぱい;い,ん;ゅ,ょに;おう,どに,ばん;うに;つ,ら0;!～0;ても;が,に0;!も;いだに,えて,くまでも,とで,まり0らかじめ,んのじょう;!にも,～0;ない",
-    "Expression": "true¦あ13い10う0Xえ0Uお0Nきゃ0Mぎ0Jぐふ0Iげっ,こ0Dご0Aさ08ざまあみろ,じゃ11す06そ03ただいま02どXなTねSはQひ0RふPへMほLまKもJやIよDわCアAイヤ,ウ9エ8オ7ガーン,キャ6コンニチワ,ゴメン,サヨナラ,デヘヘ,トホホ,ノー,ハ5バカヤロー,ヒヒヒ,フ3メリークリスマス,モシモシ,ヤ2ヨロシク,ワ1何だ,南無,嗚呼,御0有難う;意,馳走0P;ァー,ーッ;ダー,ッター,レヤレ;ェ0ムフム;!ーン;ア,ッハッハ,テ;ッ,ー;ヤスミ,ー;イ,ッ;イ,ヒャー,ン,ーン,～ン;ッ0ハハ,リガトウ;!カンベー,プップ～;ぁ03あ,っ,んわん,ーい;い3う2お,くもまあ,し1っ0ーし;こら2しゃ;!っ,ゃ;!こそ,し;しょ;ぁ,あ,れやれ,ァ;ぉ,しもし;ぁ,あVァ,ア;う,ら,んと;ぇ,え1っ,ー0;!え,っ;!え,ッ,ー;うん,ふふ,むふむ,ん,ーん;ぁ,あ,い,じめAっ,て0ーい;!な;ぇ,え;あ2む,るほど,ん0;てこった,と0;!まあ,もはや;に,んだ;う2っこい1れどれ,ー0;ぞ,も;!しょ;いたし0ぞ,も;まして;!ッ;う1ら0;!そら;!ですね,ね;い0まん,み0ん0;ません;ぁ,あ7てと,よ0らば;うなら,なら;きげんEくろうさん,ちそうFっつぁん,めん1苦労さ0馳走F;ま,ん;!くだGなG;ら3りゃ2れこれ,ん0;にち0ばん0;は,わ;!ー;!ぁ;!っ;ゃ1ょ0;!い,ぎょ;あ,ふん;あ,ー;い,ぉ,お,かえり4ぎ3す,そまつ2っ,つかれ様,は1めでとう,や0ーい,早う,疲れ2粗末2;!すみ3っ;よう;さま,様;ゃー;!な0;さい;え1っ,ッ,ー0;!っ,ッ;!い;うん,ふ1わ,ん,ー0;む,ん;!っ,ふ;いえ,え1ただきます,や0ーえ;!ぁ,あ,ー;!いえ;ぁ,あ,いた,かん7きまへん,っ6ら5り2れ1ゝ,ッ,ー0～;!あ;!よあれよ,れ,ー;がと1ゃ0;!りゃ;!う;!ッ,ー;!かんべー;!べ",
-    "Conjunction": "true¦あ0Yいっぽう,お0Rか0Pが0Oぎゃくに,け0Mこう0Qさ0Kし0Fじゃが,す0Eそ00たXだTちなSってか,つPてOでLとIど05なDにもかかわらず,のCはんめん,ふんBほ8ま6も4や0Oゆえに0Oよ0Hわけ03んB一方3並びに,乃至,亦,但Z併0Z例Y即ち,又H及び,反面,同0T否,因S実は,尚,尤も,従0H恐0U惜し0W或2故に,本当は,次1然し0若し0X譬Y追0H逆に;!な0U乍ら;いで,に;いは,は;!で;、,し0っとも,また;!くは;してや,ずは,た0;!は0G;な1ん0;じゃ,で,なら;!ら;じゃ;ため,で;いし3お,かん2ぜなら,の1ら0;!ば,びに;で,に;ずく,づく;!は;!、,いうのも,ころ1す02も0同時に;あれ,す01に;が,で;!す1な0は,も;いと,けY;から,が,けれど;か,ゆーか;い1ま0;り,るところ;ては,で;みに;から2が,け1って,とす0;ると,れば;ど,れども;!、,こそ,といK;だ1と0め,ら;えば,へば;!し;う9こで,し8の6もそも,やさかい,りゃ,れ0ーいや;からMだQで4とLど3な2に0も,ゆえに、;!し0;ても;のに,ら;ころか;!、,いて,は,も;うえ0上,後;!で,に;たら,てE;い2し1す0ですが,な0;ると;たら,て;えば,や;なわち,ると;か2た0;が0ら;って;し0も;!、,なB;て,もなけ0らに,りとて,れど;れば;ど,れど0;!も;!、;!く0たや,つ,ら;して;し4そ2な1ま0よび;けに;じく;れな0;がら;むら0;くは;るいは,わ0;せて",
+    "Noun": "true¦お02ご飯,コップ,パン,ペン,一緒,上,下,世界,両親,中01予定,事00二人,人Z今Y休み,会社X住所,体,値段,側,傘,兄,先W光,八百屋,公園,内,写真,冬,分,切手,前,医者,午V単語,博物館,卵,原因,去年,友達,口,台所,右,名前,味噌,問題,喫茶店,図書館,国,地U場所,塩,声,夏,夕方,外,夜,夢,大T天気,夫,奥,女S妹,妻,姉,娘,子供,季節,学R客,家Q宿題,封筒,山,島,川,左,市,帽子,平P年O店X庭,弁当,弟,形,後ろ,御飯,心,息子,意味,戸,所N扉,手M指L授業,教K数,文J料金,新聞,方I日H明日,映画館,春,昨日,昼G時F晩ご飯,月,服,朝G本E机,村,来D果物,森,椅子,横,橋,歯,母,毎C気B水,池,海,消しゴム,湖,漢字,火,為,父,片P牛乳,物,珈琲,理由,瓶,生徒,田舎,男S町,畑,病院,皆A皿,目,看護師,県,真ん中,眼鏡,着物,砂糖,社長,祖9秋,秒,税金,空8窓,端,答え,箱,箸,米,紙,結果,絵,美術館,考え,耳,肉,肩,背中,腕,腹,自7船,色,苗字,英語,茶碗,荷物,葉書,街,袋,規則,角,言6計画,試験,話,財布,赤ちゃん,足,車,辞書,辺り,近く,週5道4違い,遠く,部3郵便局,都市,酒,醤油,野菜,量,金,鉛筆,銀行,鍵,間,隣,雑誌,雨,雪,雲,雷,電車,靴,鞄,韓国語,音,頭,顔,風2飛行機,食1飲み物,首0駅,魚,鼻;!都;べ物,堂;!呂;屋,長;!路;!末;葉,語;動車,転車;!港;母,父;!さん;!持ち;年,日,晩,月,朝,週;年,月,週;!屋;!計,間;!ご飯;!本語;!法;字,法,章;室,科書;!輪;!紙;!為;!齢;仮名;!族;校,生;!性;人,学;下鉄,図,震;前,後;月,生,週;!員;!年,日,晩,月,朝,週;!々,間;!務所;!国語;客さん,茶,金",
+    "SuruVerb": "true¦中止,予約,仕事,会8使用,修理,出発,判断,利用,到着,努力,勉強,参加,反対,報告,増加,変7失敗,契約,安心,完成,実6対応,延期,建設,影響,復帰,心配,想像,感謝,成5我慢,投票,招待,掃除,提供,改善,散歩,料理,旅行,期待,案内,棄権,検討,決定,注4洗濯,活動,減少,準備,理解,生活,用意,発3相談,研究,確認,移動,管理,約束,納得,紹介,終了,経験,結婚,緊張,練習,考慮,製造,解決,記憶,評価,認可,説明,調査,議論,販売,買い物,賛成,質問,輸2返事,連絡,逸脱,運1遠慮,選択,開0関係,電話;始,発;動,営,転;入,出;明,表,見,言;意,文;功,長;現,行;化,更;話,議",
+    "Pronoun": "true¦あJおHかFきDこCしょうせい,じぶん,そCてBへいIぼく,やつ,わ7俺6僕,儂,其奴,吾,小生,弊社,彼5御4我2手前,此奴,私1自分,貴0;下,女,官,方,様,男,社;!たち;!々,が0等;!社;宅,社;!女,奴,等;!様;が2し,た1て,れ0;!ら,われ;くし,し;!しゃ;まえ,めえ;いつ,やつ;か0さま,しゃ,み;!ん;のじょ,れ0;!ら;いら,たく,まえ,ら,れ,ん0前,宅;しゃ;いつ,た1なた,の0やつ,んた;かた,ひと,人,方;い,くし,し",
+    "Adverb": "true¦0:0W;あ0Tい0Iお0Hか0Eき0Dくする,けっ0Cこ0Bごとき / ごとく / ごとし,さっき,し0Aじゅう09す07ず06ぜ05そ04た01だZちょYつXできるだけ,とWどTなSのんびり,はOばかりに,ひNびMふLべつに～0ほKまGみFむしろ,めったにEもDやBゆMよAわりと,一9丁度,万一,主に,今に0S以8全7再び,初R別6前に,割と,十分,大5実に,少4後で,必ず,急に,意外,敢えて,早く,時々,普2最後に,本当に,果たQ案の定,極R決してE特に,直接,相当,真っ直ぐ,突然,約,結1絶対,色々 ,間に,非常に;局,構;段,通1;! ;し,すこし;丈夫,体,分,変;々に,に～0;く～0然,部;上に,外;人,体,層,度に,応,旦,気に,番,種;うやく,く;っ1はり;と,ぱり;う,しかしたら,っと,はや;!～0;たIんな;あまあ,えに,すます,ず,だ3っ2でに,る1んいち;っ8で;すぐ,たく～0;!しも,～ていません;とんど,んと03;たHつう,と;っくり;じょ00とり;じ3た2っ1やく;きり;して;めて;かなか,るべく;う2ん1;どん,なに～W;!してXせ,にも～0やら;うとう,きどき,ても;いに;うど,っと;い1んだん;じょうぶ,ぶ;い2くさん,しかに,び1ぶん,まに;たび;して,てい;こそこ,ろそろ;ひ,んぜん;い3っと;ぐ1こし,っかり,でに;!に;ぶん;ばしば,ょっちゅう;う,とごとく,れから;きょく,こう,して～0;っと,ゅA;た2つて,な1何か;にか,らず,り;がた,わら;そらく,よそ;か9がい,きなり,く6じょ5ち4っ1つも,まにAろいろ;きに,し2そう,た1ぱい;い,ん;ゅ,ょに;おう,どに,ばん;うに;つ,ら1;!～1;ても;が,に1;!も;いだに,えて,くまでも,とで,まり2らかじめ,ん1;のじょう,まり;!にも,～0;ない",
+    "Adjective": "true¦0:06;あ03い02う01え00おWかVきUくYこわい,さTしQすOずNせまい,たMだLちJつHていねい,とおい,なGにGぬNねTはFひEふDほCまAみ9む8めずら0もったい04や7ゆうめい,よ6わ5上手い,不味い,丸い,低い,偉い,優0円い,冷I凄い,危04厚い,厳0古い,可愛い,喧0四角い,固い,塩辛い,多い,大4太い,好ま0嬉0安い,寂0寒い,小K少04広い,弱い,強い,忙0怖い,恐ろ0恥8悔0悪い,悲0惜0惨い,慌ただ0懐か0新0早い,明N易0暑い,暖07暗い,望ま0柔ら07楽0欲0正0汚3浅い,涼0深い,温2激0濃い,熱い,狭い,珍0甘い,疑わ0痛い,白い,相応0眠い,眩0短い,硬い,素晴ら0細い,緩い,美1肌寒い,良い,若い,苦B荒い,薄い,親R詰まら04詳0貧0賢い,赤い,軽い,辛い,近い,速い,遅い,遠い,酷い,酸っP醜い,重い,鈍い,鋭い,長い,難0青い,面白い,頼も0騒が0高い,魅力の04黄色い,黒い;しい,味0;い,かい;い,ら0;きい,人0;かい,るい;い,わい;さ0すい,ばい,わら00;ずか0;じYにくい,りょくのV;ず1るい;い,しい;しい,そい;とい,るい;くい,どい,ろい;だざEやい;がい;まらNめ1よい,らい;たい;い1かい;さい;さい,るい;かい,だ0の0;るい;くGごい,ず0っ1ばら0;ぱい;おかAか2た1ろい;しみやすい;くい,たC;むい;い4たAつい;たい,な0らい,るい,わいい;い0お3そい,とな0も1;い,し1;ろい;い,きい;らい;すい,つく0まい,れ0;い,そが0たい;おい,か5た2つい,ぶ1まい,らい;ない;た2ら0;しい;かい;い,るい",
+    "AdverbialParticle": "true¦く1ぐ1ずつ,だけ,とか,な0ばかり,ほど,やら;ど,んか;らい",
+    "NaAdjective": "true¦あCいBおAかんたん,がんこ,き9げんき,こ8さいわい,ざんねん,し5じ3す2せいBなめ1にぎDひま,ふくざつ,へ0べんり,まじめ,みりょく7丁寧,丈夫,上手,下手,便利,元気,危険,変,大嫌い,奇麗,好き,嫌い,孤独,安全,平均的,幸い,新鮮,暇,有名,正常,残念,滑1無料,異常,真面目,社交的,簡単,素敵,綺麗,色々,複雑,親切,賑D重要,静か,頑固,高価,魅力的,鮮D;いきん6た,ん;らか;き,てき;ゅうよう,ょう0;ず,ぶ;ずか,ゃこう1んせ0;つ,ん;てき;うか,どく;けん,らい,れい;かねもち,金持ち;じょう;ざ0んぜん;やか",
+    "Conjunction": "true¦あ0Wい0Vお0Oか0Mぎゃくに,こう0Nさ0Kし0Fじゃ0Eす0DそYたVだRちなQってか,つNてMでJとGど04なBにもかかわらず,のため,はんめん,ふんAほ7ま6も4ゆ00よ0Hわけ02んA一方3並びに,乃至,亦,但X併0X例W即ち,又F及び,反面,同0Q否,因Q実は,尚,尤も,従0H恐0R惜し0T或2故に,本当は,次1然し0若し0U譬W追0H逆に;!な0R乍ら;いで,に;いは,は;!で;し0っとも,また;!くは;してや,ずは,た8;な1ん0;じゃ,で,なら;!ら;じゃ;いし3お,かん2ぜなら,の1ら0;ば,びに;で,に;ずく,づく;!は;いうのも,ころ1す04も0同時に;あれ,す03に;が,で;す1な0は;いと,け00;から,が,けれど;か,ゆーか;い1ま0;り,るところ;ては,で;みに;から2が,け1って,とす0;ると,れば;ど,れども;!こそ,といM;だ1と0め;えば,へば;!し;うAこで,しCの8もそも,やさかい,りゃ,れ0ーいや;から,だPで6と5ど4な3に1も,ゆ0;えに;!し0;ても;のに,ら;ころか;!も;!いて,は,も;うえ0上,後;!で,に;い2し1す0ですが,な0;ると;たら,て;えば,や;なわち,ると;!が;か2た0;が0ら;って;し0も;!な8;て,もなけ0らに,りとて,れど;れば;く0たや,つ;して;し4そ2な1ま0よび;けに;じく;れな0;がら;むら0;くは;え,っぽう,や;るいは,わ0;せて",
+    "Expression": "true¦あ0Vい0Tう0Qえ0Nお0Gきゃ0Fぎ0Cぐふ0Bげっ,こ06ご03さ01ざまあみろ,じゃ0UすZそXただいまWどRなNねぇ,はMひ0KふLへIほHまGもしもし,やFよAわ9ア7ウ6オヤスミ,ガ5キャ4コンニチワ,ゴメン,サヨナラ,デヘヘ,トホホ,ハッハッハ,バカヤロー,ヒヒヒ,フ3メリークリスマス,モシモシ,ヤ2ヨロシク,ワ1南無,嗚呼,御0有難う;意,馳走0I;ァー,ーッ;ダー,ッター,レヤレ;ェ1ムフム;ッ,ー;ーン;ヒャー,ーン,～ン;ッ0ハハ,リガトウ;カンベー,プップ～;ぁZあ,っ,んわん,ーい;い3う2お,くもまあ,し1っ0ーし;こら2しゃ;っ,ゃ;こそ,し;しょ;ぁ,あ,れやれ;ぁ,あS;う,んと;え1ー0;え,っ;え,ッ,ー;うん,ふふ,むふむ,ん,ーん;い,じめ8っ,てな,ーい;あ2む,るほど,ん0;てこった,と0;!まあ,もはや;に,んだ;う2っこい1れどれ,ー0;ぞ,も;!しょ;いたし0ぞ,も;まして;!ッ;う0らそら,れ;!ですね,ね;い0まん,み0ん0;ません;ぁ,あ7てと,よ0らば;うなら,なら;きげんEくろうさん,ちそうFっつぁん,めん1苦労さ0馳走F;ま,ん;!くだGなG;ら3りゃ2れこれ,ん0;にち0ばん0;は,わ;!ー;!ぁ;!っ;ゃ1ょ0;!い,ぎょ;あ,ふん;あ,ー;!い,ぉ,お,かえり4ぎ3そまつ2っ,つかれ様,は1めでとう,や0ーい,早う,疲れ2粗末2;!すみ3っ;よう;さま,様;ゃー;!な0;さい;え1っ,ー0;っ,ッ;!い;うん,ふ1わ,ん,ー0;む,ん;!っ,ふ;いえ,えいえ,ただきます,や0ーえ;ぁ,あ,ー;ぁ,あ,いた,かん6きまへん,っ5ら4り1れ0ーあ;!よあれよ,れ,ー;がと1ゃ0;!りゃ;!う;!ッ,ー;!かんべー;!べ",
     "Value": "true¦一,七,三,九,二,五,八,六,十,千,四,百",
     "Weekday": "true¦土0日0月0木0水0火0金0;曜日",
-    "Infinitive": "true¦0:04;ふけり,上0K下0J並0I乗り0H乾0G仄めかし,仰ぎ,企0F伏せ,休み,会い,似,住み,作り,使い,侍り,信じ,倒0E借り,偽り,傷つけ,傾き,働き,優れ,儲0D光り,入0C冷0A凝09出08分かり,切0C別れ,刺し,加え,劣り,助0D励07勉強,動き,勝ち,勤め,包み,参り,取06口説き,可愛0K叱り,合い,向かい,吸い,吹き,呉れ,呼び,咲き,喋り,喜05噛み,回り,困り,囲み,固0基づき,増03壊0E売0C変02外し,太り,好み,妨げ,始0威張り,嫌0K学び,守り,定め,実り,寄00寝,届Z履き,崩0E干し,広0庇い,座り,引きY張り,強0弾き,待ち,得,志し,忘れ,怒り,怖0K思いX怠け,急ぎ,恐れ,悲W惚れ,惜W感じ,慌て,慣れ,慰め,戒め,戻V手伝い,払い,抑え,投げ,折れ,抜Z抱U押し,担ぎ,招き,拵え,拾い,持ち,挟み,捨て,捻り,掘り,掛0D探し,掲げ,握り,支え,救い,教え,散り,数え,敷き,晴れ,暖T暮S曇り,曲0J書き,枯S楽W構R次ぎ,欲し0K歌い,止T歩き,死に,残V殴り,殺し,比べ,気Q求め,汚れ,污し,決0沈み,沸0G泊T泣き,泳ぎ,洗い,流P浴び,消O混N減M渡V満たし,溶L滅K滑り,漏S濡れ,点け,無くJ焦I焼Z熟し,片付け,狂い,現0E生H異なり,畳み,疲れ,痛み,登り,盗み,目立ち,直V眠り,眩み,眺め,着G睨み,知F砕き,磨き,示し,祈り,祝い,禁じ,稼ぎ,空き,立E笑い,答え,終D組み,結び,続Z練り,縛り,繰り返し,置き,罵り,習い,考え,聞C育E脂ぎり,脱ぎ,腐り,腰掛け,臥せり,舐め,苦しB落A蓄え,虐め,行き,被り,褒め,襲い,要り,見9覚え,解Z触0C言い8試し,話し,認め,誘い,読み,調べ,負L貰い,買い,貸し,走り,起7越し,足V踊り,踏み,蹴り,転び,輝き,込み,迎え,返V迷い,追い,送り,逃げ,通6連れ,進み,遅れ,遊び,運び,過5違い,適い,選び,避け,重4釣り,長け,閉0開け,間違R関D降3限り,隠2集0離0E霞み,静T頑張り,頼み,飛び,食1飲み,飼い,飾り,馴染み,騒ぎ,騙し,驚き,魂消り,黙り,齧り;い違い,べ;し,れり;り,ろし;なり,ね;ぎ,ごし;い,り;き,こO;!つけ,ふ01出し,換えり,表し;!え,せ,つ04做し,張り,逃し;ち,とし;ませ,み;き,こえ;わり;ち,て;らせ,り;!き,換え;え,き,まれ,やし;げ,り;し,なり;びり,ぼし;かし,け;らし,り;じり,ぜ;え,し;れ,行り;付き,遣い;い,え;らし,れ;まり;え,き;し,り;しみ;!つき;!受け;き,け;せ,り;張り;え,わり;え,やし;まり,め;ばし,び;りBれ;まし,み;!かけ,し,来;らし;え,や1;かし,し;り,れ;かり,け;し,れ;て,み;かし,き;!換え;び,べ;がり,げ;がり",
-    "Noun": "true¦人",
+    "Godan": "true¦0:19;1:0Z;2:04;あ19い16う14えらぶ,お12か0Zがんばる,き0Yく0Wけす,こ0Vござる,さ0Tし0Sす0Rそ0Qた0Pだ0Oち0Nつ0Kてつだう,と0Jな0Hねむる,の0Gは0Fひ0Eふ0Dへる,ほる,ま0Cみ0Bむすぶ,も0Aや09よ08わ07上2下05並ぶ,乗る,乞う,乾04争う,仄め03付き合う,仰0U企む,休む,会う,伴う,住む,作る,使う,侍る,保つ,倒す,偽る,傾く,働く,儲01光る,入る,冗談る,写す,冷や00凝Z出Y分01切る,刺す,刻む,削る,剥ぐ,劣る,助01励X効く,動く,勝つ,匂う,包む,参る,及ぶ,取V口説く,叫ぶ,可愛2叱る,合う,向かう,含む,吸う,吹く,味わう,呼U咲く,商う,問う,喋る,喜T嗅ぐ,噛む,回る,困る,囲む,固0在る,基づく,塗る,増S壊す,売る,変18外す,太る,好む,始0威R嫌2学ぶ,守る,実る,寄る,富む,導く,就く,届く,履く,崩す,巻く,帰る,干す,広Q庇う,座る,建つ,引O張る,強0弾く,役N往く,待つ,従う,忍ぶ,志す,怒る,怖2思L急ぐ,恨む,悩む,悲K惜K憎む,憩う,戻1手伝う,打つ,払う,扱う,抜く,抱く,押す,担ぐ,招く,拾う,持つ,挟む,捻る,掘る,掛01探1掴む,揃う,描く,握る,撮る,救う,散る,敷く,断る,暖0暮Z曇る,曲2書く,有る,望む,枯Z楽K構う,次ぐ,欲し2歌う,止0歩く,死ぬ,残1殴る,殺す,気J污す,決0沈む,沸04治1沿う,泊0泣く,注ぐ,泳ぐ,洗う,流行る,浮かぶ,消す,涼む,混じる,添う,済む,減I渡1温める,湿る,満たす,溶03滅ぼす,滑る,漏Z潤う,為0X無くH焦る,焼く,熟す,狂う,現す,生G産む,異F畳む,疑う,痛む,登る,盗む,目N直1眠る,眩む,着く,睨む,知E砕く,磨く,示す,祈る,祝う,祭る,移す,稼ぐ,積む,空く,突く,立つ,笑う,終18組む,経つ,結ぶ,継ぐ,続く,練る,縋る,縛る,縫う,縮む,繰り返す,置く,罵る,群2習う,聞く,育つ,脂ぎる,脱ぐ,腐る,至る,舞う,苦K茂る,落とす,蘇る,行D表す,被る,補う,襲う,要る,覆る,見C解く,触る,言A試す,話9誇る,誘う,語る,誤る,読む,請う,謝る,譲る,負03貰う,買う,貸す,賄う,走る,起こ1越す,足す,踊る,踏む,蹴飛ばす,転8輝く,込む,返1迷う,追7送る,這う,通6逝く,進む,遊ぶ,運ぶ,過ごす,違う,遣る,適う,遭う,遮る,選ぶ,配る,酔う,重F釣る,閉0開く,間5関18防ぐ,降4限る,陥る,隠す,集0離す,霞む,静0響く,頂く,頑R頼3願う,飛U食い違う,飲む,飼う,飾る,馴染む,騒ぐ,騙す,驚く,高0魂消る,黙る,齧る;む,る;る,ろす;にZ違う;う,す,る;いかける,う;がる,ぶ;しVす;い3う;ふQ出す,表す;つR做す,張る,習う,送る,逃す;く,なう;りQる;なる;む,やす;す,なる;らす,る;付く,遣う;しむ;い3う;つく,出す;立つ;く,っ3;張る,越す;がる,まる;張る;す,やす;ばす,ぶ;び4ぶ;り3る;出す;ます,む;す,会う;らす;かす,す;かる;合う;かす;かす,く;がる,さる;がる;かる,た1;ぶ,む,る,ろこぶ;く,すむ;つ,どる,らう;がく,のる;いる,がる,く,じる,つ,なぶ,もる,よう,わる;く,せぐ,とる,やす,る;かる,く,ねる,らく;こぶ,しる,じ0たらく,なす,る;こる,ぼる,む,る;おす,く,ぐる,さる,やむ,ら3;う,ぶ;おる,ぶ,まる,る;か4く,づく,な3む,る;がる,ぐ;う,む;がう,ぢむ,る;く,す,まる;つ,のむ;そぐ,だつ;う,すむ,む,わる;かる,ぬ,ばる,まう,めす,ゃべる;がす,く,けぶ,そう,わ3;ぐ,る;のむ,まる,む,ろぶ;さる,だ3もる;さる;く,まる;う,え1か3ぎる,ざる,じる,す,せぐ,ぶる,む,よう,わる;る,わる;す,る;く3こる,す,っ7とる,どる,もう,よぐ,わる;!る;ごく,たう,つ3む,る;!す;う,く,そぐ,つ4のる,らっ3;しゃる;わる;せる,つ0らう,る3;!く;まる",
+    "IrregularVerb": "true¦くる,する,来る,為る",
+    "Ichidan": "true¦0:0L;1:0K;2:0M;3:06;4:03;undefined,あ0Nい0Mう0Kえる,お0Jか0Gき0Fく0Eこ0Dさ0Cし09す08せ2そだ4た06つ04で02と01なZにYぬ1ねる,のXはWひろVふUほ00まSみRむか0もQやTよPわO上V下V与0並0L乗N交M付03任T企4伏T伝0伸L似る,使0信3倒1借K備0傷つ03優1儲03入1兼ねる,冷J出I分H切1別1加0助03努2勤2占2取G受03呉1告V命3固2埋2報F増0壊1売1変0妨V始2委ねる,存3定2寄T寝る,尋ねる,尽E居る,届03崩1帯L広D延L建4引き受03弱2強C当4得る,忘1応3怠03恐1恥3悔F惚1感3慌4慣1慰2戒2抑0投V折1抜03抱0拵0挙V捨4掛03掲V揃0換0支0攻2教0数0明03晴1暮1曲V替0束ねる,果4枯1案3構0止2比0L求2汚1決2流1浮か0L浴L消0混M済まT溢1溶03滅L漏1演3濡1点03焦V焼03煮る,燃0片付03現1甘0生B用F疲1痩T真似る,眺2着A知らT禁3立4答0経る,続03綻L締2老9考0聞こ0育4腰掛03臥T舐2苦しまT落ちる,蓄0虐2褒2見8覚J解03触1言い7訪6訴0詫L認2調0L論3諦2講3負03責2起E越0足K跳ねる,蹴る,転3載T迎0述0L逃5通3連1進2遂V遅1過ぎる,避03重ねる,錆L鍛0長03閉2開03間違0降K隠1集2離1震0食0L飽E高2;げる,れる;ねる,れる;つ00換0;える,せる,つZる;いる,ける;る,換0;える,きる,ける,じる,ま1;いる,める;げる,める;きる;いる;り換0れる;か1ける;かPる,来る;える,める;りる;びる;ぜる;せる,り換0;か1ける,す1;ご1せる,わ2;える,と2れる;せる,と2る;か5ける,げる,ぜる;せる;える,る0れる;げる;える,じ2な1れる;が1せる,べる;げる,る;が5げる,める,らQれる;める,れる;ける,げる,ど6める;か5きる,る;ける;か5ける,げる,た0と2よ2れる;える,れる;お1か2ずGてる,べる,りる;てる;ぎる,ぐ1す2てる;める,ら6ん3;じる;せる,べる;ける,げる,さ0だ2める;える,た0わ1;ず1らBれる,わ0;える,こ0める,る,れる;か0く1ける,さ6ぞ0りる,れる,ん5;が0じる;ねる;きる,し0そ1ちる,とず1ぼ0りる,れる;か5ける,ま1める,れる;べる;る,れる;きら2ける,げる,た0つ2てる,びる,ふ1らわ1;れる;える;める",
     "Determiner": "true¦あの,この,その",
-    "Pronoun": "true¦あJうち,おHかFきDこCしょうせい,じぶん,そBてAへいIぼく,やつ,わ6俺5僕,儂,其奴,君,奴,小生,弊社,彼4御社,我2手前,此奴,私1自分,貴0;下,官,様,社;!たち;々,が0等;!社;!女,奴,等;!様;が2し,た1て,れ0;!ら,われ;くし,し;!しゃ;まえ,めえ;いつ,やつ,れ;いつ,やつ;か0さま,しゃ,み;!ん;のじょ,れ0;!ら;いら,たく,まえ,ら,れ,ん0前;しゃ;いつ,た1なた,の0やつ,んた;かた,ひと,人,方;い,くし,し"
+    "CaseParticle": "true¦から,が,で,と,に,へ,まで,や,より,を",
+    "ConjunctiveParticle": "true¦け2し,た1つつ,て3ながら,の0ば;で,に;ら,り;ど,れど0;!も",
+    "TopicParticle": "true¦こそ,さえ,しか,でも,なら,は,も",
+    "SentenceParticle": "true¦か3さ,ぜ,ぞ,な2ね1のか,ものか,よ0わ;!ね;!え;!あ;!しら,な",
+    "AdnominalParticle": "true¦の"
   };
 
   const BASE = 36;
@@ -7805,7 +7813,7 @@
     return index + dnode + 1 - trie.symCount
   };
 
-  const toArray$1 = function (trie) {
+  const toArray = function (trie) {
     const all = [];
     const crawl = (index, pref) => {
       let node = trie.nodes[index];
@@ -7845,7 +7853,7 @@
     if (str.match(':')) {
       parseSymbols(trie);
     }
-    return toArray$1(trie)
+    return toArray(trie)
   };
 
   var traverse = unpack$2;
@@ -7885,648 +7893,1269 @@
 
   var unpack$1 = unpack;
 
-  const prefix$1 = /^.([0-9]+)/;
+  // vowel-row transforms for godan (五段) verbs
+  // the dictionary-form's final kana tells us the row, and each
+  // grammatical 'base' (活用形) shifts it to a different vowel
 
-  // handle compressed form of key-value pair
-  const getKeyVal = function (word, model) {
-    let val = model.exceptions[word];
-    let m = val.match(prefix$1);
-    if (m === null) {
-      // return not compressed form
-      return model.exceptions[word]
-    }
-    // uncompress it
-    let num = Number(m[1]) || 0;
-    let pre = word.substr(0, num);
-    return pre + val.replace(prefix$1, '')
+  // 未然形 - the 'a' row (takes ない, れる, せる)
+  const aRow = {
+    'う': 'わ', 'く': 'か', 'ぐ': 'が', 'す': 'さ', 'つ': 'た',
+    'ぬ': 'な', 'ぶ': 'ば', 'む': 'ま', 'る': 'ら',
+  };
+  // 連用形 - the 'i' row (takes ます, たい, ながら) - also the 'masu-stem'
+  const iRow = {
+    'う': 'い', 'く': 'き', 'ぐ': 'ぎ', 'す': 'し', 'つ': 'ち',
+    'ぬ': 'に', 'ぶ': 'び', 'む': 'み', 'る': 'り',
+  };
+  // 仮定形/命令形 - the 'e' row (takes ば, る for potential)
+  const eRow = {
+    'う': 'え', 'く': 'け', 'ぐ': 'げ', 'す': 'せ', 'つ': 'て',
+    'ぬ': 'ね', 'ぶ': 'べ', 'む': 'め', 'る': 'れ',
+  };
+  // 意向形 - the 'o' row (takes う for volitional)
+  const oRow = {
+    'う': 'お', 'く': 'こ', 'ぐ': 'ご', 'す': 'そ', 'つ': 'と',
+    'ぬ': 'の', 'ぶ': 'ぼ', 'む': 'も', 'る': 'ろ',
+  };
+  // 音便 - the sound-change used by the て/た forms
+  const teRow = {
+    'う': 'って', 'つ': 'って', 'る': 'って',
+    'ぬ': 'んで', 'ぶ': 'んで', 'む': 'んで',
+    'く': 'いて', 'ぐ': 'いで', 'す': 'して',
   };
 
-  // get suffix-rules according to last char of word
-  const getRules = function (word, rules = {}) {
-    let char = word[word.length - 1];
-    let list = rules[char] || [];
-    // do we have a generic suffix?
-    if (rules['']) {
-      list = list.concat(rules['']);
-    }
-    return list
+  // kana that can precede る in an ichidan verb (the i-row and e-row)
+  const iRowKana = new Set('いきしちにひみりぎじぢびぴ'.split(''));
+  const eRowKana = new Set('えけせてねへめれげぜでべぺ'.split(''));
+
+  const godanEnding = new Set('うくぐすつぬぶむる'.split(''));
+
+  // -る verbs are genuinely ambiguous: 帰る is godan, but 変える is ichidan.
+  // when the stem is spelled in kanji the vowel is hidden, so we need word-lists.
+
+  // 一段 verbs the vowel-heuristic can't see (kanji sits right before the る)
+  const ichidan = `見る 着る 似る 煮る 干る 射る 鋳る 居る 出る 得る 経る 寝る 蹴る
+  生きる 起きる 過ぎる 落ちる 尽きる 飽きる 降りる 借りる 足りる 浴びる 滅びる 錆びる
+  感じる 信じる 禁じる 命じる 応じる 通じる 生じる 存じる 論じる 演じる 転じる 案じる 講じる 恥じる
+  老いる 用いる 報いる 強いる 悔いる 延びる 伸びる 帯びる 詫びる 綻びる 懲びる 出来る
+  みる きる にる でる える ねる いる いきる おきる すぎる おちる おりる かりる たりる あびる`.split(/\s+/);
+
+  // 五段 verbs that *look* ichidan (an i/e-row kana sits before the る) but aren't.
+  // mostly matters for the kana spellings - kanji spellings already default to godan.
+  const godanRu = `帰る 返る 入る 要る 走る 知る 切る 限る 減る 練る 照る 滑る 握る 焦る
+  脂ぎる 覆る 遮る 罵る 湿る 茂る 参る 交じる 混じる 陥る 侮る 嘲る 憚る 滾る 捻る 抓る 契る 齧る
+  喋る 縋る 蘇る 甦る 詰る 罷る 迸る 阿る 熱る 散る italic misc
+  かえる はいる はしる しる きる かぎる へる ねる てる すべる にぎる あせる ちる
+  まじる しゃべる かじる ひねる くつがえる さえぎる ののしる しめる しげる まいる おちいる
+  あなどる あざける はばかる なじる まかる ほとばしる ほてる ちぎる よみがえる すがる つねる
+  たぎる おもねる いじる ける よぎる まざる ねじる
+  打ち切る 思い切る 張り切る 立ち返る 生き返る 寝返る 立ち入る 押し入る 気に入る 見入る 恐れ入る`
+    .split(/\s+/).filter(w => /る$/.test(w));
+
+  let isIchidan = new Set(ichidan.filter(w => /る$/.test(w)));
+  let isGodanRu = new Set(godanRu);
+  // 蹴る is ichidan in modern standard japanese, 練る/照る are godan homophones
+  isGodanRu.delete('蹴る');
+
+  // verbs with a paradigm of their own
+  const irregular = {
+    'する': 'suru',
+    '為る': 'suru',
+    'くる': 'kuru',
+    '来る': 'kuru',
+    'ある': 'aru',
+    '有る': 'aru',
+    '在る': 'aru',
+    '行く': 'iku',
+    'いく': 'iku',
+    '逝く': 'iku',
+    '往く': 'iku',
+    '問う': 'ou',
+    '請う': 'ou',
+    '乞う': 'ou',
+    '下さる': 'aru5',
+    'くださる': 'aru5',
+    'なさる': 'aru5',
+    '為さる': 'aru5',
+    'おっしゃる': 'aru5',
+    '仰る': 'aru5',
+    'いらっしゃる': 'aru5',
+    'ござる': 'aru5',
+    '御座る': 'aru5',
   };
 
-  const convert = function (word, model, debug) {
-    // check list of irregulars
-    if (model.exceptions.hasOwnProperty(word)) {
-      if (debug) {
-        console.log("exception, ", word, model.exceptions[word]);
-      }
-      return getKeyVal(word, model)
+  /** which conjugation-family does this dictionary-form belong to? */
+  const verbClass = function (dict, hint) {
+    // an irregular is irregular even when the word-list calls it godan - 行く
+    // is listed as a godan verb but its て-form is 行って, not 行いて
+    if (irregular[dict]) {
+      return irregular[dict]
     }
-    // if model is reversed, try rev rules
-    let rules = model.rules;
-    if (model.reversed) {
-      rules = model.rev;
+    if (hint === 'Ichidan' || hint === 'Godan') {
+      return hint.toLowerCase()
     }
-    // try suffix rules
-    rules = getRules(word, rules);
-    for (let i = 0; i < rules.length; i += 1) {
-      let suffix = rules[i][0];
-      if (word.endsWith(suffix)) {
-        if (debug) {
-          console.log("rule, ", rules[i]);
+    // -する compounds, like 勉強する
+    if (dict.length > 2 && dict.endsWith('する')) {
+      return 'suru'
+    }
+    // -来る compounds, like 持って来る
+    if (dict.length > 2 && (dict.endsWith('来る') || dict.endsWith('くる'))) {
+      return 'kuru'
+    }
+    let last = dict[dict.length - 1];
+    if (!godanEnding.has(last)) {
+      return null // not a shape we can conjugate
+    }
+    if (last !== 'る') {
+      return 'godan' // う/く/ぐ/す/つ/ぬ/ぶ/む are unambiguous
+    }
+    if (isIchidan.has(dict)) {
+      return 'ichidan'
+    }
+    if (isGodanRu.has(dict)) {
+      return 'godan'
+    }
+    // derived stems keep their ichidan shape - 食べさせる, 読まれる, 書ける
+    if (/(せる|させる|れる|られる)$/.test(dict) && dict.length > 2) {
+      return 'ichidan'
+    }
+    let before = dict[dict.length - 2];
+    // an i-row or e-row kana before る is a good ichidan signal
+    if (iRowKana.has(before) || eRowKana.has(before)) {
+      return 'ichidan'
+    }
+    // ..otherwise assume godan, the larger class
+    return 'godan'
+  };
+
+  var verbClass$1 = verbClass;
+
+  // the five 'bases' every japanese verb form is built out of.
+  // get these right and every suffix falls out of them.
+  const toBases = function (dict, cls) {
+    let stem = dict.slice(0, -1);
+    let last = dict[dict.length - 1];
+    switch (cls) {
+      case 'godan':
+        return {
+          negStem: stem + aRow[last],   // 未然形 - 書か
+          stem: stem + iRow[last],      // 連用形 - 書き
+          cond: stem + eRow[last],      // 仮定形 - 書け
+          imper: stem + eRow[last],     // 命令形 - 書け
+          volit: stem + oRow[last] + 'う', // 意向形 - 書こう
+          te: stem + teRow[last],       // て形   - 書いて
+          potential: stem + eRow[last] + 'る',
+          passive: stem + aRow[last] + 'れる',
+          causative: stem + aRow[last] + 'せる',
         }
-        let reg = new RegExp(suffix + '$');
-        return word.replace(reg, rules[i][1])
+      case 'ichidan': {
+        let s = dict.slice(0, -1); // 食べ
+        return {
+          negStem: s, stem: s, cond: s + 'れ', imper: s + 'ろ',
+          volit: s + 'よう', te: s + 'て',
+          potential: s + 'られる', passive: s + 'られる', causative: s + 'させる',
+        }
       }
+      case 'suru': {
+        let pre = dict.slice(0, -2); // 勉強
+        return {
+          negStem: pre + 'し', stem: pre + 'し', cond: pre + 'すれ', imper: pre + 'しろ',
+          volit: pre + 'しよう', te: pre + 'して',
+          potential: pre === '' ? 'できる' : pre + 'できる',
+          passive: pre + 'される', causative: pre + 'させる',
+        }
+      }
+      case 'kuru': {
+        let pre = dict.slice(0, -2);
+        let kana = dict.endsWith('くる');
+        let ko = kana ? 'こ' : '来';
+        let ki = kana ? 'き' : '来';
+        let ku = kana ? 'く' : '来';
+        return {
+          negStem: pre + ko, stem: pre + ki, cond: pre + ku + 'れ', imper: pre + ko + 'い',
+          volit: pre + ko + 'よう', te: pre + ki + 'て',
+          potential: pre + ko + 'られる', passive: pre + ko + 'られる', causative: pre + ko + 'させる',
+        }
+      }
+      case 'aru': {
+        let s = dict.slice(0, -1); // あ / 有 / 在
+        return {
+          negStem: null, // ある has no 未然形 - its negative is just ない
+          stem: s + 'り', cond: s + 'れ', imper: s + 'れ', volit: s + 'ろう', te: s + 'って',
+          potential: s + 'れる', passive: s + 'られる', causative: s + 'らせる',
+        }
+      }
+      case 'iku': { // 行く takes って, not the regular いて
+        let s = dict.slice(0, -1);
+        return {
+          negStem: s + 'か', stem: s + 'き', cond: s + 'け', imper: s + 'け', volit: s + 'こう',
+          te: s + 'って',
+          potential: s + 'ける', passive: s + 'かれる', causative: s + 'かせる',
+        }
+      }
+      case 'ou': { // 問う/請う keep うて rather than って
+        let s = dict.slice(0, -1);
+        return {
+          negStem: s + 'わ', stem: s + 'い', cond: s + 'え', imper: s + 'え', volit: s + 'おう',
+          te: s + 'うて',
+          potential: s + 'える', passive: s + 'われる', causative: s + 'わせる',
+        }
+      }
+      case 'aru5': { // くださる/なさる - godan, but the masu-stem drops the り
+        let s = dict.slice(0, -1);
+        return {
+          negStem: s + 'ら', stem: s + 'い', cond: s + 'れ', imper: s + 'い', volit: s + 'ろう',
+          te: s + 'って',
+          potential: s + 'れる', passive: s + 'られる', causative: s + 'らせる',
+        }
+      }
+      default:
+        return null
     }
-    if (debug) {
-      console.log(' x - ' + word);
+  };
+
+  // て → た,  で → だ
+  const teToTa = (te) => te.replace(/て$/, 'た').replace(/で$/, 'だ');
+
+  /** produce the full paradigm of a dictionary-form verb */
+  const conjugate$1 = function (dict, hint) {
+    let cls = verbClass$1(dict, hint);
+    if (!cls) {
+      return null
     }
-    // return the original word unchanged
-    return word
-  };
-  var convert$1 = convert;
-
-  // index rules by last-char
-  const indexRules = function (rules) {
-    let byChar = {};
-    rules.forEach((a) => {
-      let suff = a[0] || '';
-      let char = suff[suff.length - 1] || '';
-      byChar[char] = byChar[char] || [];
-      byChar[char].push(a);
-    });
-    return byChar
-  };
-
-  const prefix = /^([0-9]+)/;
-
-  const expand = function (key = '', val = '') {
-    val = String(val);
-    let m = val.match(prefix);
-    if (m === null) {
-      return [key, val]
+    let b = toBases(dict, cls);
+    if (!b) {
+      return null
     }
-    let num = Number(m[1]) || 0;
-    let pre = key.substring(0, num);
-    let full = pre + val.replace(prefix, '');
-    return [key, full]
-  };
+    // ある is the one verb whose plain negative isn't built on a 未然形
+    let negative = b.negStem === null ? 'ない' : b.negStem + 'ない';
+    let pastNegative = b.negStem === null ? 'なかった' : b.negStem + 'なかった';
+    let te = b.te;
+    let past = teToTa(te);
 
-  const toArray = function (txt) {
-    const pipe = /\|/;
-    return txt.split(/,/).map(str => {
-      let a = str.split(pipe);
-      return expand(a[0], a[1])
-    })
-  };
-
-  const uncompress = function (model = {}) {
-    model = Object.assign({}, model);
-
-    // compress fwd rules
-    model.rules = toArray(model.rules);
-    model.rules = indexRules(model.rules);
-
-    // compress reverse rules
-    if (model.rev) {
-      model.rev = toArray(model.rev);
-      model.rev = indexRules(model.rev);
-    }
-
-    // compress exceptions
-    model.exceptions = toArray(model.exceptions);
-    model.exceptions = model.exceptions.reduce((h, a) => {
-      h[a[0]] = a[1];
-      return h
-    }, {});
-    return model
-  };
-  var uncompress$1 = uncompress;
-
-  // console.log(expand('fixture', '6ing'))
-  // console.log(toArray('heard|4'))
-
-  const reverseObj = function (obj) {
-    return Object.entries(obj).reduce((h, a) => {
-      h[a[1]] = a[0];
-      return h
-    }, {})
-  };
-
-  const reverse = function (model) {
-    let { rules, exceptions, rev } = model;
-    exceptions = reverseObj(exceptions);
     return {
-      reversed: !Boolean(model.reversed),//toggle this
-      rules,
-      exceptions,
-      rev
-    }
-  };
-  var reverse$1 = reverse;
-
-  var input = {
-    "causative_negative": {
-      "rules": "けり|1れません,り|らせない,ごし|1さなかったら,し|さない,ね|1させない,ぜ|1させない,に|ななかったら,来|1させない,べ|1させない,じ|1させない,ち|たせない,て|1させない,せ|1させない,げ|1させない,ぎ|がない,び|ばない,め|1させない,け|1させない,え|1させない,み|ませない,い|わせない,き|かせない,れ|1させない",
-      "exceptions": "足り|2させない,書き|1かなかったら,働き|1かなかったら,着|1なかったら,洗い|1わなかったら,歩き|1かなかったら,待ち|1たなかったら,考え|2なかったら,思い|1わなかったら,泊まり|2らなかったら,立ち|1たなかったら,話し|1さなかったら,寝|1なかったら,言い|1わなかったら,走り|1らなかったら,返り|1らなかったら,似|1させない,読み|1まなかったら,覚え|2なかったら,引き|1かなかったら,遊び|1ばなかったら,過ぎ|2させない,開け|2なかったら,要り|1らなかったら,会い|1わなかったら,見|1なかったら,聞き|1かなかったら,貸し|1さなかったら,知り|1らなかったら,急ぎ|1がなかったら,出|1なかったら,行き|1かなかったら,起き|2させない,降り|2させない,得|1させない,落ち|2させない,入り|1らなかったら,食べ|2なかったら,飲み|1まなかったら,切り|1らなかったら,喋り|1らなかったら,買い|1わなかったら,沸き|1かなかったら,借り|2させない,始め|2なかったら,生き|2させない,浴び|2させない",
-      "rev": "けれません|1り,ばなかったら|び,けなかったら|1,がなかったら|ぎ,べなかったら|1,ななかったら|に,めなかったら|1,たなかったら|ち,えなかったら|1,まなかったら|み,さなかったら|し,わなかったら|い,かなかったら|き,らなかったら|り,たせない|ち,がない|ぎ,ばない|び,ませない|み,わせない|い,かせない|き,さない|し,らせない|り,させない|"
-    },
-    "causative": {
-      "rules": "けり|1れます,り|らせる,ごし|2たら,し|させる,ね|1させる,ぜ|1させる,に|んだら,来|1させる,べ|1させる,じ|1させる,ち|たせる,て|1させる,せ|1させる,げ|1させる,ぎ|がせる,び|ばせる,め|1させる,け|1させる,え|1させる,み|ませる,い|わせる,き|かせる,れ|1させる",
-      "exceptions": "足り|2させる,書き|1いたら,働き|1いたら,着|1たら,洗い|1ったら,歩き|1いたら,待ち|1ったら,考え|2たら,思い|1ったら,泊まり|2ったら,立ち|1ったら,話し|2たら,寝|1たら,言い|1ったら,走り|1ったら,返り|1ったら,似|1させる,読み|1んだら,覚え|2たら,引き|1いたら,遊び|1んだら,過ぎ|2させる,開け|2たら,要り|1ったら,会い|1ったら,見|1たら,聞き|1いたら,貸し|2たら,知り|1ったら,急ぎ|1いだら,出|1たら,行き|1ったら,起き|2させる,降り|2させる,得|1させる,落ち|2させる,入り|1ったら,食べ|2たら,飲み|1んだら,切り|1ったら,喋り|1ったら,買い|1ったら,沸き|1いたら,借り|2させる,始め|2たら,生き|2させる,浴び|2させる,消し|1させる,騙し|1させる,試し|1させる,現し|1させる,離し|1させる,探し|1させる,戻し|1させる,外し|1させる,直し|1させる,押し|1させる,刺し|1させる,倒し|1させる,熟し|1させる,污し|1させる,残し|1させる,殺し|1させる,示し|1させる,隠し|1させる,渡し|1させる,干し|1させる,死に|1んだら,崩し|1させる,越し|1させる,壊し|1させる,志し|1させる,足し|1させる",
-      "rev": "けれます|1り,こさせる|1し,たさせる|1し,逃させる|1し,とさせる|1し,くさせる|1し,做させる|1し,まさせる|1し,ろさせる|1し,ぼさせる|1し,い表させる|2し,ばさせる|1し,出させる|1し,返させる|1し,やさせる|1し,たせる|ち,かさせる|1し,らさせる|1し,がせる|ぎ,ばせる|び,ませる|み,わせる|い,かせる|き,らせる|り,させる|,まったら|1り,けたら|1,いだら|ぎ,べたら|1,めたら|1,えたら|1,したら|1,いたら|き"
-    },
-    "conditional_negative": {
-      "rules": "ね|1なかったら,ぜ|1なかったら,来|1なかったら,べ|1なかったら,じ|1なかったら,ち|たなかったら,て|1なかったら,せ|1なかったら,げ|1なかったら,ぎ|がなかったら,び|ばなかったら,め|1なかったら,け|1なかったら,え|1なかったら,み|まなかったら,い|わなかったら,き|かなかったら,れ|1なかったら,し|さなかったら,り|らなかったら",
-      "exceptions": "足り|2なかったら,似|1なかったら,過ぎ|2なかったら,起き|2なかったら,降り|2なかったら,得|1なかったら,落ち|2なかったら,借り|2なかったら,生き|2なかったら,浴び|2なかったら",
-      "rev": "ねなかったら|1,ぎなかったら|1,ぜなかったら|1,ちなかったら|1,来なかったら|1,びなかったら|1,きなかったら|1,りなかったら|1,べなかったら|1,じなかったら|1,たなかったら|ち,てなかったら|1,せなかったら|1,げなかったら|1,がなかったら|ぎ,ばなかったら|び,めなかったら|1,けなかったら|1,えなかったら|1,まなかったら|み,わなかったら|い,かなかったら|き,れなかったら|1,さなかったら|し,らなかったら|り"
-    },
-    "conditional": {
-      "rules": "ね|1たら,ぜ|1たら,来|1たら,べ|1たら,じ|1たら,ち|ったら,て|1たら,せ|1たら,げ|1たら,ぎ|いだら,び|んだら,め|1たら,け|1たら,え|1たら,い|ったら,み|んだら,き|いたら,れ|1たら,し|1たら,り|ったら",
-      "exceptions": "足り|2たら,似|1たら,過ぎ|2たら,起き|2たら,降り|2たら,得|1たら,落ち|2たら,借り|2たら,生き|2たら,浴び|2たら,喜び|1んだら,勝ち|1ったら,使い|1ったら,結び|1んだら,適い|1ったら,歌い|1ったら,救い|1ったら,貰い|1ったら,及び|1んだら,庇い|1ったら,拾い|1ったら,払い|1ったら,合い|1ったら,学び|1んだら,習い|1ったら,笑い|1ったら,飛び|1んだら,誘い|1ったら,飼い|1ったら,吸い|1ったら,持ち|1ったら,育ち|1ったら,狂い|1ったら,並び|1んだら,転び|1んだら,向かい|2ったら,選び|1んだら,追い|1ったら,祝い|1ったら,構い|1ったら,運び|1んだら,呼び|1んだら,迷い|1ったら,襲い|1ったら",
-      "rev": "遣ったら|1い,伝ったら|1い,立ったら|1ち,違ったら|1い,いだら|ぎ,んだら|み,いたら|き,ったら|り,たら|"
-    },
-    "imperative_negative": {
-      "rules": "ね|1るな,ぜ|1るな,に|ぬな,来|1るな,じ|1るな,べ|1るな,て|1るな,せ|1るな,ち|つな,げ|1るな,ぎ|ぐな,び|ぶな,め|1るな,け|1るな,え|1るな,み|むな,れ|1るな,い|うな,き|くな,し|すな,り|るな",
-      "exceptions": "足り|2るな,着|1るな,寝|1るな,似|1るな,過ぎ|2るな,見|1るな,出|1るな,起き|2るな,降り|2るな,得|1るな,落ち|2るな,借り|2るな,生き|2るな,浴び|2るな,罵り|1るな,直り|1るな,脂ぎり|2るな,被り|1るな,触り|1るな,縛り|1るな,練り|1るな,取り|1るな,黙り|1るな,滑り|1るな,座り|1るな,光り|1るな,送り|1るな,叱り|1るな,売り|1るな,走り|1るな,実り|1るな,返り|1るな,戻り|1るな,殴り|1るな,祈り|1るな,守り|1るな,滅びり|2るな,要り|1るな,作り|1るな,臥せり|2るな,限り|1るな,残り|1るな,蹴り|1るな,知り|1るな,隠れり|2るな,握り|1るな,通り|1るな,齧り|1るな,回り|1るな,太り|1るな,曇り|1るな,怒り|1るな,釣り|1るな,散り|1るな,眠り|1るな,入り|1るな,掘り|1るな,飾り|1るな,腐り|1るな,減り|1るな,偽り|1るな,踊り|1るな,切り|1るな,渡り|1るな,参り|1るな,登り|1るな,喋り|1るな,乗り|1るな,捻り|1るな,劣り|1るな,混じり|2るな,困り|1るな,焦り|1るな,侍り|1るな,寄り|1るな",
-      "rev": "い換えるな|3り,こるな|1り,ぬな|に,行るな|1り,消るな|1り,なるな|1り,わるな|1り,張るな|1り,かるな|1り,つな|ち,がるな|1り,ぐな|ぎ,ぶな|び,まるな|1り,むな|み,うな|い,くな|き,すな|し,るな|"
-    },
-    "imperative": {
-      "rules": "ね|1ろ,ぜ|1ろ,に|ね,来|1ろ,じ|1ろ,べ|1ろ,て|1ろ,せ|1ろ,ち|て,げ|1ろ,ぎ|げ,び|べ,め|1ろ,け|1ろ,え|1ろ,れ|1ろ,み|め,い|え,き|け,し|せ,り|れ",
-      "exceptions": "足り|2ろ,着|1ろ,寝|1ろ,似|1ろ,過ぎ|2ろ,見|1ろ,出|1ろ,呉れ|2,起き|2ろ,降り|2ろ,得|1ろ,落ち|2ろ,借り|2ろ,生き|2ろ,浴び|2ろ",
-      "rev": "ね|に,て|ち,げ|ぎ,べ|び,め|み,え|い,け|き,せ|し,れ|り,ろ|"
-    },
-    "infinitive": {
-      "rules": "ね|1,ぜ|1,に|1,来|1,じ|1,べ|1,て|1,せ|1,げ|1,ち|1,ぎ|1,び|1,め|1,け|1,え|1,み|1,れ|1,い|1,き|1,し|1,り|1",
-      "exceptions": "着|1,寝|1,似|1,見|1,出|1,得|1",
-      "rev": "ね|1,ぜ|1,に|1,来|1,じ|1,べ|1,て|1,せ|1,げ|1,ち|1,ぎ|1,び|1,め|1,け|1,え|1,み|1,れ|1,い|1,き|1,し|1,り|1"
-    },
-    "passive_negative": {
-      "rules": "けり|1らせません,り|られない,ごし|1せない,し|されない,ね|1られない,ぜ|1られない,に|ねない,来|1られない,じ|1られない,ち|たれない,べ|1られない,て|1られない,せ|1られない,げ|1られない,ぎ|がれない,び|ばれない,め|1られない,け|1られない,え|1られない,み|まれない,い|われない,き|かれない,れ|1られない",
-      "exceptions": "足り|2られない,書き|1けない,働き|1けない,着|1られない,洗い|1えない,歩き|1けない,待ち|1てない,思い|1えない,泊まり|2れない,立ち|1てない,話し|1せない,寝|1られない,言い|1えない,走り|1れない,返り|1れない,似|1られない,読み|1めない,引き|1けない,遊び|1べない,過ぎ|2られない,要り|1れない,会い|1えない,見|1られない,聞き|1けない,貸し|1せない,知り|1れない,急ぎ|1げない,出|1られない,行き|1けない,起き|2られない,降り|2られない,得|1られない,落ち|2られない,入り|1れない,飲み|1めない,切り|1れない,喋り|1れない,買い|1えない,沸き|1けない,借り|2られない,生き|2られない,浴び|2られない,罵り|1られない,直り|1られない,脂ぎり|2られない,被り|1られない,触り|1られない,縛り|1られない,練り|1られない,取り|1られない,黙り|1られない,滑り|1られない,座り|1られない,光り|1られない,送り|1られない,叱り|1られない,売り|1られない,実り|1られない,戻り|1られない,殴り|1られない,祈り|1られない,守り|1られない,滅びり|2られない,作り|1られない,臥せり|2られない,限り|1られない,残り|1られない,蹴り|1られない,隠れり|2られない,握り|1られない,通り|1られない,齧り|1られない,回り|1られない,太り|1られない,曇り|1られない,怒り|1られない,釣り|1られない,散り|1られない,眠り|1られない,掘り|1られない,飾り|1られない,腐り|1られない,減り|1られない,偽り|1られない,踊り|1られない,渡り|1られない,参り|1られない,登り|1られない,乗り|1られない,捻り|1られない,劣り|1られない,混じり|2られない,困り|1られない,焦り|1られない,侍り|1られない,寄り|1られない",
-      "rev": "けらせません|1り,い換えられない|3り,べない|び,こられない|1り,げない|ぎ,ねない|に,行られない|1り,消られない|1り,てない|ち,めない|み,なられない|1り,わられない|1り,せない|し,たれない|ち,張られない|1り,かられない|1り,えない|い,けない|き,がられない|1り,がれない|ぎ,ばれない|び,まられない|1り,まれない|み,われない|い,かれない|き,されない|し,られない|"
-    },
-    "passive": {
-      "rules": "けり|1らせます,り|られる,ごし|1せる,し|される,ね|1られる,ぜ|1られる,に|ねる,来|1られる,じ|1られる,ち|たれる,べ|1られる,て|1られる,せ|1られる,げ|1られる,ぎ|がれる,び|ばれる,め|1られる,け|1られる,え|1られる,み|まれる,い|われる,き|かれる,れ|1られる",
-      "exceptions": "足り|2られる,書き|1ける,働き|1ける,着|1られる,洗い|1える,歩き|1ける,待ち|1てる,思い|1える,泊まり|2れる,立ち|1てる,話し|1せる,寝|1られる,言い|1える,走り|1れる,返り|1れる,似|1られる,読み|1める,引き|1ける,遊び|1べる,過ぎ|2られる,要り|1れる,会い|1える,見|1られる,聞き|1ける,貸し|1せる,知り|1れる,急ぎ|1げる,出|1られる,行き|1ける,起き|2られる,降り|2られる,得|1られる,落ち|2られる,入り|1れる,飲み|1める,切り|1れる,喋り|1れる,買い|1える,沸き|1ける,借り|2られる,生き|2られる,浴び|2られる,罵り|1られる,直り|1られる,脂ぎり|2られる,被り|1られる,触り|1られる,縛り|1られる,練り|1られる,取り|1られる,黙り|1られる,滑り|1られる,座り|1られる,光り|1られる,送り|1られる,叱り|1られる,売り|1られる,実り|1られる,戻り|1られる,殴り|1られる,祈り|1られる,守り|1られる,滅びり|2られる,作り|1られる,臥せり|2られる,限り|1られる,残り|1られる,蹴り|1られる,隠れり|2られる,握り|1られる,通り|1られる,齧り|1られる,回り|1られる,太り|1られる,曇り|1られる,怒り|1られる,釣り|1られる,散り|1られる,眠り|1られる,掘り|1られる,飾り|1られる,腐り|1られる,減り|1られる,偽り|1られる,踊り|1られる,渡り|1られる,参り|1られる,登り|1られる,乗り|1られる,捻り|1られる,劣り|1られる,混じり|2られる,困り|1られる,焦り|1られる,侍り|1られる,寄り|1られる",
-      "rev": "けらせます|1り,い換えられる|3り,べる|び,こられる|1り,げる|ぎ,ねる|に,行られる|1り,消られる|1り,てる|ち,める|み,なられる|1り,わられる|1り,せる|し,たれる|ち,張られる|1り,かられる|1り,える|い,ける|き,がられる|1り,がれる|ぎ,ばれる|び,まられる|1り,まれる|み,われる|い,かれる|き,される|し,られる|"
-    },
-    "past_negative": {
-      "rules": "けり|1らないでください,り|らなかった,ね|1なかった,ぜ|1なかった,来|1なかった,べ|1なかった,じ|1なかった,ち|たなかった,て|1なかった,せ|1なかった,ぎ|がなかった,げ|1なかった,び|ばなかった,め|1なかった,け|1なかった,え|1なかった,み|まなかった,い|わなかった,き|かなかった,れ|1なかった,し|さなかった",
-      "exceptions": "足り|2なかった,似|1なかった,過ぎ|2なかった,起き|2なかった,降り|2なかった,得|1なかった,落ち|2なかった,借り|2なかった,生き|2なかった,浴び|2なかった,ふけり|2らないでください",
-      "rev": "ねなかった|1,ぎなかった|1,ぜなかった|1,ちなかった|1,来なかった|1,びなかった|1,きなかった|1,りなかった|1,べなかった|1,じなかった|1,たなかった|ち,てなかった|1,せなかった|1,がなかった|ぎ,げなかった|1,ばなかった|び,めなかった|1,けなかった|1,えなかった|1,まなかった|み,わなかった|い,かなかった|き,れなかった|1,さなかった|し,らなかった|り"
-    },
-    "past": {
-      "rules": "けり|1ってください,り|った,ね|1た,ぜ|1た,来|1た,べ|1た,じ|1た,ち|った,て|1た,せ|1た,ぎ|いだ,げ|1た,び|んだ,め|1た,け|1た,え|1た,み|んだ,い|った,き|いた,れ|1た,し|1た",
-      "exceptions": "足り|2た,似|1た,過ぎ|2た,起き|2た,降り|2た,得|1た,落ち|2た,借り|2た,生き|2た,浴び|2た,喜び|1んだ,勝ち|1った,使い|1った,結び|1んだ,適い|1った,歌い|1った,救い|1った,貰い|1った,及び|1んだ,庇い|1った,拾い|1った,払い|1った,合い|1った,学び|1んだ,習い|1った,笑い|1った,飛び|1んだ,誘い|1った,飼い|1った,吸い|1った,持ち|1った,育ち|1った,狂い|1った,並び|1んだ,転び|1んだ,向かい|2った,選び|1んだ,追い|1った,祝い|1った,構い|1った,運び|1んだ,呼び|1んだ,迷い|1った,襲い|1った",
-      "rev": "けってください|1り,遣った|1い,立った|1ち,違った|1い,いた|き,った|り,た|,いだ|ぎ,んだ|み"
-    },
-
-    "past_progressive": {
-      "rules": "けり|1って います,り|って いた,ね|1て いた,ぜ|1て いた,来|1て いた,べ|1て いた,じ|1て いた,ち|って いた,て|1て いた,せ|1て いた,げ|1て いた,ぎ|いで いた,び|んで いた,め|1て いた,け|1て いた,え|1て いた,い|って いた,み|んで いた,き|いて いた,れ|1て いた,し|1て いた",
-      "exceptions": "足り|2て いた,似|1て いた,過ぎ|2て いた,起き|2て いた,降り|2て いた,得|1て いた,落ち|2て いた,借り|2て いた,生き|2て いた,浴び|2て いた,喜び|1んで いた,勝ち|1って いた,使い|1って いた,結び|1んで いた,適い|1って いた,歌い|1って いた,救い|1って いた,貰い|1って いた,及び|1んで いた,庇い|1って いた,拾い|1って いた,払い|1って いた,合い|1って いた,学び|1んで いた,習い|1って いた,笑い|1って いた,飛び|1んで いた,誘い|1って いた,飼い|1って いた,吸い|1って いた,持ち|1って いた,育ち|1って いた,狂い|1って いた,並び|1んで いた,転び|1んで いた,向かい|2って いた,選び|1んで いた,追い|1って いた,祝い|1って いた,構い|1って いた,運び|1んで いた,呼び|1んで いた,迷い|1って いた,襲い|1って いた",
-      "rev": "けって います|1り,遣って いた|1い,伝って いた|1い,立って いた|1ち,違って いた|1い,いで いた|ぎ,んで いた|み,いて いた|き,って いた|り,て いた|"
-    },
-    "potential_negative": {
-      "rules": "けり|2ませんでしたら,り|れない,ごし|1さなければ,し|せない,ね|1られない,ぜ|1られない,に|ななければ,来|1られない,べ|1られない,じ|1られない,ち|てない,て|1られない,せ|1られない,げ|1られない,ぎ|げない,び|べない,め|1られない,け|1られない,え|1られない,み|めない,い|えない,き|けない,れ|1られない",
-      "exceptions": "足り|2られない,書き|1かなければ,働き|1かなければ,着|1なければ,洗い|1わなければ,歩き|1かなければ,待ち|1たなければ,考え|2なければ,思い|1わなければ,泊まり|2らなければ,立ち|1たなければ,話し|1さなければ,寝|1なければ,言い|1わなければ,走り|1らなければ,返り|1らなければ,似|1られない,読み|1まなければ,覚え|2なければ,引き|1かなければ,遊び|1ばなければ,過ぎ|2られない,開け|2なければ,要り|1らなければ,会い|1わなければ,見|1なければ,聞き|1かなければ,貸し|1さなければ,知り|1らなければ,急ぎ|1がなければ,出|1なければ,行き|1かなければ,起き|2られない,降り|2られない,得|1られない,落ち|2られない,入り|1らなければ,食べ|2なければ,飲み|1まなければ,切り|1らなければ,喋り|1らなければ,買い|1わなければ,沸き|1かなければ,借り|2られない,始め|2なければ,生き|2られない,浴び|2られない,罵り|1れない,直り|1れない,被り|1れない,触り|1れない,縛り|1れない,練り|1れない,取り|1れない,黙り|1れない,滑り|1れない,座り|1れない,光り|1れない,送り|1れない,叱り|1れない,売り|1れない,実り|1れない,戻り|1れない,殴り|1れない,祈り|1れない,守り|1れない,作り|1れない,限り|1れない,残り|1れない,蹴り|1れない,握り|1れない,通り|1れない,齧り|1れない,回り|1れない,太り|1れない,曇り|1れない,怒り|1れない,釣り|1れない,散り|1れない,眠り|1れない,掘り|1れない,飾り|1れない,腐り|1れない,減り|1れない,偽り|1れない,踊り|1れない,渡り|1れない,参り|1れない,登り|1れない,乗り|1れない,捻り|1れない,劣り|1れない,困り|1れない,焦り|1れない,侍り|1れない,寄り|1れない",
-      "rev": "ませんでしたら|,ぎれない|1り,い換えれない|3り,びれない|1り,これない|1り,せれない|1り,れれない|1り,行れない|1り,じれない|1り,消れない|1り,なれない|1り,われない|1り,てない|ち,張れない|1り,かれない|1り,がれない|1り,げない|ぎ,べない|び,まれない|1り,めない|み,えない|い,けない|き,せない|し,られない|,ばなければ|び,けなければ|1,がなければ|ぎ,べなければ|1,ななければ|に,めなければ|1,たなければ|ち,えなければ|1,まなければ|み,さなければ|し,わなければ|い,かなければ|き,らなければ|り"
-    },
-    "potential": {
-      "rules": "けり|2ましたら,り|れる,ごし|1せば,し|せる,ね|1られる,ぜ|1られる,に|ねば,来|1られる,べ|1られる,じ|1られる,ち|てる,て|1られる,せ|1られる,げ|1られる,ぎ|げる,び|べる,め|1られる,け|1られる,え|1られる,み|める,い|える,き|ける,れ|1られる",
-      "exceptions": "足り|2られる,書き|1けば,働き|1けば,着|1れば,洗い|1えば,歩き|1けば,待ち|1てば,考え|2れば,思い|1えば,泊まり|2れば,立ち|1てば,話し|1せば,寝|1れば,言い|1えば,走り|1れば,返り|1れば,似|1られる,読み|1めば,覚え|2れば,引き|1けば,遊び|1べば,過ぎ|2られる,開け|2れば,要り|1れば,会い|1えば,見|1れば,聞き|1けば,貸し|1せば,知り|1れば,急ぎ|1げば,出|1れば,行き|1けば,起き|2られる,降り|2られる,得|1られる,落ち|2られる,入り|1れば,食べ|2れば,飲み|1めば,切り|1れば,喋り|1れば,買い|1えば,沸き|1けば,借り|2られる,始め|2れば,生き|2られる,浴び|2られる,罵り|1れる,直り|1れる,被り|1れる,触り|1れる,縛り|1れる,練り|1れる,取り|1れる,黙り|1れる,滑り|1れる,座り|1れる,光り|1れる,送り|1れる,叱り|1れる,売り|1れる,実り|1れる,戻り|1れる,殴り|1れる,祈り|1れる,守り|1れる,作り|1れる,限り|1れる,残り|1れる,蹴り|1れる,握り|1れる,通り|1れる,齧り|1れる,回り|1れる,太り|1れる,曇り|1れる,怒り|1れる,釣り|1れる,散り|1れる,眠り|1れる,掘り|1れる,飾り|1れる,腐り|1れる,減り|1れる,偽り|1れる,踊り|1れる,渡り|1れる,参り|1れる,登り|1れる,乗り|1れる,捻り|1れる,劣り|1れる,困り|1れる,焦り|1れる,侍り|1れる,寄り|1れる",
-      "rev": "けりましたら|2,ぎれる|1り,い換えれる|3り,びれる|1り,これる|1り,せれる|1り,れれる|1り,行れる|1り,じれる|1り,消れる|1り,なれる|1り,われる|1り,てる|ち,張れる|1り,かれる|1り,がれる|1り,げる|ぎ,べる|び,まれる|1り,める|み,える|い,ける|き,せる|し,られる|,まれば|1り,べば|び,げば|ぎ,ねば|に,てば|ち,めば|み,せば|し,えば|い,けば|き,れば|"
-    },
-    "present_negative": {
-      "rules": "ね|1ない,ぜ|1ない,に|なない,来|1ない,じ|1ない,べ|1ない,て|1ない,せ|1ない,ち|たない,げ|1ない,ぎ|がない,び|ばない,め|1ない,け|1ない,え|1ない,み|まない,れ|1ない,い|わない,き|かない,し|さない,り|らない",
-      "exceptions": "足り|2ない,着|1ない,寝|1ない,似|1ない,過ぎ|2ない,見|1ない,出|1ない,起き|2ない,降り|2ない,得|1ない,落ち|2ない,借り|2ない,生き|2ない,浴び|2ない",
-      "rev": "ねない|1,ぎない|1,ぜない|1,ちない|1,なない|に,来ない|1,びない|1,きない|1,りない|1,じない|1,べない|1,てない|1,せない|1,たない|ち,げない|1,がない|ぎ,ばない|び,めない|1,けない|1,えない|1,まない|み,れない|1,わない|い,かない|き,さない|し,らない|り"
-    },
-    "present": {
-      "rules": "ね|1る,ぜ|1る,に|ぬ,来|1る,じ|1る,べ|1る,て|1る,せ|1る,ち|つ,げ|1る,ぎ|ぐ,び|ぶ,め|1る,け|1る,え|1る,み|む,れ|1る,い|う,き|く,し|す,り|る",
-      "exceptions": "足り|2る,着|1る,寝|1る,似|1る,過ぎ|2る,見|1る,出|1る,起き|2る,降り|2る,得|1る,落ち|2る,借り|2る,生き|2る,浴び|2る,罵り|1る,直り|1る,脂ぎり|2る,被り|1る,触り|1る,縛り|1る,練り|1る,取り|1る,黙り|1る,滑り|1る,座り|1る,光り|1る,送り|1る,叱り|1る,売り|1る,走り|1る,実り|1る,返り|1る,戻り|1る,殴り|1る,祈り|1る,守り|1る,滅びり|2る,要り|1る,作り|1る,臥せり|2る,限り|1る,残り|1る,蹴り|1る,知り|1る,隠れり|2る,握り|1る,通り|1る,齧り|1る,回り|1る,太り|1る,曇り|1る,怒り|1る,釣り|1る,散り|1る,眠り|1る,入り|1る,掘り|1る,飾り|1る,腐り|1る,減り|1る,偽り|1る,踊り|1る,切り|1る,渡り|1る,参り|1る,登り|1る,喋り|1る,乗り|1る,捻り|1る,劣り|1る,混じり|2る,困り|1る,焦り|1る,侍り|1る,寄り|1る",
-      "rev": "い換える|3り,こる|1り,行る|1り,消る|1り,なる|1り,わる|1り,張る|1り,かる|1り,がる|1り,まる|1り,る|,ぬ|に,つ|ち,ぐ|ぎ,ぶ|び,む|み,う|い,く|き,す|し"
-    },
-    "present_progressive": {
-      "rules": "けり|1ったでしょう,り|って いる,ね|1て いる,ぜ|1て いる,来|1て いる,べ|1て いる,じ|1て いる,ち|って いる,て|1て いる,せ|1て いる,げ|1て いる,ぎ|いで いる,び|んで いる,め|1て いる,け|1て いる,え|1て いる,い|って いる,み|んで いる,き|いて いる,れ|1て いる,し|1て いる",
-      "exceptions": "足り|2て いる,着|1たろう,考え|2たろう,寝|1たろう,似|1て いる,覚え|2たろう,過ぎ|2て いる,開け|2たろう,見|1たろう,出|1たろう,起き|2て いる,降り|2て いる,得|1て いる,落ち|2て いる,食べ|2たろう,借り|2て いる,始め|2たろう,生き|2て いる,浴び|2て いる,喜び|1んで いる,勝ち|1って いる,使い|1って いる,結び|1んで いる,適い|1って いる,歌い|1って いる,救い|1って いる,貰い|1って いる,及び|1んで いる,庇い|1って いる,拾い|1って いる,払い|1って いる,合い|1って いる,学び|1んで いる,習い|1って いる,笑い|1って いる,飛び|1んで いる,誘い|1って いる,飼い|1って いる,吸い|1って いる,持ち|1って いる,育ち|1って いる,狂い|1って いる,並び|1んで いる,転び|1んで いる,向かい|2って いる,選び|1んで いる,追い|1って いる,祝い|1って いる,構い|1って いる,運び|1んで いる,呼び|1んで いる,迷い|1って いる,襲い|1って いる",
-      "rev": "けったでしょう|1り,たろう|,遣って いる|1い,伝って いる|1い,立って いる|1ち,違って いる|1い,いで いる|ぎ,んで いる|み,いて いる|き,って いる|り,て いる|"
-    },
-    "gerund": {
-      "rules": "ね|1て,ぜ|1て,に|んで,来|1て,じ|1て,べ|1て,て|1て,せ|1て,ち|って,げ|1て,ぎ|いで,び|んで,め|1て,け|1て,え|1て,み|んで,れ|1て,い|って,き|いて,し|1て,り|って",
-      "exceptions": "足り|2て,着|1て,寝|1て,似|1て,過ぎ|2て,見|1て,出|1て,行き|1って,起き|2て,降り|2て,得|1て,落ち|2て,借り|2て,生き|2て,浴び|2て,喜び|1んで,勝ち|1って,洗い|1って,待ち|1って,使い|1って,結び|1んで,思い|1って,適い|1って,歌い|1って,言い|1って,救い|1って,貰い|1って,及び|1んで,庇い|1って,遊び|1んで,拾い|1って,払い|1って,会い|1って,合い|1って,学び|1んで,習い|1って,笑い|1って,飛び|1んで,誘い|1って,飼い|1って,吸い|1って,持ち|1って,育ち|1って,狂い|1って,並び|1んで,転び|1んで,向かい|2って,死に|1んで,選び|1んで,追い|1って,祝い|1って,構い|1って,運び|1んで,買い|1って,呼び|1んで,迷い|1って,襲い|1って",
-      "rev": "遣って|1い,伝って|1い,立って|1ち,違って|1い,いて|き,って|り,て|,いで|ぎ,んで|み"
-    },
-    "volitional_negative": {
-      "rules": "ね|1ない　だろう,ぜ|1ない　だろう,に|なないだろう,来|1ない　だろう,じ|1ない　だろう,べ|1ない　だろう,て|1ない　だろう,せ|1ない　だろう,ち|たないだろう,げ|1ない　だろう,ぎ|がないだろう,び|ばないだろう,め|1ない　だろう,け|1ない　だろう,え|1ない　だろう,み|まないだろう,れ|1ない　だろう,い|わないだろう,き|かないだろう,し|さないだろう,り|らないだろう",
-      "exceptions": "足り|2ない　だろう,着|1ない　だろう,寝|1ない　だろう,似|1ない　だろう,過ぎ|2ない　だろう,見|1ない　だろう,出|1ない　だろう,起き|2ない　だろう,降り|2ない　だろう,得|1ない　だろう,落ち|2ない　だろう,借り|2ない　だろう,生き|2ない　だろう,浴び|2ない　だろう",
-      "rev": "なないだろう|に,たないだろう|ち,がないだろう|ぎ,ばないだろう|び,まないだろう|み,わないだろう|い,かないだろう|き,さないだろう|し,らないだろう|り,ない　だろう|"
-    },
-    "volitional": {
-      "rules": "ね|1よう,ぜ|1よう,に|のう,来|1よう,じ|1よう,べ|1よう,て|1よう,せ|1よう,ち|とう,げ|1よう,ぎ|ご,び|ぼ,め|1よう,け|1よう,え|1よう,み|もう,れ|1よう,い|おう,き|こう,し|そう,り|ろう",
-      "exceptions": "足り|2よう,着|1よう,寝|1よう,似|1よう,過ぎ|2よう,見|1よう,出|1よう,起き|2よう,降り|2よう,得|1よう,落ち|2よう,借り|2よう,生き|2よう,浴び|2よう",
-      "rev": "のう|に,とう|ち,もう|み,おう|い,こう|き,そう|し,ろう|り,よう|,ご|ぎ,ぼ|び"
-    },
-
-    "polite_negative": {
-      "rules": "けり|1らない,り|1ません,ね|1ません,ぜ|1ません,に|1ません,来|1ません,じ|1ません,べ|1ません,て|1ません,せ|1ません,げ|1ません,ち|1ません,ぎ|1ません,び|1ません,め|1ません,け|1ません,え|1ません,み|1ません,れ|1ません,い|1ません,き|1ません,し|1ません",
-      "exceptions": "着|1ません,寝|1ません,似|1ません,見|1ません,出|1ません,得|1ません",
-      "rev": "けらない|1り,ません|"
-    },
-    "polite": {
-      "rules": "けり|1る,り|1ます,ね|1ます,ぜ|1ます,に|1ます,来|1ます,じ|1ます,べ|1ます,て|1ます,せ|1ます,げ|1ます,ち|1ます,ぎ|1ます,び|1ます,め|1ます,け|1ます,え|1ます,み|1ます,れ|1ます,い|1ます,き|1ます,し|1ます",
-      "exceptions": "着|1ます,寝|1ます,似|1ます,見|1ます,出|1ます,得|1ます",
-      "rev": "ける|1り,ます|"
-    },
-
-    "past_polite_negative": {
-      "rules": "けり|1らなかった,り|1ませんでした,ごし|1さなかった,し|1ませんでした,ね|1ませんでした,ぜ|1ませんでした,に|ななかった,来|1ませんでした,べ|1ませんでした,じ|1ませんでした,ち|1ませんでした,て|1ませんでした,せ|1ませんでした,げ|1ませんでした,ぎ|1ませんでした,び|1ませんでした,め|1ませんでした,け|1ませんでした,え|1ませんでした,み|1ませんでした,い|1ませんでした,れ|1ませんでした,き|1ませんでした",
-      "exceptions": "書き|1かなかった,働き|1かなかった,着|1なかった,洗い|1わなかった,歩き|1かなかった,待ち|1たなかった,考え|2なかった,思い|1わなかった,泊まり|2らなかった,立ち|1たなかった,話し|1さなかった,寝|1なかった,言い|1わなかった,走り|1らなかった,返り|1らなかった,似|1ませんでした,読み|1まなかった,覚え|2なかった,引き|1かなかった,遊び|1ばなかった,開け|2なかった,要り|1らなかった,会い|1わなかった,見|1なかった,聞き|1かなかった,貸し|1さなかった,知り|1らなかった,急ぎ|1がなかった,出|1なかった,行き|1かなかった,得|1ませんでした,入り|1らなかった,食べ|2なかった,飲み|1まなかった,切り|1らなかった,喋り|1らなかった,買い|1わなかった,沸き|1かなかった,始め|2なかった",
-      "rev": "ばなかった|び,けなかった|1,がなかった|ぎ,べなかった|1,ななかった|に,めなかった|1,たなかった|ち,えなかった|1,まなかった|み,さなかった|し,わなかった|い,かなかった|き,らなかった|り,ませんでした|"
-    },
-    "past_polite": {
-      "rules": "けり|1った,り|1ました,ごし|2た,し|1ました,ね|1ました,ぜ|1ました,に|んだ,来|1ました,べ|1ました,じ|1ました,ち|1ました,て|1ました,せ|1ました,げ|1ました,ぎ|1ました,び|1ました,め|1ました,け|1ました,え|1ました,み|1ました,い|1ました,れ|1ました,き|1ました",
-      "exceptions": "書き|1いた,働き|1いた,着|1た,洗い|1った,歩き|1いた,待ち|1った,考え|2た,思い|1った,泊まり|2った,立ち|1った,話し|2た,寝|1た,言い|1った,走り|1った,返り|1った,似|1ました,読み|1んだ,覚え|2た,引き|1いた,遊び|1んだ,開け|2た,要り|1った,会い|1った,見|1た,聞き|1いた,貸し|2た,知り|1った,急ぎ|1いだ,出|1た,行き|1った,得|1ました,入り|1った,食べ|2た,飲み|1んだ,切り|1った,喋り|1った,買い|1った,沸き|1いた,始め|2た,死に|1んだ",
-      "rev": "ごした|2,けた|1,べた|1,めた|1,えた|1,いた|き,った|り,ました|,いだ|ぎ"
+      class: cls,
+      Infinitive: dict,               // 辞書形 - 書く
+      Stem: b.stem,                   // 連用形 - 書き
+      PresentTense: dict,
+      PastTense: past,                // 書いた
+      Negative: negative,             // 書かない
+      PastNegative: pastNegative,     // 書かなかった
+      Gerund: te,                     // 書いて  (て形)
+      NegativeGerund: b.negStem === null ? 'なくて' : b.negStem + 'なくて',
+      Polite: b.stem + 'ます',         // 書きます
+      PolitePast: b.stem + 'ました',    // 書きました
+      PoliteNegative: b.stem + 'ません', // 書きません
+      PolitePastNegative: b.stem + 'ませんでした',
+      PoliteVolitional: b.stem + 'ましょう',
+      Imperative: b.imper,            // 書け
+      NegativeImperative: dict + 'な', // 書くな
+      PoliteImperative: te + 'ください',
+      Volitional: b.volit,            // 書こう
+      Potential: b.potential,         // 書ける
+      Passive: b.passive,             // 書かれる
+      Causative: b.causative,         // 書かせる
+      CausativePassive: b.causative.replace(/せる$/, 'せられる'),
+      Conditional: past + 'ら',        // 書いたら (たら)
+      Provisional: b.cond + 'ば',      // 書けば  (ば)
+      Progressive: te + 'いる',        // 書いている
+      ProgressivePolite: te + 'います',
+      PastProgressive: te + 'いた',
+      Desire: b.stem + 'たい',          // 書きたい
+      Representative: past + 'り',      // 書いたり
+      Presumptive: dict + 'だろう',
+      Continuative: b.stem + 'ながら',   // 書きながら
     }
   };
 
-  let fwd = {};
-  let rev = {};
-  Object.keys(input).forEach(k => {
-    fwd[k] = uncompress$1(input[k]);
-    rev[k] = reverse$1(fwd[k]);
-  });
+  var conjugateVerb = conjugate$1;
 
-  const toCausative = (str, neg) => {
-    let model = neg ? fwd.causative_negative : fwd.causative;
-    return convert$1(str, model)
-  };
-  const fromCausative = (str, neg) => {
-    let model = neg ? rev.causative_negative : rev.causative;
-    return convert$1(str, model)
-  };
+  // い-adjectives inflect for tense and polarity - they are not 'just adjectives'.
+  // 高い → 高くない → 高かった → 高くなかった.  the copula does not carry that tense.
 
-  const toConditional = (str, neg) => {
-    let model = neg ? fwd.conditional_negative : fwd.conditional;
-    return convert$1(str, model)
-  };
-  const fromConditional = (str, neg) => {
-    let model = neg ? rev.conditional_negative : rev.conditional;
-    return convert$1(str, model)
-  };
+  // いい/良い is the one truly irregular い-adjective - it inflects as よい
+  const irregularStem = { 'いい': 'よ', '良い': '良', 'よい': 'よ' };
 
-  const toImperative = (str, neg) => {
-    let model = neg ? fwd.imperative_negative : fwd.imperative;
-    return convert$1(str, model)
-  };
-  const fromImperative = (str, neg) => {
-    let model = neg ? rev.imperative_negative : rev.imperative;
-    return convert$1(str, model)
+  const conjugateAdjective = function (word) {
+    if (!word || !word.endsWith('い') || word.length < 2) {
+      return null
+    }
+    let stem = irregularStem[word] !== undefined ? irregularStem[word] : word.slice(0, -1);
+    return {
+      Infinitive: word,               // 高い
+      PresentTense: word,
+      Negative: stem + 'くない',       // 高くない
+      PastTense: stem + 'かった',      // 高かった
+      PastNegative: stem + 'くなかった', // 高くなかった
+      Gerund: stem + 'くて',           // 高くて
+      Adverb: stem + 'く',             // 高く
+      Provisional: stem + 'ければ',     // 高ければ
+      Presumptive: stem + 'かろう',
+      Polite: word + 'です',
+      PolitePast: stem + 'かったです',
+      PoliteNegative: stem + 'くないです',
+      Superlative: stem + 'すぎる',     // 高すぎる
+      Impression: stem + 'そう',        // 高そう
+      Nominal: stem + 'さ',             // 高さ
+    }
   };
 
-  const toPassive = (str, neg) => {
-    let model = neg ? fwd.passive_negative : fwd.passive;
-    return convert$1(str, model)
-  };
-  const fromPassive = (str, neg) => {
-    let model = neg ? rev.passive_negative : rev.passive;
-    return convert$1(str, model)
-  };
-
-  const toPresent = (str, neg) => {
-    let model = neg ? fwd.present_negative : fwd.present;
-    return convert$1(str, model)
-  };
-  const fromPresent = (str, neg) => {
-    let model = neg ? rev.present_negative : rev.present;
-    return convert$1(str, model)
-  };
-
-  const toPast = (str, neg) => {
-    let model = neg ? fwd.past_negative : fwd.past;
-    return convert$1(str, model)
-  };
-  const fromPast = (str, neg) => {
-    let model = neg ? rev.past_negative : rev.past;
-    return convert$1(str, model)
-  };
-  const toPolite = (str, neg) => {
-    let model = neg ? fwd.polite_negative : fwd.polite;
-    return convert$1(str, model)
-  };
-  const fromPolite = (str, neg) => {
-    let model = neg ? rev.polite_negative : rev.polite;
-    return convert$1(str, model)
-  };
-  const toPastPolite = (str, neg) => {
-    let model = neg ? fwd.past_polite_negative : fwd.past_polite;
-    return convert$1(str, model)
-  };
-  const fromPastPolite = (str, neg) => {
-    let model = neg ? rev.past_polite_negative : rev.past_polite;
-    return convert$1(str, model)
+  // な-adjectives (形容動詞) are stored bare - 静か - and inflect with the copula
+  const conjugateNaAdjective = function (word) {
+    if (!word) {
+      return null
+    }
+    return {
+      Infinitive: word,
+      Adnominal: word + 'な',           // 静かな
+      PresentTense: word + 'だ',        // 静かだ
+      Negative: word + 'じゃない',       // 静かじゃない
+      PastTense: word + 'だった',        // 静かだった
+      PastNegative: word + 'じゃなかった',
+      Gerund: word + 'で',              // 静かで
+      Adverb: word + 'に',              // 静かに
+      Polite: word + 'です',
+      PolitePast: word + 'でした',
+      PoliteNegative: word + 'じゃありません',
+      Provisional: word + 'なら',
+    }
   };
 
-  const all = function (str) {
-    return [
-      toImperative(str),
-      toImperative(str, true),
-      toPast(str),
-      toPast(str, true),
-      toPassive(str),
-      toPassive(str, true),
-      toConditional(str),
-      toConditional(str, true),
-      toCausative(str),
-      toCausative(str, true),
-      toPresent(str),
-      toPresent(str, true),
-      toPolite(str),
-      toPolite(str, true),
-      toPastPolite(str),
-      toPastPolite(str, true)
-    ]
+  var conjugateAdjective$1 = conjugateAdjective;
+
+  // reverse the vowel-row tables, so we can walk a conjugated form back to its dictionary-form
+  const invert = (obj) => Object.keys(obj).reduce((h, k) => { h[obj[k]] = k; return h }, {});
+  const fromA = invert(aRow);
+  const fromI = invert(iRow);
+  const fromE = invert(eRow);
+  const fromO = invert(oRow);
+
+  // which 音便 endings can come from which dictionary-endings
+  // ordered by how common the dictionary-ending is, since 走って could in
+  // principle come from 走う/走つ/走る - only one of which is a real word
+  const fromTe = {
+    'って': ['る', 'う', 'つ'],
+    'んで': ['む', 'ぶ', 'ぬ'],
+    'いて': ['く'],
+    'いで': ['ぐ'],
+    'して': ['す'],
+    'て': [], // bare て means an ichidan stem
   };
 
+  // the suffixes we know how to strip, longest-first.
+  // `base` says which of the five 活用形 the remaining stem is.
+  let suffixes$1 = [
+    ['ませんでした', ['Verb', 'PastTense', 'Polite', 'Negative'], 'masu'],
+    ['なかったら', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
+    ['なければ', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
+    ['ましょう', ['Verb', 'Volitional', 'Polite'], 'masu'],
+    ['なかった', ['Verb', 'PastTense', 'Negative'], 'neg'],
+    ['ないで', ['Verb', 'Gerund', 'Negative'], 'neg'],
+    ['なくて', ['Verb', 'Gerund', 'Negative'], 'neg'],
+    ['ません', ['Verb', 'PresentTense', 'Polite', 'Negative'], 'masu'],
+    ['ました', ['Verb', 'PastTense', 'Polite'], 'masu'],
+    ['ながら', ['Verb', 'Continuative'], 'masu'],
+    ['させる', ['Verb', 'Causative', 'PresentTense'], 'neg'],
+    ['させられる', ['Verb', 'Causative', 'Passive', 'PresentTense'], 'neg'],
+    ['られる', ['Verb', 'Passive', 'PresentTense'], 'neg'],
+    ['たがる', ['Verb', 'Desire', 'PresentTense'], 'masu'],
+    ['ます', ['Verb', 'PresentTense', 'Polite'], 'masu'],
+    ['ない', ['Verb', 'PresentTense', 'Negative'], 'neg'],
+    ['れる', ['Verb', 'Passive', 'PresentTense'], 'neg'],
+    ['せる', ['Verb', 'Causative', 'PresentTense'], 'neg'],
+    ['たい', ['Verb', 'Desire'], 'masu'],
+    ['そう', ['Verb', 'Presumptive'], 'masu'],
+    ['すぎる', ['Verb', 'PresentTense'], 'masu'],
+    ['たら', ['Verb', 'ConditionalVerb'], 'ta'],
+    ['だら', ['Verb', 'ConditionalVerb'], 'ta'],
+    ['たり', ['Verb', 'Representative'], 'ta'],
+    ['だり', ['Verb', 'Representative'], 'ta'],
+    ['ている', ['Verb', 'Progressive', 'PresentTense'], 'te'],
+    ['でいる', ['Verb', 'Progressive', 'PresentTense'], 'te'],
+    ['ています', ['Verb', 'Progressive', 'PresentTense', 'Polite'], 'te'],
+    ['でいます', ['Verb', 'Progressive', 'PresentTense', 'Polite'], 'te'],
+    ['ていた', ['Verb', 'Progressive', 'PastTense'], 'te'],
+    ['でいた', ['Verb', 'Progressive', 'PastTense'], 'te'],
+    ['てる', ['Verb', 'Progressive', 'PresentTense'], 'te'],
+    ['でる', ['Verb', 'Progressive', 'PresentTense'], 'te'],
+    ['た', ['Verb', 'PastTense'], 'ta'],
+    ['だ', ['Verb', 'PastTense'], 'ta'],
+    ['て', ['Verb', 'Gerund'], 'te'],
+    ['で', ['Verb', 'Gerund'], 'te'],
+    ['ば', ['Verb', 'ConditionalVerb'], 'cond'],
+    ['よう', ['Verb', 'Volitional'], 'neg', 'strict'],
+    ['う', ['Verb', 'Volitional'], 'volit', 'strict'],
+  ];
+  // always try the longest ending first - ています must win over ます
+  suffixes$1.sort((a, b) => b[0].length - a[0].length);
 
-  var verb = {
-    all,
-    toImperative, fromImperative,
-    toPast, fromPast,
-    toPassive, fromPassive,
-    toConditional, fromConditional,
-    toCausative, fromCausative,
-    toPresent, fromPresent,
-    toPolite, fromPolite,
-    toPastPolite, fromPastPolite
+  // walk a stem in a given 活用形 back to candidate dictionary-forms
+  // する and 来る don't decompose like anything else - their stem changes shape
+  const suruStem = new Set(['し', 'さ', 'せ', 'す']);
+  const kuruStem = new Set(['き', 'こ', 'く', '来']);
+
+  const toDict = function (stem, base) {
+    if (!stem) {
+      return []
+    }
+    let last = stem[stem.length - 1];
+    let pre = stem.slice(0, -1);
+    // a bare し/き is する/来る
+    if (stem.length === 1) {
+      if (suruStem.has(last)) return ['する']
+      if (kuruStem.has(last)) return ['来る']
+    }
+    // 勉強し could be 勉強する or a godan 勉強す - a two-character head is
+    // almost always a する-noun (勉強する), a one-character head almost always
+    // a godan verb (話す, 出す, 貸す).
+    if (suruStem.has(last)) {
+      let rest = defaultDict(stem, base);
+      return pre.length >= 2 ? [pre + 'する'].concat(rest) : rest.concat([pre + 'する'])
+    }
+    return defaultDict(stem, base)
   };
 
+  const defaultDict = function (stem, base) {
+    let last = stem[stem.length - 1];
+    let head = stem.slice(0, -1);
+    let out = [];
+    if (base === 'neg') {
+      if (fromA[last]) out.push(head + fromA[last]);   // 書か → 書く
+      out.push(stem + 'る');                            // 食べ → 食べる
+    } else if (base === 'masu') {
+      if (fromI[last]) out.push(head + fromI[last]);   // 書き → 書く
+      out.push(stem + 'る');                            // 食べ → 食べる
+    } else if (base === 'cond') {
+      if (fromE[last]) out.push(head + fromE[last]);   // 書け → 書く
+      out.push(head + fromE[last] + 'る');              // 食べれ → 食べる (via れ)
+    } else if (base === 'volit') {
+      if (fromO[last]) out.push(head + fromO[last]);   // 書こ → 書く
+    } else if (base === 'te' || base === 'ta') {
+      if (stem === 'し' || stem === 'き' || stem === '来') {
+        return [stem === 'し' ? 'する' : '来る']
+      }
+      // the ending was already consumed, so `stem` still carries the 音便 kana
+      let two = stem.slice(-1); // っ or ん or い
+      if (two === 'っ') {
+        fromTe['って'].forEach(c => out.push(stem.slice(0, -1) + c));
+        // 行く is the one く-verb that takes って - 行った, not 行いた
+        out.push(stem.slice(0, -1) + 'く');
+      } else if (two === 'ん') {
+        fromTe['んで'].forEach(c => out.push(stem.slice(0, -1) + c));
+      } else if (two === 'い') {
+        out.push(stem.slice(0, -1) + 'く', stem.slice(0, -1) + 'ぐ');
+      } else if (two === 'し') {
+        out.push(stem.slice(0, -1) + 'す');
+      }
+      out.push(stem + 'る'); // ichidan: 食べ + た
+    }
+    return out.filter(s => s && s.length > 1)
+  };
 
-  // console.log(toImperative('褒め') === '褒めろ')
-  // console.log(toImperative('褒め', true) === '褒めるな')
-  // console.log(fromImperative('褒めろ') === '褒め')
-  // console.log(fromImperative('褒めるな', true) === '褒め')
+  /**
+   * take a conjugated verb and work backwards to its dictionary-form.
+   * `isKnown` lets the caller disambiguate 書いた (書く) from a hypothetical 書いる.
+   */
+  const deconjugate = function (str, isKnown) {
+    if (!str || str.length < 2) {
+      return null
+    }
+    for (let i = 0; i < suffixes$1.length; i += 1) {
+      let [suffix, tags, base, strict] = suffixes$1[i];
+      if (!str.endsWith(suffix) || str.length <= suffix.length) {
+        continue
+      }
+      let stem = str.slice(0, -suffix.length);
+      // 'た'/'だ'/'て'/'で' hang off the 音便 kana, which belongs to the stem
+      let candidates = toDict(stem, base);
+      if (candidates.length === 0) {
+        continue
+      }
+      let hit = isKnown ? candidates.find(isKnown) : null;
+      // a 'strict' suffix is too common a word-ending to trust on its own -
+      // 「たろう」 is a name, not the volitional of 「たる」
+      if (strict && !hit) {
+        continue
+      }
+      let root = hit || candidates[0];
+      // sanity-check: does re-conjugating the root actually produce this string?
+      if (hit) {
+        return { root, tags, candidates }
+      }
+      let verified = candidates.find(c => {
+        let forms = conjugateVerb(c);
+        return forms && Object.keys(forms).some(k => forms[k] === str)
+      });
+      if (verified) {
+        return { root: verified, tags, candidates }
+      }
+      return { root, tags, candidates, guess: true }
+    }
+    return null
+  };
 
+  var deconjugate$1 = deconjugate;
+
+  var conjugate = {
+    verb: conjugateVerb,
+    adjective: conjugateAdjective$1,
+    naAdjective: conjugateNaAdjective,
+    verbClass: verbClass$1,
+    deconjugate: deconjugate$1,
+  };
+
+  // which tags each generated verb-form should carry.
+  // a form is 'PastTense' *and* 'Polite' *and* 'Negative' all at once - japanese
+  // stacks these on one word, so the tag-list has to as well.
+  const verbForms = {
+    Infinitive: ['Verb', 'Infinitive', 'PresentTense'],
+    PresentTense: ['Verb', 'PresentTense'],
+    PastTense: ['Verb', 'PastTense'],
+    Negative: ['Verb', 'PresentTense', 'Negative'],
+    PastNegative: ['Verb', 'PastTense', 'Negative'],
+    Gerund: ['Verb', 'Gerund'],
+    NegativeGerund: ['Verb', 'Gerund', 'Negative'],
+    Polite: ['Verb', 'PresentTense', 'Polite'],
+    PolitePast: ['Verb', 'PastTense', 'Polite'],
+    PoliteNegative: ['Verb', 'PresentTense', 'Polite', 'Negative'],
+    PolitePastNegative: ['Verb', 'PastTense', 'Polite', 'Negative'],
+    PoliteVolitional: ['Verb', 'Volitional', 'Polite'],
+    Imperative: ['Verb', 'Imperative'],
+    NegativeImperative: ['Verb', 'Imperative', 'Negative'],
+    Volitional: ['Verb', 'Volitional'],
+    Potential: ['Verb', 'Potential', 'PresentTense'],
+    Passive: ['Verb', 'Passive', 'PresentTense'],
+    Causative: ['Verb', 'Causative', 'PresentTense'],
+    CausativePassive: ['Verb', 'Causative', 'Passive', 'PresentTense'],
+    Conditional: ['Verb', 'ConditionalVerb'],
+    Provisional: ['Verb', 'ConditionalVerb'],
+    Progressive: ['Verb', 'Progressive', 'PresentTense'],
+    ProgressivePolite: ['Verb', 'Progressive', 'PresentTense', 'Polite'],
+    PastProgressive: ['Verb', 'Progressive', 'PastTense'],
+    Desire: ['Verb', 'Desire'],
+    Representative: ['Verb', 'Representative'],
+    Presumptive: ['Verb', 'Presumptive'],
+    Continuative: ['Verb', 'Continuative'],
+    Stem: ['Verb', 'VerbStem'],
+  };
+
+  const adjForms = {
+    Infinitive: ['Adjective', 'IAdjective', 'PresentTense'],
+    PresentTense: ['Adjective', 'IAdjective', 'PresentTense'],
+    Negative: ['Adjective', 'IAdjective', 'PresentTense', 'Negative'],
+    PastTense: ['Adjective', 'IAdjective', 'PastTense'],
+    PastNegative: ['Adjective', 'IAdjective', 'PastTense', 'Negative'],
+    Gerund: ['Adjective', 'IAdjective', 'Gerund'],
+    Adverb: ['Adverb'],
+    Provisional: ['Adjective', 'IAdjective', 'ConditionalVerb'],
+    Presumptive: ['Adjective', 'IAdjective', 'Presumptive'],
+    Superlative: ['Verb', 'PresentTense'],
+    Impression: ['Adjective', 'Presumptive'],
+    Nominal: ['Noun'],
+  };
+
+  // 食べたい inflects like an い-adjective - 食べたくない, 食べたかった
+  const desireForms = {
+    Infinitive: ['Verb', 'Desire', 'PresentTense'],
+    PresentTense: ['Verb', 'Desire', 'PresentTense'],
+    Negative: ['Verb', 'Desire', 'PresentTense', 'Negative'],
+    PastTense: ['Verb', 'Desire', 'PastTense'],
+    PastNegative: ['Verb', 'Desire', 'PastTense', 'Negative'],
+    Gerund: ['Verb', 'Desire', 'Gerund'],
+    Provisional: ['Verb', 'Desire', 'ConditionalVerb'],
+  };
+
+  // the passive/potential/causative stems are themselves ichidan verbs, so
+  // 褒められる has a past (褒められた) and a polite past (褒められました) of its own
+  const derivedForms = {
+    PastTense: ['PastTense'],
+    Negative: ['PresentTense', 'Negative'],
+    PastNegative: ['PastTense', 'Negative'],
+    Gerund: ['Gerund'],
+    Polite: ['PresentTense', 'Polite'],
+    PolitePast: ['PastTense', 'Polite'],
+    PoliteNegative: ['PresentTense', 'Polite', 'Negative'],
+    PolitePastNegative: ['PastTense', 'Polite', 'Negative'],
+    Progressive: ['Progressive', 'PresentTense'],
+    Conditional: ['ConditionalVerb'],
+    Provisional: ['ConditionalVerb'],
+  };
+
+  // な-adjectives inflect *with the copula* - 静か + でした - and the copula is
+  // its own token.  only 静かに is a word in its own right.
+  const naAdjForms = {
+    Infinitive: ['Adjective', 'NaAdjective'],
+    Adverb: ['Adverb'],
+  };
+
+  // hand-written entries. these win over every generated form.
   let lex = {
-    // copula forms
+    // ---- copula (だ/です) ----
     // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
     'だ': ['Copula', 'PresentTense'],
     'だった': ['Copula', 'PastTense'],
-    'では': ['Copula'],
-    'だろう': ['Copula', 'Volitional'],
-    'で': ['Copula', 'Gerund'], //te form
+    'じゃない': ['Copula', 'PresentTense', 'Negative'],
+    'ではない': ['Copula', 'PresentTense', 'Negative'],
+    'じゃなかった': ['Copula', 'PastTense', 'Negative'],
+    'ではなかった': ['Copula', 'PastTense', 'Negative'],
+    'だろう': ['Copula', 'Presumptive'],
     'なら': ['Copula', 'ConditionalVerb'],
     'ならば': ['Copula', 'ConditionalVerb'],
+    'であれば': ['Copula', 'ConditionalVerb'],
+    'であって': ['Copula', 'Gerund'],
     // polite copula
     'です': ['Copula', 'PresentTense', 'Polite'],
-    'でした': ['Copula', 'PresentTense', 'Polite'],
-    'でしょう': ['Copula', 'Volitional', 'Polite'],
-    '（でありまして': ['Copula', 'Gerund', 'Polite'],//te-form
-    '（であれば': ['Copula', 'Conditional', 'Polite'],//te-form
+    'でした': ['Copula', 'PastTense', 'Polite'],
+    'でしょう': ['Copula', 'Presumptive', 'Polite'],
+    'ではありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
+    'じゃありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
+    'ではありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
+    'じゃありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
+    'でありまして': ['Copula', 'Gerund', 'Polite'],
+    'でございます': ['Copula', 'PresentTense', 'Polite'],
 
-    'たち': 'PluralSuffix'
+    // ---- negation & other bound auxiliaries that stand as their own token ----
+    'ない': ['Auxiliary', 'PresentTense', 'Negative'],
+    'なかった': ['Auxiliary', 'PastTense', 'Negative'],
+    'ません': ['Auxiliary', 'PresentTense', 'Polite', 'Negative'],
+    'ませんでした': ['Auxiliary', 'PastTense', 'Polite', 'Negative'],
+    'ます': ['Auxiliary', 'PresentTense', 'Polite'],
+    'ました': ['Auxiliary', 'PastTense', 'Polite'],
+    'ましょう': ['Auxiliary', 'Volitional', 'Polite'],
+    'ぬ': ['Auxiliary', 'PresentTense', 'Negative'],
+    'ん': ['Auxiliary', 'PresentTense', 'Negative'],
+
+    // ---- existence verbs, easy to get wrong ----
+    'ある': ['Verb', 'Infinitive', 'PresentTense'],
+    'あります': ['Verb', 'PresentTense', 'Polite'],
+    'あった': ['Verb', 'PastTense'],
+    'ありました': ['Verb', 'PastTense', 'Polite'],
+    'ありません': ['Verb', 'PresentTense', 'Polite', 'Negative'],
+    'いる': ['Verb', 'Infinitive', 'PresentTense'],
+    'います': ['Verb', 'PresentTense', 'Polite'],
+    'いた': ['Verb', 'PastTense'],
+    'いました': ['Verb', 'PastTense', 'Polite'],
+    'いません': ['Verb', 'PresentTense', 'Polite', 'Negative'],
+
+    // ---- suffixes ----
+    'たち': 'PluralSuffix',
+    'ら': 'PluralSuffix',
+    'さん': 'Honorific',
+    'ちゃん': 'Honorific',
+    'くん': 'Honorific',
+    '君': ['Noun', 'Honorific'],
+    '様': 'Honorific',
+    'さま': 'Honorific',
+    '先生': ['Noun', 'Honorific'],
+    '氏': 'Honorific',
+
+    // ---- formal nouns (形式名詞) - grammatical, but nouns ----
+    'こと': ['Noun', 'FormalNoun'],
+    '事': ['Noun', 'FormalNoun'],
+    'もの': ['Noun', 'FormalNoun'],
+    '物': ['Noun', 'FormalNoun'],
+    'ため': ['Noun', 'FormalNoun'],
+    '為': ['Noun', 'FormalNoun'],
+    'とき': ['Noun', 'FormalNoun'],
+    'ところ': ['Noun', 'FormalNoun'],
+    'はず': ['Noun', 'FormalNoun'],
+    'つもり': ['Noun', 'FormalNoun'],
+    'わけ': ['Noun', 'FormalNoun'],
+
+    // ---- demonstratives (こそあど) ----
+    'これ': ['Pronoun', 'Demonstrative'],
+    'それ': ['Pronoun', 'Demonstrative'],
+    'あれ': ['Pronoun', 'Demonstrative'],
+    'どれ': ['Pronoun', 'Demonstrative', 'QuestionWord'],
+    'ここ': ['Pronoun', 'Demonstrative'],
+    'そこ': ['Pronoun', 'Demonstrative'],
+    'あそこ': ['Pronoun', 'Demonstrative'],
+    'どこ': ['Pronoun', 'Demonstrative', 'QuestionWord'],
+    'この': ['Determiner', 'Demonstrative'],
+    'その': ['Determiner', 'Demonstrative'],
+    'あの': ['Determiner', 'Demonstrative'],
+    'どの': ['Determiner', 'Demonstrative', 'QuestionWord'],
+    'こんな': ['Determiner', 'Demonstrative'],
+    'そんな': ['Determiner', 'Demonstrative'],
+    'あんな': ['Determiner', 'Demonstrative'],
+    'どんな': ['Determiner', 'Demonstrative', 'QuestionWord'],
+    'こう': ['Adverb', 'Demonstrative'],
+    'そう': ['Adverb', 'Demonstrative'],
+    'ああ': ['Adverb', 'Demonstrative'],
+    'どう': ['Adverb', 'Demonstrative', 'QuestionWord'],
+
+    // ---- question words ----
+    '何': ['Noun', 'QuestionWord'],
+    'なに': ['Noun', 'QuestionWord'],
+    'なん': ['Noun', 'QuestionWord'],
+    '誰': ['Noun', 'QuestionWord'],
+    'だれ': ['Noun', 'QuestionWord'],
+    'いつ': ['Noun', 'QuestionWord'],
+    'なぜ': ['Adverb', 'QuestionWord'],
+    'どうして': ['Adverb', 'QuestionWord'],
+    'いくら': ['Noun', 'QuestionWord'],
+    'いくつ': ['Noun', 'QuestionWord'],
+
+    // ---- irregular adnominals (連体詞) that look like adjectives but aren't ----
+    '大きな': ['Adjective', 'Adnominal'],
+    '小さな': ['Adjective', 'Adnominal'],
+    'おかしな': ['Adjective', 'Adnominal'],
+    'いろんな': ['Adjective', 'Adnominal'],
   };
   var misc$1 = lex;
 
-  let lexicon$1 = Object.assign({}, misc$1);
-  Object.keys(lexData).forEach(tag => {
-    let wordsObj = unpack$1(lexData[tag]);
-    Object.keys(wordsObj).forEach(w => {
-      lexicon$1[w] = tag;
+  let lexicon$1 = {};
+  // surface-form → dictionary-form, so 食べました can report 食べる
+  let roots = {};
+  // weak entries (generated forms) never overwrite a strong one (a listed word)
+  let strong = new Set();
 
-      // add conjugations for our verbs
-      if (tag === 'Infinitive') {
-        // add present tense
-        let str = verb.toPresent(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'PresentTense';
-        }
-        // add imparative
-        str = verb.toImperative(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'Imperative';
-        }
-        // add past tense
-        str = verb.toPast(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'PastTense';
-        }
-        // add passive
-        str = verb.toPassive(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'Passive';
-        }
-        // add Conditional
-        str = verb.toConditional(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'ConditionalVerb';
-        }
-        // add Causative
-        str = verb.toCausative(w);
-        if (str && str !== w) {
-          lexicon$1[str] = 'Causative';
-        }
-        // add Polite Present
-        str = verb.toPolite(w);
-        if (str && str !== w) {
-          lexicon$1[str] = ['PresentTense', 'Polite'];
-        }
-        // add Polite Past
-        str = verb.toPastPolite(w);
-        if (str && str !== w) {
-          lexicon$1[str] = ['PastTense', 'Polite'];
+  const add = function (word, tags, isStrong) {
+    if (!word) {
+      return
+    }
+    if (strong.has(word) && !isStrong) {
+      return
+    }
+    if (isStrong) {
+      strong.add(word);
+    }
+    lexicon$1[word] = tags;
+  };
+
+  // the derived stems - 褒められる, 書ける, 食べさせる - inflect like ichidan
+  // verbs in their own right, so give each of them a paradigm too
+  const derived = ['Potential', 'Passive', 'Causative', 'CausativePassive'];
+
+  const addDerived = function (base, baseTags, dict) {
+    let forms = conjugateVerb(base, 'Ichidan');
+    if (!forms) {
+      return
+    }
+    Object.keys(derivedForms).forEach(form => {
+      let str = forms[form];
+      if (str && str !== base) {
+        add(str, ['Verb'].concat(baseTags, derivedForms[form]));
+        if (roots[str] === undefined) {
+          roots[str] = dict || base;
         }
       }
     });
+  };
+
+  // expand a dictionary-form verb into every surface-form it can take
+  const addVerb = function (dict, hint) {
+    let forms = conjugateVerb(dict, hint);
+    if (!forms) {
+      return
+    }
+    Object.keys(verbForms).forEach(form => {
+      let str = forms[form];
+      if (!str || str === dict) {
+        return
+      }
+      // a bare kana masu-stem is a tokenizer hazard - のり (乗り) would eat
+      // the front of 「のりこ」.  keep 泳ぎ and 読み, drop のり and きり.
+      if (form === 'Stem' && !/[一-龯]/.test(str)) {
+        return
+      }
+      add(str, verbForms[form]);
+      if (roots[str] === undefined) {
+        roots[str] = dict;
+      }
+    });
+    // 食べたい inflects like an adjective
+    let want = conjugateAdjective$1(forms.Desire);
+    if (want) {
+      Object.keys(desireForms).forEach(form => {
+        let str = want[form];
+        if (str) {
+          add(str, desireForms[form]);
+          if (roots[str] === undefined) {
+            roots[str] = dict;
+          }
+        }
+      });
+    }
+    derived.forEach(form => {
+      if (forms[form]) {
+        addDerived(forms[form], form === 'CausativePassive' ? ['Causative', 'Passive'] : [form], dict);
+      }
+    });
+    add(dict, verbForms.Infinitive, true);
+  };
+
+  const addAdjective = function (word) {
+    let forms = conjugateAdjective$1(word);
+    if (forms) {
+      Object.keys(adjForms).forEach(form => {
+        let str = forms[form];
+        if (str && str !== word) {
+          add(str, adjForms[form]);
+          if (roots[str] === undefined) {
+            roots[str] = word;
+          }
+        }
+      });
+    }
+    add(word, adjForms.Infinitive, true);
+  };
+
+  const addNaAdjective = function (word) {
+    let forms = conjugateNaAdjective(word);
+    Object.keys(naAdjForms).forEach(form => {
+      let str = forms[form];
+      if (str && str !== word) {
+        add(str, naAdjForms[form]);
+      }
+    });
+    add(word, naAdjForms.Infinitive, true);
+  };
+
+  // ---- 1. generated forms first, so listed words can override them ----
+  const unpacked = {};
+  Object.keys(lexData).forEach(tag => {
+    unpacked[tag] = Object.keys(unpack$1(lexData[tag]));
+  })
+
+  ;(unpacked.Godan || []).forEach(w => addVerb(w, 'Godan'))
+  ;(unpacked.Ichidan || []).forEach(w => addVerb(w, 'Ichidan'))
+  ;(unpacked.IrregularVerb || []).forEach(w => addVerb(w))
+  // 勉強 is a noun *and* the root of 勉強する
+  ;(unpacked.SuruVerb || []).forEach(w => {
+    addVerb(w + 'する');
+    add(w, ['Noun', 'SuruVerb'], true);
+  })
+  ;(unpacked.Adjective || []).forEach(w => addAdjective(w))
+  ;(unpacked.NaAdjective || []).forEach(w => addNaAdjective(w));
+
+  // ---- 2. everything else is a plain word-list ----
+  const skip$1 = new Set(['Godan', 'Ichidan', 'IrregularVerb', 'SuruVerb', 'Adjective', 'NaAdjective']);
+  Object.keys(unpacked).forEach(tag => {
+    if (skip$1.has(tag)) {
+      return
+    }
+    unpacked[tag].forEach(w => add(w, tag, true));
   });
+
+  // ---- 3. hand-written entries win over everything ----
+  Object.keys(misc$1).forEach(w => {
+    lexicon$1[w] = misc$1[w];
+    strong.add(w);
+  });
+
   var lexicon$2 = lexicon$1;
 
-  // console.log(lexicon['圭吾'])
+  const isKnown$2 = (w) => lexicon$2.hasOwnProperty(w);
+
+  function api$2 (View) {
+    /** every verb in the document */
+    View.prototype.verbs = function () {
+      return this.match('#Verb')
+    };
+    /** every noun in the document */
+    View.prototype.nouns = function () {
+      return this.match('#Noun')
+    };
+    /** every adjective - both い and な */
+    View.prototype.adjectives = function () {
+      return this.match('#Adjective')
+    };
+    /** every 助詞 */
+    View.prototype.particles = function () {
+      return this.match('#Particle')
+    };
+    /** the dictionary-form of each matched word */
+    View.prototype.toInfinitive = function () {
+      this.compute('root');
+      return this.docs.map(terms => terms.map(t => t.root || t.text).join(''))
+    };
+  }
+
+  // constructor-level helpers, so you can conjugate without a document
+  const methods$1 = {
+    /** the full paradigm of a dictionary-form verb - nlp.conjugate('書く') */
+    conjugate: function (str) {
+      return conjugateVerb(str)
+    },
+    /** the paradigm of an い- or な-adjective */
+    conjugateAdjective: function (str) {
+      return str.endsWith('い') ? conjugateAdjective$1(str) : conjugateNaAdjective(str)
+    },
+    /** walk a conjugated verb back to its dictionary-form */
+    deconjugate: function (str) {
+      let found = deconjugate$1(str, isKnown$2);
+      if (!found) {
+        return null
+      }
+      // 読まれた deconjugates to 読まれる - keep going, back to 読む
+      if (roots[str] !== undefined && roots[str] !== str) {
+        found.root = roots[str];
+      }
+      return found
+    },
+    /** 'godan' | 'ichidan' | 'suru' | 'kuru' | .. */
+    verbClass: function (str) {
+      return verbClass$1(str)
+    },
+  };
 
   var lexicon = {
     model: {
       one: {
-        lexicon: lexicon$2
-      }
+        lexicon: lexicon$2,
+        roots,
+      },
     },
+    api: api$2,
     methods: {
       two: {
         transform: {
-          verb: verb
-        }
-      }
+          verb: conjugate,
+        },
+      },
     },
   };
 
-  const addWord = function (str, root) {
-    let chars = str.split('');
-    let node = root;
-    chars.forEach(c => {
-      node.more[c] = node.more[c] || { more: {} };
-      node = node.more[c];
-    });
-    node.end = true;
-  };
-
-  // construct a nested character trie, from given words
-  const buildTrie = function (arr) {
-    let root = {
-      more: {}
-    };
-    arr.forEach(str => addWord(str, root));
-    return root
-  };
-
-
-  var buildTrie$1 = buildTrie;
-
-  // dig-down into the trie, and find the longest match
-  const getGreedy = function (chars, i, node) {
-    let best = [];
-    let n = i;
-    while (node.more[chars[n]]) {
-      if (node.more[chars[n]].end) {
-        best = chars.slice(i, n + 1);
+  // index the lexicon for longest-match lookup
+  const buildIndex = function (arr) {
+    let words = new Set();
+    let maxLen = 1;
+    for (let i = 0; i < arr.length; i += 1) {
+      words.add(arr[i]);
+      if (arr[i].length > maxLen) {
+        maxLen = arr[i].length;
       }
-      node = node.more[chars[n]];
-      n += 1;
     }
-    if (best.length === 0) {
-      return chars[i]
-    }
-    return best.join('')
+    return { words, maxLen }
   };
+  var buildIndex$1 = buildIndex;
 
-  // tokenize a given string using our trie
-  const splitUp = function (txt, root) {
-    let chars = txt.split('');
+  // longest-match segmentation.
+  //
+  // this used to build a character-trie over the whole lexicon, which cost
+  // ~40mb of nodes.  a Set of the words plus a bounded backwards scan is the
+  // same answer for a fraction of the memory.
+
+  const splitUp = function (txt, words, maxLen) {
     let out = [];
-    for (let i = 0; i < chars.length; i += 1) {
-      let run = getGreedy(chars, i, root);
-      out.push(run);
-      i += run.length - 1;
+    let i = 0;
+    while (i < txt.length) {
+      let max = Math.min(maxLen, txt.length - i);
+      let found = '';
+      for (let len = max; len > 1; len -= 1) {
+        let str = txt.substr(i, len);
+        if (words.has(str)) {
+          found = str;
+          break
+        }
+      }
+      if (found === '') {
+        // a single character is only a 'word' if the lexicon says so
+        found = txt[i];
+      }
+      out.push(found);
+      i += found.length;
     }
     return out
   };
   var splitUp$1 = splitUp;
 
-  // console.log(splitUp('O4ことごとくと0', trie))
-  // console.log(splitUp('abcdefgg', trie))
-
   // https://github.com/darren-lester/nihongo/blob/master/src/analysers.js
-  // there are 46 of these
-  const isHiragana$2 = function (ch) {
-    return ch >= "\u3040" && ch <= "\u309f";
+
+  const isHiragana$1 = function (ch) {
+    return ch >= '぀' && ch <= 'ゟ'
   };
 
-  // there are 46 of these
-  const isKatakana$1 = function (ch) {
-    return ch >= "\u30a0" && ch <= "\u30ff";
+  const isKatakana = function (ch) {
+    // ・ (U+30FB) sits inside the katakana block but is punctuation - it
+    // separates the parts of a foreign name, ジョン・スミス
+    if (ch === '・' || ch === '゠') {
+      return false
+    }
+    return (ch >= '゠' && ch <= 'ヿ') || (ch >= 'ㇰ' && ch <= 'ㇿ')
   };
 
-  // there are thousands of these
   const isKanji$1 = function (ch) {
-    return (ch >= "\u4e00" && ch <= "\u9faf") ||
-      (ch >= "\u3400" && ch <= "\u4dbf") ||
-      ch === "𠮟";
+    return (
+      (ch >= '一' && ch <= '龯') ||
+      (ch >= '㐀' && ch <= '䶿') ||
+      ch === '々' || // 々 - the repeat-mark, as in 人々
+      ch === '〆' ||
+      ch === 'ヶ' ||
+      ch === '𠮟'
+    )
   };
 
-  const isAscii$1 = function (c) {
-    return /[a-zA-Z0-9]/.test(c)
+  const isNumber = function (c) {
+    return (c >= '0' && c <= '9') || (c >= '０' && c <= '９') // half & full-width
   };
 
+  const isAscii = function (c) {
+    return /[a-zA-Z]/.test(c) || (c >= 'Ａ' && c <= 'ｚ')
+  };
+
+  // 、。！？ and friends
+  const isPunctuation = function (c) {
+    return /[、。，．！？!?,.:：;；・…〜~「」『』（）()【】〔〕《》〈〉\s]/.test(c)
+  };
 
   const getType = function (c) {
-    if (isHiragana$2(c)) {
+    // ー is the 長音符 - it continues whatever script it follows
+    if (c === 'ー' || c === 'ｰ') {
+      return 'katakana'
+    }
+    if (isHiragana$1(c)) {
       return 'hiragana'
     }
-    if (isKatakana$1(c)) {
+    if (isKatakana(c)) {
       return 'katakana'
     }
     if (isKanji$1(c)) {
       return 'kanji'
     }
-    // if (isNumber(c)) {
-    //   return 'number'
-    // }
-    if (isAscii$1(c)) {
+    if (isNumber(c)) {
+      return 'number'
+    }
+    if (isAscii(c)) {
       return 'ascii'
     }
+    if (isPunctuation(c)) {
+      return 'punctuation'
+    }
+    return 'other'
   };
 
-  let punctuation = new Set([
-    '・', //word-splitter
-    '、',//comma
-    '：', //colon
-    ' ',//space
-    '\t',//tab
-    '\n',//newline
-  ]);
+  // suffixes that belong to the word in front of them
+  const suffixes = new Set(['たち', '達']);
+  // honorific prefixes that belong to the word behind them
+  const prefixes = new Set(['お', 'ご', '御']);
 
-  let suffixes = {
-    'たち': true //plural suffix
-  };
-
+  // two unknown characters may only merge if they're the same script.
+  // 'kanji then hiragana' used to merge too, which glued particles onto nouns.
   const mergeTypes = function (a, b) {
-    if (a === b) {
-      return true
-    }
-    if (a === 'kanji' && b === 'hiragana') {
-      return true
-    }
-    return false
+    return a === b && a !== 'punctuation' && a !== 'other'
   };
 
-  // join-up unknown chars by kanji/hiragana/kanji
+  // an unknown kanji run longer than this is almost certainly two words.
+  // katakana has no such limit - ニュージーランド is one word.
+  const MAX_RUN = 4;
+  const runLimit = (type) => (type === 'kanji' || type === 'hiragana' ? MAX_RUN : Infinity);
+
+  /** glue neighbouring unknown characters into plausible words */
   const joinUp = function (arr) {
+    let out = [];
     for (let i = 0; i < arr.length; i += 1) {
       let c = arr[i];
-      if (suffixes[c] && arr[i - 1]) {
-        arr[i - 1] += c;
-        arr[i] = null;
+      if (c === null || c === '') {
+        continue
       }
-      if (c !== null && c.length === 1 && !lexicon$2[c]) {
+      let last = out[out.length - 1];
+      // 私 + たち,  田中 + さん
+      if (suffixes.has(c) && last && !lexicon$2[last + c]) {
+        out[out.length - 1] = last + c;
+        continue
+      }
+      // お + 金,  ご + 飯
+      if (prefixes.has(c) && arr[i + 1] && isKanji$1(arr[i + 1][0]) && !lexicon$2[c]) {
+        out.push(c + arr[i + 1]);
+        i += 1;
+        continue
+      }
+      if (c.length === 1 && !lexicon$2[c]) {
         let type = getType(c);
-        // race-ahead and join forward
-        for (let o = i + 1; o < arr.length; o += 1) {
-          let k = arr[o];
-          if (k.length === 1 && !lexicon$2[k] && mergeTypes(type, getType(k))) {
-            arr[i] += k;
-            arr[o] = null;
-            // stop at any punctuation mark
-            if (punctuation.has(k)) {
-              i = o - 1;
-              break
-            }
-          } else {
-            i = o - 1;
+        let run = c;
+        // race ahead, joining same-script characters.
+        // a *known* single kanji may join an already-started run (日+本+人),
+        // but never starts one - so 「読んでいる人」 keeps 人 on its own.
+        let limit = runLimit(type);
+        while (run.length < limit && arr[i + 1] !== undefined) {
+          let next = arr[i + 1];
+          if (next.length !== 1 || !mergeTypes(type, getType(next))) {
             break
           }
+          if (lexicon$2[next] && type !== 'kanji') {
+            break
+          }
+          run += next;
+          i += 1;
         }
+        out.push(run);
+        continue
       }
+      out.push(c);
     }
-    arr = arr.filter(c => c);
-    return arr
+    return out
   };
 
   var joinUp$1 = joinUp;
 
-  let words = Object.keys(lexicon$2);
-  let trie = buildTrie$1(words);
+  // a particle can't be the first kana of a verb's okurigana - 「木で作った」
+  // is 木 + で + 作った, not 木で + 作った
+  const particleStart = new Set(['は', 'が', 'を', 'に', 'へ', 'と', 'も', 'の', 'か', 'ね', 'よ', 'や', 'で', 'ば']);
+  const MAX_TAIL = 6;
 
-  const tokenize$1 = function (txt) {
-    // split by know-word segments
-    let arr = splitUp$1(txt, trie);
-    // join-up neighbouring chars 
+  const isHiraganaWord = (str) => str.split('').every(isHiragana$1);
+
+  /**
+   * 含まれている is a verb even though 含む isn't in the lexicon.
+   * glue an unknown kanji stem onto the inflectional tail that follows it.
+   */
+  const attachOkurigana = function (arr) {
+    let out = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      let head = arr[i];
+      // only an unknown kanji chunk can pick up okurigana
+      if (lexicon$2[head] || !head.split('').every(isKanji$1)) {
+        out.push(head);
+        continue
+      }
+      // collect the hiragana tokens that follow it
+      let tail = '';
+      let end = i;
+      for (let o = i + 1; o < arr.length; o += 1) {
+        if (!isHiraganaWord(arr[o]) || tail.length + arr[o].length > MAX_TAIL) {
+          break
+        }
+        tail += arr[o];
+        end = o;
+      }
+      if (tail === '' || particleStart.has(tail[0])) {
+        out.push(head);
+        continue
+      }
+      // try the longest tail first, shrinking a token at a time
+      let joined = head;
+      let taken = i;
+      for (let o = end; o > i; o -= 1) {
+        let candidate = head + arr.slice(i + 1, o + 1).join('');
+        if (candidate.length - head.length < 2) {
+          continue
+        }
+        if (lexicon$2[candidate] || deconjugate$1(candidate)) {
+          joined = candidate;
+          taken = o;
+          break
+        }
+      }
+      out.push(joined);
+      i = taken;
+    }
+    return out
+  };
+  var attachOkurigana$1 = attachOkurigana;
+
+  const { words: words$1, maxLen } = buildIndex$1(Object.keys(lexicon$2));
+  // a very long 'word' is nearly always two words - cap the lookahead
+  const LOOKAHEAD = Math.min(maxLen, 12);
+
+  const allHiragana = /^[぀-ゟ]+$/;
+
+  // a case-particle at either end of a kana run isn't part of the word
+  const edgeParticle = new Set(['は', 'が', 'を', 'に', 'へ', 'と', 'も', 'の', 'で', 'や', 'か']);
+  // beyond this, a string of loose kana really is several words
+  const MAX_KANA_RUN = 7;
+
+  const isSingleKana = (str) => str.length === 1 && allHiragana.test(str);
+
+  /**
+   * ひらがな comes back from the matcher as ひ|ら|が|な, because が and な happen
+   * to be particles.  a stretch of single kana that matched nothing is one
+   * unknown word - a name, or a word the lexicon is missing.
+   */
+  const rejoinKana = function (arr) {
+    let out = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      if (!isSingleKana(arr[i])) {
+        out.push(arr[i]);
+        continue
+      }
+      // how far does this stretch of loose kana go?
+      let end = i;
+      while (end < arr.length && isSingleKana(arr[end])) {
+        end += 1;
+      }
+      let run = arr.slice(i, end);
+      i = end - 1;
+      // を is only ever a particle, so it's a hard word-boundary
+      let segments = [[]];
+      run.forEach(c => {
+        if (c === 'を') {
+          segments.push(['を'], []);
+        } else {
+          segments[segments.length - 1].push(c);
+        }
+      });
+      segments.forEach(seg => {
+        if (seg.length === 0) {
+          return
+        }
+        if (seg.length === 1 || seg[0] === 'を' || seg.length > MAX_KANA_RUN) {
+          out = out.concat(seg);
+          return
+        }
+        // 「での」 is two particles in a row, not a word
+        if (seg.every(c => edgeParticle.has(c))) {
+          out = out.concat(seg);
+          return
+        }
+        // 「ひらがなと」 is ひらがな + と, 「経験につながる」 is 経験 | に | つながる.
+        // a particle can't begin a clause, so only trim the head when something
+        // real came before it
+        let hasLeft = out.length > 0 && !edgeParticle.has(out[out.length - 1]);
+        let head = '';
+        let tail = '';
+        if (seg.length > 2 && hasLeft && edgeParticle.has(seg[0])) {
+          head = seg.shift();
+        }
+        if (seg.length > 2 && edgeParticle.has(seg[seg.length - 1])) {
+          tail = seg.pop();
+        }
+        if (head) {
+          out.push(head);
+        }
+        out.push(seg.join(''));
+        if (tail) {
+          out.push(tail);
+        }
+      });
+    }
+    return out
+  };
+
+  const tokenize$1 = function (txt, isChunk) {
+    // when the writer used a space, that chunk is one word - beginner japanese
+    // is often written 「たろう は のりこ を…」, and 「のりこ」 must not be
+    // greedily read as the particle の plus りこ
+    if (isChunk === true && txt.length <= 6 && allHiragana.test(txt) && !lexicon$2[txt]) {
+      return [txt]
+    }
+    // split by known-word segments
+    let arr = splitUp$1(txt, words$1, LOOKAHEAD);
+    // a kana run that fell apart into loose characters is one unknown word
+    arr = rejoinKana(arr);
+    // join-up neighbouring unknown characters
     arr = joinUp$1(arr);
-
-    return arr
+    // give an unknown kanji stem its inflectional tail - 含 + まれている
+    arr = attachOkurigana$1(arr);
+    // punctuation is never its own term - it hangs off the word before it
+    let out = [];
+    arr.forEach(str => {
+      if (str === '') {
+        return
+      }
+      if (out.length > 0 && str.split('').every(isPunctuation)) {
+        out[out.length - 1] += str;
+        return
+      }
+      out.push(str);
+    });
+    return out
   };
   var toTerms$1 = tokenize$1;
-  // console.log(tokenize('小さな子供は食料品店に歩いた'))
 
-  const before = /^[\s「『(〽【]+/;
-  const after = /[\s、：・」』)…〜】\.?!]+$/;
+  const before = /^[\s「『（(〽【〔《〈]+/;
+  const after = /[\s、。，．：；・」』）)…〜~】〕》〉\.?!？！]+$/;
 
   const getPunct = function (str) {
     let pre = '';
@@ -8545,17 +9174,27 @@
     return { pre, inside, post }
   };
 
-  const tokenize = function (txt) {
-    return toTerms$1(txt).map(str => {
+  const tokenize = function (txt, isChunk) {
+    let terms = [];
+    toTerms$1(txt, isChunk).forEach(str => {
       let { pre, post, inside } = getPunct(str);
-      return {
+      if (inside === '') {
+        // punctuation-only - fold it into the term before it
+        if (terms.length > 0) {
+          terms[terms.length - 1].post += pre + post;
+          return
+        }
+        return
+      }
+      terms.push({
         text: inside,
         normal: inside.toLowerCase(),
         pre,
         post,
-        tags: new Set()
-      }
-    })
+        tags: new Set(),
+      });
+    });
+    return terms
   };
   var toTerms = tokenize;
 
@@ -8754,21 +9393,55 @@
 
   let hasMulti = new Set(['き', 'ぎ', 'し', 'じ', 'ち', 'ぢ', 'っ', 'て', 'に', 'ひ', 'び', 'ぴ', 'み', 'り']);
 
+  // katakana and hiragana are the same 46 sounds, 0x60 apart in unicode.
+  // fold katakana down so one map handles both scripts.
+  const toHiragana$1 = function (str) {
+    let out = '';
+    for (let i = 0; i < str.length; i += 1) {
+      let c = str[i];
+      if (c >= 'ァ' && c <= 'ヶ') {
+        out += String.fromCharCode(c.charCodeAt(0) - 0x60);
+      } else {
+        out += c;
+      }
+    }
+    return out
+  };
+
   // there are 46 of these
-  const isHiragana$1 = function (ch) {
+  const isHiragana = function (ch) {
     return ch >= "\u3040" && ch <= "\u309f";
   };
 
+  const vowels = 'aiueo';
+
   // sound-out japanese script in latin alphabet
   const toRomanji = function (str) {
-    let chars = str.split('');
+    let chars = toHiragana$1(str).split('');
     let out = '';
 
     for (let i = 0; i < chars.length; i += 1) {
       let c = chars[i];
+      // ー is the 長音符 - it lengthens the vowel of the syllable before it
+      if (c === 'ー' || c === 'ｰ') {
+        let last = out[out.length - 1];
+        if (last && vowels.includes(last)) {
+          out += last;
+        }
+        continue
+      }
       // pass non-hiragana right through
-      if (!isHiragana$1(str)) {
+      if (!isHiragana(c)) {
         out += c;
+        continue
+      }
+      // a lone っ doubles the consonant that follows it, and is silent at the
+      // end of a word - it never spells anything by itself
+      if (c === 'っ') {
+        let next = chars[i + 1] ? hMap[1][chars[i + 1]] : '';
+        if (next && !vowels.includes(next[0])) {
+          out += next[0];
+        }
         continue
       }
       // look ahead at greedy multi-char sequences
@@ -9663,37 +10336,141 @@
     '骨': 'ほね|コツ'
   };
 
-  const spellKanji = function (kanji, type) {
+  // per-character readings can't know that 日本 is にほん and not にちほん.
+  // this is a small override-table for the words that get it wrong most often.
+  // (a full reading-dictionary is the real fix - see the changelog)
+  var words = {
+    '私': 'わたし', '僕': 'ぼく', '俺': 'おれ', '君': 'きみ', '彼': 'かれ', '彼女': 'かのじょ',
+    '日本': 'にほん', '日本語': 'にほんご', '日本人': 'にほんじん', '東京': 'とうきょう',
+    '英語': 'えいご', '中国': 'ちゅうごく', '韓国': 'かんこく', '大阪': 'おおさか', '京都': 'きょうと',
+    '今日': 'きょう', '明日': 'あした', '昨日': 'きのう', '毎日': 'まいにち', '今朝': 'けさ',
+    '一昨日': 'おととい', '明後日': 'あさって', '今年': 'ことし', '去年': 'きょねん', '来年': 'らいねん',
+    '時間': 'じかん', '時計': 'とけい', '手紙': 'てがみ', '写真': 'しゃしん', '電話': 'でんわ',
+    '学生': 'がくせい', '先生': 'せんせい', '学校': 'がっこう', '大学': 'だいがく', '会社': 'かいしゃ',
+    '友達': 'ともだち', '家族': 'かぞく', '子供': 'こども', '大人': 'おとな', '両親': 'りょうしん',
+    '本': 'ほん', '人': 'ひと', '男': 'おとこ', '女': 'おんな', '水': 'みず', '火': 'ひ', '木': 'き',
+    '空': 'そら', '海': 'うみ', '山': 'やま', '川': 'かわ', '花': 'はな', '犬': 'いぬ', '猫': 'ねこ',
+    '車': 'くるま', '家': 'いえ', '店': 'みせ', '駅': 'えき', '道': 'みち', '町': 'まち', '国': 'くに',
+    '目': 'め', '耳': 'みみ', '口': 'くち', '手': 'て', '足': 'あし', '頭': 'あたま', '顔': 'かお',
+    '朝': 'あさ', '昼': 'ひる', '夜': 'よる', '雨': 'あめ', '雪': 'ゆき', '風': 'かぜ', '天気': 'てんき',
+    '食べ物': 'たべもの', '飲み物': 'のみもの', '御飯': 'ごはん', '料理': 'りょうり', '野菜': 'やさい',
+    '映画': 'えいが', '音楽': 'おんがく', '仕事': 'しごと', '勉強': 'べんきょう', '質問': 'しつもん',
+    '一': 'いち', '二': 'に', '三': 'さん', '四': 'よん', '五': 'ご', '六': 'ろく', '七': 'なな',
+    '八': 'はち', '九': 'きゅう', '十': 'じゅう', '百': 'ひゃく', '千': 'せん', '万': 'まん', '円': 'えん',
+    // 熟字訓 - readings that belong to the whole word, not its characters
+    '美味しい': 'おいしい', '大人': 'おとな', '今日': 'きょう', '一人': 'ひとり', '二人': 'ふたり',
+    '大丈夫': 'だいじょうぶ', '上手': 'じょうず', '下手': 'へた', '眼鏡': 'めがね', '果物': 'くだもの',
+    '八百屋': 'やおや', '土産': 'みやげ', '相撲': 'すもう', '風邪': 'かぜ', '田舎': 'いなか',
+    '素敵': 'すてき', '素晴らしい': 'すばらしい', '綺麗': 'きれい', '沢山': 'たくさん',
+    // 来る is irregular in speech as well as in grammar - こ / き / く
+    '来る': 'くる', '来ます': 'きます', '来ました': 'きました', '来た': 'きた', '来て': 'きて',
+    '来ない': 'こない', '来なかった': 'こなかった', '来い': 'こい', '来られる': 'こられる',
+    '食べる': 'たべる', '食べます': 'たべます', '食べた': 'たべた', '食べて': 'たべて',
+  };
+
+  // the reading-table is written in katakana - fold it to hiragana so the
+  // romanizer only has to know one script
+  const toHiragana = function (str) {
     let out = '';
-    let chars = kanji.split('');
-    if (!type) {
-      type = kanji.length === 1 ? 'kun' : 'on';
+    for (let i = 0; i < str.length; i += 1) {
+      let c = str[i];
+      out += c >= 'ァ' && c <= 'ヶ' ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c;
     }
-    chars.forEach(char => {
-      let r = readings$1[char];
-      if (!r) {
-        out += char;
-        return
+    return out
+  };
+
+  const isKanji = (c) => c >= '一' && c <= '龯';
+
+  // the kun-reading is written 'い.く' - the part before the dot is what the
+  // kanji itself spells;  the rest is the okurigana already in the text
+  const kunStem = (kun) => kun.split('.')[0];
+
+  const soundOut = function (char, type) {
+    let r = readings$1[char];
+    if (!r) {
+      return char
+    }
+    let [kun, on] = r.split('|');
+    let pick = type === 'kun' ? kun || on : on || kun;
+    return toHiragana(kunStem(pick || char))
+  };
+
+  /**
+   * sound-out a word's kanji.
+   * a lone kanji followed by okurigana (行き, 読む) is a native verb, so it
+   * takes its kun-reading.  a run of two or more kanji (勉強) is a sino-japanese
+   * compound, and takes the on-reading.
+   */
+  /**
+   * 食べました isn't in the override table, but its dictionary-form 食べる is.
+   * the root tells us what its kanji spells (食 → た), and the okurigana is
+   * already right there in the text.
+   */
+  const fromRoot = function (word, root) {
+    let reading = words[root];
+    if (!reading) {
+      return null
+    }
+    // the kanji sit at the front of both the word and its root
+    let stem = root.split('').findIndex(c => !isKanji(c));
+    if (stem <= 0) {
+      return null
+    }
+    let okurigana = root.slice(stem);
+    if (!reading.endsWith(okurigana)) {
+      return null
+    }
+    let kanjiSound = reading.slice(0, reading.length - okurigana.length);
+    return word.startsWith(root.slice(0, stem)) ? kanjiSound + word.slice(stem) : null
+  };
+
+  const spellKanji = function (word, type, root) {
+    if (words[word] !== undefined) {
+      return words[word]
+    }
+    if (root && root !== word) {
+      let viaRoot = fromRoot(word, root);
+      if (viaRoot) {
+        return viaRoot
       }
-      let [kun, on] = r.split('|');
-      if (type === 'kun') {
-        out += kun;
-      } else {
-        out += on;
+    }
+    let out = '';
+    let i = 0;
+    while (i < word.length) {
+      if (!isKanji(word[i])) {
+        out += word[i];
+        i += 1;
+        continue
       }
-    });
+      // how long is this run of kanji?
+      let run = '';
+      while (i < word.length && isKanji(word[i])) {
+        run += word[i];
+        i += 1;
+      }
+      let use = type || (run.length > 1 ? 'on' : 'kun');
+      run.split('').forEach(c => {
+        out += soundOut(c, use);
+      });
+    }
     return out
   };
   var toReading = spellKanji;
 
-  // console.log(spellKanji('林'))
+  // は, へ and を are pronounced wa, e and o when they're particles
+  const particleSound = { 'は': 'wa', 'へ': 'e', 'を': 'o' };
 
   const romanji$1 = function (view) {
     view.document.forEach(terms => {
       terms.forEach(term => {
+        if (particleSound[term.text] && term.tags.has('Particle')) {
+          term.romanji = particleSound[term.text];
+          return
+        }
         let word = term.normal;
-        if (term.tags.has('Kanji')) {
-          word = toReading(word);
+        // any kanji in the word needs sounding-out first
+        if (/[一-龯]/.test(word)) {
+          word = toReading(word, null, term.root || roots[word]);
         }
         term.romanji = toRomanji$1(word);
       });
@@ -9704,8 +10481,8 @@
   const readings = function (view) {
     view.document.forEach(terms => {
       terms.forEach(term => {
-        if (term.tags.has('Kanji')) {
-          term.reading = toReading(term.normal);
+        if (/[一-龯]/.test(term.text)) {
+          term.reading = toReading(term.normal, null, term.root || roots[term.normal]);
         }
       });
     });
@@ -9893,13 +10670,41 @@
   };
   var english = addEnglish;
 
+  const isKnown$1 = (w) => lexicon$2.hasOwnProperty(w);
+
+  // the dictionary-form of each word - 食べました → 食べる, 高かった → 高い
+  const addRoot = function (view) {
+    view.docs.forEach(terms => {
+      terms.forEach(term => {
+        if (term.root) {
+          return
+        }
+        if (roots[term.text] !== undefined) {
+          term.root = roots[term.text];
+          return
+        }
+        // an unknown verb can still be walked back to its dictionary-form
+        if (term.tags.has('Verb')) {
+          let found = deconjugate$1(term.text, isKnown$1);
+          if (found) {
+            term.root = found.root;
+            return
+          }
+        }
+        term.root = term.text;
+      });
+    });
+    return view
+  };
+  var root = addRoot;
+
   const methods = { debug: debug$1 };
 
   const api = function (View) {
     Object.assign(View.prototype, methods);
   };
   var output = {
-    compute: { english },
+    compute: { english, root },
     api
   };
 
@@ -10012,6 +10817,14 @@
     Possessive: {
       is: 'Noun',
     },
+    // こそあど - これ, その, どこ
+    Demonstrative: {},
+    // 形式名詞 - こと, もの, ため: grammatical, but still nouns
+    FormalNoun: {
+      is: 'Noun',
+    },
+    // さん, 様, 先生
+    PluralSuffix: {},
     // german genders
     MaleNoun: {
       is: 'Noun',
@@ -10027,7 +10840,7 @@
     },
   };
 
-  var verbs = {
+  var verbs$1 = {
     Verb: {
       not: ['Noun', 'Adjective', 'Adverb', 'Value', 'Expression'],
     },
@@ -10040,24 +10853,23 @@
     Causative: {
       is: 'Verb',
     },
+    // tense is a facet, not a class: japanese adjectives carry it too
+    // (高かった is a past-tense *adjective*), so these must not imply #Verb
     PresentTense: {
-      is: 'Verb',
       not: ['PastTense'],
     },
     Infinitive: {
-      is: 'PresentTense',
+      is: 'Verb',
       not: ['Gerund'],
     },
     Imperative: {
-      is: 'Infinitive',
-    },
-    Gerund: {
-      is: 'PresentTense',
-      not: ['Copula'],
-    },
-    PastTense: {
       is: 'Verb',
-      not: ['PresentTense', 'Gerund'],
+    },
+    // the て-form takes its tense from the helper verb that follows it
+    // (読んで いました), so it must not fight with #PastTense
+    Gerund: {},
+    PastTense: {
+      not: ['PresentTense'],
     },
     Copula: {
       is: 'Verb',
@@ -10085,7 +10897,40 @@
     },
     Auxiliary: {
       is: 'Verb',
-      not: ['PastTense', 'PresentTense', 'Gerund', 'Conjunction'],
+      not: ['Conjunction'],
+    },
+    // japanese stacks these onto a single word, so they're facets, not classes
+    Negative: {
+      not: ['Noun', 'Value'],
+    },
+    Polite: {},
+    Volitional: {
+      is: 'Verb',
+    },
+    Potential: {
+      is: 'Verb',
+    },
+    Progressive: {
+      is: 'Verb',
+    },
+    Desire: {
+      is: 'Verb',
+    },
+    Representative: {
+      is: 'Verb',
+    },
+    Presumptive: {},
+    Continuative: {
+      is: 'Verb',
+    },
+    // 連用形 - the 'masu-stem'.  it heads a verb-phrase (泳ぎます) but stands
+    // alone as a noun too - 泳ぎ is 'a swim'
+    VerbStem: {
+      is: 'Noun',
+    },
+    // 勉強, which is a noun until it meets する
+    SuruVerb: {
+      is: 'Noun',
     },
   };
 
@@ -10200,13 +11045,19 @@
       not: ['Hiragana', 'Kanji', 'Katakana']
     },
 
-    Polite: {
-    },
-
-
     Adjective: {
       not: ['Noun', 'Verb', 'Adverb', 'Value'],
     },
+    // 形容詞 - conjugates by itself: 高い → 高くない → 高かった
+    IAdjective: {
+      is: 'Adjective',
+    },
+    // 形容動詞 - needs the copula: 静か → 静かだ → 静かな
+    NaAdjective: {
+      is: 'Adjective',
+    },
+    // 連体詞 - only ever modifies a noun: 大きな, この
+    Adnominal: {},
     Comparable: {
       is: 'Adjective',
     },
@@ -10264,205 +11115,375 @@
     Acronym: {
       not: ['Plural', 'RomanNumeral'],
     },
-    Negative: {
-      not: ['Noun', 'Adjective', 'Value'],
-    },
     Condition: {
       not: ['Verb', 'Adjective', 'Noun', 'Value'],
     },
   };
 
-  let tags = Object.assign({}, nouns, verbs, values, dates, misc);
+  // 助詞 - japanese particles.
+  // they follow the word they mark, so calling them 'prepositions' is a stretch -
+  // but compromise's shared tagset uses #Preposition, and downstream matches
+  // depend on it, so the case-marking particles keep that as a parent tag.
+  var particles = {
+    Particle: {
+      not: ['Noun', 'Verb', 'Adjective', 'Adverb', 'Value'],
+    },
+    // 格助詞 - が を に へ で と から より まで
+    CaseParticle: {
+      is: 'Particle',
+      not: ['TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
+      also: ['Preposition'],
+    },
+    // 係助詞 - は も こそ さえ しか
+    TopicParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
+      also: ['Preposition'],
+    },
+    // 副助詞 - だけ ばかり ほど くらい など
+    AdverbialParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'TopicParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
+      also: ['Preposition'],
+    },
+    // 接続助詞 - て ば たら ながら ので のに けれど
+    ConjunctiveParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
+      also: ['Conjunction'],
+    },
+    // 終助詞 - か ね よ な わ ぞ ぜ
+    SentenceParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'AdnominalParticle', 'QuotativeParticle'],
+    },
+    // の - possessive and nominalizer
+    AdnominalParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'QuotativeParticle'],
+      also: ['Preposition'],
+    },
+    // と, when it introduces a quote
+    QuotativeParticle: {
+      is: 'Particle',
+      not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle'],
+      also: ['Conjunction'],
+    },
+  };
+
+  let tags = Object.assign({}, nouns, verbs$1, values, dates, particles, misc);
 
   var tagset = {
     tags
   };
 
-  // https://github.com/darren-lester/nihongo/blob/master/src/analysers.js
-
-
-  // there are 46 of these
-  const isHiragana = function (ch) {
-    return ch >= "\u3040" && ch <= "\u309f";
-  };
-
-  // there are 46 of these
-  const isKatakana = function (ch) {
-    return ch >= "\u30a0" && ch <= "\u30ff";
-  };
-
-  // there are thousands of these
-  const isKanji = function (ch) {
-    return (ch >= "\u4e00" && ch <= "\u9faf") ||
-      (ch >= "\u3400" && ch <= "\u4dbf") ||
-      ch === "𠮟";
-  };
-
-  const isAscii = function (c) {
-    return /[a-zA-Z]/.test(c)
+  const every = function (str, fn) {
+    for (let i = 0; i < str.length; i += 1) {
+      if (!fn(str[i])) {
+        return false
+      }
+    }
+    return str.length > 0
   };
 
   const tagScript = function (terms, setTag, world) {
     const reason = 'script';
-
     terms.forEach(term => {
       let str = term.text;
-      if (isHiragana(str)) {
+      if (every(str, isHiragana$1)) {
         setTag([term], 'Hiragana', world, null, reason);
         return
       }
-      if (isKatakana(str)) {
+      if (every(str, c => isKatakana(c) || c === 'ー')) {
         setTag([term], 'Katakana', world, null, reason);
-        setTag([term], 'Noun', world, null, reason);//pretty safe bet
+        // a katakana word is nearly always a loanword noun
+        if (term.tags.size <= 1) {
+          setTag([term], 'Noun', world, null, reason);
+        }
         return
       }
-      if (isKanji(str)) {
+      if (every(str, isKanji$1)) {
         setTag([term], 'Kanji', world, null, reason);
         return
       }
-      if (isAscii(str)) {
+      if (every(str, isNumber)) {
+        setTag([term], 'Value', world, null, reason);
+        setTag([term], 'Cardinal', world, null, reason);
+        return
+      }
+      if (every(str, isAscii)) {
         setTag([term], 'Ascii', world, null, reason);
         return
       }
+      // a mixed kanji+hiragana word (書いた, 食べる) - no single script tag
     });
   };
   var tagScript$1 = tagScript;
 
-  const reason$4 = 'marker';
+  // what a particle tells us about the word in front of it.
+  // this is the workhorse of japanese pos-tagging: the particle *is* the syntax.
+  const reason$4 = 'particle';
 
-  const tagMarker = function (terms, setTag, world) {
+  // particles that only ever follow a noun-phrase
+  const nounBefore = {
+    'は': 'Topic',
+    'が': 'Noun',
+    'を': 'Object',
+    'へ': 'Noun',
+    'から': 'Noun',
+    'まで': 'Noun',
+    'より': 'Noun',
+    'の': 'Possessive',
+  };
+  // に and で follow nouns, but also verb-stems (見に行く) and な-adjectives (静かで)
+  const softNounBefore = new Set(['に', 'で', 'と', 'も']);
+
+  // particles that only ever follow a verb or adjective
+  const verbBefore = new Set(['て', 'ば', 'たら', 'ながら', 'ので', 'のに', 'けれど', 'けれども', 'けど', 'たり']);
+
+  const tagParticles = function (terms, setTag, world) {
+    for (let i = 0; i < terms.length; i += 1) {
+      let t = terms[i];
+      let prev = terms[i - 1];
+      let next = terms[i + 1];
+      let str = t.text;
+
+      // な before a noun is the adnominal copula (静かな人), not a final particle
+      if (str === 'な' && next && !next.tags.has('Verb')) {
+        setTag([t], 'AdnominalParticle', world, null, reason$4);
+        if (prev) {
+          setTag([prev], 'NaAdjective', world, null, reason$4);
+        }
+        continue
+      }
+      // か at the end of a clause is a question-marker, not 'or'
+      if (str === 'か' && (!next || next.tags.has('SentenceParticle'))) {
+        setTag([t], 'SentenceParticle', world, null, reason$4);
+        setTag([t], 'QuestionWord', world, null, reason$4);
+        continue
+      }
+      // と after a verb introduces a quote;  between two nouns it means 'and'
+      if (str === 'と' && prev) {
+        if (prev.tags.has('Verb') || prev.tags.has('Copula')) {
+          setTag([t], 'QuotativeParticle', world, null, reason$4);
+          continue
+        }
+        if (next && !next.tags.has('Verb')) {
+          setTag([t], 'Conjunction', world, null, reason$4);
+        }
+      }
+      // で after a noun is 'at/by'; after a な-adjective it's the copula
+      if (str === 'で' && prev && prev.tags.has('NaAdjective')) {
+        setTag([t], 'Copula', world, null, reason$4);
+        setTag([t], 'Gerund', world, null, reason$4);
+        continue
+      }
+
+      // a particle never marks another particle
+      if (!prev || prev.tags.has('Particle')) {
+        continue
+      }
+      if (nounBefore[str] !== undefined) {
+        if (!prev.tags.has('Verb') && !prev.tags.has('Adjective')) {
+          setTag([prev], nounBefore[str], world, null, reason$4);
+        } else if (str === 'の' || str === 'が') {
+          // 走るの / 行くが - the verb is nominalized or the clause continues
+          setTag([t], str === 'の' ? 'AdnominalParticle' : 'ConjunctiveParticle', world, null, reason$4);
+        }
+        continue
+      }
+      if (softNounBefore.has(str) && !prev.tags.has('Verb') && !prev.tags.has('Adjective') && prev.tags.size <= 1) {
+        setTag([prev], 'Noun', world, null, reason$4);
+        continue
+      }
+      if (verbBefore.has(str) && prev.tags.size <= 1) {
+        setTag([prev], 'Verb', world, null, reason$4);
+      }
+    }
+  };
+  var tagParticles$1 = tagParticles;
+
+  const reason$3 = 'verbSuffix';
+  const isKnown = (w) => lexicon$2.hasOwnProperty(w);
+  const scriptOnly$1 = new Set(['Kanji', 'Hiragana', 'Katakana', 'Ascii']);
+
+  // a verb we've never seen can still be read off its ending.
+  // 「散歩した」 is a verb even if 散歩する isn't in the lexicon.
+  const tagUnknownVerbs = function (terms, setTag, world) {
+    terms.forEach(term => {
+      // only guess at words the lexicon hasn't already resolved.
+      // すみません is an expression, not the negative of a verb 済む.
+      let known = [...term.tags].some(t => !scriptOnly$1.has(t));
+      if (known) {
+        return
+      }
+      if (term.text.length < 2) {
+        return
+      }
+      let found = deconjugate$1(term.text, isKnown);
+      if (!found || found.guess === true) {
+        return
+      }
+      found.tags.forEach(tag => setTag([term], tag, world, null, reason$3));
+      term.root = found.root;
+    });
+  };
+
+  // する attaches to the noun before it - 「勉強 します」
+  const tagSuruVerbs = function (terms, setTag, world) {
     for (let i = 1; i < terms.length; i += 1) {
       let t = terms[i];
-      // topic marker
-      if (t.text === 'は') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Topic', world, null, reason$4);
+      if (!t.tags.has('Verb')) {
+        continue
       }
-      // subject marker
-      if (t.text === 'が') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
+      if (/^(し|す|さ)/.test(t.text) === false) {
+        continue
       }
-      // object marker
-      if (t.text === 'を') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Object', world, null, reason$4);
-      }
-      // 'at' marker
-      if (t.text === 'で') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
-      }
-      // 'from' marker
-      if (t.text === 'から') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Noun', world, null, reason$4);
-      }
-      // possessive marker
-      if (t.text === 'の') {
-        setTag([t], 'Preposition', world, null, reason$4);
-        setTag([terms[i - 1]], 'Possessive', world, null, reason$4);
+      let prev = terms[i - 1];
+      if (prev && prev.tags.has('SuruVerb')) {
+        setTag([prev], 'Verb', world, null, 'suruVerb');
       }
     }
   };
-  var tagMarker$1 = tagMarker;
 
-  // the conjugations are ordered in such a way that when run in sequence they lead to proper deconstruction
-  const forms = {
-    polite_negative_presumptive: ["わないだろう", "かないだろう", "がないだろう", "さないだろう", "たないだろう", "まないだろう", "ばないだろう", "なないだろう", "らないだろう", "ないだろう"],
-    polite_presumptive: ["うでしょう", "くでしょう", "ぐでしょう", "すでしょう", "つでしょう", "むでしょう", "ぶでしょう", "ぬでしょう", "るでしょう", "るでしょう"],
-    polite_negative: ["いません", "きません", "ぎません", "しません", "ちません", "みません", "びません", "にません", "りません", "ません"],
-    others_desire: ["いたがる", "きたがる", "ぎたがる", "したがる", "ちたがる", "みたがる", "びたがる", "にたがる", "りたがる", "たがる"],
-    simplified_te_ageru: ["ったげる", "いたげる", "いだげる", "したげる", "ったげる", "んだげる", "んだげる", "んだげる", "ったげる", "たげる"],
-    te_iru: ["っている", "いている", "いでいる", "している", "っている", "んでいる", "んでいる", "んでいる", "っている", "ている"],
-    te_aru: ["ってある", "いてある", "いである", "してある", "ってある", "んである", "んである", "んである", "ってある", "てある"],
-    te_oru: ["っておる", "いておる", "いでおる", "しておる", "っておる", "んでおる", "んでおる", "んでおる", "っておる", "ておる"],
-    te_oku: ["っておく", "いておく", "いでおく", "しておく", "っておく", "んでおく", "んでおく", "んでおく", "っておく", "ておく"],
-    plain_presumptive: ["うだろう", "くだろう", "ぐだろう", "すだろう", "つだろう", "むだろう", "ぶだろう", "ぬだろう", "るだろう", "るだろう"],
-    past_presumptive: ["ったろう", "いたろう", "いだろう", "したろう", "ったろう", "んだろう", "んだろう", "んだろう", "った", "たろう"],
-    passive: ["われる", "かれる", "がれる", "される", "たれる", "まれる", "ばれる", "なれる", "られる", "られる"],
-    causative: ["わせる", "かせる", "がせる", "させる", "たせる", "ませる", "ばせる", "なせる", "らせる", "させる"],
-    way_of_doing: ["いかた", "きかた", "ぎかた", "しかた", "ちかた", "みかた", "びかた", "にかた", "りかた", "かた"],
-    plain_negative: ["わない", "かない", "がない", "さない", "たない", "まない", "ばない", "なない", "らない", "ない"],
-    plain_negative_presumptive: ["うまい", "くまい", "ぐまい", "すまい", "つまい", "むまい", "ぶまい", "ぬまい", "るまい", "まい"],
-    polite: ["います", "きます", "ぎます", "します", "ちます", "みます", "びます", "にます", "ります", "ます"],
-    desire: ["いたい", "きたい", "ぎたい", "したい", "ちたい", "みたい", "びたい", "にたい", "りたい", "たい"],
-    simplified_te_iru: ["ってる", "いてる", "いでる", "してる", "ってる", "んでる", "んでる", "んでる", "ってる", "てる"],
-    past_hypothetical: ["ったら", "いたら", "いだら", "したら", "ったら", "んだら", "んだら", "んだら", "ったら", "たら"],
-    representative: ["ったり", "いたり", "いだり", "したり", "ったり", "んだり", "んだり", "んだり", "ったり", "たり"],
-    simplified_te_oru: ["っとる", "いとる", "いどる", "しとる", "っとる", "んどる", "んどる", "んどる", "っとる", "とる"],
-    impression: ["いそう", "きそう", "ぎそう", "しそう", "ちそう", "みそう", "びそう", "にそう", "りそう", "そう"],
-    simplified_te_oku: ["っとく", "いとく", "いどく", "しとく", "っとく", "んどく", "んどく", "んどく", "っとく", "とく"],
-    hypothetical: ["えば", "けば", "げば", "せば", "てば", "めば", "べば", "ねば", "れば", "れば"],
-    perfect: ["わず", "かず", "がず", "さず", "たず", "まず", "ばず", "なず", "らず", "ず"],
-    plain_negative: ["わん", "かん", "がん", "さん", "たん", "まん", "ばん", "なん", "らん", "ん"],
-    negative_imperative: ["うな", "くな", "ぐな", "すな", "つな", "むな", "ぶな", "ぬな", "るな", "るな"],
-    past_tense: ["った", "いた", "いだ", "した", "った", "んだ", "んだ", "んだ", "った", "た"],
-    te_form: ["って", "いて", "いで", "して", "って", "んで", "んで", "んで", "って", "て"],
-    short_potential: ["える", "ける", "げる", "せる", "てる", "める", "べる", "ねる", "れる", ""],
-    pseudo_futurum: ["おう", "こう", "ごう", "そう", "とう", "もう", "ぼう", "のう", "ろう", "よう"],
-    commanding: ["え", "け", "げ", "せ", "て", "め", "べ", "ね", "れ", "ろ"],
-    //      predicative                 : ["う","く","ぐ","す","つ","む","ぶ","ぬ","る","る"],
-    conjunctive: ["い", "き", "ぎ", "し", "ち", "み", "び", "に", "り", ""],
-    advising_commanding: ["", "", "", "", "", "", "", "", "", "よ"]
-  };
-  let isAux = new Set();
-  Object.entries(forms).forEach(a => {
-    a[1].forEach(str => {
-      if (str) {
-        isAux.add(str);
+  // 〜て + いる/ある/おく/しまう - the helper verb carries the aspect,
+  // but the meaning belongs to the て-form in front of it
+  // 〜ている marks aspect;  〜てしまう, 〜てくれる and friends only add nuance
+  const aspectVerbs = ['いる', '居る', 'おる', 'ある'];
+  const otherHelpers = ['おく', 'しまう', '来る', 'くる', '行く', 'いく', 'みる', '見る', 'あげる', 'くれる', 'もらう'];
+
+  // every surface-form of every helper, so we can recognise いました / しまった
+  const formsOf = function (list) {
+    let set = new Set();
+    list.forEach(dict => {
+      let forms = conjugateVerb(dict);
+      if (forms) {
+        Object.keys(forms).forEach(k => typeof forms[k] === 'string' && set.add(forms[k]));
       }
     });
-  });
-  const reason$3 = 'endVerbPhrase';
+    return set
+  };
+  let isAspect = formsOf(aspectVerbs);
+  let isHelper = formsOf(otherHelpers);
 
-  const endVerb = function (terms, setTag, world) {
-    let end = terms[terms.length - 1];
-    if (isAux.has(end.text)) {
-      setTag([end], 'Auxiliary', world, null, reason$3);
-      // also assume the next word in is a verb?
-      let t = terms[terms.length - 2];
-      if (t && t.tags.has('Kanji')) {
-        setTag([t], 'Verb', world, null, reason$3);
+  const tagCompoundVerbs = function (terms, setTag, world) {
+    for (let i = 1; i < terms.length; i += 1) {
+      let t = terms[i];
+      let prev = terms[i - 1];
+      if (!prev || !prev.tags.has('Gerund') || !t.tags.has('Verb')) {
+        continue
       }
-    } else if (terms.length > 4) {
-      //assume last word is a verb
-      setTag([terms[terms.length - 1]], 'Verb', world, null, reason$3);
+      if (!isAspect.has(t.text) && !isHelper.has(t.text)) {
+        continue
+      }
+      if (isAspect.has(t.text)) {
+        setTag([prev], 'Progressive', world, null, 'compoundVerb');
+      }
+  ['PastTense', 'Negative', 'Polite'].forEach(tag => {
+        if (t.tags.has(tag)) {
+          setTag([prev], tag, world, null, 'compoundVerb');
+        }
+      });
     }
   };
-  var tagEndVerb = endVerb;
+
+  // an auxiliary hands its tense back to the verb it attaches to
+  const tagAuxiliary = function (terms, setTag, world) {
+    for (let i = 1; i < terms.length; i += 1) {
+      let t = terms[i];
+      if (!t.tags.has('Auxiliary')) {
+        continue
+      }
+      let prev = terms[i - 1];
+      if (!prev) {
+        continue
+      }
+      if (!prev.tags.has('Verb') && !prev.tags.has('Adjective') && !prev.tags.has('Noun')) {
+        setTag([prev], 'Verb', world, null, 'beforeAuxiliary');
+      }
+  ['PastTense', 'PresentTense', 'Negative', 'Polite'].forEach(tag => {
+        if (t.tags.has(tag) && prev.tags.has('Verb')) {
+          setTag([prev], tag, world, null, 'fromAuxiliary');
+        }
+      });
+    }
+  };
+
+  var verbs = { tagUnknownVerbs, tagSuruVerbs, tagAuxiliary, tagCompoundVerbs };
 
   const reason$2 = 'adjSuffix';
 
+  // い-adjective endings.  the old rule was 'ends in い → Adjective', which
+  // swallowed every negative verb (行かない), every masu-stem noun (お願い),
+  // and 弟/はい/せい besides.
+  const looksAdjective = /(し|た|な|か|ら|わ|が|ば|ざ|さ|は|ま|よ|る|す|つ|ぬ|ぶ|む|ぐ|ゆ|ろ|そ|お|こ|の|ほ|も|ど|ぼ|ぽ|ご|ぞ|づ|べ|で|げ|ぜ|え|け|せ|て|ね|へ|め|れ)い$/;
+  // endings that look like an い-adjective but aren't
+  const notAdjective = /(ない|たい|らしい|っぽい)$/;
+
   const adjSuffixes = function (terms, setTag, world) {
     terms.forEach(term => {
-      // i-adjectives always end in the Hiragana character: 「い」
-      if (term.text.endsWith('い')) {
+      let str = term.text;
+      if (term.tags.size > 1 || term.tags.has('Verb') || term.tags.has('Adjective')) {
+        return
+      }
+      if (str.length < 3 || !str.endsWith('い')) {
+        return
+      }
+      // ない/たい are verb endings, and are already handled as such
+      if (notAdjective.test(str) && !term.tags.has('Adjective')) {
+        return
+      }
+      // 美しい - kanji stem plus a hiragana tail is the classic shape
+      if (isKanji$1(str[0]) && looksAdjective.test(str)) {
         setTag([term], 'Adjective', world, null, reason$2);
+        setTag([term], 'IAdjective', world, null, reason$2);
       }
     });
   };
-  var tagAdjSuffix = adjSuffixes;
 
-  const reason$1 = 'nounSuffix';
-
+  // 〜さ nominalises an adjective (高さ), 〜たち pluralises a noun (子供たち)
   const nounSuffixes = function (terms, setTag, world) {
     terms.forEach(term => {
-      // 'たち' is the plural suffix
-      if (term.text.endsWith('たち')) {
-        setTag([term], 'Plural', world, null, reason$1);
+      if (term.text.length > 2 && /(たち|達)$/.test(term.text)) {
+        setTag([term], 'Plural', world, null, 'nounSuffix');
+        setTag([term], 'Noun', world, null, 'nounSuffix');
       }
     });
   };
-  var tagNounSuffix = nounSuffixes;
 
+  var adjectives = { adjSuffixes, nounSuffixes };
+
+  const reason$1 = 'honorific';
+
+  // 田中さん - an honorific proves the word before it is a person
+  const tagPeople = function (terms, setTag, world) {
+    for (let i = 0; i < terms.length; i += 1) {
+      let t = terms[i];
+      if (!t.tags.has('Honorific')) {
+        continue
+      }
+      let prev = terms[i - 1];
+      if (prev && !prev.tags.has('Verb') && !prev.tags.has('Particle')) {
+        setTag([prev], 'Person', world, null, reason$1);
+      }
+    }
+    // 田中さん may have tokenized as one word - the suffix is still a signal
+    terms.forEach(term => {
+      if (term.text.length > 2 && /(さん|様|さま|ちゃん|くん|氏)$/.test(term.text) && term.tags.size <= 1) {
+        setTag([term], 'Person', world, null, reason$1);
+      }
+    });
+  };
+  var tagPeople$1 = tagPeople;
+
+  // anything still unlabelled at the end is a noun - the safest guess in japanese
   const reason = 'noun-fallback';
+  const scriptOnly = new Set(['Kanji', 'Hiragana', 'Katakana', 'Ascii']);
+
   const fallback = function (terms, setTag, world) {
     terms.forEach(term => {
-      let tags = term.tags;
-      if (tags.size === 0) {
-        setTag([term], 'Noun', world, null, reason);
-      } else if (tags.size === 1 && (tags.has('Kanji') || tags.has('Hiragana') || tags.has('Katagana'))) {
+      let tags = [...term.tags];
+      if (tags.length === 0 || tags.every(t => scriptOnly.has(t))) {
         setTag([term], 'Noun', world, null, reason);
       }
     });
@@ -10472,17 +11493,24 @@
     const setTag = view.methods.one.setTag || function () { };
     const world = view.world;
     view.document.forEach(terms => {
-      // hirigana, katakana, kani, or ascii
+      // 1. which script is each token written in?
       tagScript$1(terms, setTag, world);
-      // case marker
-      tagMarker$1(terms, setTag, world);
-      // tag end verb
-      tagEndVerb(terms, setTag, world);
-      // 
-      tagAdjSuffix(terms, setTag, world);
-      // 
-      tagNounSuffix(terms, setTag, world);
-      // noun fallback
+      // 2. verbs we don't have in the lexicon, read off their conjugation
+      verbs.tagUnknownVerbs(terms, setTag, world);
+      // 3. い-adjectives by their shape
+      adjectives.adjSuffixes(terms, setTag, world);
+      // 4. particles, and what they imply about their neighbour
+      tagParticles$1(terms, setTag, world);
+      // 5. 勉強 + します
+      verbs.tagSuruVerbs(terms, setTag, world);
+      // 6. an auxiliary passes its tense back to its verb
+      verbs.tagAuxiliary(terms, setTag, world);
+      // 7. 読んで + いました is one progressive verb-phrase
+      verbs.tagCompoundVerbs(terms, setTag, world);
+      // 8. plural and honorific suffixes
+      adjectives.nounSuffixes(terms, setTag, world);
+      tagPeople$1(terms, setTag, world);
+      // 9. whatever's left is a noun
       fallback(terms, setTag, world);
     });
     return view
@@ -10497,7 +11525,7 @@
     hooks: ['preTagger'],
   };
 
-  var version = '0.0.1';
+  var version = '0.1.0';
 
   nlp$1.plugin(tokenizer);
   nlp$1.plugin(tagset);
@@ -10509,12 +11537,24 @@
   const ja = function (txt, lex) {
     // split sentences
     let doc = nlp$1.tokenize(txt, lex);
-    // tokenize terms ourselves
+    // tokenize terms ourselves - compromise splits on whitespace, which japanese
+    // mostly doesn't use.  every whitespace-chunk still needs splitting, so run
+    // the tokenizer over each of them and keep their surrounding punctuation.
     doc.document = doc.document.map(a => {
-      if (a.length > 1) {
-        return a
-      }
-      return toTerms(a[0].text)
+      let out = [];
+      // if the sentence has spaces in it, they're real word-boundaries
+      let spaced = a.length > 1;
+      a.forEach(term => {
+        let terms = toTerms(term.text, spaced);
+        if (terms.length === 0) {
+          out.push(term);
+          return
+        }
+        terms[0].pre = (term.pre || '') + terms[0].pre;
+        terms[terms.length - 1].post += term.post || '';
+        out = out.concat(terms);
+      });
+      return out
     });
     const world = nlp$1.world();
     doc.compute(world.hooks);
@@ -10541,6 +11581,9 @@
     env.DEBUG_CHUNKS = set === 'chunker' || set === true ? true : '';
     return this
   };
+
+  // conjugation helpers, usable without a document
+  Object.assign(ja, methods$1);
 
   ja.version = version;
 

@@ -1,17 +1,20 @@
-import lexicon from './lexicon.js'
-import verb from './methods/verb.js'
+import lexicon, { roots } from './lexicon.js'
+import conjugate from '../conjugate/index.js'
+import api from './api.js'
 
 export default {
   model: {
     one: {
-      lexicon
-    }
+      lexicon,
+      roots,
+    },
   },
+  api,
   methods: {
     two: {
       transform: {
-        verb: verb
-      }
-    }
+        verb: conjugate,
+      },
+    },
   },
 }

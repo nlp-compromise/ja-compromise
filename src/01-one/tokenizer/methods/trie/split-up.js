@@ -1,33 +1,29 @@
+// longest-match segmentation.
+//
+// this used to build a character-trie over the whole lexicon, which cost
+// ~40mb of nodes.  a Set of the words plus a bounded backwards scan is the
+// same answer for a fraction of the memory.
 
-// dig-down into the trie, and find the longest match
-const getGreedy = function (chars, i, node) {
-  let best = []
-  let n = i
-  while (node.more[chars[n]]) {
-    if (node.more[chars[n]].end) {
-      best = chars.slice(i, n + 1)
-    }
-    node = node.more[chars[n]]
-    n += 1
-  }
-  if (best.length === 0) {
-    return chars[i]
-  }
-  return best.join('')
-}
-
-// tokenize a given string using our trie
-const splitUp = function (txt, root) {
-  let chars = txt.split('')
+const splitUp = function (txt, words, maxLen) {
   let out = []
-  for (let i = 0; i < chars.length; i += 1) {
-    let run = getGreedy(chars, i, root)
-    out.push(run)
-    i += run.length - 1
+  let i = 0
+  while (i < txt.length) {
+    let max = Math.min(maxLen, txt.length - i)
+    let found = ''
+    for (let len = max; len > 1; len -= 1) {
+      let str = txt.substr(i, len)
+      if (words.has(str)) {
+        found = str
+        break
+      }
+    }
+    if (found === '') {
+      // a single character is only a 'word' if the lexicon says so
+      found = txt[i]
+    }
+    out.push(found)
+    i += found.length
   }
   return out
 }
 export default splitUp
-
-// console.log(splitUp('O4ことごとくと0', trie))
-// console.log(splitUp('abcdefgg', trie))
