@@ -65,12 +65,19 @@ doc.match('#Verb').json()[0].terms[0].tags
 
 またはブラウザで
 ```html
-<script src="https://unpkg.com/de-compromise"></script>
+<script src="https://unpkg.com/ja-compromise"></script>
 <script>
-  let txt = '小さな子供が食料品を買いました。 彼はとても怖がっていた'
+  let txt = '小さな子供が食料品を買いました。'
   let doc = jaCompromise(txt)
-  console.log(doc.sentences(1).json())
-  // { text:'小さな子供が食...', terms:[ ... ] }
+
+  console.log(doc.nouns().out('array'))
+  // [ '子供', '食料品' ]
+
+  console.log(doc.verbs().out('array'))
+  // [ '買いました。' ]
+
+  console.log(doc.compute('root').text('root'))
+  // '小さな子供が食料品を買う。'
 </script>
 ```
 
@@ -170,6 +177,25 @@ Run `npm run score` to check segmentation and tagging against
 ## API
 ja-compromise には、`compromise/one` のすべてのメソッドが含まれます:
 
+##### 日本語のメソッド / japanese-specific
+
+| | |
+|---|---|
+| `.verbs()` | every 動詞 in the document |
+| `.nouns()` | every 名詞 |
+| `.adjectives()` | every 形容詞 and 形容動詞 |
+| `.particles()` | every 助詞 |
+| `.romanji()` | the document sounded-out in the latin alphabet |
+| `.toInfinitive()` | the dictionary-form of each match |
+| `.compute('root')` | set each term's dictionary-form |
+| `nlp.conjugate(verb)` | the full paradigm of a dictionary-form verb |
+| `nlp.deconjugate(word)` | walk a conjugated verb back to its dictionary-form |
+| `nlp.conjugateAdjective(word)` | the paradigm of an い- or な-adjective |
+| `nlp.verbClass(verb)` | `'godan'`, `'ichidan'`, `'suru'`, .. |
+
+TypeScript declarations ship with the package - see [types/](./types).
+
+
 <details>
   <summary><h3>クリックして API メソッドを表示</h3></summary>
 
@@ -207,7 +233,6 @@ ja-compromise には、`compromise/one` のすべてのメソッドが含まれ�
 - **[.fullSentences()](https://observablehq.com/@spencermountain/compromise-accessors)** - get the whole sentence for each match
 - **[.groups()](https://observablehq.com/@spencermountain/compromise-accessors)** - grab any named capture-groups from a match
 - **[.wordCount()](https://observablehq.com/@spencermountain/compromise-utils)** - count the # of terms in the document
-- **[.confidence()](https://observablehq.com/@spencermountain/compromise-utils)** - an average score for pos tag interpretations
 
 ##### Match
 
@@ -276,13 +301,11 @@ _(match methods use the [match-syntax](https://docs.compromise.cool/compromise-m
 - **[.insertBefore(str)](https://observablehq.com/@spencermountain/compromise-insert)** - add these new terms to the front of each match (prepend)
 - **[.insertAfter(str)](https://observablehq.com/@spencermountain/compromise-insert)** - add these new terms to the end of each match (append)
 - **[.concat()](https://observablehq.com/@spencermountain/compromise-insert)** - add these new things to the end
-- **[.swap(fromLemma, toLemma)](https://observablehq.com/@spencermountain/compromise-insert)** - smart replace of root-words,using proper conjugation
 
 ##### Transform
 
 - **[.sort('method')](https://observablehq.com/@spencermountain/compromise-sorting)** - re-arrange the order of the matches (in place)
 - **[.reverse()](https://observablehq.com/@spencermountain/compromise-sorting)** - reverse the order of the matches, but not the words
-- **[.normalize({})](https://observablehq.com/@spencermountain/compromise-normalization)** - clean-up the text in various ways
 - **[.unique()](https://observablehq.com/@spencermountain/compromise-sorting)** - remove any duplicate matches
 
 

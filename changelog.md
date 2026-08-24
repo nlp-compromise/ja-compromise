@@ -191,6 +191,41 @@ Two bugs in this library turned up because the cleaned table disagreed with it:
 `くれろ`. `蹴る` was the reverse - the table was right and this library had it
 filed as ichidan when modern 蹴る is godan (`蹴った`, not `蹴た`).
 
+#### TypeScript
+
+- **[fix]** - **`package.json` declared `"types": "types/index.d.ts"`, and no such
+  file existed.** Every TypeScript consumer got an unresolvable import.
+- **[new]** - written and checked-in: `types/index.d.ts` (the constructor and the
+  `View`), `types/misc.d.ts` and `types/japanese.d.ts` (conjugation paradigms and
+  verb classes). Compromise's `./one` subpath has no `types` condition in its
+  exports map, so its `View` type can't be imported from here - it's restated
+  instead, with a note to keep it in sync on a dependency bump.
+- **[fix]** - `"files"` listed only `builds/` and `docs/`, so even a correct
+  `types/` directory wouldn't have been published. Added.
+- **[new]** - `npm run typecheck`, and `tsc` now runs as part of `npm test`.
+  `tests/types/usage.ts` is a compile-only file that exercises the public API, so
+  the declarations can't drift from the library again. (It's part of `test`
+  rather than a `pretest` hook because `ignore-scripts` is a common npm setting
+  and lifecycle hooks silently don't run under it.)
+
+#### Demo and docs
+
+- **[fix]** - **`demo/index.html` was an unmodified copy of the German demo** -
+  German title, German UI, German sample text, loading `../builds/de-compromise.min.js`
+  and reading `window.deCompromise`. Rewritten in Japanese against the real build.
+- **[fix]** - the demo's highlighter passed `{nouns: ...}` to `.html()`, which
+  emits `<nouns>` *elements*, so none of its CSS ever applied. The keys need a
+  leading dot (`{'.nouns': '#Noun'}`) to produce `<span class="nouns">`. This bug
+  was in the German original too.
+- **[fix]** - the README's browser example loaded `unpkg.com/de-compromise` and
+  called `doc.sentences(1)`, which `compromise/one` doesn't provide. Replaced
+  with verified output.
+- **[fix]** - the API list documented `.confidence()`, `.swap()` and
+  `.normalize()`. The first two exist only once `compromise/two` is loaded (it
+  patches the shared `View` prototype); the third doesn't exist at all. All 73
+  remaining documented methods were checked against the library.
+- **[new]** - README section for the japanese-specific methods.
+
 #### Housekeeping
 
 - **[fix]** - `src/_lib.js` imported compromise from a hard-coded path on the
