@@ -152,6 +152,14 @@ declare class View {
   adjectives: () => View
   /** every 助詞 in the document */
   particles: () => View
+  /** every number, with its counter if it has one - 三冊, 2時間 */
+  numbers: () => View
+  /** the parsed value of each match, or null where there isn't one */
+  toNumber: () => (number | null)[]
+  /** every 助数詞 in the document */
+  counters: () => View
+  /** every date, time and duration */
+  dates: () => View
   /** the document sounded-out in the latin alphabet */
   romanji: () => string
   /** the dictionary-form of each match - 食べました → 食べる */
@@ -209,6 +217,11 @@ declare namespace nlp {
   export function deconjugate(word: string): Deconjugation | null
   /** which paradigm a dictionary-form verb follows */
   export function verbClass(dictionaryForm: string): VerbClass | null
+  /**
+   * parse a japanese numeral - `nlp.toNumber('二十三')` is 23.
+   * handles kanji, half-width and full-width digits.  null if it isn't one.
+   */
+  export function toNumber(numeral: string): number | null
 }
 
 export default nlp

@@ -157,6 +157,56 @@ nlp('映画を見ました。').compute('root').text('root')
 <!-- spacer -->
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+## 助数詞 - counters
+Japanese can't count a noun directly - it's 本を三冊, never 三本. The counter
+says what *kind* of thing is being counted, so it's the nearest thing to a unit:
+
+```js
+let doc = nlp('本を五冊買って、2時間読んだ。')
+doc.numbers().out('array')   // [ '五冊', '2時間' ]
+doc.numbers().toNumber()     // [ 5, 2 ]
+doc.counters().out('array')  // [ '冊', '時間' ]
+```
+
+A counter is only a counter when a number is in front of it - 本 is a book far
+more often than it's the counter for long thin things:
+
+```js
+nlp('本を五冊買った').match('#Counter').text()  // '冊'  (not 本)
+```
+
+Numerals parse from kanji, half-width or full-width digits:
+
+```js
+nlp.toNumber('二十三')      // 23
+nlp.toNumber('三百二十一')   // 321
+nlp.toNumber('五十万')      // 500000
+```
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 日付 - dates
+Dates are built out of number + counter, so `年`, `月` and `日` need context -
+they're the same word whether they mean a date or a span of time:
+
+```js
+nlp('1995年3月10日の午後3時').dates().out('array')
+// [ '1995年3月10日', '午後3時' ]
+
+nlp('3月').match('#Month').found      // true  - march
+nlp('三ヶ月').match('#Duration').found // true  - three months
+nlp('五十年').match('#Year').found     // false - fifty years, not the year 50
+```
+
+`#Date` covers `#Year`, `#Month`, `#Day`, `#WeekDay`, `#Time`, `#Season`,
+`#Duration` and `#Era` (令和5年).
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 ## 分かち書き - tokenizing
 Japanese isn't written with spaces, so the tokenizer segments by longest-match
 against the lexicon, then repairs what that gets wrong:
@@ -192,6 +242,10 @@ ja-compromise には、`compromise/one` のすべてのメソッドが含まれ�
 | `nlp.deconjugate(word)` | walk a conjugated verb back to its dictionary-form |
 | `nlp.conjugateAdjective(word)` | the paradigm of an い- or な-adjective |
 | `nlp.verbClass(verb)` | `'godan'`, `'ichidan'`, `'suru'`, .. |
+| `.numbers()` | every number, with its counter |
+| `.counters()` | every 助数詞 |
+| `.dates()` | every date, time and duration |
+| `nlp.toNumber(numeral)` | 「二十三」 → `23` |
 
 TypeScript declarations ship with the package - see [types/](./types).
 

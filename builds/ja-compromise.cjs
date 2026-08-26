@@ -7717,7 +7717,11 @@
   var lexData = {
     "City": "true¦0:3O;1:54;2:3U;3:4P;4:4I;5:3P;6:38;あ58い56う54えび53か52さ51たつ53つ4Zにかほ市,ひたちなか市,ふじみ1み4Yむつ市,一4X七尾市,三4W上4U下4T世田谷区,中4Q串4P丸亀市,丹波4N久4L亀4K二4I五4H井3交1京4G人吉市,今治市,仙4F伊4B会津若4J佐4A倉49備48光市,入4P八45出44函館市,刈43別42前41加3Z勝3Y北3S匝瑳市,十3R千3P半0南3M印3L厚3K取3J古3I可児市,台東区,各務3合3H吉3G名3F向日市,君6吹0呉市,周3D和3C品3B唐6善通3A喜多39嘉麻市,四37国36土33坂32垂35城陽市,堺市,塩31境港市,墨3Q士30壱岐市,夕張市,多2Y大2T天2S太2R奄美市,奈2Q奥3X妙高市,姫2P姶2Q嬉1宇2N守2M安2K宍粟市,宗像市,宜野湾市,宝2J室2I宮2G宿毛市,富2E寒河2D寝屋2対3O射35小2B尼2A尾28山27岐阜市,岡26岩25岸和0島24川23市22帯広市,常20平1Z幸3J広5庄3府中市,座4P延1Y廿日38弘48弥富市,彦1X御1W徳5志1V恵1U愛3L成0我孫46戸0所29指宿市,掛2摂6敦1T文京区,新1S日1R旭4R明1Q春日1P昭5曽於市,有0朝1O木1N本1M札幌市,杉並区,村1L東1I杵築市,松1H板橋区,枕2A枚39柏4D柳1G栃3K栗1F根室市,桐生市,桑1E桜1G桶2横1D橋1C橿3歌志1B武19気仙3N水18氷2Z江17池0沖縄市,河内長1沼16泉15津14洲1C流4浅口市,浜13浦12海11淡2P深10清0Z渋0Y港区,湖0X湯29滑2滝0W潟上市,潮来市,瀬戸0V焼6熊0U熱海市,燕市,牛久市,牧之3犬4狛2D狭4玉0T珠洲市,瑞0S生駒市,田0R由0Q甲0P男0O町0留萌市,登0N白0M益0盛1Y目黒区,直39相0L真0K矢板市,知0J石0I砂2砺波市,碧3D磐0神0H福0G秋0秦1秩0F稚1B稲0E立2竹24笛吹市,笠0D筑0C箕面市,米0B糸0A紀の2紋30結3T網走市,綾09総社市,練馬区,美07羽06習志1胎1B能05臼杵市,舞鶴市,船41芦04花巻市,苫小牧市,茂3茅03茨3K草02荒01菊00萩市,葛Z蒲郡市,蓮0蕨市,薩摩川1B藤Y行X袋2C袖ヶ浦市,裾1西W見附市,観音3A角0調布市,諏訪市,諫早市,豊U貝2J赤T越S足R輪5近江八幡市,逗46遠1那P郡1L都O酒0野N金29釜1Q釧2P鈴0O鉾0銚46鎌M長K門真市,関市,阪3D防42阿J陸前高0雲I霧5青H静1Y韮2A須G飛騨市,飯F養0F館E香D駒ヶ1X高C魚B鯖2D鳥A鳴門市,鴨2鴻巣市,鶴9鹿8黒7龍ヶ2A;石市,部市;児5屋市,島市,嶋市,沼市,角市;ヶ5岡市;取市,栖市,羽市;沼市,津市;山市,岡市,島市,崎市,松市,梁市,槻市,浜市,知市,石市,砂市,萩市;南市,取市,美市,芝市;山市,林市;塚市,山市,田市,能市;坂市,崎市,賀2;梅市,森市;仙市,南市;久1K南市,波市,蘇市,賀1;久35井市,岡7崎市,浜市,野市,門市;京市,市;ヶ3N倉市;々2R洲市,田市;城市,留市;珂48覇市,須7;塩3烏4;利市,立区;前市,谷市;平市,磐市,穂市;中市,前市,岡市,島区,川市,後7明市,橋市,田市,見35;大1高0;之表市,予市,宮市,尾市,条市,東京市,海市,脇市,都市;方市,橋市,田市;井2I岡市,枝市,沢市;城市,飾区;川市,池市;尾市,川区;加市,津市;ヶ1D野市;別市,屋市;代市,美市;咋市,島市,曳1村市,生市;作市,唄市,濃7祢市,馬市;加茂市,市;瀬市,部市;島市,満市,魚2;原市,子市,沢市;後市,紫1西市;岡市,間市;城市,敷市,沢市;父市;井市,山市,岡市,島市,津市,生市,知4;埼市,戸市,栖市;垣市,岡市,巻市,狩市;多市,立市;岡市,庭市;模3生市,馬市;井市,山市,岡市,河市,石市;別市,米市;鹿市;州市,府市,斐市,賀市;利本荘市,布市;原市,川市,村市,辺市;浪市,穂市;名市,野市;本市,谷市,野市;内市,市;川市,沢市;南市,西市;川市,谷区;瀬市,須市;川市,谷市;南市,津市,老J;安市,添市;松市,田市;久11山市,島市,市;佐1南市,大6;津市,田市;別市,南市,戸1A東区,津市,田5;俣市,戸市;蔵7雄市;村4野市;内市;本市;手市,浜市,須M;名市;原市,東市;井市,川市;原市,山市,戸市,本市,江市,浦市,阪市;かがわ市,久留2A京特別区部,大8広5御市,村4松7根市,海市,温市,近01金市;山市,島市;和市,阪市;上市,山市;宮市,巣市,庄市;更6津2;倉市,来市,霞市;井市,市,部市;石市;光市,南市,向市,田市,立市,置市,進市,野市,高市;城市,宮市,宿区,居浜市,庄市,座市,潟市,発0見市;賀市;庭市,那市;布0S摩市,木市;前K坊市,所市,殿場市;根市;岡市;塚市,川市,戸市;滑市,総市,陸7;大T太0;原市,川市;口市,崎市,西市,越市;原市,田市;倉市,出市,国市,沼市,見A;山市,崎市,谷市;口市,形市,梨市,武市,県市,陽小野0鹿市;張旭市,花7道市,鷲市;沢市;崎市;千0Y城市,山市,平市,松C林市,樽市,浜市,牧市,田3矢部市,美玉市,諸市,郡市,野市,金7;井市;江市;士7山市,岡市,津市,田林市,良1谷市,里市;吉0宮市,市,見市;古7崎市,津市,若市;島市,市;戸市,蘭市;塚市;中市,城市,曇1来市,芸7;市,高0;口市,山市,谷市;佐市,和5土市,城市,治市,部市,都7陀市;宮市;路市;良市;宰0H田市;理市,童市,草市;仙市,分市,和A垣市,崎市,川市,府市,月市,村市,東市,津市,洲市,牟0田9町市,竹市,網白0R船渡市,野8阪7館市;市,狭4;城市,市;区,原市,市;市,郡4高0;久市,摩市,治7賀01;見市;別市;尻市,竈市;井市,出市,戸市,東市;佐7岐市,浦市;市,清7;水市;分A東市,立市;万十市,国中央市,日7條畷市,街道市;市市;方市;寺市;川区;光市,歌4泉市;南市;津市;取市,古N寄市,張市,護市;川市,野2;志市;河市,賀市;手市;木市;西市;あわじ市,さつ0Pアルプス市,丹市,九H国市,城市,島3房総市,相8砺市,足柄市,陽市,魚7;沼市;馬市;代7曲市,歳市,葉市;田区;和0日町市;上市,九B区,名古A広5斗市,本市,杜市,秋0茨7見市;城市;田市;島市;屋市;州市;山市,浦市;古2東市,茂市,西市,賀市,須市;川市;橋市;府市;谷市;水市,雲市;代市,千代市,女市,尾市,幡8戸市,潮市,王7街市;子市;市,平市,浜市;前市;吉市,敷市;世保市,久市,伯市,倉市,渡市,賀市,野市;万9丹市,予市,佐市,勢8東市,豆7賀市,達市,那市;の国市,市;原市,崎市,市;里市;北市,台市;丹後市,田辺市,都市;島市,所川3條市,泉市;戸市,本7;松市;山市,岡市;喜市,慈市,留7;米市;市,篠4;山市;間市;央8津7野8間市;川市,市;区,市;呂市,妻市,松市,田市,野市,関市;天草市,尾市,山市,田市,越市,野3;原市;原市,好市,島市,木市,条市,次市,沢市,浦市,田市,笠市,豊市,郷市,鷹市;宮市,関市;どり市,やDよし市;がる市,くば7;みらい市,市;いたAくEぬC;すみがうDほく市;の市;きは市,る7;ま市;すみ市,ちき串木1なべ市,わ7;き市;きる1ま市,わ7;ら市;野市",
     "Country": "true¦0:17;1:1F;ア15イ11ウ0Xエ0Vオ0Sカ0Qガ0Oキ0Mギ0Kク0Hグ0Gケ0コ0Dサ0Bザン0Pシ0Aジ09ス04セ01ソZタYチXツバル,デンマWトUドSナRニQネパ0Rノルウェー,ハPバOパMフKブIベHペルー,ホンジュラス,ボGポFマEミDメキシコ,モ9ヨル05ラ8リ7ル6レ5ロ13中4北3南2台湾,日本,東ティモ0R沿ドニエストル,西サハラ,赤道ギ0韓国;アフ1Aオセ0Hスー04;キプ0L朝鮮;国,央アフリカ共0C;ソト,バノン;クセンブルク,ワ0Vーマ0;トア0ヒテンシュタ02ビア,ベ13;オス,ト0I;ザンビOナコ,ル4ロッコ,ン3ーリ2;シャス,タ0;ゴル,テネグロ;ディブ,ドバ;クロネシア0Yャンマー;ケドニア旧ユーゴスラビア共02ダガスカル,ラウイ,リ,ルタ,レー0Qーシャル06;ルトPーラ1;スニア・ヘルツェゴビナ,ツワナ,リ0A;トナム,ナン,ネズエラ,ラルーシ,リーズ,ルギー;ラジル,ル2ー0X;ガ0Rキナファソ,ネイ,ンジ;ィ2ランス;ジー,リピン,ンラ1;キス0Tナマ,プアニューギ0ラ2レスチナ;オ,グ0C;チカン,ヌアツ,ハマ,ルバドス,ングラデシュ,ーレ07;イチ,ンガリー;ウエ,カラグア,ジェ02ュージーラ1;イジェ0Jウル,ゴルノ・カラバフ,ミZ;イツ,ミニカ2;共N国;リニダード・トバゴ,ル2ンガ,ーゴ;クメ0Jコ;ーク;ェコ,ャド,ュニ0Gリ;イ,ジ02ンザ0;マリ2ロモンL;ア,ラ1;ネ3ルPント2ーシェル;クリストファー・ネイビス,ビンセントおよびグレナディーンIル02;ガル;イス,ウェーデン,ペ5リ4ロ3ワジラ1ー2;ダン;バキア,ベ0;ナム,ランカ;イン;ブチ,ャマイカ,ョー04ンバブエ;エラレオネ,リア,ンガポI;ウジアラFモア,ン2;トメ・プリンシペ,マリノ;スタZソボ,モロ,ロンDンゴ2ートジボワF;共2民主共2;和国;アテマラ,レナダ;ウェート,ック3ロア2;チア;諸島;ニア2リシャ;!ビサウ;プ2ューバ,リバス,ルギス;ロス;イアナ,ボン,ン2ーナ;ビア;ザフスPタ2ナダ,メル5ンボNーボベルデ;ール;マ3ラ9ースト2;ラHリア;ーン;クア2ジプト,スト0チオピア,リトFルサルバ2;ドル;ガ4クライナ,ズベ3ルグ2;アイ;キスG;ンダ;エメン,ギリス,スラエル,タ9ラ4ンド2;!ネ2;シア;ク,ン;イBゼルバイジャン,フガ9ブハ8メ7ラブ首長国6ル3ン2;ゴラ,ティグア・バーブーダ,ドラ;ジェ3ゼンチン,バ0メ0;ニア;リア;連邦;リカ;ジア;ニス2;タン;スラ1ルラ1;ンド",
-    "Noun": "true¦お02ご飯,コップ,パン,ペン,一緒,上,下,世界,両親,中01予定,事00二人,人Z今Y休み,会社X住所,体,値段,側,傘,兄,先W光,八百屋,公園,内,写真,冬,分,切手,前,医者,午V単語,博物館,卵,原因,去年,友達,口,台所,右,名前,味噌,問題,喫茶店,図書館,国,地U場所,塩,声,夏,夕方,外,夜,夢,大T天気,夫,奥,女S妹,妻,姉,娘,子供,季節,学R客,家Q宿題,封筒,山,島,川,左,市,帽子,平P年O店X庭,弁当,弟,形,後ろ,御飯,心,息子,意味,戸,所N扉,手M指L授業,教K数,文J料金,新聞,方I日H明日,映画館,春,昨日,昼G時F晩ご飯,月,服,朝G本E机,村,来D果物,森,椅子,横,橋,歯,母,毎C気B水,池,海,消しゴム,湖,漢字,火,為,父,片P牛乳,物,珈琲,理由,瓶,生徒,田舎,男S町,畑,病院,皆A皿,目,看護師,県,真ん中,眼鏡,着物,砂糖,社長,祖9秋,秒,税金,空8窓,端,答え,箱,箸,米,紙,結果,絵,美術館,考え,耳,肉,肩,背中,腕,腹,自7船,色,苗字,英語,茶碗,荷物,葉書,街,袋,規則,角,言6計画,試験,話,財布,赤ちゃん,足,車,辞書,辺り,近く,週5道4違い,遠く,部3郵便局,都市,酒,醤油,野菜,量,金,鉛筆,銀行,鍵,間,隣,雑誌,雨,雪,雲,雷,電車,靴,鞄,韓国語,音,頭,顔,風2飛行機,食1飲み物,首0駅,魚,鼻;!都;べ物,堂;!呂;屋,長;!路;!末;葉,語;動車,転車;!港;母,父;!さん;!持ち;年,日,晩,月,朝,週;年,月,週;!屋;!計,間;!ご飯;!本語;!法;字,法,章;室,科書;!輪;!紙;!為;!齢;仮名;!族;校,生;!性;人,学;下鉄,図,震;前,後;月,生,週;!員;!年,日,晩,月,朝,週;!々,間;!務所;!国語;客さん,茶,金",
+    "Noun": "true¦あ0Sお0Rか月,き0Qことし,ご飯,つ,イ0Pウォン,カ月,キロ0Mグ0Oコップ,セ0Pトン,ドル,パ0Lペ0Kポンド,ミリ,メー0Nユーロ,リッ0Nヵ月,ヶ0J一0H上,下0G世0F両親,中0E予定,事0D二人,人0C今0B令和,件,休み,会社0A位,住所,体,個09倍,値段,側,傘,元,兄,先08光,八百屋,公園,内,円,冊,再来07写真,冬,分06切05初旬,前04割,匹,医者,午03単語,博物館,卵,原因,去年,友達,口,台02右,号,名01味噌,品,問題,喫茶店,回09図書館,国,地00場所,塩,声,夏,夕Z外,夜,夢,大Y天気,夫,奥,女X妹,妻,姉,娘,子供,季節,学W客,室,家V宿題,対,封筒,尾,山,島,川,左,市,席,帽子,平U年T店0A度,庭,弁当,弟,当日,形,後ろ,御飯,心,息子,意味,戸,所S扉,手R才,指Q授業,教P数,文O料金,新聞,方N日M明L映画館,春,昨K昭和,昼J時I晩ご飯,月,服,朝J本H机,村,束,来07杯,枚,果物,棟,森,椅子,横,橋,正G歯,歳,母,毎F気E水,池,泊,海,消しゴム,深夜,湖,漢字,火,点,為,父,片仮名,牛乳,物,珈琲,理由,瓶,生徒,田舎,男X町,畑,番09病院,発,皆D皿,目,看護師,県,真C眼鏡,着B砂糖,社長,祖A秋,秒06税金,空9窓,章,端,筆,答え,箇0J箱,箸,米,粒,紀元前,紙,組,結果,絵,美術館,羽,翌0I考え,耳,肉,肩,背中,腕,腹,自8船,色,苗字,英語,茶碗,荷物,葉書,街,袋,西暦,規則,角,言7計画,試験,話,課,財布,赤ちゃん,足,車,軒,辞書,辺り,近く,通6週5道4違い,遠く,部3郵便局,都市,酒,醤油,野菜,量,金,鉛筆,銀行,銭,鍵,間,階,隣,隻,雑誌,雨,雪,雲,雷,電車,面,靴,鞄,韓国語,音,頁,頭,顔,風2飛行機,食1飲み物,首0駅,魚,鼻;!都;べ物,堂;!呂;!屋,長;!路;!末,間;!り;葉,語;動車,転車;!港;母,父;!物;ん中,夜中;!さん;!持ち;年,日,晩,月,朝,週;午,月;!屋,日;!計,間;!ご飯;夜,年,日;後日,日,治;!本語,間;!法;字,法,章;室,科書;!輪;!紙;!為;!間,齢;仮名,成,日;!族;校,生;!性;人,学,正;べ,方;下鉄,図,震;!前;!所;前,後;!日;れ,手;!間;年,月,週;月,生,週;!目;!員;!夜,年,日,晩,月,朝,週;!々,目,間;!務所;!国語,旬;界,紀;!旬;昨0緒;年,日;!月;ン,ージ;ン,ーセント;!グ1メー0;トル;ラム;ンチ;のう,ょう;ととい,客さん,茶,金;さって,した,す",
+    "Date": "true¦あ8おととい,き7ことし,一昨6下旬,中旬,今5先4再来3初旬,前日,去年,夕べ,平日,当日,明2昨1本日,来3正月,毎0翌6週末;年,日,晩,月,朝,週;夜,年,日;後日,日;年,月,週;月,週;夜,年,日,晩,月,朝,週;年,日;のう,ょう;さって,した,す",
+    "Time": "true¦夕方,夜,昼,朝,正午,深夜,真夜中",
+    "AmPm": "true¦午0;前,後",
+    "Season": "true¦冬,夏,春,秋",
     "SuruVerb": "true¦中止,予約,仕事,会8使用,修理,出発,判断,利用,到着,努力,勉強,参加,反対,報告,増加,変7失敗,契約,安心,完成,実6対応,延期,建設,影響,復帰,心配,想像,感謝,成5我慢,投票,招待,掃除,提供,改善,散歩,料理,旅行,期待,案内,棄権,検討,決定,注4洗濯,活動,減少,準備,理解,生活,用意,発3相談,研究,確認,移動,管理,約束,納得,紹介,終了,経験,結婚,緊張,練習,考慮,製造,解決,記憶,評価,認可,説明,調査,議論,販売,買い物,賛成,質問,輸2返事,連絡,逸脱,運1遠慮,選択,開0関係,電話;始,発;動,営,転;入,出;明,表,見,言;意,文;功,長;現,行;化,更;話,議",
     "Pronoun": "true¦あJおHかFきDこCしょうせい,じぶん,そCてBへいIぼく,やつ,わ7俺6僕,儂,其奴,吾,小生,弊社,彼5御4我2手前,此奴,私1自分,貴0;下,女,官,方,様,男,社;!たち;!々,が0等;!社;宅,社;!女,奴,等;!様;が2し,た1て,れ0;!ら,われ;くし,し;!しゃ;まえ,めえ;いつ,やつ;か0さま,しゃ,み;!ん;のじょ,れ0;!ら;いら,たく,まえ,ら,れ,ん0前,宅;しゃ;いつ,た1なた,の0やつ,んた;かた,ひと,人,方;い,くし,し",
     "Adverb": "true¦0:0W;あ0Tい0Iお0Hか0Eき0Dくする,けっ0Cこ0Bごとき / ごとく / ごとし,さっき,し0Aじゅう09す07ず06ぜ05そ04た01だZちょYつXできるだけ,とWどTなSのんびり,はOばかりに,ひNびMふLべつに～0ほKまGみFむしろ,めったにEもDやBゆMよAわりと,一9丁度,万一,主に,今に0S以8全7再び,初R別6前に,割と,十分,大5実に,少4後で,必ず,急に,意外,敢えて,早く,時々,普2最後に,本当に,果たQ案の定,極R決してE特に,直接,相当,真っ直ぐ,突然,約,結1絶対,色々 ,間に,非常に;局,構;段,通1;! ;し,すこし;丈夫,体,分,変;々に,に～0;く～0然,部;上に,外;人,体,層,度に,応,旦,気に,番,種;うやく,く;っ1はり;と,ぱり;う,しかしたら,っと,はや;!～0;たIんな;あまあ,えに,すます,ず,だ3っ2でに,る1んいち;っ8で;すぐ,たく～0;!しも,～ていません;とんど,んと03;たHつう,と;っくり;じょ00とり;じ3た2っ1やく;きり;して;めて;かなか,るべく;う2ん1;どん,なに～W;!してXせ,にも～0やら;うとう,きどき,ても;いに;うど,っと;い1んだん;じょうぶ,ぶ;い2くさん,しかに,び1ぶん,まに;たび;して,てい;こそこ,ろそろ;ひ,んぜん;い3っと;ぐ1こし,っかり,でに;!に;ぶん;ばしば,ょっちゅう;う,とごとく,れから;きょく,こう,して～0;っと,ゅA;た2つて,な1何か;にか,らず,り;がた,わら;そらく,よそ;か9がい,きなり,く6じょ5ち4っ1つも,まにAろいろ;きに,し2そう,た1ぱい;い,ん;ゅ,ょに;おう,どに,ばん;うに;つ,ら1;!～1;ても;が,に1;!も;いだに,えて,くまでも,とで,まり2らかじめ,ん1;のじょう,まり;!にも,～0;ない",
@@ -7726,8 +7730,8 @@
     "NaAdjective": "true¦あCいBおAかんたん,がんこ,き9げんき,こ8さいわい,ざんねん,し5じ3す2せいBなめ1にぎDひま,ふくざつ,へ0べんり,まじめ,みりょく7丁寧,丈夫,上手,下手,便利,元気,危険,変,大嫌い,奇麗,好き,嫌い,孤独,安全,平均的,幸い,新鮮,暇,有名,正常,残念,滑1無料,異常,真面目,社交的,簡単,素敵,綺麗,色々,複雑,親切,賑D重要,静か,頑固,高価,魅力的,鮮D;いきん6た,ん;らか;き,てき;ゅうよう,ょう0;ず,ぶ;ずか,ゃこう1んせ0;つ,ん;てき;うか,どく;けん,らい,れい;かねもち,金持ち;じょう;ざ0んぜん;やか",
     "Conjunction": "true¦あ0Wい0Vお0Oか0Mぎゃくに,こう0Nさ0Kし0Fじゃ0Eす0DそYたVだRちなQってか,つNてMでJとGど04なBにもかかわらず,のため,はんめん,ふんAほ7ま6も4ゆ00よ0Hわけ02んA一方3並びに,乃至,亦,但X併0X例W即ち,又F及び,反面,同0Q否,因Q実は,尚,尤も,従0H恐0R惜し0T或2故に,本当は,次1然し0若し0U譬W追0H逆に;!な0R乍ら;いで,に;いは,は;!で;し0っとも,また;!くは;してや,ずは,た8;な1ん0;じゃ,で,なら;!ら;じゃ;いし3お,かん2ぜなら,の1ら0;ば,びに;で,に;ずく,づく;!は;いうのも,ころ1す04も0同時に;あれ,す03に;が,で;す1な0は;いと,け00;から,が,けれど;か,ゆーか;い1ま0;り,るところ;ては,で;みに;から2が,け1って,とす0;ると,れば;ど,れども;!こそ,といM;だ1と0め;えば,へば;!し;うAこで,しCの8もそも,やさかい,りゃ,れ0ーいや;から,だPで6と5ど4な3に1も,ゆ0;えに;!し0;ても;のに,ら;ころか;!も;!いて,は,も;うえ0上,後;!で,に;い2し1す0ですが,な0;ると;たら,て;えば,や;なわち,ると;!が;か2た0;が0ら;って;し0も;!な8;て,もなけ0らに,りとて,れど;れば;く0たや,つ;して;し4そ2な1ま0よび;けに;じく;れな0;がら;むら0;くは;え,っぽう,や;るいは,わ0;せて",
     "Expression": "true¦あ0Vい0Tう0Qえ0Nお0Gきゃ0Fぎ0Cぐふ0Bげっ,こ06ご03さ01ざまあみろ,じゃ0UすZそXただいまWどRなNねぇ,はMひ0KふLへIほHまGもしもし,やFよAわ9ア7ウ6オヤスミ,ガ5キャ4コンニチワ,ゴメン,サヨナラ,デヘヘ,トホホ,ハッハッハ,バカヤロー,ヒヒヒ,フ3メリークリスマス,モシモシ,ヤ2ヨロシク,ワ1南無,嗚呼,御0有難う;意,馳走0I;ァー,ーッ;ダー,ッター,レヤレ;ェ1ムフム;ッ,ー;ーン;ヒャー,ーン,～ン;ッ0ハハ,リガトウ;カンベー,プップ～;ぁZあ,っ,んわん,ーい;い3う2お,くもまあ,し1っ0ーし;こら2しゃ;っ,ゃ;こそ,し;しょ;ぁ,あ,れやれ;ぁ,あS;う,んと;え1ー0;え,っ;え,ッ,ー;うん,ふふ,むふむ,ん,ーん;い,じめ8っ,てな,ーい;あ2む,るほど,ん0;てこった,と0;!まあ,もはや;に,んだ;う2っこい1れどれ,ー0;ぞ,も;!しょ;いたし0ぞ,も;まして;!ッ;う0らそら,れ;!ですね,ね;い0まん,み0ん0;ません;ぁ,あ7てと,よ0らば;うなら,なら;きげんEくろうさん,ちそうFっつぁん,めん1苦労さ0馳走F;ま,ん;!くだGなG;ら3りゃ2れこれ,ん0;にち0ばん0;は,わ;!ー;!ぁ;!っ;ゃ1ょ0;!い,ぎょ;あ,ふん;あ,ー;!い,ぉ,お,かえり4ぎ3そまつ2っ,つかれ様,は1めでとう,や0ーい,早う,疲れ2粗末2;!すみ3っ;よう;さま,様;ゃー;!な0;さい;え1っ,ー0;っ,ッ;!い;うん,ふ1わ,ん,ー0;む,ん;!っ,ふ;いえ,えいえ,ただきます,や0ーえ;ぁ,あ,ー;ぁ,あ,いた,かん6きまへん,っ5ら4り1れ0ーあ;!よあれよ,れ,ー;がと1ゃ0;!りゃ;!う;!ッ,ー;!かんべー;!べ",
-    "Value": "true¦一,七,三,九,二,五,八,六,十,千,四,百",
-    "Weekday": "true¦土0日0月0木0水0火0金0;曜日",
+    "Value": "true¦〇,いつつ,ここのつ,とお,ななつ,ひとつ,ふたつ,み1む1や1よ1一0七0万,三0九0二0五0京,仟,伍,何,佰,億,兆,八0六0十,千,参,四0壱,弐,拾,捌,漆,玖,百,肆,萬,陸,零;!つ;っつ",
+    "WeekDay": "true¦土0日0月0木0水0火0金0;曜日",
     "Godan": "true¦0:1A;1:10;あ19い16う14えらぶ,お12か0Zがんばる,き0Yく0Wけす,こ0Vござる,さ0Tし0Sす0Rそ0Qた0Pだ0Oち0Nつ0Kてつだう,と0Jな0Hねむる,の0Gは0Fひ0Eふ0Dへる,ほる,ま0Cみ0Bむすぶ,も0Aや09よ08わ07上06下05並ぶ,乗る,乞う,乾04争う,仄め03付き合う,仰0U企む,休む,会う,伴う,住む,作る,使う,侍る,保つ,倒す,偽る,傾く,働く,儲01光る,入る,冗談る,写す,冷や00凝Z出Y分01切る,刺す,刻む,削る,剥ぐ,劣る,助01励X効く,動く,勝つ,匂う,包む,参る,及ぶ,取V口説く,叫ぶ,可愛06叱る,合う,向かう,含む,吸う,吹く,味わう,呼U咲く,商う,問う,喋る,喜T嗅ぐ,噛む,回る,困る,囲む,固0在る,基づく,塗る,増S壊す,売る,変18外す,太る,好む,始0威R嫌06学ぶ,守る,実る,寄る,富む,導く,就く,届く,履く,崩す,巻く,帰る,干す,広Q庇う,座る,建つ,引O張る,強0弾く,役N往く,待つ,従う,忍ぶ,志す,怒る,怖06思L急ぐ,恨む,悩む,悲K惜K憎む,憩う,戻1手伝う,打つ,払う,扱う,抜く,抱く,押す,担ぐ,招く,拾う,持つ,挟む,捻る,掘る,掛01探1掴む,揃う,描く,握る,撮る,救う,散る,敷く,断る,暖0暮Z曇る,曲06書く,有る,望む,枯Z楽K構う,次ぐ,欲し06歌う,止0歩く,死ぬ,残1殴る,殺す,気J污す,決0沈む,沸04治1沿う,泊0泣く,注ぐ,泳ぐ,洗う,流行る,浮かぶ,消す,涼む,混じる,添う,済む,減I渡1温める,湿る,満たす,溶03滅ぼす,滑る,漏Z潤う,為0X無くH焦る,焼く,熟す,狂う,現す,生G産む,異F畳む,疑う,痛む,登る,盗む,目N直1眠る,眩む,着く,睨む,知E砕く,磨く,示す,祈る,祝う,祭る,移す,稼ぐ,積む,空く,突く,立つ,笑う,終18組む,経つ,結ぶ,継ぐ,続く,練る,縋る,縛る,縫う,縮む,繰り返す,置く,罵る,群06習う,耽る,聞く,育つ,脂ぎる,脱ぐ,腐る,至る,舞う,苦K茂る,落とす,蘇る,行D表す,被る,補う,襲う,要る,覆る,見C解く,触る,言A試す,話9誇る,誘う,語る,誤る,読む,請う,謝る,譲る,負03貰う,買う,貸す,賄う,走る,起こ1越す,足す,踊る,踏む,蹴8転7輝く,込む,返1迷う,追6送る,這う,通5逝く,進む,遊ぶ,運ぶ,過ごす,違う,遣る,適う,遭う,遮る,選ぶ,配る,酔う,重F釣る,閉0開く,間4関18防ぐ,降3限る,陥る,隠す,集0離す,霞む,静0響く,頂く,頑R頼2願う,飛U食い違う,飲む,飼う,飾る,馴染む,騒ぐ,騙す,驚く,高0魂消る,黙る,齧る;む,る;る,ろす;にZ違う;う,す,る;いかける,う;がる,ぶ;る,飛ばす;しUす;い2う;ふP出す,表す;つQ做す,張る,習う,送る,逃す;く,なう;りPる;なる;む,やす;す,なる;らす,る;付く,遣う;しむ;い2う;つく,出す;立つ;く,っ2;張る,越す;がる,まる;張る;す,やす;ばす,ぶ;び3ぶ;り2る;出す;ます,む;す,会う;らす;かす,す;かる;合う;かす;かす,く;がる,さる;がる;かる,た1;ぶ,む,る,ろこぶ;く,すむ;つ,どる,らう;がく,のる;いる,がる,く,じる,つ,なぶ,もる,よう,わる;く,ける,せぐ,とる,やす,る;かる,く,ねる,らく;こぶ,しる,じ0たらく,なす,る;こる,ぼる,む,る;おす,く,ぐる,さる,やむ,ら2;う,ぶ;おる,ぶ,まる,る;か3く,づく,な2む,る;がる,ぐ;う,む;がう,ぢむ,る;く,す,まる;つ,のむ;そぐ,だつ;う,すむ,む,わる;かる,ぬ,ばる,まう,めす,ゃべる;がす,く,けぶ,そう,わ2;ぐ,る;のむ,まる,む,ろぶ;さる,だ2もる;さる;く,まる;う,え1か2ぎる,ざる,じる,す,せぐ,ぶる,む,よう,わる;る,わる;す,る;く2こる,す,っ6とる,どる,もう,よぐ,わる;!る;ごく,たう,つ2む,る;!す;う,く,そぐ,つ3のる,らっ2;しゃる;わる;せる,つ0らう,る2;!く;まる",
     "IrregularVerb": "true¦くる,する,来る,為る",
     "Ichidan": "true¦0:0L;1:0K;2:0M;3:06;4:03;undefined,あ0Nい0Mう0Kえる,お0Jか0Gき0Fく0Eこ0Dさ0Cし09す08せ2そだ4た06つ04で02と01なZにYぬ1ねる,のXはWひろVふUほ00まSみRむか0もQやTよPわO上V下V与0並0L乗N交M付03任T企4伏T伝0伸L似る,使0信3倒1借K備0傷つ03優1儲03入1兼ねる,冷J出I分H切1別1加0助03努2勤2占2取G受03呉1告V命3固2埋2報F増0壊1売1変0妨V始2委ねる,存3定2寄T寝る,尋ねる,尽E居る,届03崩1帯L広D延L建4引き受03弱2強C当4得る,忘1応3怠03恐1恥3悔F惚1感3慌4慣1慰2戒2抑0投V折1抜03抱0拵0挙V捨4掛03掲V揃0換0支0攻2教0数0明03晴1暮1曲V替0束ねる,果4枯1案3構0止2比0L求2汚1決2流1浮か0L浴L消0混M済まT溢1溶03滅L漏1演3濡1点03焦V焼03煮る,燃0片付03現1甘0生B用F疲1痩T真似る,眺2着A知らT禁3立4答0経る,続03綻L締2老9考0聞こ0育4腰掛03臥T舐2苦しまT落ちる,蓄0虐2褒2見8覚J解03触1言い7訪6訴0詫L認2調0L論3諦2講3負03責2起E越0足K跳ねる,転3載T迎0述0L逃5通3連1進2遂V遅1過ぎる,避03重ねる,錆L鍛0長03閉2開03間違0降K隠1集2離1震0食0L飽E高2;げる,れる;ねる,れる;つ00換0;える,せる,つZる;いる,ける;る,換0;える,きる,ける,じる,ま1;いる,める;げる,める;きる;いる;り換0れる;か1ける;かPる,来る;える,める;りる;びる;ぜる;せる,り換0;か1ける,す1;ご1せる,わ2;える,と2れる;せる,と2る;か5ける,げる,ぜる;せる;える,る0れる;げる;える,じ2な1れる;が1せる,べる;げる,る;が5げる,める,らQれる;める,れる;ける,げる,ど6める;か5きる,る;ける;か5ける,げる,た0と2よ2れる;える,れる;お1か2ずGてる,べる,りる;てる;ぎる,ぐ1す2てる;める,ら6ん3;じる;せる,べる;ける,げる,さ0だ2める;える,た0わ1;ず1らBれる,わ0;える,こ0める,る,れる;か0く1ける,さ6ぞ0りる,れる,ん5;が0じる;ねる;きる,し0そ1ちる,とず1ぼ0りる,れる;か5ける,ま1める,れる;べる;る,れる;きら2ける,げる,た0つ2てる,びる,ふ1らわ1;れる;える;める",
@@ -7736,6 +7740,7 @@
     "ConjunctiveParticle": "true¦け2し,た1つつ,て3ながら,の0ば;で,に;ら,り;ど,れど0;!も",
     "TopicParticle": "true¦こそ,さえ,しか,でも,なら,は,も",
     "SentenceParticle": "true¦か3さ,ぜ,ぞ,な2ね1のか,ものか,よ0わ;!ね;!え;!あ;!しら,な",
+    "Era": "true¦令和,大正,平成,明治,昭和,紀元前,西暦",
     "AdnominalParticle": "true¦の"
   };
 
@@ -8623,6 +8628,13 @@
       return
     }
     if (isStrong) {
+      // a word can be listed twice - 毎朝 is a #Date and a #Noun.  keep both,
+      // and let the tagset sort out any that genuinely conflict
+      if (strong.has(word)) {
+        let both = new Set([].concat(lexicon$1[word], tags));
+        lexicon$1[word] = [...both];
+        return
+      }
       strong.add(word);
     }
     lexicon$1[word] = tags;
@@ -8769,6 +8781,25 @@
     /** every 助詞 */
     View.prototype.particles = function () {
       return this.match('#Particle')
+    };
+    /** every number, with its counter if it has one - 三冊, 2時間 */
+    View.prototype.numbers = function () {
+      return this.match('#Value+ #Counter?')
+    };
+    /** the parsed value of each number - 「二十三」 → 23 */
+    View.prototype.toNumber = function () {
+      return this.docs.map(terms => {
+        let found = terms.find(t => typeof t.number === 'number');
+        return found ? found.number : null
+      })
+    };
+    /** every date, time and duration */
+    View.prototype.dates = function () {
+      return this.match('#Date+')
+    };
+    /** every 助数詞 */
+    View.prototype.counters = function () {
+      return this.match('#Counter')
     };
     /** the dictionary-form of each matched word */
     View.prototype.toInfinitive = function () {
@@ -9050,6 +9081,106 @@
   };
   var attachOkurigana$1 = attachOkurigana;
 
+  // 漢数字 → a javascript number.
+  // japanese numerals are positional-by-power rather than positional-by-digit:
+  // 三百二十一 is (3×100) + (2×10) + 1, and 三万 is 3×10,000.
+
+  const digits = {
+    '〇': 0, '零': 0, '０': 0, '0': 0,
+    '一': 1, '壱': 1, '１': 1, '1': 1,
+    '二': 2, '弐': 2, '２': 2, '2': 2,
+    '三': 3, '参': 3, '３': 3, '3': 3,
+    '四': 4, '肆': 4, '４': 4, '4': 4,
+    '五': 5, '伍': 5, '５': 5, '5': 5,
+    '六': 6, '陸': 6, '６': 6, '6': 6,
+    '七': 7, '漆': 7, '７': 7, '7': 7,
+    '八': 8, '捌': 8, '８': 8, '8': 8,
+    '九': 9, '玖': 9, '９': 9, '9': 9,
+  };
+  // powers that stack inside a group
+  const small = { '十': 10, '拾': 10, '百': 100, '佰': 100, '千': 1000, '仟': 1000 };
+  // powers that close a group off
+  const large = { '万': 1e4, '萬': 1e4, '億': 1e8, '兆': 1e12, '京': 1e16 };
+
+  const isNumeral = function (c) {
+    return digits[c] !== undefined || small[c] !== undefined || large[c] !== undefined
+  };
+
+  /** parse a japanese numeral - returns null if the string isn't one */
+  const toNumber = function (str) {
+    if (!str) {
+      return null
+    }
+    let total = 0;    // everything closed off by 万/億/兆
+    let section = 0;  // the current group, below 10,000
+    let current = 0;  // the digits seen since the last power
+    let seen = false;
+
+    for (let i = 0; i < str.length; i += 1) {
+      let c = str[i];
+      if (digits[c] !== undefined) {
+        // 15 and １５ are positional, so keep multiplying up
+        current = current * 10 + digits[c];
+        seen = true;
+        continue
+      }
+      if (small[c] !== undefined) {
+        // 十 on its own is 10, not 0
+        section += (current === 0 ? 1 : current) * small[c];
+        current = 0;
+        seen = true;
+        continue
+      }
+      if (large[c] !== undefined) {
+        // a bare 万 is 10,000 - but 五十万 is 50×10,000, not 51×10,000
+        let group = section + current;
+        total += (group === 0 ? 1 : group) * large[c];
+        section = 0;
+        current = 0;
+        seen = true;
+        continue
+      }
+      return null // not a numeral
+    }
+    if (!seen) {
+      return null
+    }
+    return total + section + current
+  };
+
+  var toNumber$1 = toNumber;
+
+  const allNumeral$1 = function (str) {
+    for (let i = 0; i < str.length; i += 1) {
+      if (!isNumeral(str[i])) {
+        return false
+      }
+    }
+    return str.length > 0
+  };
+
+  /**
+   * 二十三 arrives as 二|十|三, because each of them is a lexicon entry on its own.
+   * a run of numerals is one number.
+   */
+  const joinNumbers = function (arr) {
+    let out = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      if (!allNumeral$1(arr[i])) {
+        out.push(arr[i]);
+        continue
+      }
+      let run = arr[i];
+      while (arr[i + 1] !== undefined && allNumeral$1(arr[i + 1])) {
+        run += arr[i + 1];
+        i += 1;
+      }
+      out.push(run);
+    }
+    return out
+  };
+  var joinNumbers$1 = joinNumbers;
+
   const { words: words$1, maxLen } = buildIndex$1(Object.keys(lexicon$2));
   // a very long 'word' is nearly always two words - cap the lookahead
   const LOOKAHEAD = Math.min(maxLen, 12);
@@ -9141,6 +9272,8 @@
     arr = rejoinKana(arr);
     // join-up neighbouring unknown characters
     arr = joinUp$1(arr);
+    // 二|十|三 is one number
+    arr = joinNumbers$1(arr);
     // give an unknown kanji stem its inflectional tail - 含 + まれている
     arr = attachOkurigana$1(arr);
     // punctuation is never its own term - it hangs off the word before it
@@ -10982,6 +11115,27 @@
     Money: {
       is: 'Cardinal',
     },
+    // 助数詞 - the counter after a number.  japanese can't count a noun
+    // directly: it's 本を三冊, never 三本
+    Counter: {
+      is: 'Noun',
+      not: ['Verb', 'Adjective', 'Adverb'],
+    },
+    // 時, 分, 秒 - a point on the clock
+    TimeCounter: {
+      is: 'Counter',
+    },
+    // 時間, 週間, ヶ月 - a span of time
+    DurationCounter: {
+      is: 'Counter',
+      also: ['Duration'],
+    },
+    // 年, 月, 日 - a date *or* a duration, depending on context
+    DateCounter: {
+      is: 'Counter',
+    },
+    // the number and its counter, together - 三冊, 2時間
+    NumberPhrase: {},
     Percent: {
       is: 'Value',
     },
@@ -10991,9 +11145,10 @@
     Date: {
       not: ['Verb', 'Adverb', 'Adjective'],
     },
+    // 3月 - the number keeps its #Value, so Month can't inherit from #Singular
+    // the way the english tagset does (#Noun and #Value are exclusive)
     Month: {
-      is: 'Singular',
-      also: ['Date'],
+      is: 'Date',
       not: ['Year', 'WeekDay', 'Time'],
     },
     WeekDay: {
@@ -11030,6 +11185,18 @@
     Duration: {
       is: 'Noun',
       also: ['Date'],
+    },
+    // 十日 - the day-of-the-month
+    Day: {
+      is: 'Date',
+    },
+    // 令和, 平成, 昭和 - the japanese regnal eras
+    Era: {
+      is: 'Date',
+    },
+    // 午前 / 午後
+    AmPm: {
+      is: 'Time',
     },
   };
 
@@ -11227,7 +11394,7 @@
 
   // what a particle tells us about the word in front of it.
   // this is the workhorse of japanese pos-tagging: the particle *is* the syntax.
-  const reason$4 = 'particle';
+  const reason$6 = 'particle';
 
   // particles that only ever follow a noun-phrase
   const nounBefore = {
@@ -11255,32 +11422,32 @@
 
       // な before a noun is the adnominal copula (静かな人), not a final particle
       if (str === 'な' && next && !next.tags.has('Verb')) {
-        setTag([t], 'AdnominalParticle', world, null, reason$4);
+        setTag([t], 'AdnominalParticle', world, null, reason$6);
         if (prev) {
-          setTag([prev], 'NaAdjective', world, null, reason$4);
+          setTag([prev], 'NaAdjective', world, null, reason$6);
         }
         continue
       }
       // か at the end of a clause is a question-marker, not 'or'
       if (str === 'か' && (!next || next.tags.has('SentenceParticle'))) {
-        setTag([t], 'SentenceParticle', world, null, reason$4);
-        setTag([t], 'QuestionWord', world, null, reason$4);
+        setTag([t], 'SentenceParticle', world, null, reason$6);
+        setTag([t], 'QuestionWord', world, null, reason$6);
         continue
       }
       // と after a verb introduces a quote;  between two nouns it means 'and'
       if (str === 'と' && prev) {
         if (prev.tags.has('Verb') || prev.tags.has('Copula')) {
-          setTag([t], 'QuotativeParticle', world, null, reason$4);
+          setTag([t], 'QuotativeParticle', world, null, reason$6);
           continue
         }
         if (next && !next.tags.has('Verb')) {
-          setTag([t], 'Conjunction', world, null, reason$4);
+          setTag([t], 'Conjunction', world, null, reason$6);
         }
       }
       // で after a noun is 'at/by'; after a な-adjective it's the copula
       if (str === 'で' && prev && prev.tags.has('NaAdjective')) {
-        setTag([t], 'Copula', world, null, reason$4);
-        setTag([t], 'Gerund', world, null, reason$4);
+        setTag([t], 'Copula', world, null, reason$6);
+        setTag([t], 'Gerund', world, null, reason$6);
         continue
       }
 
@@ -11290,25 +11457,25 @@
       }
       if (nounBefore[str] !== undefined) {
         if (!prev.tags.has('Verb') && !prev.tags.has('Adjective')) {
-          setTag([prev], nounBefore[str], world, null, reason$4);
+          setTag([prev], nounBefore[str], world, null, reason$6);
         } else if (str === 'の' || str === 'が') {
           // 走るの / 行くが - the verb is nominalized or the clause continues
-          setTag([t], str === 'の' ? 'AdnominalParticle' : 'ConjunctiveParticle', world, null, reason$4);
+          setTag([t], str === 'の' ? 'AdnominalParticle' : 'ConjunctiveParticle', world, null, reason$6);
         }
         continue
       }
       if (softNounBefore.has(str) && !prev.tags.has('Verb') && !prev.tags.has('Adjective') && prev.tags.size <= 1) {
-        setTag([prev], 'Noun', world, null, reason$4);
+        setTag([prev], 'Noun', world, null, reason$6);
         continue
       }
       if (verbBefore.has(str) && prev.tags.size <= 1) {
-        setTag([prev], 'Verb', world, null, reason$4);
+        setTag([prev], 'Verb', world, null, reason$6);
       }
     }
   };
   var tagParticles$1 = tagParticles;
 
-  const reason$3 = 'verbSuffix';
+  const reason$5 = 'verbSuffix';
   const isKnown = (w) => lexicon$2.hasOwnProperty(w);
   const scriptOnly$1 = new Set(['Kanji', 'Hiragana', 'Katakana', 'Ascii']);
 
@@ -11329,7 +11496,7 @@
       if (!found || found.guess === true) {
         return
       }
-      found.tags.forEach(tag => setTag([term], tag, world, null, reason$3));
+      found.tags.forEach(tag => setTag([term], tag, world, null, reason$5));
       term.root = found.root;
     });
   };
@@ -11416,7 +11583,7 @@
 
   var verbs = { tagUnknownVerbs, tagSuruVerbs, tagAuxiliary, tagCompoundVerbs };
 
-  const reason$2 = 'adjSuffix';
+  const reason$4 = 'adjSuffix';
 
   // い-adjective endings.  the old rule was 'ends in い → Adjective', which
   // swallowed every negative verb (行かない), every masu-stem noun (お願い),
@@ -11440,8 +11607,8 @@
       }
       // 美しい - kanji stem plus a hiragana tail is the classic shape
       if (isKanji$1(str[0]) && looksAdjective.test(str)) {
-        setTag([term], 'Adjective', world, null, reason$2);
-        setTag([term], 'IAdjective', world, null, reason$2);
+        setTag([term], 'Adjective', world, null, reason$4);
+        setTag([term], 'IAdjective', world, null, reason$4);
       }
     });
   };
@@ -11458,7 +11625,7 @@
 
   var adjectives = { adjSuffixes, nounSuffixes };
 
-  const reason$1 = 'honorific';
+  const reason$3 = 'honorific';
 
   // 田中さん - an honorific proves the word before it is a person
   const tagPeople = function (terms, setTag, world) {
@@ -11469,17 +11636,317 @@
       }
       let prev = terms[i - 1];
       if (prev && !prev.tags.has('Verb') && !prev.tags.has('Particle')) {
-        setTag([prev], 'Person', world, null, reason$1);
+        setTag([prev], 'Person', world, null, reason$3);
       }
     }
     // 田中さん may have tokenized as one word - the suffix is still a signal
     terms.forEach(term => {
       if (term.text.length > 2 && /(さん|様|さま|ちゃん|くん|氏)$/.test(term.text) && term.tags.size <= 1) {
-        setTag([term], 'Person', world, null, reason$1);
+        setTag([term], 'Person', world, null, reason$3);
       }
     });
   };
   var tagPeople$1 = tagPeople;
+
+  // 助数詞 - counters.
+  // japanese can't count a noun directly: it's 本を三冊, never 三本.
+  // the counter says what *kind* of thing is being counted, so it's the closest
+  // thing japanese has to a unit.
+  //
+  // the value is the tag the counter gets, on top of #Counter.
+  var counters = {
+    // ---- generic ----
+    'つ': 'Counter',      // native numerals - 一つ, 二つ
+    '個': 'Counter',
+    'ヶ': 'Counter',
+    '箇': 'Counter',
+    '件': 'Counter',
+    '点': 'Counter',
+    '品': 'Counter',
+
+    // ---- living things ----
+    '人': 'Counter',      // people
+    '名': 'Counter',      // people, formal
+    '匹': 'Counter',      // small animals
+    '頭': 'Counter',      // large animals
+    '羽': 'Counter',      // birds, rabbits
+    '尾': 'Counter',      // fish
+
+    // ---- shapes ----
+    '本': 'Counter',      // long thin things - pens, bottles, trees
+    '枚': 'Counter',      // flat things - paper, plates, shirts
+    '冊': 'Counter',      // bound things - books
+    '台': 'Counter',      // machines, vehicles
+    '軒': 'Counter',      // buildings
+    '棟': 'Counter',
+    '隻': 'Counter',      // ships
+    '着': 'Counter',      // clothing
+    '足': 'Counter',      // footwear, in pairs
+    '杯': 'Counter',      // cupfuls
+    '皿': 'Counter',
+    '粒': 'Counter',
+    '束': 'Counter',
+    '組': 'Counter',
+    '対': 'Counter',
+    '通': 'Counter',      // letters
+    '通り': 'Counter',
+    '切れ': 'Counter',
+    '面': 'Counter',
+    '部': 'Counter',
+    '室': 'Counter',
+    '席': 'Counter',
+    '発': 'Counter',
+    '筆': 'Counter',
+
+    // ---- time ----
+    '秒': 'TimeCounter',
+    '分': 'TimeCounter',
+    '時': 'TimeCounter',
+    '時間': 'DurationCounter',
+    '分間': 'DurationCounter',
+    '秒間': 'DurationCounter',
+    '日間': 'DurationCounter',
+    '週': 'DurationCounter',
+    '週間': 'DurationCounter',
+    'ヶ月': 'DurationCounter',
+    'か月': 'DurationCounter',
+    'カ月': 'DurationCounter',
+    '箇月': 'DurationCounter',
+    'ヵ月': 'DurationCounter',
+    '年間': 'DurationCounter',
+    '世紀': 'DurationCounter',
+    '泊': 'DurationCounter',
+    // 年/月/日 are dates *or* durations, decided by context in 07-dates.js
+    '年': 'DateCounter',
+    '月': 'DateCounter',
+    '日': 'DateCounter',
+
+    // ---- money ----
+    '円': 'Currency',
+    'ドル': 'Currency',
+    'ユーロ': 'Currency',
+    'ポンド': 'Currency',
+    '元': 'Currency',
+    'ウォン': 'Currency',
+    '銭': 'Currency',
+
+    // ---- measures ----
+    '歳': 'Counter',      // years of age
+    '才': 'Counter',
+    '度': 'Counter',      // degrees, occurrences
+    '回': 'Counter',      // times
+    '倍': 'Counter',      // -fold
+    '割': 'Counter',      // tenths
+    '%': 'Percent',
+    '％': 'Percent',
+    'パーセント': 'Percent',
+    'メートル': 'Counter',
+    'キロ': 'Counter',
+    'センチ': 'Counter',
+    'ミリ': 'Counter',
+    'グラム': 'Counter',
+    'キロメートル': 'Counter',
+    'キログラム': 'Counter',
+    'リットル': 'Counter',
+    'トン': 'Counter',
+    'インチ': 'Counter',
+    'ページ': 'Counter',
+    '頁': 'Counter',
+    '階': 'Counter',      // storeys
+    '号': 'Counter',
+    '章': 'Counter',
+    '課': 'Counter',
+    '番': 'Ordinal',      // 三番 - third
+    '番目': 'Ordinal',
+    '個目': 'Ordinal',
+    '人目': 'Ordinal',
+    '回目': 'Ordinal',
+    '位': 'Ordinal',
+  };
+
+  const reason$2 = 'number';
+
+  const allNumeral = function (str) {
+    for (let i = 0; i < str.length; i += 1) {
+      if (!isNumeral(str[i])) {
+        return false
+      }
+    }
+    return str.length > 0
+  };
+
+  // 一つ, 二つ - the native numerals fuse with their counter
+  const nativeNumeral = /^([一二三四五六七八九]|ひと|ふた|みっ|よっ|いつ|むっ|なな|やっ|ここの)つ$/;
+  const nativeValue = {
+    ひとつ: 1, ふたつ: 2, みっつ: 3, よっつ: 4, いつつ: 5,
+    むっつ: 6, ななつ: 7, やっつ: 8, ここのつ: 9, とお: 10,
+  };
+
+  /**
+   * tag numbers, and the counter that follows them.
+   * 本 is a book far more often than it's a counter for long objects - the only
+   * thing that makes it a counter is a number sitting in front of it.
+   */
+  const tagNumbers = function (terms, setTag, world) {
+    for (let i = 0; i < terms.length; i += 1) {
+      let t = terms[i];
+      let str = t.text;
+
+      // ---- is this a number? ----
+      let value = null;
+      if (nativeValue[str] !== undefined) {
+        value = nativeValue[str];
+      } else if (nativeNumeral.test(str)) {
+        value = toNumber$1(str.slice(0, -1));
+      } else if (allNumeral(str)) {
+        value = toNumber$1(str);
+      }
+      // 何人, 何冊 - 'how many' takes a counter exactly like a number does,
+      // but there's no value to record
+      let isQuestion = str === '何' || str === 'なん' || str === '幾' || str === 'いく';
+      if (value === null && !isQuestion) {
+        continue
+      }
+      if (value !== null) {
+        setTag([t], 'Value', world, null, reason$2);
+        setTag([t], 'Cardinal', world, null, reason$2);
+        t.number = value;
+      }
+
+      // ---- is the next word its counter? ----
+      let next = terms[i + 1];
+      if (!next || counters[next.text] === undefined) {
+        continue
+      }
+      // a counter can't also be the verb or particle it looks like
+      if (next.tags.has('Verb') || next.tags.has('Particle')) {
+        continue
+      }
+      let kind = counters[next.text];
+      // #Percent and #Ordinal live in the #Value family, which is exclusive
+      // with #Noun - tagging those #Counter as well would just strip it again
+      if (kind === 'Percent' || kind === 'Ordinal') {
+        setTag([next], kind, world, null, reason$2);
+      } else {
+        setTag([next], 'Counter', world, null, reason$2);
+        if (kind !== 'Counter') {
+          setTag([next], kind, world, null, reason$2);
+        }
+      }
+      // mark the pair, so `#NumberPhrase` finds 三冊 and 2時間
+      setTag([t, next], 'NumberPhrase', world, null, reason$2);
+      if (value !== null) {
+        next.number = value;
+      }
+    }
+  };
+  var tagNumbers$1 = tagNumbers;
+
+  const reason$1 = 'date';
+
+  // 年, 月 and 日 are the same word whether they mean a date or a span of time.
+  // 三月 is March, but 三ヶ月 is three months;  十日 is the 10th, but 十日間 is
+  // ten days.  the number in front, and the word behind, decide which.
+  const dateCounter = { '年': 'Year', '月': 'Month', '日': 'Day' };
+
+  const inRange = { Year: [1, 9999], Month: [1, 12], Day: [1, 31] };
+
+  const tagDates = function (terms, setTag, world) {
+    for (let i = 0; i < terms.length; i += 1) {
+      let t = terms[i];
+      let prev = terms[i - 1];
+      let next = terms[i + 1];
+
+      // ---- 令和5年 - an era makes the number after it a year ----
+      if (t.tags.has('Era') && next && next.tags.has('Value')) {
+        let after = terms[i + 2];
+        if (after && after.text === '年') {
+          setTag([next], 'Year', world, null, reason$1);
+          setTag([after], 'Year', world, null, reason$1);
+          setTag([t, next, after], 'Date', world, null, reason$1);
+          i += 2;
+          continue
+        }
+      }
+
+      // ---- 3時30分 - a point on the clock ----
+      if (t.tags.has('Value') && next && next.text === '時' && next.tags.has('Counter')) {
+        setTag([t, next], 'Time', world, null, reason$1);
+        setTag([t, next], 'Date', world, null, reason$1);
+        // ..and the 分 that may follow it
+        let n2 = terms[i + 2];
+        let n3 = terms[i + 3];
+        if (n2 && n3 && n2.tags.has('Value') && n3.text === '分') {
+          setTag([n2, n3], 'Time', world, null, reason$1);
+          setTag([n2, n3], 'Date', world, null, reason$1);
+          i += 3;
+        } else {
+          i += 1;
+        }
+        continue
+      }
+
+      // ---- 1995年 / 3月 / 10日 ----
+      if (!t.tags.has('Value') || !next || dateCounter[next.text] === undefined) {
+        continue
+      }
+      if (!next.tags.has('Counter')) {
+        continue
+      }
+      let kind = dateCounter[next.text];
+      let value = t.number;
+
+      // 三日間 / 十年間 - 間 turns any of them into a span
+      let after = terms[i + 2];
+      if (after && (after.text === '間' || after.text === 'ぶり' || after.text === '目')) {
+        setTag([next], 'Duration', world, null, reason$1);
+        i += 1;
+        continue
+      }
+      // a number outside the calendar's range is a count, not a date -
+      // 「五十年」 is fifty years, not the year 50 of anything
+      let [lo, hi] = inRange[kind];
+      if (typeof value !== 'number' || value < lo || value > hi) {
+        setTag([next], 'Duration', world, null, reason$1);
+        i += 1;
+        continue
+      }
+      // 年 only reads as a calendar year when it's a plausible one
+      if (kind === 'Year' && value < 100 && !(prev && prev.tags.has('Era'))) {
+        setTag([next], 'Duration', world, null, reason$1);
+        i += 1;
+        continue
+      }
+      setTag([t], kind, world, null, reason$1);
+      setTag([next], kind, world, null, reason$1);
+      setTag([t, next], 'Date', world, null, reason$1);
+      i += 1;
+    }
+
+    // ---- 三時半, 一時間半 - 半 is the 'half' after a time ----
+    terms.forEach((t, i) => {
+      if (t.text !== '半' || i === 0) {
+        return
+      }
+      let prev = terms[i - 1];
+      if (prev.tags.has('TimeCounter') || prev.tags.has('DurationCounter')) {
+        setTag([t], prev.tags.has('TimeCounter') ? 'Time' : 'Duration', world, null, reason$1);
+        setTag([t], 'Date', world, null, reason$1);
+      }
+    });
+
+    // ---- 午前/午後 belong to the time beside them ----
+    terms.forEach((t, i) => {
+      if (!t.tags.has('AmPm')) {
+        return
+      }
+      let next = terms[i + 1];
+      if (next && next.tags.has('Date')) {
+        setTag([t], 'Date', world, null, reason$1);
+      }
+    });
+  };
+  var tagDates$1 = tagDates;
 
   // anything still unlabelled at the end is a noun - the safest guess in japanese
   const reason = 'noun-fallback';
@@ -11512,10 +11979,14 @@
       verbs.tagAuxiliary(terms, setTag, world);
       // 7. 読んで + いました is one progressive verb-phrase
       verbs.tagCompoundVerbs(terms, setTag, world);
-      // 8. plural and honorific suffixes
+      // 8. numbers, and the counter that follows them
+      tagNumbers$1(terms, setTag, world);
+      // 9. dates and times, built out of number + counter
+      tagDates$1(terms, setTag, world);
+      // 10. plural and honorific suffixes
       adjectives.nounSuffixes(terms, setTag, world);
       tagPeople$1(terms, setTag, world);
-      // 9. whatever's left is a noun
+      // 11. whatever's left is a noun
       fallback(terms, setTag, world);
     });
     return view
@@ -11589,6 +12060,9 @@
 
   // conjugation helpers, usable without a document
   Object.assign(ja, methods$1);
+
+  /** parse a japanese numeral - nlp.toNumber('二十三') === 23 */
+  ja.toNumber = toNumber$1;
 
   ja.version = version;
 

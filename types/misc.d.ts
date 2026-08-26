@@ -28,6 +28,8 @@ export interface Term {
   romanji?: string
   /** kana spelling of the word's kanji, after `.compute('readings')` */
   reading?: string
+  /** the parsed value of a numeral - 「二十三」 gives 23 */
+  number?: number
 }
 
 /** options for `.json()` */

@@ -3,6 +3,8 @@ import tagParticles from './02-particles.js'
 import verbs from './03-verbs.js'
 import adjectives from './04-adjectives.js'
 import tagPeople from './05-people.js'
+import tagNumbers from './06-numbers.js'
+import tagDates from './07-dates.js'
 
 // anything still unlabelled at the end is a noun - the safest guess in japanese
 const reason = 'noun-fallback'
@@ -35,10 +37,14 @@ const preTagger = function (view) {
     verbs.tagAuxiliary(terms, setTag, world)
     // 7. 読んで + いました is one progressive verb-phrase
     verbs.tagCompoundVerbs(terms, setTag, world)
-    // 8. plural and honorific suffixes
+    // 8. numbers, and the counter that follows them
+    tagNumbers(terms, setTag, world)
+    // 9. dates and times, built out of number + counter
+    tagDates(terms, setTag, world)
+    // 10. plural and honorific suffixes
     adjectives.nounSuffixes(terms, setTag, world)
     tagPeople(terms, setTag, world)
-    // 9. whatever's left is a noun
+    // 11. whatever's left is a noun
     fallback(terms, setTag, world)
   })
   return view

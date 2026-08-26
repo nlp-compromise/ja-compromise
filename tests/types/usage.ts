@@ -46,9 +46,17 @@ if (back !== null) {
 const klass: VerbClass | null = nlp.verbClass('食べる')
 const adj = nlp.conjugateAdjective('高い')
 
+// numbers, counters and dates
+const nums: View = doc.numbers()
+const values: (number | null)[] = doc.numbers().toNumber()
+const units: View = doc.counters()
+const when: View = doc.dates()
+const parsed: number | null = nlp.toNumber('二十三')
+const onTerm: number | undefined = doc.docs[0][0].number
+
 // constructor bits
 const version: string = nlp.version
 nlp.verbose('tagger')
 nlp.addWords({ '寿司': 'Noun' })
 
-export { text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }
+export { nums, values, units, when, parsed, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }

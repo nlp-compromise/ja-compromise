@@ -8,6 +8,7 @@ import tagset from './02-two/tagset/plugin.js'
 import preTagger from './02-two/preTagger/plugin.js'
 import version from './_version.js'
 import { methods as lexMethods } from './01-one/lexicon/api.js'
+import toNumber from './01-one/numbers/kanji-number.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
@@ -66,6 +67,9 @@ ja.verbose = function (set) {
 
 // conjugation helpers, usable without a document
 Object.assign(ja, lexMethods)
+
+/** parse a japanese numeral - nlp.toNumber('二十三') === 23 */
+ja.toNumber = toNumber
 
 ja.version = version
 

@@ -26,6 +26,13 @@ const add = function (word, tags, isStrong) {
     return
   }
   if (isStrong) {
+    // a word can be listed twice - 毎朝 is a #Date and a #Noun.  keep both,
+    // and let the tagset sort out any that genuinely conflict
+    if (strong.has(word)) {
+      let both = new Set([].concat(lexicon[word], tags))
+      lexicon[word] = [...both]
+      return
+    }
     strong.add(word)
   }
   lexicon[word] = tags

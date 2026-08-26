@@ -152,6 +152,62 @@ roughly a third of tokens mis-tagged to 100% on the 25-sentence gold file
   `.text('root')` turns 映画を見ました into 映画を見る.
 - **[new]** - `.verbs()`, `.nouns()`, `.adjectives()`, `.particles()`.
 
+#### Counters (助数詞)
+
+Japanese can't count a noun directly - it's 本を三冊, never 三本 - so the counter
+is the closest thing the language has to a unit. None of this was recognised:
+`三人` came out as two untagged tokens, `二十三` as three.
+
+- **[new]** - `lexicon/counters.js` - 95 counters, grouped by what they count:
+  people (人, 名), animals (匹, 頭, 羽), shapes (本, 枚, 冊, 台), time, money,
+  measures, and the ordinal-forming ones (番目, 回目).
+- **[new]** - a counter is only tagged `#Counter` when a number sits in front of
+  it. 本 is a book far more often than it's the counter for long thin things, so
+  the counter list is a tagger-side table rather than a lexicon override - the
+  noun readings are left alone.
+- **[new]** - `src/01-one/numbers/` parses japanese numerals: kanji, half-width
+  and full-width digits. `nlp.toNumber('三百二十一')` is 321. Powers stack the
+  way they do in japanese (十 is ×10, not a digit), and 万/億/兆 close a group
+  off - so 五十万 is 500,000, not 51×10,000.
+- **[fix]** - a numeral run is now one token. `二十三` was three separate `#Value`
+  terms, and `三ヶ月` was 三 + ヶ + 月 (ヶ sits in the katakana unicode block, so
+  the script-run joiner wouldn't merge it with 月).
+- **[new]** - the parsed value is on the term as `.number`, and
+  `.numbers().toNumber()` reads it back.
+- **[new]** - `#Counter`, `#TimeCounter`, `#DurationCounter`, `#DateCounter` and
+  `#NumberPhrase` tags, plus `.numbers()` and `.counters()`.
+- **[new]** - 何 takes a counter just like a number does - `何冊`, `何人`.
+
+#### Dates
+
+`1995年3月10日` was six untagged tokens. The `#Date`, `#Year`, `#Month` and
+`#Time` tags existed in the tagset and nothing ever set them.
+
+- **[new]** - dates are assembled from number + counter. 年, 月 and 日 are the
+  same word whether they mean a date or a span of time, so the number in front
+  and the word behind decide: `3月` is March, `三ヶ月` is three months; `十日` is
+  the 10th, `十日間` is ten days; `五十年` is fifty years, not the year 50.
+- **[new]** - times: `3時30分`, and `半` as half-past (`三時半`, `1時間半`).
+  `午前`/`午後` tag as `#AmPm` and join the time beside them.
+- **[new]** - the regnal eras (`令和5年`, `平成`, `昭和`) tag as `#Era`, and make
+  the number after them a `#Year` even when it's small.
+- **[new]** - `lexicon/dates.js` - relative dates (今日, 来年, 毎朝), seasons,
+  and times of day.
+- **[fix]** - **the weekday lexicon tagged 水曜日 `Weekday`, but the tagset
+  declares `WeekDay`.** The tag was undeclared, so it inherited nothing - 水曜日
+  was neither a `#Noun` nor a `#Date`. An undeclared tag doesn't throw, it just
+  sits on the term inheriting nothing, so `tests/tagset.test.js` now checks every
+  tag the library can emit against the tagset - the built lexicon, the
+  counter/date/particle tables, the conjugator's form-tags, the deconjugator's
+  suffix table, and the tags a real document ends up with. All 128 declared, 0
+  undeclared.
+- **[fix]** - `#Month` inherited from `#Singular`, so tagging `3月` stripped the
+  `#Value` off the 3 (`#Noun` and `#Value` are mutually exclusive). It's a
+  `#Date` now.
+- **[fix]** - a word listed under two tags kept only the last one - 毎朝 became a
+  `#Date` and stopped being a `#Noun`. The lexicon merges them now.
+- **[new]** - `#Day`, `#Era`, `#AmPm` tags, and `.dates()`.
+
 #### The reference verb-table
 
 `learn/verbs/verbs.js` is the scraped table the old conjugation model was

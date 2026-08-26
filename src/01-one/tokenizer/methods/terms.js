@@ -3,6 +3,7 @@ import lexicon from '../../lexicon/lexicon.js'
 import splitUp from './trie/split-up.js'
 import joinUp from './join-up.js'
 import attachOkurigana from './okurigana.js'
+import joinNumbers from './join-numbers.js'
 import { isPunctuation } from './lib.js'
 
 const { words, maxLen } = buildIndex(Object.keys(lexicon))
@@ -96,6 +97,8 @@ const tokenize = function (txt, isChunk) {
   arr = rejoinKana(arr)
   // join-up neighbouring unknown characters
   arr = joinUp(arr)
+  // 二|十|三 is one number
+  arr = joinNumbers(arr)
   // give an unknown kanji stem its inflectional tail - 含 + まれている
   arr = attachOkurigana(arr)
   // punctuation is never its own term - it hangs off the word before it
