@@ -56,16 +56,106 @@ test('counters:', function (t) {
   t.end()
 })
 
-test('the parsed value is on the term:', function (t) {
-  t.deepEqual(nlp('本を五冊買った').numbers().toNumber(), [5], here + '五冊 → 5')
-  t.deepEqual(nlp('二十三人来た').numbers().toNumber(), [23], here + '二十三人 → 23')
-  t.deepEqual(nlp('五冊と2時間').numbers().toNumber(), [5, 2], here + 'two numbers')
+test('.get() reads the value:', function (t) {
+  t.deepEqual(nlp('本を五冊買った').numbers().get(), [5], here + '五冊 → 5')
+  t.deepEqual(nlp('二十三人来た').numbers().get(), [23], here + '二十三人 → 23')
+  t.deepEqual(nlp('五冊と2時間').numbers().get(), [5, 2], here + 'two numbers')
+  // .values() is the english-compromise alias
+  t.deepEqual(nlp('五冊').values().get(), [5], here + '.values() alias')
   t.end()
 })
 
-test('.numbers() and .counters():', function (t) {
+test('.numbers(), .units() and .counters():', function (t) {
   let doc = nlp('本を五冊買って、2時間読んだ。')
-  t.deepEqual(doc.numbers().out('array'), ['五冊', '2時間'], here + '.numbers()')
+  // like english, .numbers() is the number itself - the counter is .units()
+  t.deepEqual(doc.numbers().out('array'), ['五', '2'], here + '.numbers()')
+  t.deepEqual(doc.numbers().units().out('array'), ['冊', '時間'], here + '.units()')
   t.deepEqual(doc.counters().out('array'), ['冊', '時間'], here + '.counters()')
+  t.deepEqual(nlp('千円と5ドル').money().out('array'), ['千円', '5ドル'], here + '.money()')
+  t.deepEqual(nlp('三パーセント').percentages().out('array'), ['三パーセント'], here + '.percentages()')
+  t.end()
+})
+
+test('.toNumber() and .toText() rewrite the text:', function (t) {
+  // english compromise: .get() reads, .toNumber()/.toText() rewrite
+  let arr = [
+    ['本を二十三冊買った。', '本を23冊買った。'],
+    ['五冊', '5冊'],
+    ['千九百九十五年', '1995年'],
+    ['三百二十一円', '321円'],
+  ]
+  arr.forEach(([from, want]) => {
+    let doc = nlp(from)
+    doc.numbers().toNumber()
+    t.equal(doc.text(), want, here + from + ' → ' + want)
+  })
+  // ..and back the other way
+  let back = [
+    ['本を23冊買った。', '本を二十三冊買った。'],
+    ['1995年', '千九百九十五年'],
+    ['500000円', '五十万円'],
+  ]
+  back.forEach(([from, want]) => {
+    let doc = nlp(from)
+    doc.numbers().toText()
+    t.equal(doc.text(), want, here + from + ' → ' + want)
+  })
+  t.end()
+})
+
+test('write a number in kanji:', function (t) {
+  let arr = [
+    [0, '〇'], [10, '十'], [23, '二十三'], [105, '百五'], [321, '三百二十一'],
+    [1000, '千'], [1995, '千九百九十五'], [2024, '二千二十四'],
+    // 10,000 keeps its 一, but 10 doesn't - it's 一万 and 十
+    [10000, '一万'], [35000, '三万五千'], [500000, '五十万'],
+    [100000000, '一億'], [123456789, '一億二千三百四十五万六千七百八十九'],
+  ]
+  arr.forEach(([num, want]) => {
+    t.equal(nlp.toKanji(num), want, here + num + ' → ' + want)
+  })
+  t.end()
+})
+
+test('kanji and numerals round-trip:', function (t) {
+  let fails = []
+  for (let n = 0; n <= 20000; n += 1) {
+    if (nlp.toNumber(nlp.toKanji(n)) !== n) {
+      fails.push(n)
+    }
+  }
+  ;[99999, 1234567, 98765432, 1e8, 5e11].forEach(n => {
+    if (nlp.toNumber(nlp.toKanji(n)) !== n) {
+      fails.push(n)
+    }
+  })
+  t.deepEqual(fails.slice(0, 10), [], here + 'every number 0-20,000 survives the round-trip')
+  t.end()
+})
+
+test('arithmetic keeps the script it found:', function (t) {
+  let doc = nlp('本を五冊買った')
+  doc.numbers().add(10)
+  t.equal(doc.text(), '本を十五冊買った', here + 'kanji stays kanji')
+
+  let d2 = nlp('23人')
+  d2.numbers().subtract(2)
+  t.equal(d2.text(), '21人', here + 'digits stay digits')
+
+  let d3 = nlp('２３冊')
+  d3.numbers().increment()
+  t.equal(d3.text(), '２４冊', here + 'full-width stays full-width')
+
+  let d4 = nlp('千二百三十四円')
+  d4.numbers().toLocaleString()
+  t.equal(d4.text(), '1,234円', here + '.toLocaleString()')
+  t.end()
+})
+
+test('comparisons:', function (t) {
+  t.deepEqual(nlp('三冊と二十五枚と百本').numbers().greaterThan(10).out('array'), ['二十五', '百'], here + '.greaterThan()')
+  t.deepEqual(nlp('一と十と百').numbers().between(2, 30).out('array'), ['十'], here + '.between()')
+  t.deepEqual(nlp('五冊と三冊').numbers().isEqual(5).out('array'), ['五'], here + '.isEqual()')
+  t.deepEqual(nlp('三冊と二十五枚').numbers().lessThan(10).out('array'), ['三'], here + '.lessThan()')
   t.end()
 })

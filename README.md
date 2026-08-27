@@ -157,32 +157,66 @@ nlp('映画を見ました。').compute('root').text('root')
 <!-- spacer -->
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+## 数 - numbers
+The same methods as english compromise, and the same split between reading a
+number and rewriting one:
+
+```js
+let doc = nlp('本を二十三冊買った。')
+
+doc.numbers().get()            // [ 23 ]        - read it
+doc.numbers().units().text()   // '冊'          - its counter
+
+doc.numbers().toNumber()
+doc.text()                     // '本を23冊買った。'   - rewrite in digits
+
+nlp('本を23冊買った。').numbers().toText().all().text()
+                               // '本を二十三冊買った。' - rewrite in kanji
+```
+
+Japanese numerals are fully compositional - 23 is 二十三, literally
+"two-ten-three" - so both directions are exact. Every number from 0 to 20,000
+round-trips through both.
+
+```js
+nlp.toNumber('三百二十一')   // 321
+nlp.toKanji(1995)          // '千九百九十五'
+nlp.toKanji(500000)        // '五十万'   (japanese groups by 10,000, not 1,000)
+```
+
+Arithmetic keeps whichever script it found:
+
+```js
+nlp('本を五冊買った').numbers().add(10).all().text()  // '本を十五冊買った'
+nlp('23人').numbers().subtract(2).all().text()      // '21人'
+```
+
+`.values()` is an alias for `.numbers()`, and `.money()`, `.percentages()`,
+`.isOrdinal()`, `.isCardinal()`, `.greaterThan()`, `.lessThan()`, `.between()`,
+`.set()`, `.increment()` and `.toLocaleString()` all work as they do in english.
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 ## 助数詞 - counters
 Japanese can't count a noun directly - it's 本を三冊, never 三本. The counter
 says what *kind* of thing is being counted, so it's the nearest thing to a unit:
 
-```js
-let doc = nlp('本を五冊買って、2時間読んだ。')
-doc.numbers().out('array')   // [ '五冊', '2時間' ]
-doc.numbers().toNumber()     // [ 5, 2 ]
-doc.counters().out('array')  // [ '冊', '時間' ]
-```
+| counter | for |
+|---|---|
+| 本 | long thin things - pens, bottles |
+| 枚 | flat things - paper, plates |
+| 冊 | bound things - books |
+| 匹 | small animals |
+| 人 | people |
 
 A counter is only a counter when a number is in front of it - 本 is a book far
 more often than it's the counter for long thin things:
 
 ```js
-nlp('本を五冊買った').match('#Counter').text()  // '冊'  (not 本)
+nlp('本を五冊買った').counters().text()  // '冊'  (not 本)
 ```
-
-Numerals parse from kanji, half-width or full-width digits:
-
-```js
-nlp.toNumber('二十三')      // 23
-nlp.toNumber('三百二十一')   // 321
-nlp.toNumber('五十万')      // 500000
-```
-
 
 <!-- spacer -->
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -242,10 +276,15 @@ ja-compromise には、`compromise/one` のすべてのメソッドが含まれ�
 | `nlp.deconjugate(word)` | walk a conjugated verb back to its dictionary-form |
 | `nlp.conjugateAdjective(word)` | the paradigm of an い- or な-adjective |
 | `nlp.verbClass(verb)` | `'godan'`, `'ichidan'`, `'suru'`, .. |
-| `.numbers()` | every number, with its counter |
+| `.numbers()` / `.values()` | every number |
+| `.numbers().get()` | 「二十三」 → `23` |
+| `.numbers().toNumber()` | rewrite 二十三 as `23` |
+| `.numbers().toText()` | rewrite `23` as 二十三 |
+| `.numbers().units()` | the 助数詞 for each number |
 | `.counters()` | every 助数詞 |
 | `.dates()` | every date, time and duration |
 | `nlp.toNumber(numeral)` | 「二十三」 → `23` |
+| `nlp.toKanji(num)` | `23` → 「二十三」 |
 
 TypeScript declarations ship with the package - see [types/](./types).
 

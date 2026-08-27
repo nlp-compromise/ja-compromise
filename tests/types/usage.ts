@@ -47,11 +47,18 @@ const klass: VerbClass | null = nlp.verbClass('食べる')
 const adj = nlp.conjugateAdjective('高い')
 
 // numbers, counters and dates
-const nums: View = doc.numbers()
-const values: (number | null)[] = doc.numbers().toNumber()
-const units: View = doc.counters()
+import type { Numbers } from '../../types/index'
+const nums: Numbers = doc.numbers()
+const values: (number | null)[] = doc.numbers().get()
+const alias: (number | null)[] = doc.values().get()
+const units: View = doc.numbers().units()
+const rewritten: string = nlp('二十三冊').numbers().toNumber().all().text()
+const asText: string = nlp('23冊').numbers().toText().all().text()
+const bigger: Numbers = doc.numbers().add(1).greaterThan(2)
+const counters: View = doc.counters()
 const when: View = doc.dates()
 const parsed: number | null = nlp.toNumber('二十三')
+const written: string | null = nlp.toKanji(23)
 const onTerm: number | undefined = doc.docs[0][0].number
 
 // constructor bits
@@ -59,4 +66,4 @@ const version: string = nlp.version
 nlp.verbose('tagger')
 nlp.addWords({ '寿司': 'Noun' })
 
-export { nums, values, units, when, parsed, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }
+export { nums, values, alias, units, rewritten, asText, bigger, counters, when, parsed, written, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }

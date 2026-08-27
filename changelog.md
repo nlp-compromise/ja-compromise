@@ -178,6 +178,34 @@ is the closest thing the language has to a unit. None of this was recognised:
   `#NumberPhrase` tags, plus `.numbers()` and `.counters()`.
 - **[new]** - 何 takes a counter just like a number does - `何冊`, `何人`.
 
+#### Numbers, matching english compromise
+
+- **[breaking]** - `.numbers().toNumber()` used to *return* the parsed values.
+  In english compromise `.get()` reads and `.toNumber()` rewrites, so this now
+  does too: `.get()` returns `[23]`, `.toNumber()` turns 二十三 into 23 in the
+  document.
+- **[breaking]** - `.numbers()` matches `#Value+` only, as it does in english.
+  The counter comes from `.units()`, so `nlp('五冊').numbers().text()` is 五, not
+  五冊.
+- **[new]** - `.toText()` writes the other way - `23` becomes 二十三. Japanese
+  numerals are fully compositional (23 is 二十三, "two-ten-three"), so unlike
+  english there are no irregular forms to table. The one wrinkle is that
+  japanese groups by 10,000 (万) rather than 1,000, and 一 is dropped before
+  十/百/千 but kept before 万 - 10 is 十, 10,000 is 一万.
+- **[new]** - `nlp.toKanji(1995)` → 千九百九十五, alongside the existing
+  `nlp.toNumber`. Every integer from 0 to 20,000 round-trips through both, plus
+  spot-checks to 5×10¹¹.
+- **[new]** - a `Numbers` view-class mirroring english: `.parse()`, `.get()`,
+  `.json()`, `.units()`, `.isOrdinal()`, `.isCardinal()`, `.toNumber()`,
+  `.toText()`, `.toLocaleString()`, `.set()`, `.add()`, `.subtract()`,
+  `.increment()`, `.decrement()`, `.isEqual()`, `.greaterThan()`, `.lessThan()`,
+  `.between()`. Plus `.values()` as the alias, and `.money()` / `.percentages()`.
+- **[new]** - rewriting keeps the script it found: 五冊 + 10 is 十五冊, 23人 - 2
+  is 21人, and ２３冊 stays full-width.
+- **[fix]** - the rewrite swaps the text on the term rather than going through
+  `.replaceWith()`, which inserts a space between terms - 五冊 was coming back as
+  `5 冊`, and japanese doesn't put a space there.
+
 #### Dates
 
 `1995年3月10日` was six untagged tokens. The `#Date`, `#Year`, `#Month` and

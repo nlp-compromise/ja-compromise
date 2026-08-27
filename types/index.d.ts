@@ -3,7 +3,8 @@ import type {
   Lexicon, Plugin, matchOptions, Match,
 } from './misc'
 import type {
-  VerbClass, VerbConjugation, IAdjectiveConjugation, NaAdjectiveConjugation, Deconjugation,
+  VerbClass, VerbConjugation, IAdjectiveConjugation, NaAdjectiveConjugation,
+  Deconjugation, NumberParse,
 } from './japanese'
 
 /** a view onto some part of a parsed document */
@@ -152,18 +153,52 @@ declare class View {
   adjectives: () => View
   /** every 助詞 in the document */
   particles: () => View
-  /** every number, with its counter if it has one - 三冊, 2時間 */
-  numbers: () => View
-  /** the parsed value of each match, or null where there isn't one */
-  toNumber: () => (number | null)[]
+  /** every number in the document */
+  numbers: (n?: number) => Numbers
+  /** .numbers() alias */
+  values: (n?: number) => Numbers
   /** every 助数詞 in the document */
-  counters: () => View
+  counters: (n?: number) => View
+  /** every 円/ドル amount */
+  money: (n?: number) => View
+  /** every percentage */
+  percentages: (n?: number) => View
   /** every date, time and duration */
   dates: () => View
   /** the document sounded-out in the latin alphabet */
   romanji: () => string
   /** the dictionary-form of each match - 食べました → 食べる */
   toInfinitive: () => string[]
+}
+
+/** a view of the numbers in a document */
+declare class Numbers extends View {
+  /** the parsed number, and how it was written */
+  parse: (n?: number) => NumberParse[]
+  /** the value of each number - 「二十三」 gives 23 */
+  get: (n?: number) => (number | null)[]
+  /** the 助数詞 attached to each number - 五冊 gives 冊 */
+  units: () => View
+  /** only the ordinals */
+  isOrdinal: () => Numbers
+  /** only the cardinals */
+  isCardinal: () => Numbers
+  /** rewrite each number in digits - 二十三 becomes 23 */
+  toNumber: () => Numbers
+  /** rewrite each number in kanji - 23 becomes 二十三 */
+  toText: () => Numbers
+  /** add thousands-separators - 1234 becomes 1,234 */
+  toLocaleString: () => Numbers
+  /** replace each number, keeping the script it was written in */
+  set: (n: number) => Numbers
+  add: (n: number) => Numbers
+  subtract: (n: number) => Numbers
+  increment: () => Numbers
+  decrement: () => Numbers
+  isEqual: (n: number) => Numbers
+  greaterThan: (n: number) => Numbers
+  lessThan: (n: number) => Numbers
+  between: (min: number, max: number) => Numbers
 }
 
 /** parse some japanese text */
@@ -222,10 +257,12 @@ declare namespace nlp {
    * handles kanji, half-width and full-width digits.  null if it isn't one.
    */
   export function toNumber(numeral: string): number | null
+  /** write a number in kanji - `nlp.toKanji(23)` is 二十三 */
+  export function toKanji(num: number): string | null
 }
 
 export default nlp
 export type {
-  View, VerbClass, VerbConjugation, IAdjectiveConjugation,
-  NaAdjectiveConjugation, Deconjugation, Term, Lexicon, Plugin,
+  View, Numbers, VerbClass, VerbConjugation, IAdjectiveConjugation,
+  NaAdjectiveConjugation, Deconjugation, NumberParse, Term, Lexicon, Plugin,
 }

@@ -20,24 +20,9 @@ export default function (View) {
   View.prototype.particles = function () {
     return this.match('#Particle')
   }
-  /** every number, with its counter if it has one - 三冊, 2時間 */
-  View.prototype.numbers = function () {
-    return this.match('#Value+ #Counter?')
-  }
-  /** the parsed value of each number - 「二十三」 → 23 */
-  View.prototype.toNumber = function () {
-    return this.docs.map(terms => {
-      let found = terms.find(t => typeof t.number === 'number')
-      return found ? found.number : null
-    })
-  }
   /** every date, time and duration */
   View.prototype.dates = function () {
     return this.match('#Date+')
-  }
-  /** every 助数詞 */
-  View.prototype.counters = function () {
-    return this.match('#Counter')
   }
   /** the dictionary-form of each matched word */
   View.prototype.toInfinitive = function () {

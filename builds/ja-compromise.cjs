@@ -5590,7 +5590,7 @@
     return { wants, count }
   };
 
-  const parse$1 = function (matches, world) {
+  const parse$2 = function (matches, world) {
     const parseMatch = world.methods.one.parseMatch;
     matches.forEach(obj => {
       obj.regs = parseMatch(obj.match, {}, world);
@@ -5612,12 +5612,12 @@
     return matches
   };
 
-  var parse$2 = parse$1;
+  var parse$3 = parse$2;
 
   // do some indexing on the list of matches
   const buildNet = function (matches, world) {
     // turn match-syntax into json
-    matches = parse$2(matches, world);
+    matches = parse$3(matches, world);
 
     // collect by wants and needs
     let hooks = {};
@@ -6893,7 +6893,7 @@
   var normal = normalize;
 
   // turn a string input into a 'document' json format
-  const parse = function (input, world) {
+  const parse$1 = function (input, world) {
     const { methods, model } = world;
     const { splitSentences, splitTerms, splitWhitespace } = methods.one.tokenize;
     input = input || '';
@@ -6912,7 +6912,7 @@
     });
     return input
   };
-  var fromString = parse;
+  var fromString = parse$1;
 
   const isAcronym$1 = /[ .][A-Z]\.? *$/i; //asci - 'n.s.a.'
   const hasEllipse$1 = /(?:\u2026|\.{2,}) *$/; // '...'
@@ -8782,24 +8782,9 @@
     View.prototype.particles = function () {
       return this.match('#Particle')
     };
-    /** every number, with its counter if it has one - 三冊, 2時間 */
-    View.prototype.numbers = function () {
-      return this.match('#Value+ #Counter?')
-    };
-    /** the parsed value of each number - 「二十三」 → 23 */
-    View.prototype.toNumber = function () {
-      return this.docs.map(terms => {
-        let found = terms.find(t => typeof t.number === 'number');
-        return found ? found.number : null
-      })
-    };
     /** every date, time and duration */
     View.prototype.dates = function () {
       return this.match('#Date+')
-    };
-    /** every 助数詞 */
-    View.prototype.counters = function () {
-      return this.match('#Counter')
     };
     /** the dictionary-form of each matched word */
     View.prototype.toInfinitive = function () {
@@ -9098,12 +9083,12 @@
     '九': 9, '玖': 9, '９': 9, '9': 9,
   };
   // powers that stack inside a group
-  const small = { '十': 10, '拾': 10, '百': 100, '佰': 100, '千': 1000, '仟': 1000 };
+  const small$1 = { '十': 10, '拾': 10, '百': 100, '佰': 100, '千': 1000, '仟': 1000 };
   // powers that close a group off
-  const large = { '万': 1e4, '萬': 1e4, '億': 1e8, '兆': 1e12, '京': 1e16 };
+  const large$1 = { '万': 1e4, '萬': 1e4, '億': 1e8, '兆': 1e12, '京': 1e16 };
 
   const isNumeral = function (c) {
-    return digits[c] !== undefined || small[c] !== undefined || large[c] !== undefined
+    return digits[c] !== undefined || small$1[c] !== undefined || large$1[c] !== undefined
   };
 
   /** parse a japanese numeral - returns null if the string isn't one */
@@ -9124,17 +9109,17 @@
         seen = true;
         continue
       }
-      if (small[c] !== undefined) {
+      if (small$1[c] !== undefined) {
         // 十 on its own is 10, not 0
-        section += (current === 0 ? 1 : current) * small[c];
+        section += (current === 0 ? 1 : current) * small$1[c];
         current = 0;
         seen = true;
         continue
       }
-      if (large[c] !== undefined) {
+      if (large$1[c] !== undefined) {
         // a bare 万 is 10,000 - but 五十万 is 50×10,000, not 51×10,000
         let group = section + current;
-        total += (group === 0 ? 1 : group) * large[c];
+        total += (group === 0 ? 1 : group) * large$1[c];
         section = 0;
         current = 0;
         seen = true;
@@ -12003,12 +11988,276 @@
 
   var version = '0.1.0';
 
+  // a number → 漢数字.
+  //
+  // japanese numerals are fully compositional - 23 is 二十三, literally
+  // 'two-ten-three' - so this is arithmetic rather than a lookup table.
+  // the one wrinkle is that japanese groups by 10,000 (万) and not by 1,000.
+
+  const digit = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  // powers that stack inside a group of four digits
+  const small = [['千', 1000], ['百', 100], ['十', 10]];
+  // powers that close a group off
+  const large = [['京', 1e16], ['兆', 1e12], ['億', 1e8], ['万', 1e4]];
+
+  // one group of four digits: 千百十 plus the remaining digit
+  const toGroup = function (n) {
+    let out = '';
+    for (let i = 0; i < small.length; i += 1) {
+      let [kanji, power] = small[i];
+      let d = Math.floor(n / power);
+      if (d === 0) {
+        continue
+      }
+      // 一十 and 一百 aren't written - 10 is 十, not 一十
+      out += (d === 1 ? '' : digit[d]) + kanji;
+      n -= d * power;
+    }
+    return out + digit[n]
+  };
+
+  /** 23 → 二十三 */
+  const toKanji = function (num) {
+    if (typeof num !== 'number' || !Number.isFinite(num)) {
+      return null
+    }
+    if (num < 0) {
+      return 'マイナス' + toKanji(Math.abs(num))
+    }
+    num = Math.round(num);
+    if (num === 0) {
+      return '〇'
+    }
+    let out = '';
+    for (let i = 0; i < large.length; i += 1) {
+      let [kanji, power] = large[i];
+      let chunk = Math.floor(num / power);
+      if (chunk === 0) {
+        continue
+      }
+      // 万 and up keep their 一 - 10,000 is 一万, never just 万
+      out += toGroup(chunk) + kanji;
+      num -= chunk * power;
+    }
+    return out + toGroup(num)
+  };
+
+  // 23 → '23',  using the same width of digit the source used
+  const fullWidth = '０１２３４５６７８９';
+  const toDigits = function (num, wide) {
+    let str = String(num);
+    if (!wide) {
+      return str
+    }
+    return str.replace(/[0-9]/g, d => fullWidth[Number(d)])
+  };
+
+  var toKanji$1 = toKanji;
+
+  const isWide = /[０-９]/;
+  const isKanjiNumeral = /[〇零一二三四五六七八九十百千万億兆壱弐参拾]/;
+
+  // pull the number out of a match, along with how it was written
+  const parse = function (view) {
+    let terms = view.docs[0] || [];
+    let term = terms.find(t => typeof t.number === 'number');
+    if (!term) {
+      // not computed yet - read it off the text
+      term = terms[0];
+      let num = term ? toNumber$1(term.text) : null;
+      return { num, term, kanji: term ? isKanjiNumeral.test(term.text) : false, wide: false }
+    }
+    return {
+      num: term.number,
+      term,
+      kanji: isKanjiNumeral.test(term.text),
+      wide: isWide.test(term.text),
+    }
+  };
+
+  // write a number back in the shape it was found in
+  const write = function (view, num, form) {
+    let { term, kanji, wide } = parse(view);
+    if (!term || typeof num !== 'number') {
+      return view
+    }
+    let str;
+    if (form === 'kanji' || (form === undefined && kanji)) {
+      str = toKanji$1(num);
+    } else {
+      str = toDigits(num, form === undefined ? wide : false);
+    }
+    if (str === null) {
+      return view
+    }
+    setText(term, str, num);
+    return view
+  };
+
+  // swap a term's text in place.  .replaceWith() would put a space between the
+  // number and its counter, and japanese doesn't use one - 五冊, never 五 冊
+  const setText = function (term, str, num) {
+    term.text = str;
+    term.normal = str.toLowerCase();
+    if (typeof num === 'number') {
+      term.number = num;
+    }
+  };
+
+  const addMethod = function (View) {
+    class Numbers extends View {
+      constructor(document, pointer, groups) {
+        super(document, pointer, groups);
+        this.viewType = 'Numbers';
+      }
+      /** the parsed number, plus how it was written */
+      parse(n) {
+        return this.getNth(n).map(parse)
+      }
+      /** the value of each number - 「二十三」 gives 23 */
+      get(n) {
+        // the second .map is a plain Array.map - compromise's own .map() only
+        // unwraps to an array when the callback returns strings or objects
+        return this.getNth(n).map(parse).map(o => o.num)
+      }
+      json(n) {
+        let opts = typeof n === 'object' ? n : {};
+        return this.getNth(n).map(m => {
+          let json = m.toView().json(opts)[0];
+          let found = parse(m);
+          json.number = { num: found.num, counter: m.units().text() || null };
+          return json
+        }, [])
+      }
+      /** the 助数詞 attached to each number - 五冊 gives 冊 */
+      units() {
+        return this.growRight('#Counter').match('#Counter$')
+      }
+      /** only the ordinals - 三番目 */
+      isOrdinal() {
+        return this.if('#Ordinal')
+      }
+      /** only the cardinals */
+      isCardinal() {
+        return this.if('#Cardinal')
+      }
+      /** write each number in digits - 二十三 becomes 23 */
+      toNumber() {
+        this.forEach(m => {
+          let { num } = parse(m);
+          if (num !== null) {
+            write(m, num, 'digits');
+          }
+        });
+        return this
+      }
+      /** write each number in kanji - 23 becomes 二十三 */
+      toText() {
+        this.forEach(m => {
+          let { num } = parse(m);
+          if (num !== null) {
+            write(m, num, 'kanji');
+          }
+        });
+        return this
+      }
+      /** add thousands-separators - 1234 becomes 1,234 */
+      toLocaleString() {
+        this.forEach(m => {
+          let { num, term } = parse(m);
+          if (num === null || !term) {
+            return
+          }
+          setText(term, num.toLocaleString(), num);
+        });
+        return this
+      }
+      /** replace each number with this one, keeping its script */
+      set(n) {
+        if (typeof n !== 'number') {
+          return this
+        }
+        this.forEach(m => write(m, n));
+        return this
+      }
+      add(n) {
+        if (typeof n !== 'number') {
+          return this
+        }
+        this.forEach(m => {
+          let { num } = parse(m);
+          if (num !== null) {
+            write(m, num + n);
+          }
+        });
+        return this
+      }
+      subtract(n) {
+        return this.add(-1 * n)
+      }
+      increment() {
+        return this.add(1)
+      }
+      decrement() {
+        return this.add(-1)
+      }
+      isEqual(n) {
+        return this.filter(m => parse(m).num === n)
+      }
+      greaterThan(n) {
+        return this.filter(m => parse(m).num > n)
+      }
+      lessThan(n) {
+        return this.filter(m => parse(m).num < n)
+      }
+      between(min, max) {
+        return this.filter(m => {
+          let { num } = parse(m);
+          return num > min && num < max
+        })
+      }
+      update(pointer) {
+        let m = new Numbers(this.document, pointer);
+        m._cache = this._cache;
+        return m
+      }
+    }
+
+    /** every number in the document */
+    View.prototype.numbers = function (n) {
+      let m = this.match('#Value+');
+      m = new Numbers(this.document, m.pointer);
+      return typeof n === 'number' ? m.eq(n) : m
+    };
+    /** .numbers() alias, to match english compromise */
+    View.prototype.values = View.prototype.numbers;
+
+    /** every 助数詞 in the document */
+    View.prototype.counters = function (n) {
+      let m = this.match('#Counter');
+      return typeof n === 'number' ? m.eq(n) : m
+    };
+    /** every 円/ドル amount */
+    View.prototype.money = function (n) {
+      let m = this.match('#Value+ #Currency');
+      return typeof n === 'number' ? m.eq(n) : m
+    };
+    /** every percentage */
+    View.prototype.percentages = function (n) {
+      let m = this.match('#Value+ #Percent');
+      return typeof n === 'number' ? m.eq(n) : m
+    };
+  };
+
+  var numbers = { api: addMethod };
+
   nlp$1.plugin(tokenizer);
   nlp$1.plugin(tagset);
   nlp$1.plugin(lexicon);
   nlp$1.plugin(output);
   nlp$1.plugin(romanji);
   nlp$1.plugin(preTagger);
+  nlp$1.plugin(numbers);
 
   const ja = function (txt, lex) {
     // split sentences
@@ -12063,6 +12312,9 @@
 
   /** parse a japanese numeral - nlp.toNumber('二十三') === 23 */
   ja.toNumber = toNumber$1;
+
+  /** write a number in kanji - nlp.toKanji(23) === '二十三' */
+  ja.toKanji = toKanji$1;
 
   ja.version = version;
 

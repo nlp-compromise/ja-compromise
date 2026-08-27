@@ -147,3 +147,13 @@ export interface Deconjugation {
   /** true when no candidate could be confirmed, and `root` is a guess */
   guess?: boolean
 }
+
+/** what `.numbers().parse()` reports about a number */
+export interface NumberParse {
+  /** the value, or null if it couldn't be read */
+  num: number | null
+  /** written in kanji (二十三) rather than digits */
+  kanji: boolean
+  /** written in full-width digits (２３) */
+  wide: boolean
+}

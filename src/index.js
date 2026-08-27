@@ -9,6 +9,8 @@ import preTagger from './02-two/preTagger/plugin.js'
 import version from './_version.js'
 import { methods as lexMethods } from './01-one/lexicon/api.js'
 import toNumber from './01-one/numbers/kanji-number.js'
+import toKanji from './01-one/numbers/to-kanji.js'
+import numbers from './01-one/numbers/api.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
@@ -16,6 +18,7 @@ nlp.plugin(lexicon)
 nlp.plugin(output)
 nlp.plugin(romanji)
 nlp.plugin(preTagger)
+nlp.plugin(numbers)
 
 const ja = function (txt, lex) {
   // split sentences
@@ -70,6 +73,9 @@ Object.assign(ja, lexMethods)
 
 /** parse a japanese numeral - nlp.toNumber('二十三') === 23 */
 ja.toNumber = toNumber
+
+/** write a number in kanji - nlp.toKanji(23) === '二十三' */
+ja.toKanji = toKanji
 
 ja.version = version
 
