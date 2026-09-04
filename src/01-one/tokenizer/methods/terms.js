@@ -19,6 +19,9 @@ const MAX_KANA_RUN = 7
 
 const isSingleKana = (str) => str.length === 1 && allHiragana.test(str)
 
+// 「『（(【〔《〈 at the end of a punctuation run
+const trailingOpen = /[「『（(【〔《〈]+$/
+
 /**
  * ひらがな comes back from the matcher as ひ|ら|が|な, because が and な happen
  * to be particles.  a stretch of single kana that matched nothing is one
@@ -101,18 +104,39 @@ const tokenize = function (txt, isChunk) {
   arr = joinNumbers(arr)
   // give an unknown kanji stem its inflectional tail - 含 + まれている
   arr = attachOkurigana(arr)
-  // punctuation is never its own term - it hangs off the word before it
+  // punctuation is never its own term - it hangs off the word before it,
+  // except an opening bracket, which hangs off the word after it - 彼は「はい」と
   let out = []
+  let carry = ''
   arr.forEach(str => {
     if (str === '') {
       return
     }
-    if (out.length > 0 && str.split('').every(isPunctuation)) {
-      out[out.length - 1] += str
+    if (str.split('').every(isPunctuation)) {
+      let open = ''
+      str = str.replace(trailingOpen, m => {
+        open = m
+        return ''
+      })
+      if (str !== '' && out.length > 0) {
+        out[out.length - 1] += str
+      } else {
+        carry += str
+      }
+      carry += open
       return
     }
-    out.push(str)
+    out.push(carry + str)
+    carry = ''
   })
+  // punctuation with no word after it
+  if (carry !== '') {
+    if (out.length > 0) {
+      out[out.length - 1] += carry
+    } else {
+      out.push(carry)
+    }
+  }
   return out
 }
 export default tokenize

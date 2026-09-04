@@ -1,5 +1,13 @@
 <!-- ja-compromise changelog -->
 
+### [unreleased]
+
+#### Tokenizer
+
+- **[fix]** - opening brackets 「『（ attach to the word after them, not the word before - 彼は「はい」 was tokenized as は「
+- **[change]** - drop the isSentence override - compromise handles japanese sentence-ends itself
+- **[update]** - compromise 14.16.0
+
 ### 0.1.0 [Aug 2023]
 
 A grammar-focused overhaul. The tokenizer, the part-of-speech tagger and the

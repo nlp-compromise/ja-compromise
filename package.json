@@ -36,7 +36,7 @@
     "types/"
   ],
   "dependencies": {
-    "compromise": "14.8.2",
+    "compromise": "14.16.0",
     "efrt": "2.7.0",
     "suffix-thumb": "4.0.2"
   },
