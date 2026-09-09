@@ -20,6 +20,44 @@ const fromTe = {
   'て': [], // bare て means an ichidan stem
 }
 
+const defaultDict = function (stem, base) {
+  let last = stem[stem.length - 1]
+  let head = stem.slice(0, -1)
+  let out = []
+  if (base === 'neg') {
+    if (fromA[last]) out.push(head + fromA[last]) // 書か → 書く
+    out.push(stem + 'る') // 食べ → 食べる
+  } else if (base === 'masu') {
+    if (fromI[last]) out.push(head + fromI[last]) // 書き → 書く
+    out.push(stem + 'る') // 食べ → 食べる
+  } else if (base === 'cond') {
+    if (fromE[last]) out.push(head + fromE[last]) // 書け → 書く
+    out.push(head + fromE[last] + 'る') // 食べれ → 食べる (via れ)
+  } else if (base === 'volit') {
+    if (fromO[last]) out.push(head + fromO[last]) // 書こ → 書く
+  } else if (base === 'te' || base === 'ta') {
+    if (stem === 'し' || stem === 'き' || stem === '来') {
+      return [stem === 'し' ? 'する' : '来る']
+    }
+    // the ending was already consumed, so `stem` still carries the 音便 kana
+    let two = stem.slice(-1) // っ or ん or い
+    if (two === 'っ') {
+      fromTe['って'].forEach((c) => out.push(stem.slice(0, -1) + c))
+      // 行く is the one く-verb that takes って - 行った, not 行いた
+      out.push(stem.slice(0, -1) + 'く')
+    } else if (two === 'ん') {
+      fromTe['んで'].forEach((c) => out.push(stem.slice(0, -1) + c))
+    } else if (two === 'い') {
+      out.push(stem.slice(0, -1) + 'く', stem.slice(0, -1) + 'ぐ')
+    } else if (two === 'し') {
+      out.push(stem.slice(0, -1) + 'す')
+    }
+    out.push(stem + 'る') // ichidan: 食べ + た
+  }
+  return out.filter((s) => s && s.length > 1)
+}
+
+
 // the suffixes we know how to strip, longest-first.
 // `base` says which of the five 活用形 the remaining stem is.
 let suffixes = [
@@ -91,43 +129,6 @@ const toDict = function (stem, base) {
     return pre.length >= 2 ? [pre + 'する'].concat(rest) : rest.concat([pre + 'する'])
   }
   return defaultDict(stem, base)
-}
-
-const defaultDict = function (stem, base) {
-  let last = stem[stem.length - 1]
-  let head = stem.slice(0, -1)
-  let out = []
-  if (base === 'neg') {
-    if (fromA[last]) out.push(head + fromA[last])   // 書か → 書く
-    out.push(stem + 'る')                            // 食べ → 食べる
-  } else if (base === 'masu') {
-    if (fromI[last]) out.push(head + fromI[last])   // 書き → 書く
-    out.push(stem + 'る')                            // 食べ → 食べる
-  } else if (base === 'cond') {
-    if (fromE[last]) out.push(head + fromE[last])   // 書け → 書く
-    out.push(head + fromE[last] + 'る')              // 食べれ → 食べる (via れ)
-  } else if (base === 'volit') {
-    if (fromO[last]) out.push(head + fromO[last])   // 書こ → 書く
-  } else if (base === 'te' || base === 'ta') {
-    if (stem === 'し' || stem === 'き' || stem === '来') {
-      return [stem === 'し' ? 'する' : '来る']
-    }
-    // the ending was already consumed, so `stem` still carries the 音便 kana
-    let two = stem.slice(-1) // っ or ん or い
-    if (two === 'っ') {
-      fromTe['って'].forEach(c => out.push(stem.slice(0, -1) + c))
-      // 行く is the one く-verb that takes って - 行った, not 行いた
-      out.push(stem.slice(0, -1) + 'く')
-    } else if (two === 'ん') {
-      fromTe['んで'].forEach(c => out.push(stem.slice(0, -1) + c))
-    } else if (two === 'い') {
-      out.push(stem.slice(0, -1) + 'く', stem.slice(0, -1) + 'ぐ')
-    } else if (two === 'し') {
-      out.push(stem.slice(0, -1) + 'す')
-    }
-    out.push(stem + 'る') // ichidan: 食べ + た
-  }
-  return out.filter(s => s && s.length > 1)
 }
 
 /**

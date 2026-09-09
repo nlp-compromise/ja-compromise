@@ -23,6 +23,16 @@ const parse = function (view) {
   }
 }
 
+// swap a term's text in place.  .replaceWith() would put a space between the
+// number and its counter, and japanese doesn't use one - 五冊, never 五 冊
+const setText = function (term, str, num) {
+  term.text = str
+  term.normal = str.toLowerCase()
+  if (typeof num === 'number') {
+    term.number = num
+  }
+}
+
 // write a number back in the shape it was found in
 const write = function (view, num, form) {
   let { term, kanji, wide } = parse(view)
@@ -42,15 +52,6 @@ const write = function (view, num, form) {
   return view
 }
 
-// swap a term's text in place.  .replaceWith() would put a space between the
-// number and its counter, and japanese doesn't use one - 五冊, never 五 冊
-const setText = function (term, str, num) {
-  term.text = str
-  term.normal = str.toLowerCase()
-  if (typeof num === 'number') {
-    term.number = num
-  }
-}
 
 const addMethod = function (View) {
   class Numbers extends View {

@@ -5,12 +5,12 @@ import { verbForms, adjForms, naAdjForms, desireForms, derivedForms } from '../c
 import misc from './misc.js'
 
 // tags in _data.js that describe *how a word conjugates*, not what it is
-const verbHint = {
-  Godan: 'Godan',
-  Ichidan: 'Ichidan',
-  IrregularVerb: null,
-  SuruVerb: null,
-}
+// const verbHint = {
+//   Godan: 'Godan',
+//   Ichidan: 'Ichidan',
+//   IrregularVerb: null,
+//   SuruVerb: null,
+// }
 
 let lexicon = {}
 // surface-form → dictionary-form, so 食べました can report 食べる

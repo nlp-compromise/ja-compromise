@@ -37,7 +37,7 @@ const toNumber = function (str) {
     let c = str[i]
     if (digits[c] !== undefined) {
       // 15 and １５ are positional, so keep multiplying up
-      current = current * 10 + digits[c]
+      current = Number(current * 10) + Number(digits[c])
       seen = true
       continue
     }
