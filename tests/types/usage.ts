@@ -1,7 +1,7 @@
 // compile-check the declarations against real usage.
-// this file is never run - `npm run typecheck` just makes sure it compiles.
-import nlp from '../../types/index'
-import type { View, VerbConjugation, VerbClass } from '../../types/index'
+// this file is never run - `pnpm run typecheck` just makes sure it compiles.
+import nlp from 'ja-compromise'
+import type { View, VerbConjugation, VerbClass } from 'ja-compromise'
 
 const doc: View = nlp('私は毎日日本語を勉強します。')
 
@@ -47,7 +47,7 @@ const klass: VerbClass | null = nlp.verbClass('食べる')
 const adj = nlp.conjugateAdjective('高い')
 
 // numbers, counters and dates
-import type { Numbers } from '../../types/index'
+import type { Numbers } from 'ja-compromise'
 const nums: Numbers = doc.numbers()
 const values: (number | null)[] = doc.numbers().get()
 const alias: (number | null)[] = doc.values().get()
@@ -65,5 +65,8 @@ const onTerm: number | undefined = doc.docs[0][0].number
 const version: string = nlp.version
 nlp.verbose('tagger')
 nlp.addWords({ '寿司': 'Noun' })
+
+// @ts-expect-error input text must be a string
+nlp(25)
 
 export { nums, values, alias, units, rewritten, asText, bigger, counters, when, parsed, written, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }
