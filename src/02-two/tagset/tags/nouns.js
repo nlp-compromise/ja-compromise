@@ -107,6 +107,14 @@ export default {
   Possessive: {
     is: 'Noun',
   },
+  // こそあど - これ, その, どこ
+  Demonstrative: {},
+  // 形式名詞 - こと, もの, ため: grammatical, but still nouns
+  FormalNoun: {
+    is: 'Noun',
+  },
+  // さん, 様, 先生
+  PluralSuffix: {},
   // german genders
   MaleNoun: {
     is: 'Noun',

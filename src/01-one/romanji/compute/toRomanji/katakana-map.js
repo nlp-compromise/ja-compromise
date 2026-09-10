@@ -120,7 +120,7 @@ Object.entries(out).forEach(a => {
   let num = a[1].replace(/&#/g, '').replace(/;/, '')
   let hex = Number(num).toString(16);
   // console.log('\\u' + hex)
-  console.log(toUtf8('\\u' + hex))
+  console.log(toUtf8('\\u' + hex)) //eslint-disable-line
 })
 
 

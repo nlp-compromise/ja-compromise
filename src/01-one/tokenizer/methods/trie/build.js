@@ -1,21 +1,13 @@
-const addWord = function (str, root) {
-  let chars = str.split('')
-  let node = root
-  chars.forEach(c => {
-    node.more[c] = node.more[c] || { more: {} }
-    node = node.more[c]
-  })
-  node.end = true
-}
-
-// construct a nested character trie, from given words
-const buildTrie = function (arr) {
-  let root = {
-    more: {}
+// index the lexicon for longest-match lookup
+const buildIndex = function (arr) {
+  let words = new Set()
+  let maxLen = 1
+  for (let i = 0; i < arr.length; i += 1) {
+    words.add(arr[i])
+    if (arr[i].length > maxLen) {
+      maxLen = arr[i].length
+    }
   }
-  arr.forEach(str => addWord(str, root))
-  return root
+  return { words, maxLen }
 }
-
-
-export default buildTrie
+export default buildIndex

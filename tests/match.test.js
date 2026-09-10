@@ -23,13 +23,13 @@ test('match:', function (t) {
     ['靴と家', '#Noun #Conjunction #Noun'],//shoes and houses
 
     ['美しいベッド', '#Adjective #Noun'],//the beautiful bed
-    ['ベッドは美しいです', '#Noun #Preposition #Adjective #PresentTense'],//the bed is beautiful
+    ['ベッドは美しいです', '#Noun #Preposition #Adjective #Copula'],//the bed is beautiful
     // ['ベッドは美しくない', '#Noun #Preposition #Adjective #PresentTense'],//the bed is not beautiful
 
-    [`泳ぎはよかった`, `#Noun #Preposition #Adjective #Verb`],//the swim was nice
-    [`ベッドはよかった`, `#Noun #Preposition #Adjective #Verb`],//the bed was nice
-    [`家はきれいだった`, `#Noun #Preposition #Adjective #Verb`],//`the house was clean`
-    [`キッチンは本当にきれいでした`, `#Noun #Preposition #Adverb #Adjective #Verb`],//`the kitchen was really clean`
+    [`泳ぎはよかった`, `#Noun #Preposition #Adjective`],//the swim was nice - よかった is one past-tense adjective
+    [`ベッドはよかった`, `#Noun #Preposition #Adjective`],//the bed was nice
+    [`家はきれいだった`, `#Noun #Preposition #Adjective #Copula`],//`the house was clean`
+    [`キッチンは本当にきれいでした`, `#Noun #Preposition #Adverb #Adjective #Copula`],//`the kitchen was really clean`
 
     [`太郎は紀子を見ました`, `#Topic #Preposition #Object #Preposition #Verb+`],//
     [`たろう は のりこ を みました。`, `#Topic #Preposition #Object #Preposition #Verb+`],//

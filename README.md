@@ -51,9 +51,12 @@ The goal of this project is to provide a small, basic, rule-based POS-tagger.
 ```js
 import nlp from 'ja-compromise'
 
-let doc = ldv('小さな子供は食料品店に歩いた')
+let doc = nlp('小さな子供は食料品店に歩いた')
 doc.match('#Noun').out('array')
-// [ '子', '食料品店']
+// [ '子供', '食料品店' ]
+
+doc.match('#Verb').json()[0].terms[0].tags
+// [ 'Verb', 'PastTense' ]
 ```
 
 
@@ -62,12 +65,19 @@ doc.match('#Noun').out('array')
 
 またはブラウザで
 ```html
-<script src="https://unpkg.com/de-compromise"></script>
+<script src="https://unpkg.com/ja-compromise"></script>
 <script>
-  let txt = '小さな子供が食料品を買いました。 彼はとても怖がっていた'
+  let txt = '小さな子供が食料品を買いました。'
   let doc = jaCompromise(txt)
-  console.log(doc.sentences(1).json())
-  // { text:'小さな子供が食...', terms:[ ... ] }
+
+  console.log(doc.nouns().out('array'))
+  // [ '子供', '食料品' ]
+
+  console.log(doc.verbs().out('array'))
+  // [ '買いました。' ]
+
+  console.log(doc.compute('root').text('root'))
+  // '小さな子供が食料品を買う。'
 </script>
 ```
 
@@ -75,8 +85,209 @@ doc.match('#Noun').out('array')
 see [en-compromise/api](https://github.com/spencermountain/compromise#api) for full API documentation.
 
 
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 助詞 - particles
+日本語には前置詞がなく、助詞があります。
+
+Japanese has no prepositions - it has 助詞, which follow the word they mark.
+Which kind of particle it is tells you most of what you need to know about the
+words around it, so each kind gets its own tag:
+
+| tag | 種類 | examples |
+|---|---|---|
+| `#CaseParticle` | 格助詞 | が を に へ で と から より まで |
+| `#TopicParticle` | 係助詞 | は も こそ さえ しか |
+| `#AdverbialParticle` | 副助詞 | だけ ばかり ほど くらい など |
+| `#ConjunctiveParticle` | 接続助詞 | て ば たら ながら ので のに けれど |
+| `#SentenceParticle` | 終助詞 | か ね よ わ ぞ ぜ |
+| `#AdnominalParticle` | 連体助詞 | の |
+| `#QuotativeParticle` | 引用の と | と |
+
+They all inherit `#Particle`, and the case-marking ones also answer to
+`#Preposition`, so older matches keep working.
+
+```js
+nlp('私は本を読む').match('#TopicParticle').text()  // 'は'
+nlp('私は本を読む').match('#Topic').text()          // '私'
+nlp('私は本を読む').match('#Object').text()         // '本'
+```
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 活用 - conjugation
+Verb conjugation is rule-based - the verb's class (五段/一段/irregular) decides
+everything else.
+
+```js
+nlp.verbClass('書く')   // 'godan'
+nlp.verbClass('食べる') // 'ichidan'
+
+nlp.conjugate('書く')
+// {
+//   Infinitive: '書く',     Stem: '書き',        PastTense: '書いた',
+//   Negative: '書かない',    Gerund: '書いて',     Polite: '書きます',
+//   PolitePast: '書きました', Imperative: '書け',   Volitional: '書こう',
+//   Potential: '書ける',     Passive: '書かれる',  Causative: '書かせる',
+//   Conditional: '書いたら',  Provisional: '書けば', Desire: '書きたい', ..
+// }
+
+nlp.deconjugate('書きました')
+// { root: '書く', tags: [ 'Verb', 'PastTense', 'Polite' ] }
+```
+
+い-adjectives conjugate too - they carry tense themselves, without the copula:
+
+```js
+nlp('この本は高かった').match('#Adjective').json()[0].terms[0].tags
+// [ 'Adjective', 'IAdjective', 'PastTense' ]
+```
+
+`.compute('root')` puts every word back in its dictionary-form:
+
+```js
+nlp('映画を見ました。').compute('root').text('root')
+// '映画を見る。'
+```
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 数 - numbers
+The same methods as english compromise, and the same split between reading a
+number and rewriting one:
+
+```js
+let doc = nlp('本を二十三冊買った。')
+
+doc.numbers().get()            // [ 23 ]        - read it
+doc.numbers().units().text()   // '冊'          - its counter
+
+doc.numbers().toNumber()
+doc.text()                     // '本を23冊買った。'   - rewrite in digits
+
+nlp('本を23冊買った。').numbers().toText().all().text()
+                               // '本を二十三冊買った。' - rewrite in kanji
+```
+
+Japanese numerals are fully compositional - 23 is 二十三, literally
+"two-ten-three" - so both directions are exact. Every number from 0 to 20,000
+round-trips through both.
+
+```js
+nlp.toNumber('三百二十一')   // 321
+nlp.toKanji(1995)          // '千九百九十五'
+nlp.toKanji(500000)        // '五十万'   (japanese groups by 10,000, not 1,000)
+```
+
+Arithmetic keeps whichever script it found:
+
+```js
+nlp('本を五冊買った').numbers().add(10).all().text()  // '本を十五冊買った'
+nlp('23人').numbers().subtract(2).all().text()      // '21人'
+```
+
+`.values()` is an alias for `.numbers()`, and `.money()`, `.percentages()`,
+`.isOrdinal()`, `.isCardinal()`, `.greaterThan()`, `.lessThan()`, `.between()`,
+`.set()`, `.increment()` and `.toLocaleString()` all work as they do in english.
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 助数詞 - counters
+Japanese can't count a noun directly - it's 本を三冊, never 三本. The counter
+says what *kind* of thing is being counted, so it's the nearest thing to a unit:
+
+| counter | for |
+|---|---|
+| 本 | long thin things - pens, bottles |
+| 枚 | flat things - paper, plates |
+| 冊 | bound things - books |
+| 匹 | small animals |
+| 人 | people |
+
+A counter is only a counter when a number is in front of it - 本 is a book far
+more often than it's the counter for long thin things:
+
+```js
+nlp('本を五冊買った').counters().text()  // '冊'  (not 本)
+```
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 日付 - dates
+Dates are built out of number + counter, so `年`, `月` and `日` need context -
+they're the same word whether they mean a date or a span of time:
+
+```js
+nlp('1995年3月10日の午後3時').dates().out('array')
+// [ '1995年3月10日', '午後3時' ]
+
+nlp('3月').match('#Month').found      // true  - march
+nlp('三ヶ月').match('#Duration').found // true  - three months
+nlp('五十年').match('#Year').found     // false - fifty years, not the year 50
+```
+
+`#Date` covers `#Year`, `#Month`, `#Day`, `#WeekDay`, `#Time`, `#Season`,
+`#Duration` and `#Era` (令和5年).
+
+
+<!-- spacer -->
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+## 分かち書き - tokenizing
+Japanese isn't written with spaces, so the tokenizer segments by longest-match
+against the lexicon, then repairs what that gets wrong:
+
+```js
+nlp('本を読んでいる人').terms().out('array')
+// [ '本', 'を', '読んでいる', '人' ]
+
+// an unknown verb is still one word - 含む isn't in the lexicon
+nlp('含まれている').terms().out('array')
+// [ '含まれている' ]
+```
+
+Run `npm run score` to check segmentation and tagging against
+[learn/test/gold.js](./learn/test/gold.js).
+
+
 ## API
 ja-compromise には、`compromise/one` のすべてのメソッドが含まれます:
+
+##### 日本語のメソッド / japanese-specific
+
+| | |
+|---|---|
+| `.verbs()` | every 動詞 in the document |
+| `.nouns()` | every 名詞 |
+| `.adjectives()` | every 形容詞 and 形容動詞 |
+| `.particles()` | every 助詞 |
+| `.romanji()` | the document sounded-out in the latin alphabet |
+| `.toInfinitive()` | the dictionary-form of each match |
+| `.compute('root')` | set each term's dictionary-form |
+| `nlp.conjugate(verb)` | the full paradigm of a dictionary-form verb |
+| `nlp.deconjugate(word)` | walk a conjugated verb back to its dictionary-form |
+| `nlp.conjugateAdjective(word)` | the paradigm of an い- or な-adjective |
+| `nlp.verbClass(verb)` | `'godan'`, `'ichidan'`, `'suru'`, .. |
+| `.numbers()` / `.values()` | every number |
+| `.numbers().get()` | 「二十三」 → `23` |
+| `.numbers().toNumber()` | rewrite 二十三 as `23` |
+| `.numbers().toText()` | rewrite `23` as 二十三 |
+| `.numbers().units()` | the 助数詞 for each number |
+| `.counters()` | every 助数詞 |
+| `.dates()` | every date, time and duration |
+| `nlp.toNumber(numeral)` | 「二十三」 → `23` |
+| `nlp.toKanji(num)` | `23` → 「二十三」 |
+
+TypeScript declarations ship with the package - see [types/](./types).
+
 
 <details>
   <summary><h3>クリックして API メソッドを表示</h3></summary>
@@ -115,7 +326,6 @@ ja-compromise には、`compromise/one` のすべてのメソッドが含まれ�
 - **[.fullSentences()](https://observablehq.com/@spencermountain/compromise-accessors)** - get the whole sentence for each match
 - **[.groups()](https://observablehq.com/@spencermountain/compromise-accessors)** - grab any named capture-groups from a match
 - **[.wordCount()](https://observablehq.com/@spencermountain/compromise-utils)** - count the # of terms in the document
-- **[.confidence()](https://observablehq.com/@spencermountain/compromise-utils)** - an average score for pos tag interpretations
 
 ##### Match
 
@@ -184,13 +394,11 @@ _(match methods use the [match-syntax](https://docs.compromise.cool/compromise-m
 - **[.insertBefore(str)](https://observablehq.com/@spencermountain/compromise-insert)** - add these new terms to the front of each match (prepend)
 - **[.insertAfter(str)](https://observablehq.com/@spencermountain/compromise-insert)** - add these new terms to the end of each match (append)
 - **[.concat()](https://observablehq.com/@spencermountain/compromise-insert)** - add these new things to the end
-- **[.swap(fromLemma, toLemma)](https://observablehq.com/@spencermountain/compromise-insert)** - smart replace of root-words,using proper conjugation
 
 ##### Transform
 
 - **[.sort('method')](https://observablehq.com/@spencermountain/compromise-sorting)** - re-arrange the order of the matches (in place)
 - **[.reverse()](https://observablehq.com/@spencermountain/compromise-sorting)** - reverse the order of the matches, but not the words
-- **[.normalize({})](https://observablehq.com/@spencermountain/compromise-normalization)** - clean-up the text in various ways
 - **[.unique()](https://observablehq.com/@spencermountain/compromise-sorting)** - remove any duplicate matches
 
 
@@ -229,6 +437,14 @@ npm install
 npm test
 npm watch
 ```
+
+### 制限 / Known gaps
+* kanji readings are per-character with a small override table, so romanization
+  of unfamiliar compounds is often wrong
+* segmentation is greedy longest-match, with no way to weigh one reading of an
+  ambiguous kana string against another
+* compound verbs (吐き出す) split at the first stem unless they're in the lexicon
+* personal names are found from an honorific suffix, not from a name-list
 
 ### See also
 * [spacy/japanese](https://spacy.io/models/ja) - python tagger/tokenizer, by [explosionAI](https://explosion.ai/)

@@ -1,0 +1,5 @@
+allowBuilds:
+  iconv: set this to true or false
+  node-expat: set this to true or false
+minimumReleaseAgeExclude:
+  - compromise@14.17.0

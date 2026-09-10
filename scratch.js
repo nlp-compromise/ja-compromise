@@ -1,23 +1,14 @@
+/* eslint-disable no-console */
+// npm run watch  -  a scratchpad for poking at the tagger
 import nlp from './src/index.js'
-import spacey from '/Users/spencer/mountain/compromise-versus/spacy-ja/run.js'
-import corpus from '/Users/spencer/mountain/ja-compromise/tests/corpus/index.js'
 // nlp.verbose('tagger')
 
-let [en, ja] = corpus[corpus.length - 1]
+let txt = '彼女は昨日、東京で美味しい料理を食べました。'
 
-ja = 'たろう は のりこ と くるま で えき から としょかん に いきました。'
-console.log(en, '\n', ja, '\n')
-
-
-let doc = nlp(ja).compute('romanji').compute('english').debug()
-// console.log(doc.text())
-// console.log(doc.json()[0])
-// console.log(doc.docs[0])
-console.log(spacey(ja))
-console.log(doc.text() === ja)
-
-// let lex = nlp.model().one.lexicon
-// let ones = Object.keys(lex).filter(w => w.length === 1)
-// ones.forEach(c => {
-//   console.log(c, lex[c])
-// })
+let doc = nlp(txt).compute('root')
+doc.debug()
+console.log('\n  root:    ', doc.text('root'))
+console.log('  romanji: ', doc.romanji())
+console.log('  verbs:   ', doc.verbs().out('array'))
+console.log('  nouns:   ', doc.nouns().out('array'))
+console.log('  round-trips:', doc.text() === txt, '\n')

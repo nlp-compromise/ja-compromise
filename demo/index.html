@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="utf-8">
-  <title>de-compromise Demo</title>
+  <title>ja-compromise デモ</title>
   <style>
+    body {
+      font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+
     textarea {
       width: 50%;
-      margin-top: 5%;
+      margin-top: 4%;
       margin-left: 25%;
       padding: 10px;
       font-size: 15px;
       color: grey;
       min-height: 200px;
       border-radius: 5px;
+      line-height: 1.6rem;
     }
 
     #result {
       color: steelblue;
-      font-size: 16px;
+      font-size: 17px;
       margin: 20px;
       margin-left: 15%;
-      line-height: 1.2rem;
+      line-height: 1.9rem;
       margin-top: 3rem;
+      white-space: pre-wrap;
     }
 
     h3 {
       color: grey;
-    }
-
-    .nl-Satz {
-      display: block;
     }
 
     .nouns {
@@ -41,92 +43,88 @@
       color: palevioletred;
     }
 
+    .adj {
+      color: #3f9c7d;
+    }
+
+    .adv {
+      color: #7b7791;
+    }
+
     .det {
       color: #d3c0b3;
     }
 
-    .adj {
-      color: #b3d3c6;
-    }
-
     .conj {
-      color: #c8c9cf;
+      color: #a8a9b4;
     }
 
-    .adv {
-      color: #9794a8;
-    }
-
-    .prep {
-      color: grey;
+    .particle {
+      color: #bbb;
     }
 
     .num {
       color: #f39c73;
     }
+
+    .verbs,
+    .nouns {
+      font-weight: 600;
+    }
   </style>
 </head>
 
-<body style="">
-  <div id="past-verb-test">
-    <h3>Teil-of-Speech-Tagging auf Deutsch!</h3>
+<body>
+  <div id="pos-demo">
+    <h3>日本語の品詞タグ付け</h3>
     <div style="color:cornflowerblue;">
-      (part-of-speech tagging in german)
-      <a href="https://github.com/nlp-compromise/de-compromise" style="margin-left:100px; color:steelblue;">mit
-        de-compromise</a>
+      (part-of-speech tagging in japanese)
+      <a href="https://github.com/nlp-compromise/ja-compromise" style="margin-left:100px; color:steelblue;">with
+        ja-compromise</a>
     </div>
     <textarea type="text" id="text" onKeyPress="tagger()" onKeyUp="tagger()">
-Du, könntest du schwimmen.
-Wie Delphine, Delphine es tun.
-Niemand gibt uns eine Chance.
-Doch können wir siegen für immer und immer.
-Und wir sind dann Helden für einen Tag.
-Ich, ich bin dann König.
-Und du, du Königin.
-Obwohl sie unschlagbar scheinen.
-Werden wir Helden für einen Tag.
-Wir sind dann wir an diesem Tag.
-Ich, ich glaubte zu träumen (zu träumen).
-Die Mauer im Rücken war kalt (so kalt).
-Schüsse reißen die Luft (reißen die Luft).
-Doch wir küssen, als ob nichts geschieht (nichts geschieht).
-Und die Scham fiel auf ihrer Seite.
-Oh, wir können sie schlagen für alle Zeiten.
-Dann sind wir Helden für diesen Tag.
-Dann sind wir Helden.
+彼女は毎朝コーヒーを飲みながら新聞を読みます。
+昨日は雨が降っていたので、家で本を読んでいました。
+田中さんは日本語がとても上手です。
+子供たちは公園で楽しそうに遊んでいる。
+この問題はそんなに難しくなかった。
+明日は早く起きなければなりません。
+先生に褒められて、とても嬉しかった。
+京都へ行ったことがありますか。
       </textarea>
     <table style="width:50%; margin-left:25%; text-align:center;">
       <tr>
-        <td class="nouns">Substantiv</td>
-        <td class="verbs">Verb</td>
-        <td class="adj">Adjektiv</td>
-        <td class="adv">Adverb</td>
-        <td class="det">Determinativ</td>
-        <td class="conj">Bindewort</td>
-        <td class="prep">Praposition</td>
-        <td class="num">Zahl</td>
+        <td class="nouns">名詞</td>
+        <td class="verbs">動詞</td>
+        <td class="adj">形容詞</td>
+        <td class="adv">副詞</td>
+        <td class="det">連体詞</td>
+        <td class="conj">接続詞</td>
+        <td class="particle">助詞</td>
+        <td class="num">数</td>
       </tr>
     </table>
     <pre id="result">-</pre>
   </div>
 
-  <!-- <script type="text/javascript" src="https://unpkg.com/de-compromise"></script> -->
-  <script type="text/javascript" src="../builds/de-compromise.min.js"></script>
-  <script type="text/javascript" language="javascript">
-    var nlp = window.deCompromise;
+  <!-- <script type="text/javascript" src="https://unpkg.com/ja-compromise"></script> -->
+  <script type="text/javascript" src="../builds/ja-compromise.min.js"></script>
+  <script type="text/javascript">
+    var nlp = window.jaCompromise;
     function tagger() {
-      var present = document.getElementById('text').value || '';
-      var doc = nlp(present)
-      doc.debug()
-      let highlight = {
-        nouns: doc.match('#Noun'),
-        verbs: doc.match('#Verb'),
-        adj: doc.match('#Adjective'),
-        adv: doc.match('#Adverb'),
-        det: doc.match('#Determiner'),
-        conj: doc.match('#Conjunction'),
-        prep: doc.match('#Preposition'),
-        num: doc.match('#Value'),
+      var txt = document.getElementById('text').value || '';
+      var doc = nlp(txt)
+      // a leading '.' makes html() emit <span class="..">  - without it,
+      // the key becomes the element name and the css never applies
+      var highlight = {
+        '.nouns': '#Noun',
+        '.verbs': '#Verb',
+        '.adj': '#Adjective',
+        '.adv': '#Adverb',
+        '.det': '#Determiner',
+        '.conj': '#Conjunction',
+        '.particle': '#Particle',
+        '.num': '#Value',
       }
       document.getElementById('result').innerHTML = doc.html(highlight)
     }

@@ -15,13 +15,19 @@ export default {
     not: ['Hiragana', 'Kanji', 'Katakana']
   },
 
-  Polite: {
-  },
-
-
   Adjective: {
     not: ['Noun', 'Verb', 'Adverb', 'Value'],
   },
+  // 形容詞 - conjugates by itself: 高い → 高くない → 高かった
+  IAdjective: {
+    is: 'Adjective',
+  },
+  // 形容動詞 - needs the copula: 静か → 静かだ → 静かな
+  NaAdjective: {
+    is: 'Adjective',
+  },
+  // 連体詞 - only ever modifies a noun: 大きな, この
+  Adnominal: {},
   Comparable: {
     is: 'Adjective',
   },
@@ -78,9 +84,6 @@ export default {
   },
   Acronym: {
     not: ['Plural', 'RomanNumeral'],
-  },
-  Negative: {
-    not: ['Noun', 'Adjective', 'Value'],
   },
   Condition: {
     not: ['Verb', 'Adjective', 'Noun', 'Value'],

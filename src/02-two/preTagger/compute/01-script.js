@@ -1,49 +1,44 @@
-// https://github.com/darren-lester/nihongo/blob/master/src/analysers.js
+import { isHiragana, isKatakana, isKanji, isAscii, isNumber } from '../../../01-one/tokenizer/methods/lib.js'
 
-
-// there are 46 of these
-const isHiragana = function (ch) {
-  return ch >= "\u3040" && ch <= "\u309f";
-}
-
-// there are 46 of these
-const isKatakana = function (ch) {
-  return ch >= "\u30a0" && ch <= "\u30ff";
-}
-
-// there are thousands of these
-const isKanji = function (ch) {
-  return (ch >= "\u4e00" && ch <= "\u9faf") ||
-    (ch >= "\u3400" && ch <= "\u4dbf") ||
-    ch === "𠮟";
-}
-
-const isAscii = function (c) {
-  return /[a-zA-Z]/.test(c)
+const every = function (str, fn) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (!fn(str[i])) {
+      return false
+    }
+  }
+  return str.length > 0
 }
 
 const tagScript = function (terms, setTag, world) {
   const reason = 'script'
-
   terms.forEach(term => {
     let str = term.text
-    if (isHiragana(str)) {
+    if (every(str, isHiragana)) {
       setTag([term], 'Hiragana', world, null, reason)
       return
     }
-    if (isKatakana(str)) {
+    if (every(str, c => isKatakana(c) || c === 'ー')) {
       setTag([term], 'Katakana', world, null, reason)
-      setTag([term], 'Noun', world, null, reason)//pretty safe bet
+      // a katakana word is nearly always a loanword noun
+      if (term.tags.size <= 1) {
+        setTag([term], 'Noun', world, null, reason)
+      }
       return
     }
-    if (isKanji(str)) {
+    if (every(str, isKanji)) {
       setTag([term], 'Kanji', world, null, reason)
       return
     }
-    if (isAscii(str)) {
+    if (every(str, isNumber)) {
+      setTag([term], 'Value', world, null, reason)
+      setTag([term], 'Cardinal', world, null, reason)
+      return
+    }
+    if (every(str, isAscii)) {
       setTag([term], 'Ascii', world, null, reason)
       return
     }
+    // a mixed kanji+hiragana word (書いた, 食べる) - no single script tag
   })
 }
 export default tagScript

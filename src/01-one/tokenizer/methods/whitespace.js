@@ -1,6 +1,6 @@
 import toTerms from './terms.js'
-const before = /^[\s「『(〽【]+/
-const after = /[\s、：・」』)…〜】\.?!]+$/
+const before = /^[\s「『（(〽【〔《〈]+/
+const after = /[\s、。，．：；・」』）)…〜~】〕》〉\.?!？！]+$/
 
 const getPunct = function (str) {
   let pre = ''
@@ -19,16 +19,26 @@ const getPunct = function (str) {
   return { pre, inside, post }
 }
 
-const tokenize = function (txt) {
-  return toTerms(txt).map(str => {
+const tokenize = function (txt, isChunk) {
+  let terms = []
+  toTerms(txt, isChunk).forEach(str => {
     let { pre, post, inside } = getPunct(str)
-    return {
+    if (inside === '') {
+      // punctuation-only - fold it into the term before it
+      if (terms.length > 0) {
+        terms[terms.length - 1].post += pre + post
+        return
+      }
+      return
+    }
+    terms.push({
       text: inside,
       normal: inside.toLowerCase(),
       pre,
       post,
-      tags: new Set()
-    }
+      tags: new Set(),
+    })
   })
+  return terms
 }
 export default tokenize

@@ -40,6 +40,7 @@ const getType = function (c) {
   if (isAscii(c)) {
     return 'ascii'
   }
+  return null
 }
 
 // naiive split by Hiragana/Katakana/Kanji segments

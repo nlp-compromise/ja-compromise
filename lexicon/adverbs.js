@@ -1,4 +1,46 @@
 export default [
+  'もっと',
+  'ずっと',
+  'もう',
+  'すぐ',
+  'すでに',
+  'ぜひ',
+  'なるべく',
+  '少し',
+  'すこし',
+  '全部',
+  '全然',
+  'あんまり',
+  'わりと',
+  '割と',
+  '決して',
+  '絶対',
+  'たいてい',
+  '時々',
+  'しばしば',
+  'すぐに',
+  'さっき',
+  'これから',
+  'それから',
+  'そろそろ',
+  'はやく',
+  '早く',
+  '突然',
+  '実は',
+  'ほんとうに',
+  '特に',
+  '例えば',
+  'つまり',
+  '次に',
+  '最後に',
+  'また',
+  'さらに',
+  '別々に',
+  '直接',
+  '主に',
+  '大体',
+  '約',
+  'およそ',
   'とても',//very
 
 
@@ -147,7 +189,6 @@ export default [
   'いっぱい',//full	N4
   '色々 ',
   'いろいろ',//various	N5
-  '一緒に',
   'いっしょに',//together	N5
   '一種',
   'いっしゅ',//species; kind; variety	N3
@@ -161,8 +202,7 @@ export default [
   '一旦',
   'いったん',//once; for a short time; briefly; temporarily	N2
   '十分',
-  'じゅうぶん',//enough; sufficient; plenty; adequate; satisfactory	N4
-  'かどうか',//whether or not ~	N4
+  'じゅうぶん',//enough; sufficient; plenty; adequate; satisfactory	N4//whether or not ~	N4
   'か何か',
   'かなにか',//or something ~	N3
   '必ず',

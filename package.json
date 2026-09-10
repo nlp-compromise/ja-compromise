@@ -2,13 +2,20 @@
   "author": "Spencer Kelly <spencermountain@gmail.com> (http://spencermounta.in)",
   "name": "ja-compromise",
   "description": "日本語の控えめな自然言語処理",
-  "version": "0.0.1",
-  "main": "./src/index.js",
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.5.0",
+  "engines": {
+    "node": "^22.13.0 || ^24.0.0 || ^26.0.0",
+    "pnpm": "^11.5.0"
+  },
+  "main": "./builds/ja-compromise.mjs",
+  "browser": "./builds/ja-compromise.min.js",
   "unpkg": "./builds/ja-compromise.min.js",
   "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./builds/ja-compromise.mjs",
       "require": "./builds/ja-compromise.cjs",
       "types": "./types/index.d.ts"
@@ -20,12 +27,15 @@
     "url": "git://github.com/nlp-compromise/ja-compromise.git"
   },
   "scripts": {
-    "test": "tape \"./tests/**/*.test.js\" | tap-dancer",
-    "testb": "cross-env TESTENV=prod npm run test",
-    "build": "npm run version && rollup -c --silent",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && tape \"./tests/**/*.test.js\" | tap-dancer",
+    "testb": "TESTENV=prod pnpm run test",
+    "build": "pnpm run version && rollup -c --silent",
+    "prepack": "pnpm run build && pnpm run testb && pnpm run lint",
     "version": "node ./scripts/version.js",
     "pack": "node ./scripts/pack.js",
-    "score": " node ./learn/test/index.js",
+    "score": "node ./learn/test/index.js",
+    "audit": "node ./learn/verbs/audit.js",
     "lint": "eslint ./src/**/*",
     "watch": "amble ./scratch.js",
     "stress": "node scripts/stress.js"
@@ -33,25 +43,25 @@
   "files": [
     "builds/",
     "types/",
-    "src/"
+    "src/",
+    "docs/"
   ],
   "dependencies": {
-    "compromise": "14.8.2",
+    "compromise": "^14.17.0",
     "efrt": "2.7.0",
-    "suffix-thumb": "4.0.2"
+    "suffix-thumb": "5.0.3"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "15.0.2",
-    "@rollup/plugin-terser": "0.4.1",
-    "amble": "1.3.0",
-    "cross-env": "7.0.3",
-    "ja-corpus": "0.0.1",
-    "eslint": "8.40.0",
-    "eslint-plugin-regexp": "1.14.0",
-    "rollup": "3.21.5",
+    "@eslint/js": "^10.0.1",
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "@rollup/plugin-terser": "1.0.0",
+    "cross-env": "10.1.0",
+    "eslint": "10.10.0",
+    "eslint-plugin-regexp": "3.3.0",
+    "rollup": "4.63.1",
     "tap-dancer": "0.3.4",
-    "tape": "5.6.3",
-    "xml-stream": "^0.4.5"
+    "tape": "5.10.2",
+    "typescript": "7.0.2"
   },
   "license": "MIT"
 }

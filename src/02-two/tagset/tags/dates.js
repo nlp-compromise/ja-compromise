@@ -2,9 +2,10 @@ export default {
   Date: {
     not: ['Verb', 'Adverb', 'Adjective'],
   },
+  // 3月 - the number keeps its #Value, so Month can't inherit from #Singular
+  // the way the english tagset does (#Noun and #Value are exclusive)
   Month: {
-    is: 'Singular',
-    also: ['Date'],
+    is: 'Date',
     not: ['Year', 'WeekDay', 'Time'],
   },
   WeekDay: {
@@ -41,5 +42,17 @@ export default {
   Duration: {
     is: 'Noun',
     also: ['Date'],
+  },
+  // 十日 - the day-of-the-month
+  Day: {
+    is: 'Date',
+  },
+  // 令和, 平成, 昭和 - the japanese regnal eras
+  Era: {
+    is: 'Date',
+  },
+  // 午前 / 午後
+  AmPm: {
+    is: 'Time',
   },
 }
