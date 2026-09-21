@@ -1,12 +1,11 @@
 {
-  "author": "Spencer Kelly <spencermountain@gmail.com> (http://spencermounta.in)",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "name": "ja-compromise",
   "description": "日本語の控えめな自然言語処理",
   "version": "0.1.0",
   "packageManager": "pnpm@11.5.0",
   "engines": {
-    "node": "^22.13.0 || ^24.0.0 || ^26.0.0",
-    "pnpm": "^11.5.0"
+    "node": ">=12"
   },
   "main": "./builds/ja-compromise.mjs",
   "browser": "./builds/ja-compromise.min.js",
@@ -15,17 +14,13 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
       "import": "./builds/ja-compromise.mjs",
       "require": "./builds/ja-compromise.cjs",
       "types": "./types/index.d.ts"
     }
   },
   "types": "types/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/nlp-compromise/ja-compromise.git"
-  },
+  "repository": "github:nlp-compromise/ja-compromise",
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
     "test": "tsc -p tsconfig.json && tape \"./tests/**/*.test.js\" | tap-dancer",
@@ -37,7 +32,7 @@
     "score": "node ./learn/test/index.js",
     "audit": "node ./learn/verbs/audit.js",
     "lint": "eslint ./src/**/*",
-    "watch": "amble ./scratch.js",
+    "watch": "node --watch ./scratch.js",
     "stress": "node scripts/stress.js"
   },
   "files": [
@@ -59,7 +54,7 @@
     "eslint": "10.10.0",
     "eslint-plugin-regexp": "3.3.0",
     "rollup": "4.63.1",
-    "tap-dancer": "0.3.4",
+    "tap-dancer": "0.4.0",
     "tape": "5.10.2",
     "typescript": "7.0.2"
   },
