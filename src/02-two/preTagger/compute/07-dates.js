@@ -9,13 +9,13 @@ const inRange = { Year: [1, 9999], Month: [1, 12], Day: [1, 31] }
 
 const tagDates = function (terms, setTag, world) {
   for (let i = 0; i < terms.length; i += 1) {
-    let t = terms[i]
-    let prev = terms[i - 1]
-    let next = terms[i + 1]
+    const t = terms[i]
+    const prev = terms[i - 1]
+    const next = terms[i + 1]
 
     // ---- 令和5年 - an era makes the number after it a year ----
     if (t.tags.has('Era') && next && next.tags.has('Value')) {
-      let after = terms[i + 2]
+      const after = terms[i + 2]
       if (after && after.text === '年') {
         setTag([next], 'Year', world, null, reason)
         setTag([after], 'Year', world, null, reason)
@@ -30,8 +30,8 @@ const tagDates = function (terms, setTag, world) {
       setTag([t, next], 'Time', world, null, reason)
       setTag([t, next], 'Date', world, null, reason)
       // ..and the 分 that may follow it
-      let n2 = terms[i + 2]
-      let n3 = terms[i + 3]
+      const n2 = terms[i + 2]
+      const n3 = terms[i + 3]
       if (n2 && n3 && n2.tags.has('Value') && n3.text === '分') {
         setTag([n2, n3], 'Time', world, null, reason)
         setTag([n2, n3], 'Date', world, null, reason)
@@ -49,11 +49,11 @@ const tagDates = function (terms, setTag, world) {
     if (!next.tags.has('Counter')) {
       continue
     }
-    let kind = dateCounter[next.text]
-    let value = t.number
+    const kind = dateCounter[next.text]
+    const value = t.number
 
     // 三日間 / 十年間 - 間 turns any of them into a span
-    let after = terms[i + 2]
+    const after = terms[i + 2]
     if (after && (after.text === '間' || after.text === 'ぶり' || after.text === '目')) {
       setTag([next], 'Duration', world, null, reason)
       i += 1
@@ -61,7 +61,7 @@ const tagDates = function (terms, setTag, world) {
     }
     // a number outside the calendar's range is a count, not a date -
     // 「五十年」 is fifty years, not the year 50 of anything
-    let [lo, hi] = inRange[kind]
+    const [lo, hi] = inRange[kind]
     if (typeof value !== 'number' || value < lo || value > hi) {
       setTag([next], 'Duration', world, null, reason)
       i += 1
@@ -84,7 +84,7 @@ const tagDates = function (terms, setTag, world) {
     if (t.text !== '半' || i === 0) {
       return
     }
-    let prev = terms[i - 1]
+    const prev = terms[i - 1]
     if (prev.tags.has('TimeCounter') || prev.tags.has('DurationCounter')) {
       setTag([t], prev.tags.has('TimeCounter') ? 'Time' : 'Duration', world, null, reason)
       setTag([t], 'Date', world, null, reason)
@@ -96,7 +96,7 @@ const tagDates = function (terms, setTag, world) {
     if (!t.tags.has('AmPm')) {
       return
     }
-    let next = terms[i + 1]
+    const next = terms[i + 1]
     if (next && next.tags.has('Date')) {
       setTag([t], 'Date', world, null, reason)
     }

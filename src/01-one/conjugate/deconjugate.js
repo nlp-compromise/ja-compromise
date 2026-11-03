@@ -21,9 +21,9 @@ const fromTe = {
 }
 
 const defaultDict = function (stem, base) {
-  let last = stem[stem.length - 1]
-  let head = stem.slice(0, -1)
-  let out = []
+  const last = stem[stem.length - 1]
+  const head = stem.slice(0, -1)
+  const out = []
   if (base === 'neg') {
     if (fromA[last]) out.push(head + fromA[last]) // 書か → 書く
     out.push(stem + 'る') // 食べ → 食べる
@@ -40,7 +40,7 @@ const defaultDict = function (stem, base) {
       return [stem === 'し' ? 'する' : '来る']
     }
     // the ending was already consumed, so `stem` still carries the 音便 kana
-    let two = stem.slice(-1) // っ or ん or い
+    const two = stem.slice(-1) // っ or ん or い
     if (two === 'っ') {
       fromTe['って'].forEach((c) => out.push(stem.slice(0, -1) + c))
       // 行く is the one く-verb that takes って - 行った, not 行いた
@@ -60,7 +60,7 @@ const defaultDict = function (stem, base) {
 
 // the suffixes we know how to strip, longest-first.
 // `base` says which of the five 活用形 the remaining stem is.
-let suffixes = [
+const suffixes = [
   ['ませんでした', ['Verb', 'PastTense', 'Polite', 'Negative'], 'masu'],
   ['なかったら', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
   ['なければ', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
@@ -114,8 +114,8 @@ const toDict = function (stem, base) {
   if (!stem) {
     return []
   }
-  let last = stem[stem.length - 1]
-  let pre = stem.slice(0, -1)
+  const last = stem[stem.length - 1]
+  const pre = stem.slice(0, -1)
   // a bare し/き is する/来る
   if (stem.length === 1) {
     if (suruStem.has(last)) return ['する']
@@ -125,7 +125,7 @@ const toDict = function (stem, base) {
   // almost always a する-noun (勉強する), a one-character head almost always
   // a godan verb (話す, 出す, 貸す).
   if (suruStem.has(last)) {
-    let rest = defaultDict(stem, base)
+    const rest = defaultDict(stem, base)
     return pre.length >= 2 ? [pre + 'する'].concat(rest) : rest.concat([pre + 'する'])
   }
   return defaultDict(stem, base)
@@ -140,29 +140,29 @@ const deconjugate = function (str, isKnown) {
     return null
   }
   for (let i = 0; i < suffixes.length; i += 1) {
-    let [suffix, tags, base, strict] = suffixes[i]
+    const [suffix, tags, base, strict] = suffixes[i]
     if (!str.endsWith(suffix) || str.length <= suffix.length) {
       continue
     }
-    let stem = str.slice(0, -suffix.length)
+    const stem = str.slice(0, -suffix.length)
     // 'た'/'だ'/'て'/'で' hang off the 音便 kana, which belongs to the stem
-    let candidates = toDict(stem, base)
+    const candidates = toDict(stem, base)
     if (candidates.length === 0) {
       continue
     }
-    let hit = isKnown ? candidates.find(isKnown) : null
+    const hit = isKnown ? candidates.find(isKnown) : null
     // a 'strict' suffix is too common a word-ending to trust on its own -
     // 「たろう」 is a name, not the volitional of 「たる」
     if (strict && !hit) {
       continue
     }
-    let root = hit || candidates[0]
+    const root = hit || candidates[0]
     // sanity-check: does re-conjugating the root actually produce this string?
     if (hit) {
       return { root, tags, candidates }
     }
-    let verified = candidates.find(c => {
-      let forms = conjugateVerb(c)
+    const verified = candidates.find(c => {
+      const forms = conjugateVerb(c)
       return forms && Object.keys(forms).some(k => forms[k] === str)
     })
     if (verified) {

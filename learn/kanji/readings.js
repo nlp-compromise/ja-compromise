@@ -5,9 +5,9 @@ const toUtf8 = function (s) {
 }
 
 
-let obj = {}
+const obj = {}
 Object.keys(dict.kanjis).forEach(k => {
-  let o = dict.kanjis[k]
+  const o = dict.kanjis[k]
   if (o.kun_readings[0] && o.on_readings[0]) {
     obj[k] = [o.kun_readings[0], o.on_readings[0]]
   }

@@ -19,13 +19,13 @@ const runLimit = (type) => (type === 'kanji' || type === 'hiragana' ? MAX_RUN : 
 
 /** glue neighbouring unknown characters into plausible words */
 const joinUp = function (arr) {
-  let out = []
+  const out = []
   for (let i = 0; i < arr.length; i += 1) {
-    let c = arr[i]
+    const c = arr[i]
     if (c === null || c === '') {
       continue
     }
-    let last = out[out.length - 1]
+    const last = out[out.length - 1]
     // 私 + たち,  田中 + さん
     if (suffixes.has(c) && last && !lexicon[last + c]) {
       out[out.length - 1] = last + c
@@ -38,14 +38,14 @@ const joinUp = function (arr) {
       continue
     }
     if (c.length === 1 && !lexicon[c]) {
-      let type = getType(c)
+      const type = getType(c)
       let run = c
       // race ahead, joining same-script characters.
       // a *known* single kanji may join an already-started run (日+本+人),
       // but never starts one - so 「読んでいる人」 keeps 人 on its own.
-      let limit = runLimit(type)
+      const limit = runLimit(type)
       while (run.length < limit && arr[i + 1] !== undefined) {
-        let next = arr[i + 1]
+        const next = arr[i + 1]
         if (next.length !== 1 || !mergeTypes(type, getType(next))) {
           break
         }

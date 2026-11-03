@@ -5,7 +5,7 @@ import dates from './tags/dates.js'
 import misc from './tags/misc.js'
 import particles from './tags/particles.js'
 
-let tags = Object.assign({}, nouns, verbs, values, dates, particles, misc)
+const tags = Object.assign({}, nouns, verbs, values, dates, particles, misc)
 
 export default {
   tags

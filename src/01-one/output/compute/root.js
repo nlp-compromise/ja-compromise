@@ -16,7 +16,7 @@ const addRoot = function (view) {
       }
       // an unknown verb can still be walked back to its dictionary-form
       if (term.tags.has('Verb')) {
-        let found = deconjugate(term.text, isKnown)
+        const found = deconjugate(term.text, isKnown)
         if (found) {
           term.root = found.root
           return

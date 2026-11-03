@@ -11,7 +11,7 @@ const notAdjective = /(ない|たい|らしい|っぽい)$/
 
 const adjSuffixes = function (terms, setTag, world) {
   terms.forEach(term => {
-    let str = term.text
+    const str = term.text
     if (term.tags.size > 1 || term.tags.has('Verb') || term.tags.has('Adjective')) {
       return
     }

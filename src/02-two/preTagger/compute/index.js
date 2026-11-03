@@ -12,7 +12,7 @@ const scriptOnly = new Set(['Kanji', 'Hiragana', 'Katakana', 'Ascii'])
 
 const fallback = function (terms, setTag, world) {
   terms.forEach(term => {
-    let tags = [...term.tags]
+    const tags = [...term.tags]
     if (tags.length === 0 || tags.every(t => scriptOnly.has(t))) {
       setTag([term], 'Noun', world, null, reason)
     }

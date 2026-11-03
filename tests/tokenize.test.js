@@ -5,7 +5,7 @@ const here = '[tokenize] '
 const terms = (str) => nlp(str).json()[0].terms.map(t => t.text)
 
 test('word-segmentation:', function (t) {
-  let arr = [
+  const arr = [
     ['私は学生です。', ['私', 'は', '学生', 'です']],
     ['これはペンです。', ['これ', 'は', 'ペン', 'です']],
     ['彼は毎日学校に行きます。', ['彼', 'は', '毎日', '学校', 'に', '行きます']],
@@ -27,7 +27,7 @@ test('word-segmentation:', function (t) {
 test('all-kana text still finds word boundaries:', function (t) {
   // が/な/は are particles, but they're also just kana - a run of them that
   // matched nothing is one unknown word, not four
-  let arr = [
+  const arr = [
     ['ひらがな', ['ひらがな']],
     ['しんぶんをよむ', ['しんぶん', 'を', 'よむ']],
     ['ひらがなとカタカナ', ['ひらがな', 'と', 'カタカナ']],
@@ -44,7 +44,7 @@ test('all-kana text still finds word boundaries:', function (t) {
 
 test('an unknown verb keeps its okurigana:', function (t) {
   // 含む isn't in the lexicon, but 含まれている is still one verb
-  let arr = [
+  const arr = [
     ['含まれている', ['含まれている']],
     ['木で作った', ['木', 'で', '作った']],
     ['本を読む', ['本', 'を', '読む']],
@@ -57,7 +57,7 @@ test('an unknown verb keeps its okurigana:', function (t) {
 })
 
 test('loanwords stay whole:', function (t) {
-  let arr = [
+  const arr = [
     ['ニュージーランド', ['ニュージーランド']],
     ['カフェでコーヒーを飲む', ['カフェ', 'で', 'コーヒー', 'を', '飲む']],
     ['ジョン・スミス', ['ジョン', 'スミス']],
@@ -69,10 +69,10 @@ test('loanwords stay whole:', function (t) {
 })
 
 test('punctuation never becomes a term:', function (t) {
-  let arr = ['昨日、映画を見ました。', '「こんにちは」と言った。', 'すごい！本当に？', '一、二、三']
+  const arr = ['昨日、映画を見ました。', '「こんにちは」と言った。', 'すごい！本当に？', '一、二、三']
   arr.forEach(str => {
-    let doc = nlp(str)
-    let list = doc.json()[0].terms
+    const doc = nlp(str)
+    const list = doc.json()[0].terms
     t.ok(list.every(term => term.text !== ''), here + 'no empty term in ' + str)
     t.equal(doc.text(), str, here + 'round-trips: ' + str)
   })
@@ -80,7 +80,7 @@ test('punctuation never becomes a term:', function (t) {
 })
 
 test('text() round-trips the input:', function (t) {
-  let arr = [
+  const arr = [
     '私は学生です。',
     '彼女は昨日、東京に行きました。',
     'これはとても難しい問題です。',

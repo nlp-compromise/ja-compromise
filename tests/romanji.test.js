@@ -4,7 +4,7 @@ import toRomanji from '../src/01-one/romanji/compute/toRomanji/index.js'
 const here = '[romanji] '
 
 test('kana romanization:', function (t) {
-  let arr = [
+  const arr = [
     ['ひらがな', 'hiragana'],
     ['カタカナ', 'katakana'],   // katakana must romanize too, not pass through
     ['コーヒー', 'koohii'],     // the 長音符 lengthens the vowel
@@ -35,7 +35,7 @@ test('particles sound different from how they are spelled:', function (t) {
 
 test('a conjugated verb keeps its root reading:', function (t) {
   // 食べました isn't in the reading-table, but 食べる is - and 食 spells た there
-  let arr = [
+  const arr = [
     ['食べました', 'tabemashita'],
     ['食べなかった', 'tabenakatta'],
     ['来ました', 'kimashita'],
@@ -48,7 +48,7 @@ test('a conjugated verb keeps its root reading:', function (t) {
 
 test('okurigana picks the kun-reading:', function (t) {
   // 行きました is ikimashita - the on-reading (kou) belongs to compounds
-  let arr = [
+  const arr = [
     ['行きました', 'ikimashita'],
     ['読む', 'yomu'],
     ['書いて', 'kaite'],

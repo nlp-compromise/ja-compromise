@@ -1,5 +1,5 @@
 import list from './list.js'
-let obj = {}
+const obj = {}
 list.forEach(k => {
   if (obj[k]) {
     console.log(k)

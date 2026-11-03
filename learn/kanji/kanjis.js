@@ -9,14 +9,14 @@ const toUtf8 = function (s) {
 Object.keys(dict.words).forEach(m => {
   Object.keys(dict.words[m]).forEach(k => {
 
-    let obj = dict.words[m][k]
+    const obj = dict.words[m][k]
     // console.log(obj)
     if (!obj) {
       return
     }
-    let kanji = toUtf8(obj.variants[0].written)
+    const kanji = toUtf8(obj.variants[0].written)
     if (kanji.includes('火')) {
-      let en = obj.meanings[0]
+      const en = obj.meanings[0]
       console.log(kanji)
       console.log(en.glosses)
 

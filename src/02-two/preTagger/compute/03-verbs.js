@@ -11,14 +11,14 @@ const tagUnknownVerbs = function (terms, setTag, world) {
   terms.forEach(term => {
     // only guess at words the lexicon hasn't already resolved.
     // すみません is an expression, not the negative of a verb 済む.
-    let known = [...term.tags].some(t => !scriptOnly.has(t))
+    const known = [...term.tags].some(t => !scriptOnly.has(t))
     if (known) {
       return
     }
     if (term.text.length < 2) {
       return
     }
-    let found = deconjugate(term.text, isKnown)
+    const found = deconjugate(term.text, isKnown)
     if (!found || found.guess === true) {
       return
     }
@@ -30,14 +30,14 @@ const tagUnknownVerbs = function (terms, setTag, world) {
 // する attaches to the noun before it - 「勉強 します」
 const tagSuruVerbs = function (terms, setTag, world) {
   for (let i = 1; i < terms.length; i += 1) {
-    let t = terms[i]
+    const t = terms[i]
     if (!t.tags.has('Verb')) {
       continue
     }
     if (/^(し|す|さ)/.test(t.text) === false) {
       continue
     }
-    let prev = terms[i - 1]
+    const prev = terms[i - 1]
     if (prev && prev.tags.has('SuruVerb')) {
       setTag([prev], 'Verb', world, null, 'suruVerb')
     }
@@ -52,22 +52,22 @@ const otherHelpers = ['おく', 'しまう', '来る', 'くる', '行く', 'い�
 
 // every surface-form of every helper, so we can recognise いました / しまった
 const formsOf = function (list) {
-  let set = new Set()
+  const set = new Set()
   list.forEach(dict => {
-    let forms = conjugateVerb(dict)
+    const forms = conjugateVerb(dict)
     if (forms) {
       Object.keys(forms).forEach(k => typeof forms[k] === 'string' && set.add(forms[k]))
     }
   })
   return set
 }
-let isAspect = formsOf(aspectVerbs)
-let isHelper = formsOf(otherHelpers)
+const isAspect = formsOf(aspectVerbs)
+const isHelper = formsOf(otherHelpers)
 
 const tagCompoundVerbs = function (terms, setTag, world) {
   for (let i = 1; i < terms.length; i += 1) {
-    let t = terms[i]
-    let prev = terms[i - 1]
+    const t = terms[i]
+    const prev = terms[i - 1]
     if (!prev || !prev.tags.has('Gerund') || !t.tags.has('Verb')) {
       continue
     }
@@ -88,11 +88,11 @@ const tagCompoundVerbs = function (terms, setTag, world) {
 // an auxiliary hands its tense back to the verb it attaches to
 const tagAuxiliary = function (terms, setTag, world) {
   for (let i = 1; i < terms.length; i += 1) {
-    let t = terms[i]
+    const t = terms[i]
     if (!t.tags.has('Auxiliary')) {
       continue
     }
-    let prev = terms[i - 1]
+    const prev = terms[i - 1]
     if (!prev) {
       continue
     }

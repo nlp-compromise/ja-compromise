@@ -1,4 +1,4 @@
-let out = {
+const out = {
   "a": "&#12450;",
   "i": "&#12452;",
   "u": "&#12454;",
@@ -117,8 +117,8 @@ const toUtf8 = function (s) {
 }
 
 Object.entries(out).forEach(a => {
-  let num = a[1].replace(/&#/g, '').replace(/;/, '')
-  let hex = Number(num).toString(16);
+  const num = a[1].replace(/&#/g, '').replace(/;/, '')
+  const hex = Number(num).toString(16);
   // console.log('\\u' + hex)
   console.log(toUtf8('\\u' + hex)) //eslint-disable-line
 })

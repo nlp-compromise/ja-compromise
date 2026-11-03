@@ -14,9 +14,9 @@ const isHiraganaWord = (str) => str.split('').every(isHiragana)
  * glue an unknown kanji stem onto the inflectional tail that follows it.
  */
 const attachOkurigana = function (arr) {
-  let out = []
+  const out = []
   for (let i = 0; i < arr.length; i += 1) {
-    let head = arr[i]
+    const head = arr[i]
     // only an unknown kanji chunk can pick up okurigana
     if (lexicon[head] || !head.split('').every(isKanji)) {
       out.push(head)
@@ -40,7 +40,7 @@ const attachOkurigana = function (arr) {
     let joined = head
     let taken = i
     for (let o = end; o > i; o -= 1) {
-      let candidate = head + arr.slice(i + 1, o + 1).join('')
+      const candidate = head + arr.slice(i + 1, o + 1).join('')
       if (candidate.length - head.length < 2) {
         continue
       }

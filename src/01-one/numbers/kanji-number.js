@@ -34,7 +34,7 @@ const toNumber = function (str) {
   let seen = false
 
   for (let i = 0; i < str.length; i += 1) {
-    let c = str[i]
+    const c = str[i]
     if (digits[c] !== undefined) {
       // 15 and １５ are positional, so keep multiplying up
       current = Number(current * 10) + Number(digits[c])
@@ -50,7 +50,7 @@ const toNumber = function (str) {
     }
     if (large[c] !== undefined) {
       // a bare 万 is 10,000 - but 五十万 is 50×10,000, not 51×10,000
-      let group = section + current
+      const group = section + current
       total += (group === 0 ? 1 : group) * large[c]
       section = 0
       current = 0

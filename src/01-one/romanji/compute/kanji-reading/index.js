@@ -6,7 +6,7 @@ import words from './words.js'
 const toHiragana = function (str) {
   let out = ''
   for (let i = 0; i < str.length; i += 1) {
-    let c = str[i]
+    const c = str[i]
     out += c >= 'ァ' && c <= 'ヶ' ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c
   }
   return out
@@ -19,12 +19,12 @@ const isKanji = (c) => c >= '一' && c <= '龯'
 const kunStem = (kun) => kun.split('.')[0]
 
 const soundOut = function (char, type) {
-  let r = readings[char]
+  const r = readings[char]
   if (!r) {
     return char
   }
-  let [kun, on] = r.split('|')
-  let pick = type === 'kun' ? kun || on : on || kun
+  const [kun, on] = r.split('|')
+  const pick = type === 'kun' ? kun || on : on || kun
   return toHiragana(kunStem(pick || char))
 }
 
@@ -40,20 +40,20 @@ const soundOut = function (char, type) {
  * already right there in the text.
  */
 const fromRoot = function (word, root) {
-  let reading = words[root]
+  const reading = words[root]
   if (!reading) {
     return null
   }
   // the kanji sit at the front of both the word and its root
-  let stem = root.split('').findIndex(c => !isKanji(c))
+  const stem = root.split('').findIndex(c => !isKanji(c))
   if (stem <= 0) {
     return null
   }
-  let okurigana = root.slice(stem)
+  const okurigana = root.slice(stem)
   if (!reading.endsWith(okurigana)) {
     return null
   }
-  let kanjiSound = reading.slice(0, reading.length - okurigana.length)
+  const kanjiSound = reading.slice(0, reading.length - okurigana.length)
   return word.startsWith(root.slice(0, stem)) ? kanjiSound + word.slice(stem) : null
 }
 
@@ -62,7 +62,7 @@ const spellKanji = function (word, type, root) {
     return words[word]
   }
   if (root && root !== word) {
-    let viaRoot = fromRoot(word, root)
+    const viaRoot = fromRoot(word, root)
     if (viaRoot) {
       return viaRoot
     }
@@ -81,7 +81,7 @@ const spellKanji = function (word, type, root) {
       run += word[i]
       i += 1
     }
-    let use = type || (run.length > 1 ? 'on' : 'kun')
+    const use = type || (run.length > 1 ? 'on' : 'kun')
     run.split('').forEach(c => {
       out += soundOut(c, use)
     })

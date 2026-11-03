@@ -26,8 +26,8 @@ const nativeValue = {
  */
 const tagNumbers = function (terms, setTag, world) {
   for (let i = 0; i < terms.length; i += 1) {
-    let t = terms[i]
-    let str = t.text
+    const t = terms[i]
+    const str = t.text
 
     // ---- is this a number? ----
     let value = null
@@ -40,7 +40,7 @@ const tagNumbers = function (terms, setTag, world) {
     }
     // 何人, 何冊 - 'how many' takes a counter exactly like a number does,
     // but there's no value to record
-    let isQuestion = str === '何' || str === 'なん' || str === '幾' || str === 'いく'
+    const isQuestion = str === '何' || str === 'なん' || str === '幾' || str === 'いく'
     if (value === null && !isQuestion) {
       continue
     }
@@ -51,7 +51,7 @@ const tagNumbers = function (terms, setTag, world) {
     }
 
     // ---- is the next word its counter? ----
-    let next = terms[i + 1]
+    const next = terms[i + 1]
     if (!next || counters[next.text] === undefined) {
       continue
     }
@@ -59,7 +59,7 @@ const tagNumbers = function (terms, setTag, world) {
     if (next.tags.has('Verb') || next.tags.has('Particle')) {
       continue
     }
-    let kind = counters[next.text]
+    const kind = counters[next.text]
     // #Percent and #Ordinal live in the #Value family, which is exclusive
     // with #Noun - tagging those #Counter as well would just strip it again
     if (kind === 'Percent' || kind === 'Ordinal') {

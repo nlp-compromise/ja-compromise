@@ -39,10 +39,10 @@ const rejoinKana = function (arr) {
     while (end < arr.length && isSingleKana(arr[end])) {
       end += 1
     }
-    let run = arr.slice(i, end)
+    const run = arr.slice(i, end)
     i = end - 1
     // を is only ever a particle, so it's a hard word-boundary
-    let segments = [[]]
+    const segments = [[]]
     run.forEach(c => {
       if (c === 'を') {
         segments.push(['を'], [])
@@ -66,7 +66,7 @@ const rejoinKana = function (arr) {
       // 「ひらがなと」 is ひらがな + と, 「経験につながる」 is 経験 | に | つながる.
       // a particle can't begin a clause, so only trim the head when something
       // real came before it
-      let hasLeft = out.length > 0 && !edgeParticle.has(out[out.length - 1])
+      const hasLeft = out.length > 0 && !edgeParticle.has(out[out.length - 1])
       let head = ''
       let tail = ''
       if (seg.length > 2 && hasLeft && edgeParticle.has(seg[0])) {
@@ -106,7 +106,7 @@ const tokenize = function (txt, isChunk) {
   arr = attachOkurigana(arr)
   // punctuation is never its own term - it hangs off the word before it,
   // except an opening bracket, which hangs off the word after it - 彼は「はい」と
-  let out = []
+  const out = []
   let carry = ''
   arr.forEach(str => {
     if (str === '') {

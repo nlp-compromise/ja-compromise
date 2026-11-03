@@ -8,7 +8,7 @@ const conjugateAdjective = function (word) {
   if (!word || !word.endsWith('い') || word.length < 2) {
     return null
   }
-  let stem = irregularStem[word] !== undefined ? irregularStem[word] : word.slice(0, -1)
+  const stem = irregularStem[word] !== undefined ? irregularStem[word] : word.slice(0, -1)
   return {
     Infinitive: word,               // 高い
     PresentTense: word,

@@ -1,12 +1,10 @@
-<!-- ja-compromise changelog -->
+### 0.2.0 [Nov 2026]
 
-### [unreleased]
-
-#### Tokenizer
-
+- **[update]** - smaller suffix-thumb format
 - **[fix]** - opening brackets 「『（ attach to the word after them, not the word before - 彼は「はい」 was tokenized as は「
 - **[change]** - drop the isSentence override - compromise handles japanese sentence-ends itself
-- **[update]** - compromise 14.16.0
+- **[new]** - support localized tag names
+- **[update]** - dependencies
 
 ### 0.1.0 [Aug 2023]
 
@@ -20,8 +18,8 @@ roughly a third of tokens mis-tagged to 100% on the 25-sentence gold file
 - **[fix]** - **the conjugation model was producing wrong forms for most verbs.**
   It was learned with `suffix-thumb` from a scraped table (`learn/verbs/verbs.js`)
   whose columns are shifted on a majority of rows, so the model had learned the
-  wrong mapping outright. `toPassive('書き')` returned `書ける` (the *potential*),
-  `toCausative('書き')` returned `書いたら` (a *conditional*), and `toPastPolite`
+  wrong mapping outright. `toPassive('書き')` returned `書ける` (the _potential_),
+  `toCausative('書き')` returned `書いたら` (a _conditional_), and `toPastPolite`
   returned the plain past for most verbs - which is why `食べた` and `行った` were
   being tagged `#Polite`.
 - **[new]** - replaced it with a rule-based conjugator in `src/01-one/conjugate/`.
@@ -188,7 +186,7 @@ is the closest thing the language has to a unit. None of this was recognised:
 
 #### Numbers, matching english compromise
 
-- **[breaking]** - `.numbers().toNumber()` used to *return* the parsed values.
+- **[breaking]** - `.numbers().toNumber()` used to _return_ the parsed values.
   In english compromise `.get()` reads and `.toNumber()` rewrites, so this now
   does too: `.get()` returns `[23]`, `.toNumber()` turns 二十三 into 23 in the
   document.
@@ -306,7 +304,7 @@ filed as ichidan when modern 蹴る is godan (`蹴った`, not `蹴た`).
   German title, German UI, German sample text, loading `../builds/de-compromise.min.js`
   and reading `window.deCompromise`. Rewritten in Japanese against the real build.
 - **[fix]** - the demo's highlighter passed `{nouns: ...}` to `.html()`, which
-  emits `<nouns>` *elements*, so none of its CSS ever applied. The keys need a
+  emits `<nouns>` _elements_, so none of its CSS ever applied. The keys need a
   leading dot (`{'.nouns': '#Noun'}`) to produce `<span class="nouns">`. This bug
   was in the German original too.
 - **[fix]** - the README's browser example loaded `unpkg.com/de-compromise` and
@@ -340,4 +338,5 @@ filed as ichidan when modern 蹴る is godan (`蹴った`, not `蹴た`).
 - Personal names are recognized from an honorific suffix, not a name list.
 
 ### 0.0.1 [Jan 2023]
+
 - **[new]** - first commit

@@ -12,7 +12,7 @@ const every = function (str, fn) {
 const tagScript = function (terms, setTag, world) {
   const reason = 'script'
   terms.forEach(term => {
-    let str = term.text
+    const str = term.text
     if (every(str, isHiragana)) {
       setTag([term], 'Hiragana', world, null, reason)
       return

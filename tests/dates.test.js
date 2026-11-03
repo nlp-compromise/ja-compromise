@@ -3,12 +3,12 @@ import nlp from './_lib.js'
 const here = '[dates] '
 
 const tagsOf = (str, word) => {
-  let term = nlp(str).json()[0].terms.find(t => t.text === word)
+  const term = nlp(str).json()[0].terms.find(t => t.text === word)
   return term ? term.tags : []
 }
 
 test('numeric dates:', function (t) {
-  let str = '1995年3月10日'
+  const str = '1995年3月10日'
   t.ok(tagsOf(str, '1995').includes('Year'), here + '1995年 → Year')
   t.ok(tagsOf(str, '3').includes('Month'), here + '3月 → Month')
   t.ok(tagsOf(str, '10').includes('Day'), here + '10日 → Day')
@@ -59,7 +59,7 @@ test('date words:', function (t) {
 })
 
 test('.dates():', function (t) {
-  let doc = nlp('1995年3月10日の午後3時に生まれました。')
+  const doc = nlp('1995年3月10日の午後3時に生まれました。')
   t.deepEqual(doc.dates().out('array'), ['1995年3月10日', '午後3時'], here + '.dates()')
   t.end()
 })

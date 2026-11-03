@@ -17,10 +17,10 @@ test('the reference table still looks like itself:', function (t) {
 })
 
 test('verb-class agrees with the reference table:', function (t) {
-  let wrong = []
+  const wrong = []
   const irregular = new Set(['suru', 'kuru', 'iku', 'aru', 'ou', 'aru5'])
   rows.forEach(dict => {
-    let ours = verbClass(dict)
+    const ours = verbClass(dict)
     if (irregular.has(ours)) {
       return // the table has no category for these
     }
@@ -34,22 +34,22 @@ test('verb-class agrees with the reference table:', function (t) {
 
 test('every conjugated form matches the reference table:', function (t) {
   let checked = 0
-  let wrong = []
+  const wrong = []
   rows.forEach(dict => {
-    let got = conjugateVerb(dict)
+    const got = conjugateVerb(dict)
     if (!got) {
       wrong.push(dict + ' (no conjugation)')
       return
     }
-    let want = expand(got)
+    const want = expand(got)
     Object.keys(verbs[dict]).forEach(col => {
       if (want[col] === undefined) {
         return
       }
       checked += 1
-      let value = verbs[dict][col]
+      const value = verbs[dict][col]
       // 〜たろう and 〜ただろう are both correct, and the table uses both
-      let ok = Array.isArray(want[col]) ? want[col].includes(value) : want[col] === value
+      const ok = Array.isArray(want[col]) ? want[col].includes(value) : want[col] === value
       if (!ok) {
         wrong.push(`${dict}.${col}: table '${value}', conjugator '${want[col]}'`)
       }

@@ -22,16 +22,16 @@ nlp.plugin(numbers)
 
 const ja = function (txt, lex) {
   // split sentences
-  let doc = nlp.tokenize(txt, lex)
+  const doc = nlp.tokenize(txt, lex)
   // tokenize terms ourselves - compromise splits on whitespace, which japanese
   // mostly doesn't use.  every whitespace-chunk still needs splitting, so run
   // the tokenizer over each of them and keep their surrounding punctuation.
   doc.document = doc.document.map(a => {
     let out = []
     // if the sentence has spaces in it, they're real word-boundaries
-    let spaced = a.length > 1
+    const spaced = a.length > 1
     a.forEach(term => {
-      let terms = toTerms(term.text, spaced)
+      const terms = toTerms(term.text, spaced)
       if (terms.length === 0) {
         out.push(term)
         return
@@ -61,7 +61,7 @@ Object.defineProperty(ja, '_world', {
 })
 /** log the decision-making to console */
 ja.verbose = function (set) {
-  let env = typeof process === 'undefined' ? self.env || {} : process.env //use window, in browser
+  const env = typeof process === 'undefined' ? self.env || {} : process.env //use window, in browser
   env.DEBUG_TAGS = set === 'tagger' || set === true ? true : ''
   env.DEBUG_MATCH = set === 'match' || set === true ? true : ''
   env.DEBUG_CHUNKS = set === 'chunker' || set === true ? true : ''

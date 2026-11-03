@@ -5,13 +5,13 @@
 // same answer for a fraction of the memory.
 
 const splitUp = function (txt, words, maxLen) {
-  let out = []
+  const out = []
   let i = 0
   while (i < txt.length) {
-    let max = Math.min(maxLen, txt.length - i)
+    const max = Math.min(maxLen, txt.length - i)
     let found = ''
     for (let len = max; len > 1; len -= 1) {
-      let str = txt.substr(i, len)
+      const str = txt.substr(i, len)
       if (words.has(str)) {
         found = str
         break

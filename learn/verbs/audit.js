@@ -21,39 +21,39 @@ import expand from './columns.js'
 import { conjugateVerb, verbClass } from '../../src/01-one/conjugate/index.js'
 
 let trusted = 0
-let untrusted = []
+const untrusted = []
 let checked = 0
-let mismatch = []
-let classMismatch = []
+const mismatch = []
+const classMismatch = []
 
 Object.keys(verbs).forEach(dict => {
-  let row = verbs[dict]
+  const row = verbs[dict]
   if (row.trusted !== true) {
     untrusted.push(dict)
     return
   }
   trusted += 1
 
-  let got = conjugateVerb(dict)
+  const got = conjugateVerb(dict)
   if (!got) {
     mismatch.push(`${dict}: the conjugator doesn't recognise this verb`)
     return
   }
   // does our verb-class agree with the table's?
-  let ours = verbClass(dict)
-  let theirs = (row.type || '').toLowerCase()
-  let irregular = ['suru', 'kuru', 'iku', 'aru', 'ou', 'aru5'].includes(ours)
+  const ours = verbClass(dict)
+  const theirs = (row.type || '').toLowerCase()
+  const irregular = ['suru', 'kuru', 'iku', 'aru', 'ou', 'aru5'].includes(ours)
   if (!irregular && ours !== theirs) {
     classMismatch.push(`${dict}: we say ${ours}, the table says ${theirs}`)
   }
 
-  let want = expand(got)
+  const want = expand(got)
   Object.keys(row).forEach(col => {
     if (want[col] === undefined) {
       return
     }
     checked += 1
-    let ok = Array.isArray(want[col]) ? want[col].includes(row[col]) : want[col] === row[col]
+    const ok = Array.isArray(want[col]) ? want[col].includes(row[col]) : want[col] === row[col]
     if (!ok) {
       mismatch.push(`${dict}.${col}: table '${row[col]}'  conjugator '${want[col]}'`)
     }
@@ -67,11 +67,11 @@ console.log(`  untrusted rows  ${untrusted.length}   (paradigm dropped - scrambl
 console.log(`  forms checked   ${checked}`)
 console.log(`  class conflicts ${classMismatch.length}`)
 console.log(`  form conflicts  ${mismatch.length}`)
-if (classMismatch.length) {
+if (classMismatch.length > 0) {
   console.log('\n  class conflicts:')
   classMismatch.forEach(s => console.log('    ' + s))
 }
-if (mismatch.length) {
+if (mismatch.length > 0) {
   console.log('\n  form conflicts:')
   mismatch.slice(0, 40).forEach(s => console.log('    ' + s))
   if (mismatch.length > 40) {

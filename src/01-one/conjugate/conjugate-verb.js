@@ -4,8 +4,8 @@ import verbClass from './verb-class.js'
 // the five 'bases' every japanese verb form is built out of.
 // get these right and every suffix falls out of them.
 const toBases = function (dict, cls) {
-  let stem = dict.slice(0, -1)
-  let last = dict[dict.length - 1]
+  const stem = dict.slice(0, -1)
+  const last = dict[dict.length - 1]
   switch (cls) {
     case 'godan':
       return {
@@ -20,9 +20,9 @@ const toBases = function (dict, cls) {
         causative: stem + aRow[last] + 'せる',
       }
     case 'ichidan': {
-      let s = dict.slice(0, -1) // 食べ
+      const s = dict.slice(0, -1) // 食べ
       // くれる is the one ichidan verb with a bare imperative - くれ, not くれろ
-      let imper = /(呉れる|くれる)$/.test(dict) ? s : s + 'ろ'
+      const imper = /(呉れる|くれる)$/.test(dict) ? s : s + 'ろ'
       return {
         negStem: s, stem: s, cond: s + 'れ', imper: imper,
         volit: s + 'よう', te: s + 'て',
@@ -30,7 +30,7 @@ const toBases = function (dict, cls) {
       }
     }
     case 'suru': {
-      let pre = dict.slice(0, -2) // 勉強
+      const pre = dict.slice(0, -2) // 勉強
       return {
         negStem: pre + 'し', stem: pre + 'し', cond: pre + 'すれ', imper: pre + 'しろ',
         volit: pre + 'しよう', te: pre + 'して',
@@ -39,11 +39,11 @@ const toBases = function (dict, cls) {
       }
     }
     case 'kuru': {
-      let pre = dict.slice(0, -2)
-      let kana = dict.endsWith('くる')
-      let ko = kana ? 'こ' : '来'
-      let ki = kana ? 'き' : '来'
-      let ku = kana ? 'く' : '来'
+      const pre = dict.slice(0, -2)
+      const kana = dict.endsWith('くる')
+      const ko = kana ? 'こ' : '来'
+      const ki = kana ? 'き' : '来'
+      const ku = kana ? 'く' : '来'
       return {
         negStem: pre + ko, stem: pre + ki, cond: pre + ku + 'れ', imper: pre + ko + 'い',
         volit: pre + ko + 'よう', te: pre + ki + 'て',
@@ -51,7 +51,7 @@ const toBases = function (dict, cls) {
       }
     }
     case 'aru': {
-      let s = dict.slice(0, -1) // あ / 有 / 在
+      const s = dict.slice(0, -1) // あ / 有 / 在
       return {
         negStem: null, // ある has no 未然形 - its negative is just ない
         stem: s + 'り', cond: s + 'れ', imper: s + 'れ', volit: s + 'ろう', te: s + 'って',
@@ -59,7 +59,7 @@ const toBases = function (dict, cls) {
       }
     }
     case 'iku': { // 行く takes って, not the regular いて
-      let s = dict.slice(0, -1)
+      const s = dict.slice(0, -1)
       return {
         negStem: s + 'か', stem: s + 'き', cond: s + 'け', imper: s + 'け', volit: s + 'こう',
         te: s + 'って',
@@ -67,7 +67,7 @@ const toBases = function (dict, cls) {
       }
     }
     case 'ou': { // 問う/請う keep うて rather than って
-      let s = dict.slice(0, -1)
+      const s = dict.slice(0, -1)
       return {
         negStem: s + 'わ', stem: s + 'い', cond: s + 'え', imper: s + 'え', volit: s + 'おう',
         te: s + 'うて',
@@ -75,7 +75,7 @@ const toBases = function (dict, cls) {
       }
     }
     case 'aru5': { // くださる/なさる - godan, but the masu-stem drops the り
-      let s = dict.slice(0, -1)
+      const s = dict.slice(0, -1)
       return {
         negStem: s + 'ら', stem: s + 'い', cond: s + 'れ', imper: s + 'い', volit: s + 'ろう',
         te: s + 'って',
@@ -92,19 +92,19 @@ const teToTa = (te) => te.replace(/て$/, 'た').replace(/で$/, 'だ')
 
 /** produce the full paradigm of a dictionary-form verb */
 const conjugate = function (dict, hint) {
-  let cls = verbClass(dict, hint)
+  const cls = verbClass(dict, hint)
   if (!cls) {
     return null
   }
-  let b = toBases(dict, cls)
+  const b = toBases(dict, cls)
   if (!b) {
     return null
   }
   // ある is the one verb whose plain negative isn't built on a 未然形
-  let negative = b.negStem === null ? 'ない' : b.negStem + 'ない'
-  let pastNegative = b.negStem === null ? 'なかった' : b.negStem + 'なかった'
-  let te = b.te
-  let past = teToTa(te)
+  const negative = b.negStem === null ? 'ない' : b.negStem + 'ない'
+  const pastNegative = b.negStem === null ? 'なかった' : b.negStem + 'なかった'
+  const te = b.te
+  const past = teToTa(te)
 
   return {
     class: cls,

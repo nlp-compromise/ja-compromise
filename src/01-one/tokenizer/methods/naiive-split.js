@@ -1,6 +1,6 @@
 import { isHiragana, isKatakana, isKanji, isNumber, isAscii } from './lib.js'
 
-let markers = [
+const markers = [
   // 'は',// - topic marker
   // 'が',// - subject
   // 'を',// - direct object
@@ -22,7 +22,7 @@ let markers = [
   '\n',//newline
 ]
 
-let always = new Set(markers)
+const always = new Set(markers)
 
 const getType = function (c) {
   if (isHiragana(c)) {
@@ -45,13 +45,13 @@ const getType = function (c) {
 
 // naiive split by Hiragana/Katakana/Kanji segments
 const tokenize = function (txt) {
-  let chars = txt.split('')
-  let arr = []
+  const chars = txt.split('')
+  const arr = []
   let past = null
   let run = []
   // loop through every character
   for (let i = 0; i < chars.length; i += 1) {
-    let c = chars[i]
+    const c = chars[i]
     // clear split punctuation
     if (always.has(c)) {
       run.push(c)
@@ -61,7 +61,7 @@ const tokenize = function (txt) {
       continue
     }
     // which script is the character?
-    let type = getType(c)
+    const type = getType(c)
 
     if (past == null) {
       past = type
