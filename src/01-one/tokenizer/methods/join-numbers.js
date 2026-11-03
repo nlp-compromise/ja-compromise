@@ -14,7 +14,7 @@ const allNumeral = function (str) {
  * a run of numerals is one number.
  */
 const joinNumbers = function (arr) {
-  let out = []
+  const out = []
   for (let i = 0; i < arr.length; i += 1) {
     if (!allNumeral(arr[i])) {
       out.push(arr[i])

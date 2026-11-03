@@ -1,11 +1,11 @@
 import type {
   Document, Pointer, Groups, JsonProps, outMethods, Term, Net,
   Lexicon, Plugin, matchOptions, Match,
-} from './misc'
+} from './misc.js'
 import type {
   VerbClass, VerbConjugation, IAdjectiveConjugation, NaAdjectiveConjugation,
   Deconjugation, NumberParse,
-} from './japanese'
+} from './japanese.js'
 
 /** a view onto some part of a parsed document */
 declare class View {

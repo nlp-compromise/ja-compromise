@@ -22,8 +22,8 @@ const godanRu = `帰る 返る 入る 要る 走る 知る 切る 限る 減る 
   打ち切る 思い切る 張り切る 立ち返る 生き返る 寝返る 立ち入る 押し入る 気に入る 見入る 恐れ入る`
   .split(/\s+/).filter(w => /る$/.test(w))
 
-let isIchidan = new Set(ichidan.filter(w => /る$/.test(w)))
-let isGodanRu = new Set(godanRu)
+const isIchidan = new Set(ichidan.filter(w => /る$/.test(w)))
+const isGodanRu = new Set(godanRu)
 
 // verbs with a paradigm of their own
 const irregular = {
@@ -75,7 +75,7 @@ const verbClass = function (dict, hint) {
   if (dict.length > 3 && /[てで](来る|くる)$/.test(dict)) {
     return 'kuru'
   }
-  let last = dict[dict.length - 1]
+  const last = dict[dict.length - 1]
   if (!godanEnding.has(last)) {
     return null // not a shape we can conjugate
   }
@@ -92,7 +92,7 @@ const verbClass = function (dict, hint) {
   if (/(せる|させる|れる|られる)$/.test(dict) && dict.length > 2) {
     return 'ichidan'
   }
-  let before = dict[dict.length - 2]
+  const before = dict[dict.length - 2]
   // an i-row or e-row kana before る is a good ichidan signal
   if (iRowKana.has(before) || eRowKana.has(before)) {
     return 'ichidan'

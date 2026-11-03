@@ -7,12 +7,12 @@ const isKanjiNumeral = /[〇零一二三四五六七八九十百千万億兆壱�
 
 // pull the number out of a match, along with how it was written
 const parse = function (view) {
-  let terms = view.docs[0] || []
+  const terms = view.docs[0] || []
   let term = terms.find(t => typeof t.number === 'number')
   if (!term) {
     // not computed yet - read it off the text
     term = terms[0]
-    let num = term ? toNumber(term.text) : null
+    const num = term ? toNumber(term.text) : null
     return { num, term, kanji: term ? isKanjiNumeral.test(term.text) : false, wide: false }
   }
   return {
@@ -35,7 +35,7 @@ const setText = function (term, str, num) {
 
 // write a number back in the shape it was found in
 const write = function (view, num, form) {
-  let { term, kanji, wide } = parse(view)
+  const { term, kanji, wide } = parse(view)
   if (!term || typeof num !== 'number') {
     return view
   }
@@ -70,10 +70,10 @@ const addMethod = function (View) {
       return this.getNth(n).map(parse).map(o => o.num)
     }
     json(n) {
-      let opts = typeof n === 'object' ? n : {}
+      const opts = typeof n === 'object' ? n : {}
       return this.getNth(n).map(m => {
-        let json = m.toView().json(opts)[0]
-        let found = parse(m)
+        const json = m.toView().json(opts)[0]
+        const found = parse(m)
         json.number = { num: found.num, counter: m.units().text() || null }
         return json
       }, [])
@@ -93,7 +93,7 @@ const addMethod = function (View) {
     /** write each number in digits - 二十三 becomes 23 */
     toNumber() {
       this.forEach(m => {
-        let { num } = parse(m)
+        const { num } = parse(m)
         if (num !== null) {
           write(m, num, 'digits')
         }
@@ -103,7 +103,7 @@ const addMethod = function (View) {
     /** write each number in kanji - 23 becomes 二十三 */
     toText() {
       this.forEach(m => {
-        let { num } = parse(m)
+        const { num } = parse(m)
         if (num !== null) {
           write(m, num, 'kanji')
         }
@@ -113,7 +113,7 @@ const addMethod = function (View) {
     /** add thousands-separators - 1234 becomes 1,234 */
     toLocaleString() {
       this.forEach(m => {
-        let { num, term } = parse(m)
+        const { num, term } = parse(m)
         if (num === null || !term) {
           return
         }
@@ -134,7 +134,7 @@ const addMethod = function (View) {
         return this
       }
       this.forEach(m => {
-        let { num } = parse(m)
+        const { num } = parse(m)
         if (num !== null) {
           write(m, num + n)
         }
@@ -161,12 +161,12 @@ const addMethod = function (View) {
     }
     between(min, max) {
       return this.filter(m => {
-        let { num } = parse(m)
+        const { num } = parse(m)
         return num > min && num < max
       })
     }
     update(pointer) {
-      let m = new Numbers(this.document, pointer)
+      const m = new Numbers(this.document, pointer)
       m._cache = this._cache
       return m
     }
@@ -183,17 +183,17 @@ const addMethod = function (View) {
 
   /** every 助数詞 in the document */
   View.prototype.counters = function (n) {
-    let m = this.match('#Counter')
+    const m = this.match('#Counter')
     return typeof n === 'number' ? m.eq(n) : m
   }
   /** every 円/ドル amount */
   View.prototype.money = function (n) {
-    let m = this.match('#Value+ #Currency')
+    const m = this.match('#Value+ #Currency')
     return typeof n === 'number' ? m.eq(n) : m
   }
   /** every percentage */
   View.prototype.percentages = function (n) {
-    let m = this.match('#Value+ #Percent')
+    const m = this.match('#Value+ #Percent')
     return typeof n === 'number' ? m.eq(n) : m
   }
 }

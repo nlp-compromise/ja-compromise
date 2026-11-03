@@ -6,9 +6,9 @@ function isClientSide() {
 }
 //output some helpful stuff to the console
 const debug = function (opts = {}) {
-  let view = this
+  const view = this
   if (typeof opts === 'string') {
-    let tmp = {}
+    const tmp = {}
     tmp[opts] = true //allow string input
     opts = tmp
   }

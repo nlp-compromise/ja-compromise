@@ -3,7 +3,7 @@ import { conjugateVerb, conjugateAdjective, conjugateNaAdjective, verbClass } fr
 const here = '[conjugate] '
 
 test('verb-class:', function (t) {
-  let arr = [
+  const arr = [
     ['書く', 'godan'], ['話す', 'godan'], ['待つ', 'godan'], ['読む', 'godan'],
     ['遊ぶ', 'godan'], ['死ぬ', 'godan'], ['泳ぐ', 'godan'], ['買う', 'godan'],
     ['走る', 'godan'], ['帰る', 'godan'], ['切る', 'godan'], ['知る', 'godan'],
@@ -20,8 +20,8 @@ test('verb-class:', function (t) {
 
 test('godan-conjugation:', function (t) {
   // 書く - the textbook godan verb
-  let o = conjugateVerb('書く')
-  let want = {
+  const o = conjugateVerb('書く')
+  const want = {
     Stem: '書き', PastTense: '書いた', Negative: '書かない', PastNegative: '書かなかった',
     Gerund: '書いて', Polite: '書きます', PolitePast: '書きました', PoliteNegative: '書きません',
     PolitePastNegative: '書きませんでした', Imperative: '書け', NegativeImperative: '書くな',
@@ -35,7 +35,7 @@ test('godan-conjugation:', function (t) {
 
 test('sound-change (音便):', function (t) {
   // the て-form is where godan verbs differ from each other
-  let arr = [
+  const arr = [
     ['買う', '買って'], ['待つ', '待って'], ['走る', '走って'],
     ['死ぬ', '死んで'], ['遊ぶ', '遊んで'], ['読む', '読んで'],
     ['書く', '書いて'], ['泳ぐ', '泳いで'], ['話す', '話して'],
@@ -51,8 +51,8 @@ test('sound-change (音便):', function (t) {
 })
 
 test('ichidan-conjugation:', function (t) {
-  let o = conjugateVerb('食べる')
-  let want = {
+  const o = conjugateVerb('食べる')
+  const want = {
     Stem: '食べ', PastTense: '食べた', Negative: '食べない', Gerund: '食べて',
     Polite: '食べます', PolitePast: '食べました', Imperative: '食べろ',
     Volitional: '食べよう', Potential: '食べられる', Passive: '食べられる',
@@ -63,7 +63,7 @@ test('ichidan-conjugation:', function (t) {
 })
 
 test('irregular-conjugation:', function (t) {
-  let suru = conjugateVerb('する')
+  const suru = conjugateVerb('する')
   t.equal(suru.Negative, 'しない', here + 'する negative')
   t.equal(suru.Polite, 'します', here + 'する polite')
   t.equal(suru.Gerund, 'して', here + 'する te-form')
@@ -72,7 +72,7 @@ test('irregular-conjugation:', function (t) {
   t.equal(suru.Volitional, 'しよう', here + 'する volitional')
   t.equal(suru.Provisional, 'すれば', here + 'する ba-form')
 
-  let kuru = conjugateVerb('来る')
+  const kuru = conjugateVerb('来る')
   t.equal(kuru.Negative, '来ない', here + '来る negative')
   t.equal(kuru.Polite, '来ます', here + '来る polite')
   t.equal(kuru.Imperative, '来い', here + '来る imperative')
@@ -88,7 +88,7 @@ test('irregular-conjugation:', function (t) {
 })
 
 test('i-adjective-conjugation:', function (t) {
-  let o = conjugateAdjective('高い')
+  const o = conjugateAdjective('高い')
   t.equal(o.Negative, '高くない', here + '高くない')
   t.equal(o.PastTense, '高かった', here + '高かった')
   t.equal(o.PastNegative, '高くなかった', here + '高くなかった')
@@ -96,14 +96,14 @@ test('i-adjective-conjugation:', function (t) {
   t.equal(o.Adverb, '高く', here + '高く')
   t.equal(o.Provisional, '高ければ', here + '高ければ')
   // いい is irregular - it inflects as よい
-  let ii = conjugateAdjective('いい')
+  const ii = conjugateAdjective('いい')
   t.equal(ii.PastTense, 'よかった', here + 'いい → よかった')
   t.equal(ii.Negative, 'よくない', here + 'いい → よくない')
   t.end()
 })
 
 test('na-adjective-conjugation:', function (t) {
-  let o = conjugateNaAdjective('静か')
+  const o = conjugateNaAdjective('静か')
   t.equal(o.Adnominal, '静かな', here + '静かな')
   t.equal(o.PastTense, '静かだった', here + '静かだった')
   t.equal(o.Negative, '静かじゃない', here + '静かじゃない')

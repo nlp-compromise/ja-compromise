@@ -12,11 +12,11 @@ import misc from './misc.js'
 //   SuruVerb: null,
 // }
 
-let lexicon = {}
+const lexicon = {}
 // surface-form → dictionary-form, so 食べました can report 食べる
-let roots = {}
+const roots = {}
 // weak entries (generated forms) never overwrite a strong one (a listed word)
-let strong = new Set()
+const strong = new Set()
 
 const add = function (word, tags, isStrong) {
   if (!word) {
@@ -29,7 +29,7 @@ const add = function (word, tags, isStrong) {
     // a word can be listed twice - 毎朝 is a #Date and a #Noun.  keep both,
     // and let the tagset sort out any that genuinely conflict
     if (strong.has(word)) {
-      let both = new Set([].concat(lexicon[word], tags))
+      const both = new Set([].concat(lexicon[word], tags))
       lexicon[word] = [...both]
       return
     }
@@ -43,12 +43,12 @@ const add = function (word, tags, isStrong) {
 const derived = ['Potential', 'Passive', 'Causative', 'CausativePassive']
 
 const addDerived = function (base, baseTags, dict) {
-  let forms = conjugateVerb(base, 'Ichidan')
+  const forms = conjugateVerb(base, 'Ichidan')
   if (!forms) {
     return
   }
   Object.keys(derivedForms).forEach(form => {
-    let str = forms[form]
+    const str = forms[form]
     if (str && str !== base) {
       add(str, ['Verb'].concat(baseTags, derivedForms[form]))
       if (roots[str] === undefined) {
@@ -60,12 +60,12 @@ const addDerived = function (base, baseTags, dict) {
 
 // expand a dictionary-form verb into every surface-form it can take
 const addVerb = function (dict, hint) {
-  let forms = conjugateVerb(dict, hint)
+  const forms = conjugateVerb(dict, hint)
   if (!forms) {
     return
   }
   Object.keys(verbForms).forEach(form => {
-    let str = forms[form]
+    const str = forms[form]
     if (!str || str === dict) {
       return
     }
@@ -80,10 +80,10 @@ const addVerb = function (dict, hint) {
     }
   })
   // 食べたい inflects like an adjective
-  let want = conjugateAdjective(forms.Desire)
+  const want = conjugateAdjective(forms.Desire)
   if (want) {
     Object.keys(desireForms).forEach(form => {
-      let str = want[form]
+      const str = want[form]
       if (str) {
         add(str, desireForms[form])
         if (roots[str] === undefined) {
@@ -101,10 +101,10 @@ const addVerb = function (dict, hint) {
 }
 
 const addAdjective = function (word) {
-  let forms = conjugateAdjective(word)
+  const forms = conjugateAdjective(word)
   if (forms) {
     Object.keys(adjForms).forEach(form => {
-      let str = forms[form]
+      const str = forms[form]
       if (str && str !== word) {
         add(str, adjForms[form])
         if (roots[str] === undefined) {
@@ -117,9 +117,9 @@ const addAdjective = function (word) {
 }
 
 const addNaAdjective = function (word) {
-  let forms = conjugateNaAdjective(word)
+  const forms = conjugateNaAdjective(word)
   Object.keys(naAdjForms).forEach(form => {
-    let str = forms[form]
+    const str = forms[form]
     if (str && str !== word) {
       add(str, naAdjForms[form])
     }

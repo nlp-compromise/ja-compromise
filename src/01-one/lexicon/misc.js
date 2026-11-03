@@ -1,5 +1,5 @@
 // hand-written entries. these win over every generated form.
-let lex = {
+const lex = {
   // ---- copula (だ/です) ----
   // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
   'だ': ['Copula', 'PresentTense'],

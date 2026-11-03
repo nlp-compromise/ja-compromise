@@ -15,14 +15,14 @@ const here = '[tagset] '
 const declared = new Set(Object.keys(nlp.model().one.tagSet))
 
 const check = function (t, label, tags) {
-  let missing = [...new Set(tags)].filter(tag => !declared.has(tag)).sort()
+  const missing = [...new Set(tags)].filter(tag => !declared.has(tag)).sort()
   t.deepEqual(missing, [], here + label + ' (' + new Set(tags).size + ' tags)')
 }
 
 test('every tag in the built lexicon is declared:', function (t) {
   let tags = []
   Object.keys(lexicon).forEach(w => {
-    let v = lexicon[w]
+    const v = lexicon[w]
     tags = tags.concat(typeof v === 'string' ? [v] : v)
   })
   check(t, 'lexicon', tags)
@@ -38,9 +38,9 @@ test('every tag in the data-tables is declared:', function (t) {
 })
 
 test('every tag the conjugator emits is declared:', function (t) {
-  let tables = { verbForms, adjForms, naAdjForms, desireForms }
+  const tables = { verbForms, adjForms, naAdjForms, desireForms }
   Object.keys(tables).forEach(name => {
-    let tags = Object.values(tables[name]).flat()
+    const tags = Object.values(tables[name]).flat()
     check(t, name, tags)
   })
   // derivedForms are combined with a voice tag before they're applied
@@ -51,7 +51,7 @@ test('every tag the conjugator emits is declared:', function (t) {
 })
 
 test('every tag a real document produces is declared:', function (t) {
-  let corpus = [
+  const corpus = [
     '1995年3月10日の午後3時に生まれました。',
     '本を五冊買って、2時間読んだ。',
     '田中さんは日本語がとても上手です。',
@@ -74,7 +74,7 @@ test('every tag a real document produces is declared:', function (t) {
 })
 
 test('the weekday tag resolves through the tagset:', function (t) {
-  let tags = nlp('水曜日です').json()[0].terms[0].tags
+  const tags = nlp('水曜日です').json()[0].terms[0].tags
   t.ok(tags.includes('WeekDay'), here + '水曜日 is a #WeekDay')
   t.ok(tags.includes('Date'), here + '..and inherits #Date')
   t.ok(tags.includes('Noun'), here + '..and inherits #Noun')

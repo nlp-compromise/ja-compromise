@@ -3,7 +3,7 @@ import nlp from './_lib.js'
 const here = '[deconjugate] '
 
 test('surface-form back to dictionary-form:', function (t) {
-  let arr = [
+  const arr = [
     ['書きました', '書く'], ['書いた', '書く'], ['書かない', '書く'], ['書いて', '書く'],
     ['読んでいる', '読む'], ['読ませる', '読む'], ['読まれた', '読む'],
     ['走って', '走る'], ['走らなかった', '走る'], ['走りながら', '走る'],
@@ -15,14 +15,14 @@ test('surface-form back to dictionary-form:', function (t) {
     ['話した', '話す'], ['出した', '出す'], ['貸します', '貸す'],
   ]
   arr.forEach(([str, want]) => {
-    let got = nlp.deconjugate(str)
+    const got = nlp.deconjugate(str)
     t.equal(got && got.root, want, here + str + ' → ' + want)
   })
   t.end()
 })
 
 test('.compute("root") reports dictionary-forms:', function (t) {
-  let arr = [
+  const arr = [
     ['映画を見ました。', '映画を見る。'],
     ['この本は高かった。', 'この本は高い。'],
     ['彼は走っている。', '彼は走る。'],
@@ -34,7 +34,7 @@ test('.compute("root") reports dictionary-forms:', function (t) {
 })
 
 test('a plain noun is its own root:', function (t) {
-  let doc = nlp('東京の天気').compute('root')
+  const doc = nlp('東京の天気').compute('root')
   t.deepEqual(doc.docs[0].map(o => o.root), ['東京', 'の', '天気'], here + 'nouns unchanged')
   t.end()
 })

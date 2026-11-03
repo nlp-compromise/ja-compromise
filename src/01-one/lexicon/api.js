@@ -43,7 +43,7 @@ const methods = {
   },
   /** walk a conjugated verb back to its dictionary-form */
   deconjugate: function (str) {
-    let found = deconjugate(str, isKnown)
+    const found = deconjugate(str, isKnown)
     if (!found) {
       return null
     }

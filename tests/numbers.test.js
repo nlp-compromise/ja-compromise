@@ -3,13 +3,13 @@ import nlp from './_lib.js'
 const here = '[numbers] '
 
 const tagsOf = (str, word) => {
-  let term = nlp(str).json()[0].terms.find(t => t.text === word)
+  const term = nlp(str).json()[0].terms.find(t => t.text === word)
   return term ? term.tags : []
 }
 const terms = (str) => nlp(str).json()[0].terms.map(t => t.text)
 
 test('parse japanese numerals:', function (t) {
-  let arr = [
+  const arr = [
     ['一', 1], ['十', 10], ['十一', 11], ['二十三', 23],
     ['百', 100], ['百五', 105], ['三百二十一', 321],
     ['千', 1000], ['千二百', 1200], ['二千二十四', 2024],
@@ -66,7 +66,7 @@ test('.get() reads the value:', function (t) {
 })
 
 test('.numbers(), .units() and .counters():', function (t) {
-  let doc = nlp('本を五冊買って、2時間読んだ。')
+  const doc = nlp('本を五冊買って、2時間読んだ。')
   // like english, .numbers() is the number itself - the counter is .units()
   t.deepEqual(doc.numbers().out('array'), ['五', '2'], here + '.numbers()')
   t.deepEqual(doc.numbers().units().out('array'), ['冊', '時間'], here + '.units()')
@@ -78,25 +78,25 @@ test('.numbers(), .units() and .counters():', function (t) {
 
 test('.toNumber() and .toText() rewrite the text:', function (t) {
   // english compromise: .get() reads, .toNumber()/.toText() rewrite
-  let arr = [
+  const arr = [
     ['本を二十三冊買った。', '本を23冊買った。'],
     ['五冊', '5冊'],
     ['千九百九十五年', '1995年'],
     ['三百二十一円', '321円'],
   ]
   arr.forEach(([from, want]) => {
-    let doc = nlp(from)
+    const doc = nlp(from)
     doc.numbers().toNumber()
     t.equal(doc.text(), want, here + from + ' → ' + want)
   })
   // ..and back the other way
-  let back = [
+  const back = [
     ['本を23冊買った。', '本を二十三冊買った。'],
     ['1995年', '千九百九十五年'],
     ['500000円', '五十万円'],
   ]
   back.forEach(([from, want]) => {
-    let doc = nlp(from)
+    const doc = nlp(from)
     doc.numbers().toText()
     t.equal(doc.text(), want, here + from + ' → ' + want)
   })
@@ -104,7 +104,7 @@ test('.toNumber() and .toText() rewrite the text:', function (t) {
 })
 
 test('write a number in kanji:', function (t) {
-  let arr = [
+  const arr = [
     [0, '〇'], [10, '十'], [23, '二十三'], [105, '百五'], [321, '三百二十一'],
     [1000, '千'], [1995, '千九百九十五'], [2024, '二千二十四'],
     // 10,000 keeps its 一, but 10 doesn't - it's 一万 and 十
@@ -118,7 +118,7 @@ test('write a number in kanji:', function (t) {
 })
 
 test('kanji and numerals round-trip:', function (t) {
-  let fails = []
+  const fails = []
   for (let n = 0; n <= 20000; n += 1) {
     if (nlp.toNumber(nlp.toKanji(n)) !== n) {
       fails.push(n)
@@ -134,19 +134,19 @@ test('kanji and numerals round-trip:', function (t) {
 })
 
 test('arithmetic keeps the script it found:', function (t) {
-  let doc = nlp('本を五冊買った')
+  const doc = nlp('本を五冊買った')
   doc.numbers().add(10)
   t.equal(doc.text(), '本を十五冊買った', here + 'kanji stays kanji')
 
-  let d2 = nlp('23人')
+  const d2 = nlp('23人')
   d2.numbers().subtract(2)
   t.equal(d2.text(), '21人', here + 'digits stay digits')
 
-  let d3 = nlp('２３冊')
+  const d3 = nlp('２３冊')
   d3.numbers().increment()
   t.equal(d3.text(), '２４冊', here + 'full-width stays full-width')
 
-  let d4 = nlp('千二百三十四円')
+  const d4 = nlp('千二百三十四円')
   d4.numbers().toLocaleString()
   t.equal(d4.text(), '1,234円', here + '.toLocaleString()')
   t.end()

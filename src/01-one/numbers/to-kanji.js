@@ -14,8 +14,8 @@ const large = [['京', 1e16], ['兆', 1e12], ['億', 1e8], ['万', 1e4]]
 const toGroup = function (n) {
   let out = ''
   for (let i = 0; i < small.length; i += 1) {
-    let [kanji, power] = small[i]
-    let d = Math.floor(n / power)
+    const [kanji, power] = small[i]
+    const d = Math.floor(n / power)
     if (d === 0) {
       continue
     }
@@ -40,8 +40,8 @@ const toKanji = function (num) {
   }
   let out = ''
   for (let i = 0; i < large.length; i += 1) {
-    let [kanji, power] = large[i]
-    let chunk = Math.floor(num / power)
+    const [kanji, power] = large[i]
+    const chunk = Math.floor(num / power)
     if (chunk === 0) {
       continue
     }
@@ -55,7 +55,7 @@ const toKanji = function (num) {
 // 23 → '23',  using the same width of digit the source used
 const fullWidth = '０１２３４５６７８９'
 const toDigits = function (num, wide) {
-  let str = String(num)
+  const str = String(num)
   if (!wide) {
     return str
   }

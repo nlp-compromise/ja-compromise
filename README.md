@@ -452,3 +452,7 @@ npm watch
 * [fugashi](https://github.com/polm/fugashi) - Cython wrapper for MeCab, by [Paul O'Leary McCann](https://www.dampfkraft.com/)
 * [janome](https://mocobeta.github.io/janome/en/) - python tokenizer/tagger, by Tomoko Uchida
 * [sudachi](https://github.com/WorksApplications/Sudachi) - tokenizer/tagger, by Arseny Tolmachev
+
+### TypeScript
+
+Both ESM imports and CommonJS `import = require()` are supported. CommonJS typings require TypeScript 5.3 or newer.

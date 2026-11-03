@@ -20,9 +20,9 @@ const getPunct = function (str) {
 }
 
 const tokenize = function (txt, isChunk) {
-  let terms = []
+  const terms = []
   toTerms(txt, isChunk).forEach(str => {
-    let { pre, post, inside } = getPunct(str)
+    const { pre, post, inside } = getPunct(str)
     if (inside === '') {
       // punctuation-only - fold it into the term before it
       if (terms.length > 0) {

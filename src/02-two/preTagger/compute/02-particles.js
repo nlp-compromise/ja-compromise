@@ -21,10 +21,10 @@ const verbBefore = new Set(['て', 'ば', 'たら', 'ながら', 'ので', 'の�
 
 const tagParticles = function (terms, setTag, world) {
   for (let i = 0; i < terms.length; i += 1) {
-    let t = terms[i]
-    let prev = terms[i - 1]
-    let next = terms[i + 1]
-    let str = t.text
+    const t = terms[i]
+    const prev = terms[i - 1]
+    const next = terms[i + 1]
+    const str = t.text
 
     // な before a noun is the adnominal copula (静かな人), not a final particle
     if (str === 'な' && next && !next.tags.has('Verb')) {

@@ -4,10 +4,10 @@ const here = '[tag] '
 
 // assert an exact per-token tag, rather than 'the sentence matched somehow'
 const check = function (t, str, pairs) {
-  let doc = nlp(str)
-  let terms = doc.json()[0].terms
+  const doc = nlp(str)
+  const terms = doc.json()[0].terms
   pairs.forEach(([word, tag]) => {
-    let term = terms.find(o => o.text === word)
+    const term = terms.find(o => o.text === word)
     if (!term) {
       t.fail(here + `'${word}' not a term of '${str}' (got ${terms.map(o => o.text).join('/')})`)
       return
@@ -93,7 +93,7 @@ test('suru-verbs:', function (t) {
 })
 
 test('no term is left untagged:', function (t) {
-  let arr = [
+  const arr = [
     '私は毎朝コーヒーを飲みます。',
     '昨日、友達と映画を見に行った。',
     'この問題はとても難しいですね。',
