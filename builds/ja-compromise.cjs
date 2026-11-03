@@ -12286,81 +12286,102 @@
 
   var nouns = {
     Noun: {
+      aliases: [null, '名詞'],
       not: ['Verb', 'Adjective', 'Adverb', 'Value', 'Determiner'],
     },
 
     Topic: {
+      aliases: [null, '主題'],
       is: 'Noun',
     },
     Object: {
+      aliases: [null, '目的語'],
       is: 'Noun',
     },
     Singular: {
+      aliases: [null, '単数'],
       is: 'Noun',
       not: ['Plural'],
     },
     ProperNoun: {
+      aliases: [null, '固有名詞'],
       is: 'Noun',
     },
     Person: {
+      aliases: [null, '人名'],
       is: 'Singular',
       also: ['ProperNoun'],
       not: ['Place', 'Organization', 'Date'],
     },
     FirstName: {
+      aliases: [null, '名'],
       is: 'Person',
     },
     MaleName: {
+      aliases: [null, '男性名'],
       is: 'FirstName',
       not: ['FemaleName', 'LastName'],
     },
     FemaleName: {
+      aliases: [null, '女性名'],
       is: 'FirstName',
       not: ['MaleName', 'LastName'],
     },
     LastName: {
+      aliases: [null, '名字'],
       is: 'Person',
       not: ['FirstName'],
     },
     Honorific: {
+      aliases: [null, '敬称'],
       is: 'Noun',
       not: ['FirstName', 'LastName', 'Value'],
     },
     Place: {
+      aliases: [null, '地名'],
       is: 'Singular',
       not: ['Person', 'Organization'],
     },
     Country: {
+      aliases: [null, '国名'],
       is: 'Place',
       also: ['ProperNoun'],
       not: ['City'],
     },
     City: {
+      aliases: [null, '都市名'],
       is: 'Place',
       also: ['ProperNoun'],
       not: ['Country'],
     },
     Region: {
+      aliases: [null, '地域名'],
       is: 'Place',
       also: ['ProperNoun'],
     },
     Address: {
+      aliases: [null, '住所'],
       // is: 'Place',
     },
     Organization: {
+      aliases: [null, '組織名'],
       is: 'ProperNoun',
       not: ['Person', 'Place'],
     },
     SportsTeam: {
+      aliases: [null, 'スポーツチーム'],
       is: 'Organization',
     },
     School: {
+      aliases: [null, '学校名'],
       is: 'Organization',
     },
     Company: {
+      aliases: [null, '会社名'],
       is: 'Organization',
     },
     Plural: {
+      aliases: [null, '複数'],
       is: 'Noun',
       not: ['Singular'],
     },
@@ -12368,6 +12389,7 @@
       is: 'Noun',
     },
     Pronoun: {
+      aliases: [null, '代名詞'],
       is: 'Noun',
       not: entity,
     },
@@ -12376,10 +12398,12 @@
       not: entity,
     },
     Activity: {
+      aliases: [null, '活動'],
       is: 'Noun',
       not: ['Person', 'Place'],
     },
     Unit: {
+      aliases: [null, '単位'],
       is: 'Noun',
       not: entity,
     },
@@ -12389,16 +12413,22 @@
       not: entity,
     },
     Possessive: {
+      aliases: [null, '所有格'],
       is: 'Noun',
     },
     // こそあど - これ, その, どこ
-    Demonstrative: {},
+    Demonstrative: {
+      aliases: [null, '指示詞'],
+    },
     // 形式名詞 - こと, もの, ため: grammatical, but still nouns
     FormalNoun: {
+      aliases: [null, '形式名詞'],
       is: 'Noun',
     },
     // さん, 様, 先生
-    PluralSuffix: {},
+    PluralSuffix: {
+      aliases: [null, '複数接尾辞'],
+    },
     // german genders
     MaleNoun: {
       is: 'Noun',
@@ -12416,36 +12446,47 @@
 
   var verbs$1 = {
     Verb: {
+      aliases: [null, '動詞'],
       not: ['Noun', 'Adjective', 'Adverb', 'Value', 'Expression'],
     },
     ConditionalVerb: {
+      aliases: [null, '条件形'],
       is: 'Verb',
     },
     Passive: {
+      aliases: [null, '受身'],
       is: 'Verb',
     },
     Causative: {
+      aliases: [null, '使役'],
       is: 'Verb',
     },
     // tense is a facet, not a class: japanese adjectives carry it too
     // (高かった is a past-tense *adjective*), so these must not imply #Verb
     PresentTense: {
+      aliases: [null, '現在形'],
       not: ['PastTense'],
     },
     Infinitive: {
+      aliases: [null, '辞書形'],
       is: 'Verb',
       not: ['Gerund'],
     },
     Imperative: {
+      aliases: [null, '命令形'],
       is: 'Verb',
     },
     // the て-form takes its tense from the helper verb that follows it
     // (読んで いました), so it must not fight with #PastTense
-    Gerund: {},
+    Gerund: {
+      aliases: [null, 'て形'],
+    },
     PastTense: {
+      aliases: [null, '過去形'],
       not: ['PresentTense'],
     },
     Copula: {
+      aliases: [null, 'コピュラ'],
       is: 'Verb',
     },
     Modal: {
@@ -12470,68 +12511,89 @@
       not: ['PastTense', 'PresentTense', 'Copula', 'Gerund'],
     },
     Auxiliary: {
+      aliases: [null, '助動詞'],
       is: 'Verb',
       not: ['Conjunction'],
     },
     // japanese stacks these onto a single word, so they're facets, not classes
     Negative: {
+      aliases: [null, '否定'],
       not: ['Noun', 'Value'],
     },
-    Polite: {},
+    Polite: {
+      aliases: [null, '丁寧'],
+    },
     Volitional: {
+      aliases: [null, '意向形'],
       is: 'Verb',
     },
     Potential: {
+      aliases: [null, '可能形'],
       is: 'Verb',
     },
     Progressive: {
+      aliases: [null, '進行形'],
       is: 'Verb',
     },
     Desire: {
+      aliases: [null, '願望'],
       is: 'Verb',
     },
     Representative: {
+      aliases: [null, 'たり形'],
       is: 'Verb',
     },
-    Presumptive: {},
+    Presumptive: {
+      aliases: [null, '推量'],
+    },
     Continuative: {
+      aliases: [null, 'ながら形'],
       is: 'Verb',
     },
     // 連用形 - the 'masu-stem'.  it heads a verb-phrase (泳ぎます) but stands
     // alone as a noun too - 泳ぎ is 'a swim'
     VerbStem: {
+      aliases: [null, '連用形'],
       is: 'Noun',
     },
     // 勉強, which is a noun until it meets する
     SuruVerb: {
+      aliases: [null, 'サ変名詞'],
       is: 'Noun',
     },
   };
 
   var values = {
     Value: {
+      aliases: [null, '数'],
       not: ['Verb', 'Adjective', 'Adverb'],
     },
     Ordinal: {
+      aliases: [null, '序数'],
       is: 'Value',
       not: ['Cardinal'],
     },
     Cardinal: {
+      aliases: [null, '基数'],
       is: 'Value',
       not: ['Ordinal'],
     },
     Fraction: {
+      aliases: [null, '分数'],
       is: 'Value',
       not: ['Noun'],
     },
     Multiple: {
+      aliases: [null, '倍数'],
       is: 'Value',
     },
     RomanNumeral: {
+      aliases: [null, 'ローマ数字'],
       is: 'Cardinal',
       not: ['TextValue'],
     },
     TextValue: {
+      aliases: [null, '数詞'],
       is: 'Value',
       not: ['NumericValue'],
     },
@@ -12545,93 +12607,115 @@
     },
 
     NumericValue: {
+      aliases: [null, '数値'],
       is: 'Value',
       not: ['TextValue'],
     },
     Money: {
+      aliases: [null, '金額'],
       is: 'Cardinal',
     },
     // 助数詞 - the counter after a number.  japanese can't count a noun
     // directly: it's 本を三冊, never 三本
     Counter: {
+      aliases: [null, '助数詞'],
       is: 'Noun',
       not: ['Verb', 'Adjective', 'Adverb'],
     },
     // 時, 分, 秒 - a point on the clock
     TimeCounter: {
+      aliases: [null, '時刻助数詞'],
       is: 'Counter',
     },
     // 時間, 週間, ヶ月 - a span of time
     DurationCounter: {
+      aliases: [null, '期間助数詞'],
       is: 'Counter',
       also: ['Duration'],
     },
     // 年, 月, 日 - a date *or* a duration, depending on context
     DateCounter: {
+      aliases: [null, '日付助数詞'],
       is: 'Counter',
     },
     // the number and its counter, together - 三冊, 2時間
-    NumberPhrase: {},
+    NumberPhrase: {
+      aliases: [null, '数量表現'],
+    },
     Percent: {
+      aliases: [null, 'パーセント'],
       is: 'Value',
     },
   };
 
   var dates = {
     Date: {
+      aliases: [null, '日付'],
       not: ['Verb', 'Adverb', 'Adjective'],
     },
     // 3月 - the number keeps its #Value, so Month can't inherit from #Singular
     // the way the english tagset does (#Noun and #Value are exclusive)
     Month: {
+      aliases: [null, '月'],
       is: 'Date',
       not: ['Year', 'WeekDay', 'Time'],
     },
     WeekDay: {
+      aliases: [null, '曜日'],
       is: 'Noun',
       also: ['Date'],
     },
     Year: {
+      aliases: [null, '年'],
       is: 'Date',
       not: ['RomanNumeral'],
     },
     FinancialQuarter: {
+      aliases: [null, '四半期'],
       is: 'Date',
       not: 'Fraction',
     },
     // 'easter'
     Holiday: {
+      aliases: [null, '祝日'],
       is: 'Date',
       also: ['Noun'],
     },
     // 'summer'
     Season: {
+      aliases: [null, '季節'],
       is: 'Date',
     },
     Timezone: {
+      aliases: [null, 'タイムゾーン'],
       is: 'Noun',
       also: ['Date'],
       not: ['ProperNoun'],
     },
     Time: {
+      aliases: [null, '時刻'],
       is: 'Date',
       not: ['AtMention'],
     },
     // 'months'
     Duration: {
+      aliases: [null, '期間'],
       is: 'Noun',
       also: ['Date'],
     },
     // 十日 - the day-of-the-month
     Day: {
+      aliases: [null, '日'],
       is: 'Date',
     },
     // 令和, 平成, 昭和 - the japanese regnal eras
     Era: {
+      aliases: [null, '元号'],
       is: 'Date',
     },
     // 午前 / 午後
     AmPm: {
+      aliases: [null, '午前午後'],
       is: 'Time',
     },
   };
@@ -12641,12 +12725,15 @@
   var misc = {
     // japanese scripts as tags
     Hiragana: {
+      aliases: [null, 'ひらがな'],
       not: ['Katakana', 'Kanji', 'Ascii']
     },
     Kanji: {
+      aliases: [null, '漢字'],
       not: ['Hiragana', 'Katakana', 'Ascii']
     },
     Katakana: {
+      aliases: [null, 'カタカナ'],
       not: ['Hiragana', 'Kanji', 'Ascii']
     },
     Ascii: {
@@ -12654,76 +12741,102 @@
     },
 
     Adjective: {
+      aliases: [null, '形容詞'],
       not: ['Noun', 'Verb', 'Adverb', 'Value'],
     },
     // 形容詞 - conjugates by itself: 高い → 高くない → 高かった
     IAdjective: {
+      aliases: [null, 'イ形容詞'],
       is: 'Adjective',
     },
     // 形容動詞 - needs the copula: 静か → 静かだ → 静かな
     NaAdjective: {
+      aliases: [null, 'ナ形容詞', '形容動詞'],
       is: 'Adjective',
     },
     // 連体詞 - only ever modifies a noun: 大きな, この
-    Adnominal: {},
+    Adnominal: {
+      aliases: [null, '連体詞'],
+    },
     Comparable: {
       is: 'Adjective',
     },
     Comparative: {
+      aliases: [null, '比較級'],
       is: 'Adjective',
     },
     Superlative: {
+      aliases: [null, '最上級'],
       is: 'Adjective',
       not: ['Comparative'],
     },
-    NumberRange: {},
+    NumberRange: {
+      aliases: [null, '数値範囲'],
+    },
     Adverb: {
+      aliases: [null, '副詞'],
       not: ['Noun', 'Verb', 'Adjective', 'Value'],
     },
 
     Determiner: {
+      aliases: [null, '限定詞'],
       not: ['Noun', 'Verb', 'Adjective', 'Adverb', 'QuestionWord', 'Conjunction'], //allow 'a' to be a Determiner/Value
     },
     Conjunction: {
+      aliases: [null, '接続詞'],
       not: anything,
     },
     Preposition: {
       not: ['Noun', 'Verb', 'Adjective', 'Adverb', 'QuestionWord'],
     },
     QuestionWord: {
+      aliases: [null, '疑問詞'],
       not: ['Determiner'],
     },
     Currency: {
+      aliases: [null, '通貨'],
       is: 'Noun',
     },
     Expression: {
+      aliases: [null, '感動詞'],
       not: ['Noun', 'Adjective', 'Verb', 'Adverb'],
     },
-    Abbreviation: {},
+    Abbreviation: {
+      aliases: [null, '略語'],
+    },
     Url: {
       not: ['HashTag', 'PhoneNumber', 'Verb', 'Adjective', 'Value', 'AtMention', 'Email'],
     },
     PhoneNumber: {
+      aliases: [null, '電話番号'],
       not: ['HashTag', 'Verb', 'Adjective', 'Value', 'AtMention', 'Email'],
     },
-    HashTag: {},
+    HashTag: {
+      aliases: [null, 'ハッシュタグ'],
+    },
     AtMention: {
+      aliases: [null, 'メンション'],
       is: 'Noun',
       not: ['HashTag', 'Email'],
     },
     Emoji: {
+      aliases: [null, '絵文字'],
       not: ['HashTag', 'Verb', 'Adjective', 'Value', 'AtMention'],
     },
     Emoticon: {
+      aliases: [null, '顔文字'],
       not: ['HashTag', 'Verb', 'Adjective', 'Value', 'AtMention'],
     },
     Email: {
+      aliases: [null, 'メール'],
       not: ['HashTag', 'Verb', 'Adjective', 'Value', 'AtMention'],
     },
     Acronym: {
+      aliases: [null, '頭字語'],
       not: ['Plural', 'RomanNumeral'],
     },
     Condition: {
+      aliases: [null, '条件'],
       not: ['Verb', 'Adjective', 'Noun', 'Value'],
     },
   };
@@ -12734,45 +12847,53 @@
   // depend on it, so the case-marking particles keep that as a parent tag.
   var particles = {
     Particle: {
+      aliases: [null, '助詞'],
       not: ['Noun', 'Verb', 'Adjective', 'Adverb', 'Value'],
     },
     // 格助詞 - が を に へ で と から より まで
     CaseParticle: {
+      aliases: [null, '格助詞'],
       is: 'Particle',
       not: ['TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
       also: ['Preposition'],
     },
     // 係助詞 - は も こそ さえ しか
     TopicParticle: {
+      aliases: [null, '係助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
       also: ['Preposition'],
     },
     // 副助詞 - だけ ばかり ほど くらい など
     AdverbialParticle: {
+      aliases: [null, '副助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'TopicParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
       also: ['Preposition'],
     },
     // 接続助詞 - て ば たら ながら ので のに けれど
     ConjunctiveParticle: {
+      aliases: [null, '接続助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'SentenceParticle', 'AdnominalParticle', 'QuotativeParticle'],
       also: ['Conjunction'],
     },
     // 終助詞 - か ね よ な わ ぞ ぜ
     SentenceParticle: {
+      aliases: [null, '終助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'AdnominalParticle', 'QuotativeParticle'],
     },
     // の - possessive and nominalizer
     AdnominalParticle: {
+      aliases: [null, '連体助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'QuotativeParticle'],
       also: ['Preposition'],
     },
     // と, when it introduces a quote
     QuotativeParticle: {
+      aliases: [null, '引用助詞'],
       is: 'Particle',
       not: ['CaseParticle', 'TopicParticle', 'AdverbialParticle', 'ConjunctiveParticle', 'SentenceParticle', 'AdnominalParticle'],
       also: ['Conjunction'],
@@ -13431,7 +13552,7 @@
     hooks: ['preTagger'],
   };
 
-  var version = '0.1.0';
+  var version = '0.2.0';
 
   // a number → 漢数字.
   //

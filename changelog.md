@@ -1,11 +1,9 @@
-<!-- ja-compromise changelog -->
-
 ### 0.2.0 [Nov 2026]
 
 - **[update]** - smaller suffix-thumb format
 - **[fix]** - opening brackets 「『（ attach to the word after them, not the word before - 彼は「はい」 was tokenized as は「
 - **[change]** - drop the isSentence override - compromise handles japanese sentence-ends itself
-- **[update]** - compromise 14.16.0
+- **[new]** - support localized tag names
 - **[update]** - dependencies
 
 ### 0.1.0 [Aug 2023]
