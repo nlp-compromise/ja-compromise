@@ -1,15 +1,12 @@
-import counters from '../../../../lexicon/counters.js'
+import counters from '../../../../data/lexicon/counters.js'
 import toNumber, { isNumeral } from '../../../01-one/numbers/kanji-number.js'
 
 const reason = 'number'
 
-const allNumeral = function (str) {
-  for (let i = 0; i < str.length; i += 1) {
-    if (!isNumeral(str[i])) {
-      return false
-    }
-  }
-  return str.length > 0
+// 二十三, 23, and a decimal the tokenizer has already joined - 1.5, 一・五.
+// a number always starts with a numeral, so 「点」 on its own is never one
+const isNumber = function (str) {
+  return str.length > 0 && isNumeral(str[0]) && toNumber(str) !== null
 }
 
 // 一つ, 二つ - the native numerals fuse with their counter
@@ -35,7 +32,7 @@ const tagNumbers = function (terms, setTag, world) {
       value = nativeValue[str]
     } else if (nativeNumeral.test(str)) {
       value = toNumber(str.slice(0, -1))
-    } else if (allNumeral(str)) {
+    } else if (isNumber(str)) {
       value = toNumber(str)
     }
     // 何人, 何冊 - 'how many' takes a counter exactly like a number does,

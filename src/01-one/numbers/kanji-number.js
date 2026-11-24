@@ -23,8 +23,8 @@ const isNumeral = function (c) {
   return digits[c] !== undefined || small[c] !== undefined || large[c] !== undefined
 }
 
-/** parse a japanese numeral - returns null if the string isn't one */
-const toNumber = function (str) {
+// a whole number - 二十三, 23, ２３
+const toInteger = function (str) {
   if (!str) {
     return null
   }
@@ -65,5 +65,40 @@ const toNumber = function (str) {
   return total + section + current
 }
 
+// the marks that can sit between a number and its decimals -
+// 1.5, １．５, 一・五, and 一点五 as it's read aloud
+const isDecimalPoint = (c) => c === '.' || c === '．' || c === '・' || c === '点'
+
+// the decimals are read out digit-by-digit - 〇・二五, never 〇・二十五
+const isDigits = function (str) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (digits[str[i]] === undefined) {
+      return false
+    }
+  }
+  return str.length > 0
+}
+
+/** parse a japanese numeral - returns null if the string isn't one */
+const toNumber = function (str) {
+  if (!str || typeof str !== 'string') {
+    return null
+  }
+  // 一・五 - a whole number, one decimal point, then plain digits
+  for (let i = 0; i < str.length; i += 1) {
+    if (!isDecimalPoint(str[i])) {
+      continue
+    }
+    const whole = toInteger(str.slice(0, i))
+    const decimals = str.slice(i + 1)
+    if (whole === null || !isDigits(decimals)) {
+      return null
+    }
+    // build it from a string, so 〇・一 is 0.1 and not 0.1000000001
+    return Number(whole + '.' + decimals.split('').map(c => digits[c]).join(''))
+  }
+  return toInteger(str)
+}
+
 export default toNumber
-export { isNumeral, digits, small, large }
+export { isNumeral, isDecimalPoint, isDigits, digits, small, large }

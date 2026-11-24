@@ -1,4 +1,4 @@
-import { roots } from '../../lexicon/lexicon.js'
+import lexicon, { roots } from '../../lexicon/lexicon.js'
 import { deconjugate } from '../../conjugate/index.js'
 
 const isKnown = (w) => lexicon.hasOwnProperty(w)

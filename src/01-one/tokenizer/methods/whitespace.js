@@ -1,6 +1,6 @@
 import toTerms from './terms.js'
 const before = /^[\s「『（(〽【〔《〈]+/
-const after = /[\s、。，．：；・」』）)…〜~】〕》〉\.?!？！]+$/
+const after = /[\s、。，．：；・」』）)…〜~】〕》〉.?!？！]+$/
 
 const getPunct = function (str) {
   let pre = ''

@@ -174,5 +174,5 @@ const deconjugate = function (str, isKnown) {
 }
 
 export default deconjugate
-// exported so tests/tagset.test.js can check these tags are declared
+// exported so tests/unit/tagger/tagset.test.js can check these tags are declared
 export { suffixes }

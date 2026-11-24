@@ -1,170 +1,234 @@
-import type {
-  Document, Pointer, Groups, JsonProps, outMethods, Term, Net,
-  Lexicon, Plugin, matchOptions, Match,
-} from './misc.js'
-import type {
-  VerbClass, VerbConjugation, IAdjectiveConjugation, NaAdjectiveConjugation,
-  Deconjugation, NumberParse,
-} from './japanese.js'
+import type View from 'compromise/view/one'
+import type { Lexicon, Plugin, matchOptions, Match, Net, Term } from 'compromise/misc'
 
-/** a view onto some part of a parsed document */
-declare class View {
-  // ---- utils ----
-  /** is this document empty? */
-  found: boolean
+/** which paradigm a verb follows */
+export type VerbClass =
+  | 'godan'    // 五段 - 書く, 話す, 帰る
+  | 'ichidan'  // 一段 - 食べる, 見る
+  | 'suru'     // する, and every 〜する compound
+  | 'kuru'     // 来る, and て-form + 来る
+  | 'aru'      // ある - its negative is ない, not あらない
+  | 'iku'      // 行く - its て-form is 行って, not 行いて
+  | 'ou'       // 問う, 請う - 問うて, not 問って
+  | 'aru5'     // くださる, なさる, いらっしゃる - masu-stem drops the り
+
+/** every form of a verb, built from its dictionary-form */
+export interface VerbConjugation {
+  /** which paradigm produced these */
+  class: VerbClass
+  /** 辞書形 - 書く */
+  Infinitive: string
+  /** 連用形, the 'masu-stem' - 書き */
+  Stem: string
+  /** 書く */
+  PresentTense: string
+  /** 書いた */
+  PastTense: string
+  /** 書かない */
+  Negative: string
+  /** 書かなかった */
+  PastNegative: string
+  /** て形 - 書いて */
+  Gerund: string
+  /** 書かなくて */
+  NegativeGerund: string
+  /** 書きます */
+  Polite: string
+  /** 書きました */
+  PolitePast: string
+  /** 書きません */
+  PoliteNegative: string
+  /** 書きませんでした */
+  PolitePastNegative: string
+  /** 書きましょう */
+  PoliteVolitional: string
+  /** 命令形 - 書け */
+  Imperative: string
+  /** 書くな */
+  NegativeImperative: string
+  /** 書いてください */
+  PoliteImperative: string
+  /** 書こう */
+  Volitional: string
+  /** 可能形 - 書ける */
+  Potential: string
+  /** 受身形 - 書かれる */
+  Passive: string
+  /** 使役形 - 書かせる */
+  Causative: string
+  /** 書かせられる */
+  CausativePassive: string
+  /** 〜たら - 書いたら */
+  Conditional: string
+  /** 〜ば - 書けば */
+  Provisional: string
+  /** 書いている */
+  Progressive: string
+  /** 書いています */
+  ProgressivePolite: string
+  /** 書いていた */
+  PastProgressive: string
+  /** 書きたい */
+  Desire: string
+  /** 〜たり - 書いたり */
+  Representative: string
+  /** 書くだろう */
+  Presumptive: string
+  /** 書きながら */
+  Continuative: string
+}
+
+/** every form of an い-adjective */
+export interface IAdjectiveConjugation {
+  /** 高い */
+  Infinitive: string
+  PresentTense: string
+  /** 高くない */
+  Negative: string
+  /** 高かった */
+  PastTense: string
+  /** 高くなかった */
+  PastNegative: string
+  /** 高くて */
+  Gerund: string
+  /** 高く */
+  Adverb: string
+  /** 高ければ */
+  Provisional: string
+  /** 高かろう */
+  Presumptive: string
+  /** 高いです */
+  Polite: string
+  /** 高かったです */
+  PolitePast: string
+  /** 高くないです */
+  PoliteNegative: string
+  /** 高すぎる */
+  Superlative: string
+  /** 高そう */
+  Impression: string
+  /** 高さ */
+  Nominal: string
+}
+
+/** every form of a な-adjective. it inflects with the copula */
+export interface NaAdjectiveConjugation {
+  /** 静か */
+  Infinitive: string
+  /** 静かな */
+  Adnominal: string
+  /** 静かだ */
+  PresentTense: string
+  /** 静かじゃない */
+  Negative: string
+  /** 静かだった */
+  PastTense: string
+  /** 静かじゃなかった */
+  PastNegative: string
+  /** 静かで */
+  Gerund: string
+  /** 静かに */
+  Adverb: string
+  /** 静かです */
+  Polite: string
+  /** 静かでした */
+  PolitePast: string
+  /** 静かじゃありません */
+  PoliteNegative: string
+  /** 静かなら */
+  Provisional: string
+}
+
+/** the result of walking a conjugated verb back to its dictionary-form */
+export interface Deconjugation {
+  /** the dictionary-form - 書きました → 書く */
+  root: string
+  /** what the ending told us - ['Verb', 'PastTense', 'Polite'] */
+  tags: string[]
+  /** every dictionary-form the ending could have come from */
+  candidates: string[]
+  /** true when no candidate could be confirmed, and `root` is a guess */
+  guess?: boolean
+}
+
+/** what `.numbers().parse()` reports about a number */
+export interface NumberParse {
+  /** the value, or null if it couldn't be read */
+  num: number | null
+  /** the term the number was read from, if there was one */
+  term?: JaTerm
+  /** written in kanji (二十三) rather than digits */
+  kanji: boolean
+  /** written in full-width digits (２３) */
+  wide: boolean
+}
+
+/** a compromise term, with the properties ja-compromise adds to it */
+export interface JaTerm extends Term {
+  /** the dictionary-form, after `.compute('root')` - 食べました → 食べる */
+  root?: string
+  /** latin-alphabet spelling, after `.compute('romanji')` */
+  romanji?: string
+  /** kana spelling of the word's kanji, after `.compute('readings')` */
+  reading?: string
+  /** an english gloss of the word, after `.compute('english')` */
+  english?: string
+  /** the parsed value of a numeral - 「二十三」 gives 23 */
+  number?: number
+}
+
+/** options for nlp.fromSpec() */
+export interface SpecOptions {
+  tags?: 'ignore' | 'use'
+  failures?: 'ignore' | 'throw' | 'retain' | 'log'
+  verbose?: boolean
+}
+
+/** a failed line in a tagging spec */
+export interface SpecFailure {
+  code: 'length' | 'tags' | 'syntax' | 'match'
+  line: number
+  text: string
+  message: string
+  term?: number
+  word?: string
+  expected?: string[] | number
+  actual?: string[] | number
+}
+
+/** a compromise document, with japanese-specific methods */
+export interface JaView extends View {
   /** the term objects in this view */
-  docs: Document
+  docs: JaTerm[][]
   /** the whole parsed document */
-  document: Document
-  /** the indexes for the current view */
-  pointer: Pointer[] | null
-  /** explicit indexes for the current view */
-  fullPointer: Pointer[]
-  /** internal library methods */
-  methods: object
-  /** internal library data */
-  model: object
-  /** which compute methods run by default */
-  hooks: string[]
-  /** helper for detecting a compromise object */
-  isView: boolean
-  /** the number of characters in each match */
-  length: number
-
-  update: (pointer: Pointer | null) => View
-  toView: (pointer: Pointer | null) => View
-  fromText: (text: string) => View
+  document: JaTerm[][]
   /** .docs [alias] */
-  termList: () => Term[]
+  termList: () => JaTerm[]
   /** run a named analysis - 'root', 'romanji', 'readings', 'english' */
-  compute: (method: string | string[]) => View
-  /** deep-copy the document, so no references remain */
-  clone: (shallow?: boolean) => View
-
-  // ---- loops ----
-  forEach: (fn: (m: View) => void) => View
-  map: (fn: (m: View) => any, emptyResult?: any) => View | []
-  filter: (fn: (m: View) => boolean) => View
-  find: (fn: (m: View) => boolean) => View | undefined
-  some: (fn: (m: View) => boolean) => View
-  random: (n?: number) => View
-
-  // ---- accessors ----
-  terms: (n?: number) => View
-  groups: (name?: string) => View | Groups
-  eq: (n: number) => View
-  first: (n?: number) => View
-  last: (n?: number) => View
-  firstTerms: () => View
-  lastTerms: () => View
-  slice: (start: number, end?: number) => View
-  all: () => View
-  fullSentences: () => View
-  none: () => View
-  isDoc: (view?: View) => boolean
-  wordCount: () => number
-
-  // ---- match ----
-  match: (match: string | View | Net, group?: string | number, options?: matchOptions) => View
-  matchOne: (match: string | View | Net, group?: string | number, options?: matchOptions) => View
-  has: (match: string | View | Net, group?: string | number, options?: matchOptions) => boolean
-  if: (match: string | View | Net, group?: string | number, options?: matchOptions) => View
-  ifNo: (match: string | View | Net, group?: string | number, options?: matchOptions) => View
-  before: (match: string | View, group?: string | number, options?: matchOptions) => View
-  after: (match: string | View, group?: string | number, options?: matchOptions) => View
-  growLeft: (match: string | View, group?: string | number, options?: matchOptions) => View
-  growRight: (match: string | View, group?: string | number, options?: matchOptions) => View
-  grow: (match: string | View, group?: string | number, options?: matchOptions) => View
-  sweep: (match: Net, opts?: object) => { view: View; found: object[] }
-  splitOn: (match?: string, group?: string | number) => View
-  splitBefore: (match?: string, group?: string | number) => View
-  splitAfter: (match?: string, group?: string | number) => View
-  split: (match?: string, group?: string | number) => View
-
-  // ---- case ----
-  toLowerCase: () => View
-  toUpperCase: () => View
-  toTitleCase: () => View
-  toCamelCase: () => View
-
-  // ---- insert ----
-  concat: (input: string | View) => View
-  insertBefore: (input: string | View) => View
-  prepend: (input: string | View) => View
-  insertAfter: (text: string | View) => View
-  append: (text: string | View) => View
-  insert: (text: string | View) => View
-  remove: (match?: string | View) => View
-  delete: (match?: string | View) => View
-  replace: (from: string | View, to?: string | Function, keep?: object) => View
-  replaceWith: (to: string | Function, keep?: object) => View
-  unique: () => View
-  reverse: () => View
-  sort: (method?: string | Function) => View
-
-  // ---- whitespace ----
-  pre: (str?: string, concat?: boolean) => View
-  post: (str?: string, concat?: boolean) => View
-  trim: () => View
-  hyphenate: () => View
-  dehyphenate: () => View
-  deHyphenate: () => View
-  toQuotations: (start?: string, end?: string) => View
-  toQuotation: (start?: string, end?: string) => View
-  toParentheses: (start?: string, end?: string) => View
-
-  // ---- output ----
+  compute: (method: string | string[], options?: any) => JaView
   /** the document as text. `'root'` gives dictionary-forms */
   text: (options?: string | object) => string
-  json: (options?: JsonProps | string) => any
-  /** pretty-print the document and its tags to the console */
-  debug: () => View
-  out: (format?: outMethods) => any
-  html: (toHighlight: object) => string
-  wrap: (matches: object) => string
 
-  // ---- pointers ----
-  union: (match: string | View) => View
-  and: (match: string | View) => View
-  intersection: (match: string | View) => View
-  not: (match: string | View, options?: any) => View
-  difference: (match: string | View, options?: any) => View
-  complement: (match: string | View) => View
-  settle: (match: string | View) => View
-
-  // ---- tags ----
-  tag: (tag: string, reason?: string) => View
-  tagSafe: (tag: string, reason?: string) => View
-  unTag: (tag: string, reason?: string) => View
-  canBe: (tag: string) => View
-
-  // ---- cache ----
-  cache: (options?: object) => View
-  uncache: (options?: object) => View
-  lookup: (trie: object | string[], opts?: object) => View
-  autoFill: () => View
-
-  // ---- japanese ----
   /** every 動詞 in the document */
-  verbs: () => View
+  verbs: () => JaView
   /** every 名詞 in the document */
-  nouns: () => View
+  nouns: () => JaView
   /** every 形容詞 and 形容動詞 in the document */
-  adjectives: () => View
+  adjectives: () => JaView
   /** every 助詞 in the document */
-  particles: () => View
+  particles: () => JaView
   /** every number in the document */
   numbers: (n?: number) => Numbers
   /** .numbers() alias */
   values: (n?: number) => Numbers
   /** every 助数詞 in the document */
-  counters: (n?: number) => View
+  counters: (n?: number) => JaView
   /** every 円/ドル amount */
-  money: (n?: number) => View
+  money: (n?: number) => JaView
   /** every percentage */
-  percentages: (n?: number) => View
+  percentages: (n?: number) => JaView
   /** every date, time and duration */
-  dates: () => View
+  dates: () => JaView
   /** the document sounded-out in the latin alphabet */
   romanji: () => string
   /** the dictionary-form of each match - 食べました → 食べる */
@@ -172,13 +236,15 @@ declare class View {
 }
 
 /** a view of the numbers in a document */
-declare class Numbers extends View {
+export interface Numbers extends JaView {
   /** the parsed number, and how it was written */
   parse: (n?: number) => NumberParse[]
   /** the value of each number - 「二十三」 gives 23 */
   get: (n?: number) => (number | null)[]
+  /** json for each number, with its value and 助数詞 under `number` */
+  json: (options?: number | string | object) => any
   /** the 助数詞 attached to each number - 五冊 gives 冊 */
-  units: () => View
+  units: () => JaView
   /** only the ordinals */
   isOrdinal: () => Numbers
   /** only the cardinals */
@@ -191,23 +257,31 @@ declare class Numbers extends View {
   toLocaleString: () => Numbers
   /** replace each number, keeping the script it was written in */
   set: (n: number) => Numbers
+  /** add n to each number */
   add: (n: number) => Numbers
+  /** subtract n from each number */
   subtract: (n: number) => Numbers
+  /** add 1 to each number */
   increment: () => Numbers
+  /** subtract 1 from each number */
   decrement: () => Numbers
+  /** only the numbers with this value */
   isEqual: (n: number) => Numbers
+  /** only the numbers larger than n */
   greaterThan: (n: number) => Numbers
+  /** only the numbers smaller than n */
   lessThan: (n: number) => Numbers
+  /** only the numbers between min and max, exclusive */
   between: (min: number, max: number) => Numbers
 }
 
 /** parse some japanese text */
-declare function nlp(text: string, lexicon?: Lexicon): View
+declare function nlp(text?: string, lexicon?: Lexicon): JaView
 
 declare namespace nlp {
   // ---- constructor ----
   /** interpret text without tagging */
-  export function tokenize(text: string, lexicon?: Lexicon): View
+  export function tokenize(text: string, lexicon?: Lexicon): JaView
   /** mix-in a compromise plugin */
   export function plugin(plugin: Plugin): any
   /** mix-in a compromise plugin */
@@ -229,13 +303,19 @@ declare namespace nlp {
   /** connect new tags to the tagset graph */
   export function addTags(tags: object): any
   /** add new words to the lexicon */
-  export function addWords(words: Lexicon): any
+  export function addWords(words: Lexicon, isFrozen?: boolean): any
   /** turn a list of words into a searchable graph */
   export function buildTrie(words: string[]): object
+  /** alias for nlp.buildTrie() */
+  export function compile(words: string[]): object
   /** compile a set of match objects into a faster form */
   export function buildNet(matches: Match[]): Net
   /** add words to the autoFill dictionary */
   export function typeahead(words: Lexicon): any
+  /** parse spec text, optionally applying tags or validating its constraints */
+  export function fromSpec(spec: string, options?: SpecOptions): JaView & { failures: SpecFailure[] }
+  /** returns untagged sentences and failing tagged lines, with validation failures */
+  export function testSpec(spec: string, verbose?: boolean, throwError?: boolean): JaView & { failures: SpecFailure[] }
 
   // ---- japanese ----
   /**
@@ -254,7 +334,8 @@ declare namespace nlp {
   export function verbClass(dictionaryForm: string): VerbClass | null
   /**
    * parse a japanese numeral - `nlp.toNumber('二十三')` is 23.
-   * handles kanji, half-width and full-width digits.  null if it isn't one.
+   * handles kanji, half-width and full-width digits.
+   * a decimal may be written 1.5, １．５, 一・五 or 一点五.  null if it isn't one.
    */
   export function toNumber(numeral: string): number | null
   /** write a number in kanji - `nlp.toKanji(23)` is 二十三 */
@@ -262,7 +343,3 @@ declare namespace nlp {
 }
 
 export default nlp
-export type {
-  View, Numbers, VerbClass, VerbConjugation, IAdjectiveConjugation,
-  NaAdjectiveConjugation, Deconjugation, NumberParse, Term, Lexicon, Plugin,
-}

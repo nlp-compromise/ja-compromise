@@ -1,9 +1,23 @@
+import js from '@eslint/js'
+import regexp from 'eslint-plugin-regexp'
+import globals from 'globals'
+
 export default [
   {
-    ignores: ['**/builds/*', './scratch.js', './tests/*'],
+    ignores: ['builds/**', 'scripts/**', 'data/**', 'scratch.js'],
+  },
+  js.configs.recommended,
+  regexp.configs['flat/recommended'],
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
     rules: {
-      'regexp/no-misleading-capturing-group': 0, //todo remove this
-      'regexp/no-super-linear-backtracking': 0, //todo remove this, too
       'comma-dangle': [1, 'only-multiline'],
       quotes: [0, 'single', 'avoid-escape'],
       'max-nested-callbacks': [1, 4],
@@ -24,6 +38,7 @@ export default [
       'no-shadow': 2,
       'no-unmodified-loop-condition': 1,
       'no-use-before-define': 1,
+      'no-useless-assignment': 0,
       'prefer-const': 0,
       radix: 1,
       'no-unused-vars': 1,
@@ -31,7 +46,10 @@ export default [
       'regexp/prefer-w': 0,
       'regexp/prefer-range': 0,
       'regexp/no-unused-capturing-group': 0,
-      'regexp/optimal-quantifier-concatenation': 0
-    }
-  }
+      'regexp/no-misleading-capturing-group': 0, //todo remove this
+      'regexp/no-super-linear-backtracking': 0, //todo remove this, too
+      'regexp/optimal-quantifier-concatenation': 0,
+      'regexp/no-obscure-range': 0, // japanese ranges like 一-龯 are intended
+    },
+  },
 ]

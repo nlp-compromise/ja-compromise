@@ -1,6 +1,6 @@
 import toNumber from './kanji-number.js'
 import toKanji, { toDigits } from './to-kanji.js'
-import counters from '../../../lexicon/counters.js'
+import counters from '../../../data/lexicon/counters.js'
 
 const isWide = /[０-９]/
 const isKanjiNumeral = /[〇零一二三四五六七八九十百千万億兆壱弐参拾]/
@@ -117,7 +117,8 @@ const addMethod = function (View) {
         if (num === null || !term) {
           return
         }
-        setText(term, num.toLocaleString(), num)
+        // the default would round 1234.5678 off to three decimals
+        setText(term, num.toLocaleString(undefined, { maximumFractionDigits: 20 }), num)
       })
       return this
     }

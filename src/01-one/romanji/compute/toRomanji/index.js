@@ -80,5 +80,3 @@ const toRomanji = function (str) {
 
 export default toRomanji
 
-// console.log(toRomanji('ひらがな　カタカナ'))
-// console.log(toRomanji('あっきょっつああ'))

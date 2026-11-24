@@ -1,3 +1,20 @@
+### Unreleased
+
+- **[breaking]** - types no longer export `View`, `Term`, `Lexicon` or `Plugin` - use `JaView`, `JaTerm`, and compromise's own types
+- **[change]** - typescript types rewritten from the real api - core `View` types now come from `compromise`, and the document type is `JaView`
+- **[new]** - types for `nlp.fromSpec()`, `nlp.testSpec()` and `nlp.compile()`
+- **[change]** - remove `nlp.lazy()` from types and docs - it lives in a plugin now
+- **[new]** - decimal numbers are one term and one value - '1.5', '１．５' and '一・五' - through `.numbers().get()`, `.toText()`, `.toNumber()` and `.add()`
+- **[new]** - `nlp.toNumber()` parses decimals - '一・五', '〇・二五', '一点五' - and `nlp.toKanji(1.5)` is '一・五' (was rounded to '二')
+- **[change]** - a single ・ between kanji numerals is read as a decimal point - '二・二六' is 2.26
+- **[fix]** - `.numbers().toLocaleString()` no longer rounds decimals to three places
+- **[fix]** - `.compute('root')` no longer throws on an unknown verb (missing lexicon import)
+- **[fix]** - lint findings - duplicate keys in the kanji-reading table, and some regex cleanups
+- **[update]** - `lexicon/` moved to `data/lexicon/`
+- **[change]** - minimum node version is 18
+- **[update]** - tests moved to `tests/unit`, `tests/types`, `tests/_hmm` and `tests/_backlog`
+- **[update]** - suffix-thumb 6.1.0
+
 ### 0.2.0 [Nov 2026]
 
 - **[update]** - smaller suffix-thumb format
@@ -286,7 +303,7 @@ filed as ichidan when modern 蹴る is godan (`蹴った`, not `蹴た`).
 - **[fix]** - **`package.json` declared `"types": "types/index.d.ts"`, and no such
   file existed.** Every TypeScript consumer got an unresolvable import.
 - **[new]** - written and checked-in: `types/index.d.ts` (the constructor and the
-  `View`), `types/misc.d.ts` and `types/japanese.d.ts` (conjugation paradigms and
+  `View`), `types/misc.d.ts` and `types/japanese.d.ts` (since folded into `types/index.d.ts`) (conjugation paradigms and
   verb classes). Compromise's `./one` subpath has no `types` condition in its
   exports map, so its `View` type can't be imported from here - it's restated
   instead, with a note to keep it in sync on a dependency bump.

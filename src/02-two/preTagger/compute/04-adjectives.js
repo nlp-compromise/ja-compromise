@@ -5,7 +5,7 @@ const reason = 'adjSuffix'
 // い-adjective endings.  the old rule was 'ends in い → Adjective', which
 // swallowed every negative verb (行かない), every masu-stem noun (お願い),
 // and 弟/はい/せい besides.
-const looksAdjective = /(し|た|な|か|ら|わ|が|ば|ざ|さ|は|ま|よ|る|す|つ|ぬ|ぶ|む|ぐ|ゆ|ろ|そ|お|こ|の|ほ|も|ど|ぼ|ぽ|ご|ぞ|づ|べ|で|げ|ぜ|え|け|せ|て|ね|へ|め|れ)い$/
+const looksAdjective = /[したなからわがばざさはまよるすつぬぶむぐゆろそおこのほもどぼぽごぞづべでげぜえけせてねへめれ]い$/
 // endings that look like an い-adjective but aren't
 const notAdjective = /(ない|たい|らしい|っぽい)$/
 

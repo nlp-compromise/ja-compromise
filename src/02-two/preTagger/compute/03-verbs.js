@@ -34,7 +34,7 @@ const tagSuruVerbs = function (terms, setTag, world) {
     if (!t.tags.has('Verb')) {
       continue
     }
-    if (/^(し|す|さ)/.test(t.text) === false) {
+    if (/^[しすさ]/.test(t.text) === false) {
       continue
     }
     const prev = terms[i - 1]

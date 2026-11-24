@@ -34,6 +34,12 @@ const toKanji = function (num) {
   if (num < 0) {
     return 'マイナス' + toKanji(Math.abs(num))
   }
+  // a decimal is read digit-by-digit after the point - 1.5 is 一・五
+  const [whole, decimal] = String(num).split('.')
+  if (decimal !== undefined && /^\d+$/.test(whole) && /^\d+$/.test(decimal)) {
+    const digits = decimal.split('').map(d => digit[Number(d)] || '〇').join('')
+    return toKanji(Number(whole)) + '・' + digits
+  }
   num = Math.round(num)
   if (num === 0) {
     return '〇'
@@ -59,7 +65,7 @@ const toDigits = function (num, wide) {
   if (!wide) {
     return str
   }
-  return str.replace(/[0-9]/g, d => fullWidth[Number(d)])
+  return str.replace(/[0-9]/g, d => fullWidth[Number(d)]).replace('.', '．')
 }
 
 export default toKanji

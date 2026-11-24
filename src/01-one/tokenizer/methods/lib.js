@@ -29,7 +29,7 @@ const isNumber = function (c) {
 }
 
 const isAscii = function (c) {
-  return /[a-zA-Z]/.test(c) || (c >= 'Ａ' && c <= 'ｚ')
+  return /[a-z]/i.test(c) || (c >= 'Ａ' && c <= 'ｚ')
 }
 
 // 、。！？ and friends
