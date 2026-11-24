@@ -1,5 +1,9 @@
 ### Unreleased
 
+- **[new]** - `.verbs()` returns a `Verbs` view - `.parse()`, `.json()`, `.conjugate()`, `.toPastTense()`, `.toPresentTense()`, `.toNegative()`, `.toPositive()`, `.toPolite()`, `.toPlain()`, `.isNegative()`, `.isPositive()`, `.isPolite()`, `.isPlain()`, `.isImperative()`
+- **[new]** - `.nouns()` returns a `Nouns` view - `.parse()`, `.json()`, `.conjugate()`, `.isPlural()`, `.isSingular()`, `.toPlural()`, `.toSingular()`
+- **[new]** - `.verbs(n)` and `.nouns(n)` take an index
+- **[change]** - `.verbs()` keeps a helper-verb with its て-form - 読んでいました is one match, not two - and `.verbs().toInfinitive()` gives 読む for it
 - **[breaking]** - types no longer export `View`, `Term`, `Lexicon` or `Plugin` - use `JaView`, `JaTerm`, and compromise's own types
 - **[change]** - typescript types rewritten from the real api - core `View` types now come from `compromise`, and the document type is `JaView`
 - **[new]** - types for `nlp.fromSpec()`, `nlp.testSpec()` and `nlp.compile()`

@@ -4,14 +4,6 @@ import lexicon, { roots } from './lexicon.js'
 const isKnown = (w) => lexicon.hasOwnProperty(w)
 
 export default function (View) {
-  /** every verb in the document */
-  View.prototype.verbs = function () {
-    return this.match('#Verb')
-  }
-  /** every noun in the document */
-  View.prototype.nouns = function () {
-    return this.match('#Noun')
-  }
   /** every adjective - both い and な */
   View.prototype.adjectives = function () {
     return this.match('#Adjective')

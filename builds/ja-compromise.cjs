@@ -97,7 +97,7 @@
     return this.update(this.fullPointer.filter(wrap$2(this, cb)))
   };
 
-  const find = function (cb) {
+  const find$1 = function (cb) {
     const found = this.fullPointer.find(wrap$2(this, cb));
     if (found === undefined) {
       return this.update([])
@@ -120,7 +120,7 @@
     ptrs = ptrs.slice(r, r + n);
     return this.update(ptrs)
   };
-  var loops = { forEach, map, filter, find, some: some$1, random };
+  var loops = { forEach, map, filter, find: find$1, some: some$1, random };
 
   // small helpers shared by the View class and its methods
 
@@ -1843,7 +1843,7 @@
   };
 
   // one 'word:out words' per line - decoded once into { [key]: word, out: [...] }
-  const parse$3 = (str, key) =>
+  const parse$5 = (str, key) =>
     str
       .trim()
       .split('\n')
@@ -1856,7 +1856,7 @@
     // that's and let's are decided here, before any tagging
     // (step 1 of the 's decision - the list is in 2-two/contraction-two/compute/index.js)
     // simple mappings
-    ...parse$3(
+    ...parse$5(
       `
 @:at
 arent:are not
@@ -1900,7 +1900,7 @@ o'er:over
       'word'
     ),
     // contraction-part mappings
-    ...parse$3(
+    ...parse$5(
       `
 ll:will
 ve:have
@@ -1910,7 +1910,7 @@ m:am
       'after'
     ),
     // french contractions - t'aime
-    ...parse$3(
+    ...parse$5(
       `
 c:ce
 m:me
@@ -1922,7 +1922,7 @@ t:tu
       'before'
     ),
     // missing apostrophes, apostrophe-d
-    ...parse$3(
+    ...parse$5(
       `
 shouldnt:should not
 couldnt:could not
@@ -2739,7 +2739,7 @@ er
     return view.update(results)
   };
 
-  function api$5 (View) {
+  function api$7 (View) {
 
     /** find all matches in this document */
     View.prototype.lookup = function (input, opts = {}) {
@@ -2796,7 +2796,7 @@ er
   lib$4.compile = lib$4.buildTrie;
 
   var lookup = {
-    api: api$5,
+    api: api$7,
     lib: lib$4
   };
 
@@ -3218,7 +3218,7 @@ er
   // Split parenthesized match blocks without retrying long rejected prefixes or
   // bodies. Preserve the original grammar, including its greedy capture header.
   const prefix$1 = new Set('!~[^');
-  const suffix$1 = new Set('?]+*$~{},0123456789');
+  const suffix$2 = new Set('?]+*$~{},0123456789');
   const whitespace$2 = /\s/;
 
   const splitGroups = str => {
@@ -3231,7 +3231,7 @@ er
     let close = -1;
     let capture = 0;
     for (let i = length - 1; i >= 0; i--) {
-      afterSuffix[i] = suffix$1.has(str[i]) ? afterSuffix[i + 1] : i;
+      afterSuffix[i] = suffix$2.has(str[i]) ? afterSuffix[i + 1] : i;
       if (str[i] === ')') close = i;
       if (str[i] === '(' && close >= i + 3 && str[close - 1] !== '\\') {
         const end = afterSuffix[close + 1];
@@ -3271,7 +3271,7 @@ er
   // Has the grammar of this pattern, which rescans the line for each rejected opener:
   // (?:^|\s)([![^]*(?:<[^<]*>)?\/.*?[^\\/]\/[?\]+*$~]*)(?=\s|$)
   const prefix = new Set('![^');
-  const suffix = new Set('?]+*$~');
+  const suffix$1 = new Set('?]+*$~');
   const newline = new Set('\n\r  '); // what '.' can't cross
   const whitespace$1 = /\s/;
 
@@ -3289,7 +3289,7 @@ er
       if (str[i] === '/') {
         ends[i] = close;
       }
-      afterSuffix[i] = suffix.has(str[i]) ? afterSuffix[i + 1] : i;
+      afterSuffix[i] = suffix$1.has(str[i]) ? afterSuffix[i + 1] : i;
       if (newline.has(str[i])) {
         close = 0;
       }
@@ -3337,7 +3337,7 @@ er
   const isReg = str => {
     return /^[![^]*(<[^<]*>)?\//.test(str) && /\/[?\]+*$~]*$/.test(str)
   };
-  const never = () => false;
+  const never$1 = () => false;
 
   const cleanUp = function (arr) {
     arr = arr.map(str => str.trim());
@@ -3347,7 +3347,7 @@ er
 
   const parseBlocks = function (txt, opts = {}) {
     // {noRegex} - slashes are plain characters
-    const isRegex = opts.noRegex ? never : isReg;
+    const isRegex = opts.noRegex ? never$1 : isReg;
     // parse by /regex/ first
     const arr = opts.noRegex ? [txt] : splitRegs(txt);
     let res = [];
@@ -3706,7 +3706,7 @@ er
   };
 
   // add all inflections of this verb/noun/adjective
-  const inflect = function (token, world, kind, fallback) {
+  const inflect$1 = function (token, world, kind, fallback) {
     const { all } = world.methods.two.transform[kind] || {};
     if (!all) {
       return fallback
@@ -3729,14 +3729,14 @@ er
           if (token.pos) {
             if (Object.hasOwn(byPos, token.pos)) {
               const kind = byPos[token.pos];
-              choices = inflect(token, world, kind, kind === 'verb' ? [] : [token.root]);
+              choices = inflect$1(token, world, kind, kind === 'verb' ? [] : [token.root]);
             }
           } else {
             // do verb/noun/adj by default
             choices = [
-              ...inflect(token, world, 'verb', []),
-              ...inflect(token, world, 'noun', [token.root]),
-              ...inflect(token, world, 'adjective', [token.root]),
+              ...inflect$1(token, world, 'verb', []),
+              ...inflect$1(token, world, 'noun', [token.root]),
+              ...inflect$1(token, world, 'adjective', [token.root]),
             ];
           }
           choices = choices.filter(str => str);
@@ -6227,7 +6227,7 @@ er
     }
   };
 
-  const api$4 = function (View) {
+  const api$6 = function (View) {
 
     /** speedy match a sequence of matches */
     View.prototype.sweep = function (net, opts = {}) {
@@ -6413,7 +6413,7 @@ er
     return { wants, count }
   };
 
-  const parse$2 = function (matches, world) {
+  const parse$4 = function (matches, world) {
     const parseMatch = world.methods.one.parseMatch;
     matches.forEach(obj => {
       resolveAliases(obj, world.model.one.tagAliases);
@@ -6490,7 +6490,7 @@ er
   // do some indexing on the list of matches
   const buildNet = function (matches, world) {
     // turn match-syntax into json
-    matches = parse$2(matches, world);
+    matches = parse$4(matches, world);
 
     // collect by wants and needs
     const hooks = {};
@@ -6800,7 +6800,7 @@ er
 
   var sweep = {
     lib: lib$2,
-    api: api$4,
+    api: api$6,
     methods: {
       one: methods$5,
     }
@@ -6880,13 +6880,13 @@ er
   // add a tag to all these terms
   // Whole-match validation is separate from per-term safety.
   // eslint-disable-next-line max-params
-  const setTag = function (terms, tag, world = {}, isSafe, reason, validated) {
+  const setTag$1 = function (terms, tag, world = {}, isSafe, reason, validated) {
     const tagSet = world.model.one.tagSet || {};
     if (!tag) {
       return
     }
     if (Array.isArray(tag)) {
-      tag.forEach(tg => setTag(terms, tg, world, isSafe, reason));
+      tag.forEach(tg => setTag$1(terms, tg, world, isSafe, reason));
       return
     }
     if (typeof tag !== 'string') {
@@ -7356,7 +7356,7 @@ er
 
   var methods$4 = {
     one: {
-      setTag,
+      setTag: setTag$1,
       unTag,
       addTags: addTags$1,
       canBe: canBe$1,
@@ -8094,7 +8094,7 @@ er
   };
 
   // turn a string input into a 'document' json format
-  const parse$1 = function (input, world) {
+  const parse$3 = function (input, world) {
     const { methods, model } = world;
     const { splitSentences, splitTerms, splitWhitespace } = methods.one.tokenize;
     input ||= '';
@@ -8160,7 +8160,7 @@ er
         isSentence,
         splitTerms: splitWords,
         splitWhitespace: parseTerm,
-        fromString: parse$1,
+        fromString: parse$3,
       },
     },
   };
@@ -8294,7 +8294,7 @@ nov
 dec
 `);
 
-  var nouns$1 = toList(`
+  var nouns$2 = toList(`
 ad
 al
 arc
@@ -8417,7 +8417,7 @@ yb
   const list = [
     [misc$1],
     [units, 'Unit'],
-    [nouns$1, 'Noun'],
+    [nouns$2, 'Noun'],
     [honorifics, 'Honorific'],
     [months, 'Month'],
     [organizations, 'Organization'],
@@ -8744,7 +8744,7 @@ designate
     return this
   };
 
-  const api$3 = function (View) {
+  const api$5 = function (View) {
     View.prototype.autoFill = autoFill;
   };
 
@@ -8822,7 +8822,7 @@ designate
   };
   var typeahead = {
     model,
-    api: api$3,
+    api: api$5,
     lib,
     compute: compute$1,
     hooks: ['typeahead']
@@ -9179,7 +9179,7 @@ designate
   const isGodanRu = new Set(godanRu);
 
   // verbs with a paradigm of their own
-  const irregular = {
+  const irregular$1 = {
     'する': 'suru',
     '為る': 'suru',
     'くる': 'kuru',
@@ -9209,8 +9209,8 @@ designate
   const verbClass = function (dict, hint) {
     // an irregular is irregular even when the word-list calls it godan - 行く
     // is listed as a godan verb but its て-form is 行って, not 行いて
-    if (irregular[dict]) {
-      return irregular[dict]
+    if (irregular$1[dict]) {
+      return irregular$1[dict]
     }
     if (hint === 'Ichidan' || hint === 'Godan') {
       return hint.toLowerCase()
@@ -9855,7 +9855,7 @@ designate
 
   // the derived stems - 褒められる, 書ける, 食べさせる - inflect like ichidan
   // verbs in their own right, so give each of them a paradigm too
-  const derived = ['Potential', 'Passive', 'Causative', 'CausativePassive'];
+  const derived$1 = ['Potential', 'Passive', 'Causative', 'CausativePassive'];
 
   const addDerived = function (base, baseTags, dict) {
     const forms = conjugate$1(base, 'Ichidan');
@@ -9907,7 +9907,7 @@ designate
         }
       });
     }
-    derived.forEach(form => {
+    derived$1.forEach(form => {
       if (forms[form]) {
         addDerived(forms[form], form === 'CausativePassive' ? ['Causative', 'Passive'] : [form], dict);
       }
@@ -9976,15 +9976,7 @@ designate
 
   const isKnown$2 = (w) => lexicon$1.hasOwnProperty(w);
 
-  function api$2 (View) {
-    /** every verb in the document */
-    View.prototype.verbs = function () {
-      return this.match('#Verb')
-    };
-    /** every noun in the document */
-    View.prototype.nouns = function () {
-      return this.match('#Noun')
-    };
+  function api$4 (View) {
     /** every adjective - both い and な */
     View.prototype.adjectives = function () {
       return this.match('#Adjective')
@@ -10039,7 +10031,7 @@ designate
         roots,
       },
     },
-    api: api$2,
+    api: api$4,
     methods: {
       two: {
         transform: {
@@ -10616,7 +10608,7 @@ designate
     return terms
   };
 
-  function api$1 (View) {
+  function api$3 (View) {
 
     /**  */
     View.prototype.romanji = function () {
@@ -11904,7 +11896,7 @@ designate
 
   var romanji = {
     compute,
-    api: api$1
+    api: api$3
   };
 
   // import unicode from './unicode.js'
@@ -12068,17 +12060,17 @@ designate
 
   const methods = { debug };
 
-  const api = function (View) {
+  const api$2 = function (View) {
     Object.assign(View.prototype, methods);
   };
   var output = {
     compute: { english: addEnglish, root: addRoot },
-    api
+    api: api$2
   };
 
   const entity = ['Person', 'Place', 'Organization'];
 
-  var nouns = {
+  var nouns$1 = {
     Noun: {
       aliases: [null, '名詞'],
       not: ['Verb', 'Adjective', 'Adverb', 'Value', 'Determiner'],
@@ -12238,7 +12230,7 @@ designate
     },
   };
 
-  var verbs$1 = {
+  var verbs$2 = {
     Verb: {
       aliases: [null, '動詞'],
       not: ['Noun', 'Adjective', 'Adverb', 'Value', 'Expression'],
@@ -12694,7 +12686,7 @@ designate
     },
   };
 
-  const tags = Object.assign({}, nouns, verbs$1, values, dates, particles, misc);
+  const tags = Object.assign({}, nouns$1, verbs$2, values, dates, particles, misc);
 
   var tagset = {
     tags
@@ -12930,7 +12922,7 @@ designate
     }
   };
 
-  var verbs = { tagUnknownVerbs, tagSuruVerbs, tagAuxiliary, tagCompoundVerbs };
+  var verbs$1 = { tagUnknownVerbs, tagSuruVerbs, tagAuxiliary, tagCompoundVerbs };
 
   const reason$4 = 'adjSuffix';
 
@@ -13311,17 +13303,17 @@ designate
       // 1. which script is each token written in?
       tagScript(terms, setTag, world);
       // 2. verbs we don't have in the lexicon, read off their conjugation
-      verbs.tagUnknownVerbs(terms, setTag, world);
+      verbs$1.tagUnknownVerbs(terms, setTag, world);
       // 3. い-adjectives by their shape
       adjectives.adjSuffixes(terms, setTag, world);
       // 4. particles, and what they imply about their neighbour
       tagParticles(terms, setTag, world);
       // 5. 勉強 + します
-      verbs.tagSuruVerbs(terms, setTag, world);
+      verbs$1.tagSuruVerbs(terms, setTag, world);
       // 6. an auxiliary passes its tense back to its verb
-      verbs.tagAuxiliary(terms, setTag, world);
+      verbs$1.tagAuxiliary(terms, setTag, world);
       // 7. 読んで + いました is one progressive verb-phrase
-      verbs.tagCompoundVerbs(terms, setTag, world);
+      verbs$1.tagCompoundVerbs(terms, setTag, world);
       // 8. numbers, and the counter that follows them
       tagNumbers(terms, setTag, world);
       // 9. dates and times, built out of number + counter
@@ -13419,7 +13411,7 @@ designate
   const isKanjiNumeral = /[〇零一二三四五六七八九十百千万億兆壱弐参拾]/;
 
   // pull the number out of a match, along with how it was written
-  const parse = function (view) {
+  const parse$2 = function (view) {
     const terms = view.docs[0] || [];
     let term = terms.find(t => typeof t.number === 'number');
     if (!term) {
@@ -13438,7 +13430,7 @@ designate
 
   // swap a term's text in place.  .replaceWith() would put a space between the
   // number and its counter, and japanese doesn't use one - 五冊, never 五 冊
-  const setText = function (term, str, num) {
+  const setText$2 = function (term, str, num) {
     term.text = str;
     term.normal = str.toLowerCase();
     if (typeof num === 'number') {
@@ -13448,7 +13440,7 @@ designate
 
   // write a number back in the shape it was found in
   const write = function (view, num, form) {
-    const { term, kanji, wide } = parse(view);
+    const { term, kanji, wide } = parse$2(view);
     if (!term || typeof num !== 'number') {
       return view
     }
@@ -13461,7 +13453,7 @@ designate
     if (str === null) {
       return view
     }
-    setText(term, str, num);
+    setText$2(term, str, num);
     return view
   };
 
@@ -13474,19 +13466,19 @@ designate
       }
       /** the parsed number, plus how it was written */
       parse(n) {
-        return this.getNth(n).map(parse)
+        return this.getNth(n).map(parse$2)
       }
       /** the value of each number - 「二十三」 gives 23 */
       get(n) {
         // the second .map is a plain Array.map - compromise's own .map() only
         // unwraps to an array when the callback returns strings or objects
-        return this.getNth(n).map(parse).map(o => o.num)
+        return this.getNth(n).map(parse$2).map(o => o.num)
       }
       json(n) {
         const opts = typeof n === 'object' ? n : {};
         return this.getNth(n).map(m => {
           const json = m.toView().json(opts)[0];
-          const found = parse(m);
+          const found = parse$2(m);
           json.number = { num: found.num, counter: m.units().text() || null };
           return json
         }, [])
@@ -13506,7 +13498,7 @@ designate
       /** write each number in digits - 二十三 becomes 23 */
       toNumber() {
         this.forEach(m => {
-          const { num } = parse(m);
+          const { num } = parse$2(m);
           if (num !== null) {
             write(m, num, 'digits');
           }
@@ -13516,7 +13508,7 @@ designate
       /** write each number in kanji - 23 becomes 二十三 */
       toText() {
         this.forEach(m => {
-          const { num } = parse(m);
+          const { num } = parse$2(m);
           if (num !== null) {
             write(m, num, 'kanji');
           }
@@ -13526,12 +13518,12 @@ designate
       /** add thousands-separators - 1234 becomes 1,234 */
       toLocaleString() {
         this.forEach(m => {
-          const { num, term } = parse(m);
+          const { num, term } = parse$2(m);
           if (num === null || !term) {
             return
           }
           // the default would round 1234.5678 off to three decimals
-          setText(term, num.toLocaleString(undefined, { maximumFractionDigits: 20 }), num);
+          setText$2(term, num.toLocaleString(undefined, { maximumFractionDigits: 20 }), num);
         });
         return this
       }
@@ -13548,7 +13540,7 @@ designate
           return this
         }
         this.forEach(m => {
-          const { num } = parse(m);
+          const { num } = parse$2(m);
           if (num !== null) {
             write(m, num + n);
           }
@@ -13565,17 +13557,17 @@ designate
         return this.add(-1)
       }
       isEqual(n) {
-        return this.filter(m => parse(m).num === n)
+        return this.filter(m => parse$2(m).num === n)
       }
       greaterThan(n) {
-        return this.filter(m => parse(m).num > n)
+        return this.filter(m => parse$2(m).num > n)
       }
       lessThan(n) {
-        return this.filter(m => parse(m).num < n)
+        return this.filter(m => parse$2(m).num < n)
       }
       between(min, max) {
         return this.filter(m => {
-          const { num } = parse(m);
+          const { num } = parse$2(m);
           return num > min && num < max
         })
       }
@@ -13614,6 +13606,529 @@ designate
 
   var numbers = { api: addMethod };
 
+  // japanese nouns don't inflect for number - 本 is 'book' and 'books'.
+  // only people (and things we treat like people) can take a plural suffix,
+  // and it's always optional - 子供たち
+
+  const irregular = {
+    '人': '人々',
+    '我': '我々',
+    'われ': 'われわれ',
+  };
+  const fromIrregular = {};
+  Object.keys(irregular).forEach(k => {
+    fromIrregular[irregular[k]] = k;
+  });
+
+  // the same suffixes the tagger reads as #Plural
+  const suffix = /(?:たち|達)$/;
+
+  // the nouns that sound right with 〜たち
+  const animate = new Set([
+    '男', '女', '男性', '女性', '子', '子供', '大人', '男の子', '女の子', '赤ちゃん',
+    '先生', '学生', '生徒', '医者', '看護師', '店員', '会社員', '社員', '選手', '客',
+    '親', '兄', '姉', '弟', '妹', '息子', '娘', '孫',
+    '猫', '犬', '鳥', '馬', '動物',
+  ]);
+  const people = ['Pronoun', 'Person', 'Honorific', 'Actor'];
+  // 誰たち, これたち
+  const never = ['QuestionWord', 'Demonstrative', 'Plural'];
+
+  const isPlural = function (term) {
+    return term.tags.has('Plural') || fromIrregular.hasOwnProperty(term.text)
+  };
+
+  // can this word take a plural suffix?
+  const canPlural = function (term) {
+    if (isPlural(term) || never.some(tag => term.tags.has(tag))) {
+      return false
+    }
+    if (irregular.hasOwnProperty(term.text) || animate.has(term.text)) {
+      return true
+    }
+    return people.some(tag => term.tags.has(tag))
+  };
+
+  const toPlural = function (str) {
+    if (irregular.hasOwnProperty(str)) {
+      return irregular[str]
+    }
+    return str + 'たち'
+  };
+
+  const toSingular = function (str) {
+    if (fromIrregular.hasOwnProperty(str)) {
+      return fromIrregular[str]
+    }
+    return str.replace(suffix, '')
+  };
+
+  // return the nth elem of a doc
+  const getNth$1 = (doc, n) => (typeof n === 'number' ? doc.eq(n) : doc);
+
+  const getTerm = (m) => (m.docs[0] || [])[0];
+
+  // what the noun is doing in its sentence is said by the particle after it
+  const getParticle = function (m) {
+    const ptr = m.fullPointer[0];
+    if (!ptr) {
+      return null
+    }
+    const next = (m.document[ptr[0]] || [])[ptr[2]];
+    return next && next.tags.has('Particle') ? next.text : null
+  };
+
+  const parse$1 = function (m) {
+    const term = getTerm(m);
+    const plural = isPlural(term);
+    return {
+      root: plural ? toSingular(term.text) : term.text,
+      plural,
+      particle: getParticle(m),
+    }
+  };
+
+  // swap a word's text in place - .replaceWith() would re-tokenize it
+  const setText$1 = function (term, str, plural) {
+    term.text = str;
+    term.normal = str;
+    term.dirty = true;
+    delete term.root;
+    if (plural) {
+      term.tags.add('Plural');
+      term.tags.delete('Singular');
+    } else {
+      term.tags.delete('Plural');
+    }
+  };
+
+  const api$1 = function (View) {
+    class Nouns extends View {
+      constructor(document, pointer, groups) {
+        super(document, pointer, groups);
+        this.viewType = 'Nouns';
+      }
+      /** each noun's bare form, its number, and the particle that follows it */
+      parse(n) {
+        return getNth$1(this, n).map(parse$1, [])
+      }
+      json(opts, n) {
+        // .json(0) is fine, too
+        if (typeof opts === 'number') {
+          n = opts;
+          opts = {};
+        }
+        return getNth$1(this, n).map(m => {
+          const json = m.toView().json(opts)[0] || {};
+          json.noun = parse$1(m);
+          return json
+        }, [])
+      }
+      /** both forms of each noun - most have only the one */
+      conjugate(n) {
+        return getNth$1(this, n).map(m => {
+          const term = getTerm(m);
+          if (isPlural(term)) {
+            return { singular: toSingular(term.text), plural: term.text }
+          }
+          return { singular: term.text, plural: canPlural(term) ? toPlural(term.text) : term.text }
+        }, [])
+      }
+      /** only the nouns marked as plural - 子供たち, 人々 */
+      isPlural(n) {
+        return getNth$1(this, n).filter(m => isPlural(getTerm(m)))
+      }
+      /** only the nouns without a plural marker */
+      isSingular(n) {
+        return getNth$1(this, n).filter(m => !isPlural(getTerm(m)))
+      }
+      /** 子供 → 子供たち - only for people, the rest are already both */
+      toPlural(n) {
+        getNth$1(this, n).forEach(m => {
+          const term = getTerm(m);
+          if (canPlural(term)) {
+            setText$1(term, toPlural(term.text), true);
+          }
+        });
+        return this
+      }
+      /** 子供たち → 子供 */
+      toSingular(n) {
+        getNth$1(this, n).forEach(m => {
+          const term = getTerm(m);
+          if (isPlural(term)) {
+            setText$1(term, toSingular(term.text), false);
+          }
+        });
+        return this
+      }
+      // overloaded - keep Noun class
+      update(pointer) {
+        const m = new Nouns(this.document, pointer);
+        m._cache = this._cache; // share this full thing
+        return m
+      }
+    }
+
+    /** every 名詞 in the document */
+    View.prototype.nouns = function (n) {
+      const m = this.match('#Noun');
+      return getNth$1(new Nouns(this.document, m.pointer), n)
+    };
+  };
+
+  var nouns = {
+    api: api$1,
+  };
+
+  // 食べて + ください is one request, too
+  const isRequest = new Set(['ください', '下さい']);
+  const kudasaru = conjugate$1('くださる') || {};
+  Object.keys(kudasaru).forEach(k => typeof kudasaru[k] === 'string' && isRequest.add(kudasaru[k]));
+
+  // does this verb only finish the て-form in front of it?
+  // 読んで + いました is one verb, but 見て + 食べた is two
+  const isAuxiliary = function (term, prev) {
+    if (!prev || !prev.tags.has('Gerund')) {
+      return false
+    }
+    return isAspect.has(term.text) || isHelper.has(term.text) || isRequest.has(term.text)
+  };
+
+  // each verb, along with any helper-verbs that hang off of it
+  const find = function (view) {
+    const pointers = [];
+    view.match('#Verb+').fullPointer.forEach(ptr => {
+      const [n, start, end] = ptr;
+      const terms = view.document[n];
+      let from = start;
+      for (let i = start + 1; i < end; i += 1) {
+        if (!isAuxiliary(terms[i], terms[i - 1])) {
+          pointers.push([n, from, i]);
+          from = i;
+        }
+      }
+      pointers.push([n, from, end]);
+    });
+    return pointers
+  };
+
+  // a japanese verb stacks tense, polarity and politeness onto one word.
+  // each 'paradigm' here is the eight ways those three can combine,
+  // keyed by past/negative/polite - '101' is past + polite, 食べました
+  const toKey = (o) => (o.past ? '1' : '0') + (o.negative ? '1' : '0') + (o.polite ? '1' : '0');
+
+  const fromKey = (key) => ({ past: key[0] === '1', negative: key[1] === '1', polite: key[2] === '1' });
+
+  const fromVerb = function (c, prefix = '') {
+    return {
+      '000': prefix + c.PresentTense,
+      '100': prefix + c.PastTense,
+      '010': prefix + c.Negative,
+      '110': prefix + c.PastNegative,
+      '001': prefix + c.Polite,
+      '101': prefix + c.PolitePast,
+      '011': prefix + c.PoliteNegative,
+      '111': prefix + c.PolitePastNegative,
+    }
+  };
+
+  // 食べたい inflects like an い-adjective
+  const fromAdjective = function (c) {
+    return {
+      '000': c.PresentTense,
+      '100': c.PastTense,
+      '010': c.Negative,
+      '110': c.PastNegative,
+      '001': c.Polite,
+      '101': c.PolitePast,
+      '011': c.PoliteNegative,
+      '111': c.PastNegative + 'です',
+    }
+  };
+
+  // the copula is its own thing - and じゃ is only a spoken では
+  const copula = function (neg) {
+    return {
+      '000': 'だ',
+      '100': 'だった',
+      '010': neg + 'ない',
+      '110': neg + 'なかった',
+      '001': 'です',
+      '101': 'でした',
+      '011': neg + 'ありません',
+      '111': neg + 'ありませんでした',
+    }
+  };
+  const copulas = [copula('じゃ'), copula('では')];
+
+  const hasText = (paradigm, str) => Object.keys(paradigm).find(k => paradigm[k] === str);
+
+  const iru = conjugate$1('いる');
+  // forms which are themselves a verb, with a tense of their own - 食べられ + た
+  const derived = ['Potential', 'Passive', 'Causative', 'CausativePassive'];
+
+  // every paradigm this word may be sitting in
+  const paradigms = function* (root) {
+    const c = conjugate$1(root);
+    if (!c) {
+      return
+    }
+    yield fromVerb(c);
+    // 食べている
+    yield fromVerb(iru, c.Gerund);
+    // 食べたい
+    const desire = conjugateAdjective(c.Desire);
+    if (desire) {
+      yield fromAdjective(desire);
+    }
+    for (const k of derived) {
+      const d = conjugate$1(c[k]);
+      if (d) {
+        yield fromVerb(d);
+      }
+    }
+  };
+
+  // find where a word sits among its forms, so we can step to a neighbouring one.
+  // a word that's not found - 食べよう, 食べれば - has no tense to change
+  const findForms = function (str, root, isCopula) {
+    if (isCopula) {
+      for (const p of copulas) {
+        const key = hasText(p, str);
+        if (key) {
+          return { paradigm: p, key }
+        }
+      }
+      return null
+    }
+    for (const p of paradigms(root)) {
+      const key = hasText(p, str);
+      if (key) {
+        return { paradigm: p, key }
+      }
+    }
+    return null
+  };
+
+  // the full list of copula forms, for .conjugate()
+  const copulaForms = {
+    Infinitive: 'だ',
+    PresentTense: 'だ',
+    PastTense: 'だった',
+    Negative: 'じゃない',
+    PastNegative: 'じゃなかった',
+    Gerund: 'で',
+    Polite: 'です',
+    PolitePast: 'でした',
+    PoliteNegative: 'じゃありません',
+    PolitePastNegative: 'じゃありませんでした',
+    Presumptive: 'だろう',
+    Provisional: 'なら',
+  };
+
+  // return the nth elem of a doc
+  const getNth = (doc, n) => (typeof n === 'number' ? doc.eq(n) : doc);
+
+  // pull-apart a verb-phrase - 読んで + いました
+  const parse = function (vb) {
+    vb.compute('root');
+    const terms = vb.docs[0] || [];
+    // the first word has the meaning, and the last one has the tense
+    const main = terms[0];
+    const last = terms[terms.length - 1];
+    const has = (tag) => terms.some(t => t.tags.has(tag));
+    const isCopula = Boolean(main) && main.tags.has('Copula');
+    // the copula has no dictionary-form to walk back to - it's だ
+    let root = main ? main.root || main.text : '';
+    if (isCopula) {
+      root = 'だ';
+    }
+    let tense = null;
+    if (last && last.tags.has('PastTense')) {
+      tense = 'PastTense';
+    } else if (last && last.tags.has('PresentTense')) {
+      tense = 'PresentTense';
+    }
+    return {
+      root,
+      class: isCopula ? null : vb.methods.two.transform.verb.verbClass(root),
+      tense,
+      negative: has('Negative'),
+      polite: has('Polite'),
+      copula: isCopula,
+      main: vb.terms(0),
+      auxiliary: terms.length > 1 ? vb.terms().slice(1) : vb.none(),
+    }
+  };
+
+  // swap a word's text in place - .replaceWith() would re-tokenize it
+  const setText = function (term, str) {
+    term.text = str;
+    term.normal = str;
+    term.dirty = true;
+  };
+
+  const setTag = function (term, tag, bool) {
+    if (bool) {
+      term.tags.add(tag);
+    } else {
+      term.tags.delete(tag);
+    }
+  };
+
+  // move a verb to another of its forms, changing only what we're asked to
+  const inflect = function (vb, change) {
+    vb.compute('root');
+    const terms = vb.docs[0] || [];
+    // the last word carries the inflection - 読んで [いました]
+    const term = terms[terms.length - 1];
+    if (!term) {
+      return
+    }
+    const found = findForms(term.text, term.root, term.tags.has('Copula'));
+    if (!found) {
+      return
+    }
+    const want = Object.assign(fromKey(found.key), change);
+    const str = found.paradigm[toKey(want)];
+    if (!str || str === term.text) {
+      return
+    }
+    setText(term, str);
+    // keep the tags honest
+    setTag(term, 'PastTense', want.past);
+    setTag(term, 'PresentTense', !want.past);
+    setTag(term, 'Infinitive', str === term.root);
+    terms.forEach(t => {
+      setTag(t, 'Negative', want.negative);
+      setTag(t, 'Polite', want.polite);
+      // the tagger hands a helper's past-tense back to its て-form
+      if (t !== term) {
+        setTag(t, 'PastTense', want.past);
+      }
+    });
+  };
+
+  const api = function (View) {
+    class Verbs extends View {
+      constructor(document, pointer, groups) {
+        super(document, pointer, groups);
+        this.viewType = 'Verbs';
+      }
+      /** the pieces of each verb - its root, class, tense, polarity and politeness */
+      parse(n) {
+        return getNth(this, n).map(parse, [])
+      }
+      json(opts, n) {
+        // .json(0) is fine, too
+        if (typeof opts === 'number') {
+          n = opts;
+          opts = {};
+        }
+        return getNth(this, n).map(vb => {
+          const json = vb.toView().json(opts)[0] || {};
+          const res = parse(vb);
+          json.verb = {
+            root: res.root,
+            class: res.class,
+            tense: res.tense,
+            negative: res.negative,
+            polite: res.polite,
+            copula: res.copula,
+            auxiliary: res.auxiliary.termList().map(t => t.text).join(''),
+          };
+          return json
+        }, [])
+      }
+      /** every form of each verb - 食べた gives the paradigm of 食べる */
+      conjugate(n) {
+        const { verb } = this.methods.two.transform;
+        return getNth(this, n).map(vb => {
+          const res = parse(vb);
+          if (res.copula) {
+            return Object.assign({}, copulaForms)
+          }
+          return verb.verb(res.root) || { Infinitive: res.root }
+        }, [])
+      }
+      /** the dictionary-form of each verb - 読んでいました gives 読む */
+      toInfinitive(n) {
+        const arr = [];
+        getNth(this, n).forEach(vb => arr.push(parse(vb).root));
+        return arr
+      }
+      /** 食べる → 食べた,  食べません → 食べませんでした */
+      toPastTense(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { past: true }));
+        return this
+      }
+      /** 食べた → 食べる - japanese has no future tense, so this is that, too */
+      toPresentTense(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { past: false }));
+        return this
+      }
+      /** 食べる → 食べない,  食べました → 食べませんでした */
+      toNegative(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { negative: true }));
+        return this
+      }
+      /** 食べない → 食べる */
+      toPositive(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { negative: false }));
+        return this
+      }
+      /** 丁寧語 - 食べる → 食べます */
+      toPolite(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { polite: true }));
+        return this
+      }
+      /** 普通体 - 食べます → 食べる */
+      toPlain(n) {
+        getNth(this, n).forEach(vb => inflect(vb, { polite: false }));
+        return this
+      }
+      /** only the negated verbs - 食べない */
+      isNegative() {
+        return this.if('#Negative')
+      }
+      /** only the verbs that aren't negated */
+      isPositive() {
+        return this.ifNo('#Negative')
+      }
+      /** only the です/ます verbs */
+      isPolite() {
+        return this.if('#Polite')
+      }
+      /** only the plain-form verbs */
+      isPlain() {
+        return this.ifNo('#Polite')
+      }
+      /** only the commands - 走れ, 食べてください */
+      isImperative() {
+        return this.if('#Imperative')
+      }
+      // overloaded - keep Verb class
+      update(pointer) {
+        const m = new Verbs(this.document, pointer);
+        m._cache = this._cache; // share this full thing
+        return m
+      }
+    }
+    Verbs.prototype.toPast = Verbs.prototype.toPastTense;
+    Verbs.prototype.toPresent = Verbs.prototype.toPresentTense;
+
+    /** every 動詞 in the document, with its helper-verbs */
+    View.prototype.verbs = function (n) {
+      const m = new Verbs(this.document, find(this));
+      return getNth(m, n)
+    };
+  };
+
+  var verbs = {
+    api,
+  };
+
   nlp.plugin(tokenizer);
   nlp.plugin(tagset);
   nlp.plugin(lexicon);
@@ -13621,6 +14136,8 @@ designate
   nlp.plugin(romanji);
   nlp.plugin(preTagger);
   nlp.plugin(numbers);
+  nlp.plugin(nouns);
+  nlp.plugin(verbs);
 
   const ja = function (txt, lex) {
     // split sentences

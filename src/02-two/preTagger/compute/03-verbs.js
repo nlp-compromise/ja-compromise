@@ -109,3 +109,4 @@ const tagAuxiliary = function (terms, setTag, world) {
 }
 
 export default { tagUnknownVerbs, tagSuruVerbs, tagAuxiliary, tagCompoundVerbs }
+export { isAspect, isHelper }

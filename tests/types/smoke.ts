@@ -4,6 +4,7 @@ import nlp from 'ja-compromise'
 import type {
   JaView, JaTerm, Numbers, NumberParse, VerbConjugation, VerbClass,
   IAdjectiveConjugation, NaAdjectiveConjugation, Deconjugation,
+  Verbs, VerbParse, Nouns, NounParse, NounConjugation,
 } from 'ja-compromise'
 import type View from 'compromise/view/one'
 
@@ -75,6 +76,20 @@ const parsed: number | null = nlp.toNumber('二十三')
 const written: string | null = nlp.toKanji(23)
 const onTerm: number | undefined = doc.docs[0][0].number
 
+// verbs and nouns
+const vbs: Verbs = doc.verbs(0)
+const vbParse: VerbParse[] = vbs.parse()
+const vbRoot: string = vbParse[0].root
+const vbAux: JaView = vbParse[0].auxiliary
+const paradigms = vbs.conjugate()
+const pastForm: string = paradigms[0].PastTense
+vbs.toPastTense().toPresentTense().toNegative().toPositive().toPolite().toPlain().isNegative().isPositive().isPolite().isPlain().isImperative()
+const nns: Nouns = doc.nouns(0)
+const nnParse: NounParse[] = nns.parse()
+const particle: string | null = nnParse[0].particle
+const bothForms: NounConjugation[] = nns.conjugate()
+nns.toPlural().toSingular().isPlural().isSingular()
+
 // constructor bits
 const version: string = nlp.version
 nlp.verbose('tagger')
@@ -89,7 +104,7 @@ nlp(25)
 
 // silence noUnusedLocals
 
-export { asView, reading, english, parses, numJson, money, percents, tokens, nums, values, alias, units, rewritten, asText, bigger, counters, when, parsed, written, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }
+export { vbRoot, vbAux, pastForm, particle, bothForms, asView, reading, english, parses, numJson, money, percents, tokens, nums, values, alias, units, rewritten, asText, bigger, counters, when, parsed, written, onTerm, text, roots, arr, json, verbs, nouns, adjectives, particles, romanji, infinitives, isVerb, past, root, spelled, tags, klass, adj, version }
 
 // spec helpers
 const specFailures: import('ja-compromise').SpecFailure[] = nlp.fromSpec('a b', { tags: 'use', failures: 'retain' }).failures

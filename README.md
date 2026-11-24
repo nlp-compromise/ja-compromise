@@ -271,8 +271,17 @@ ja-compromise には、`compromise/one` のすべてのメソッドが含まれ�
 
 | | |
 |---|---|
-| `.verbs()` | every 動詞 in the document |
+| `.verbs()` | every 動詞 in the document, with its helper-verbs |
+| `.verbs().parse()` / `.json()` | each verb's root, class, tense, polarity and politeness |
+| `.verbs().conjugate()` | the full paradigm of each verb |
+| `.verbs().toPastTense()` / `.toPresentTense()` | 食べる ⇄ 食べた |
+| `.verbs().toNegative()` / `.toPositive()` | 食べる ⇄ 食べない |
+| `.verbs().toPolite()` / `.toPlain()` | 食べる ⇄ 食べます |
+| `.verbs().isNegative()` / `.isPolite()` / `.isImperative()` | only those verbs |
 | `.nouns()` | every 名詞 |
+| `.nouns().parse()` / `.json()` | each noun's bare form, number, and following 助詞 |
+| `.nouns().toPlural()` / `.toSingular()` | 子供 ⇄ 子供たち - only people take a plural |
+| `.nouns().isPlural()` / `.isSingular()` | only those nouns |
 | `.adjectives()` | every 形容詞 and 形容動詞 |
 | `.particles()` | every 助詞 |
 | `.romanji()` | the document sounded-out in the latin alphabet |

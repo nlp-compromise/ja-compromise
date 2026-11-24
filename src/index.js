@@ -11,6 +11,8 @@ import { methods as lexMethods } from './01-one/lexicon/api.js'
 import toNumber from './01-one/numbers/kanji-number.js'
 import toKanji from './01-one/numbers/to-kanji.js'
 import numbers from './01-one/numbers/api.js'
+import nouns from './03-three/nouns/plugin.js'
+import verbs from './03-three/verbs/plugin.js'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
@@ -19,6 +21,8 @@ nlp.plugin(output)
 nlp.plugin(romanji)
 nlp.plugin(preTagger)
 nlp.plugin(numbers)
+nlp.plugin(nouns)
+nlp.plugin(verbs)
 
 const ja = function (txt, lex) {
   // split sentences

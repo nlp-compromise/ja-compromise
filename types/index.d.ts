@@ -209,10 +209,10 @@ export interface JaView extends View {
   /** the document as text. `'root'` gives dictionary-forms */
   text: (options?: string | object) => string
 
-  /** every 動詞 in the document */
-  verbs: () => JaView
+  /** every 動詞 in the document, along with its helper-verbs */
+  verbs: (n?: number) => Verbs
   /** every 名詞 in the document */
-  nouns: () => JaView
+  nouns: (n?: number) => Nouns
   /** every 形容詞 and 形容動詞 in the document */
   adjectives: () => JaView
   /** every 助詞 in the document */
@@ -233,6 +233,104 @@ export interface JaView extends View {
   romanji: () => string
   /** the dictionary-form of each match - 食べました → 食べる */
   toInfinitive: () => string[]
+}
+
+/** what `.verbs().parse()` reports about a verb */
+export interface VerbParse {
+  /** the dictionary-form - 読んでいました gives 読む. the copula is だ */
+  root: string
+  /** which paradigm the verb follows. null for the copula, or an unknown shape */
+  class: VerbClass | null
+  /** null when the form has no tense - 食べよう, 食べて */
+  tense: 'PastTense' | 'PresentTense' | null
+  /** 食べない */
+  negative: boolean
+  /** です/ます - 食べます */
+  polite: boolean
+  /** だ, です, じゃない */
+  copula: boolean
+  /** the word with the meaning - 読んで */
+  main: JaView
+  /** any helper-verbs after it - いました */
+  auxiliary: JaView
+}
+
+/** the `verb` property of `.verbs().json()` */
+export interface VerbJson extends Omit<VerbParse, 'main' | 'auxiliary'> {
+  /** the text of any helper-verbs */
+  auxiliary: string
+}
+
+/** a view of the verbs in a document */
+export interface Verbs extends JaView {
+  /** the pieces of each verb - its root, class, tense, polarity and politeness */
+  parse: (n?: number) => VerbParse[]
+  /** json for each verb, with its grammar under `verb` */
+  json: (options?: number | string | object, n?: number) => any
+  /** every form of each verb - 食べた gives the paradigm of 食べる */
+  conjugate: (n?: number) => (VerbConjugation | Record<string, string>)[]
+  /** the dictionary-form of each verb - 読んでいました gives 読む */
+  toInfinitive: (n?: number) => string[]
+  /** 食べる becomes 食べた */
+  toPastTense: (n?: number) => Verbs
+  /** .toPastTense() alias */
+  toPast: (n?: number) => Verbs
+  /** 食べた becomes 食べる. japanese has no separate future tense */
+  toPresentTense: (n?: number) => Verbs
+  /** .toPresentTense() alias */
+  toPresent: (n?: number) => Verbs
+  /** 食べる becomes 食べない */
+  toNegative: (n?: number) => Verbs
+  /** 食べない becomes 食べる */
+  toPositive: (n?: number) => Verbs
+  /** 丁寧語 - 食べる becomes 食べます */
+  toPolite: (n?: number) => Verbs
+  /** 普通体 - 食べます becomes 食べる */
+  toPlain: (n?: number) => Verbs
+  /** only the negated verbs */
+  isNegative: () => Verbs
+  /** only the verbs that aren't negated */
+  isPositive: () => Verbs
+  /** only the です/ます verbs */
+  isPolite: () => Verbs
+  /** only the plain-form verbs */
+  isPlain: () => Verbs
+  /** only the commands - 走れ, 食べてください */
+  isImperative: () => Verbs
+}
+
+/** what `.nouns().parse()` reports about a noun */
+export interface NounParse {
+  /** the noun without any plural suffix - 子供たち gives 子供 */
+  root: string
+  /** marked as plural - 子供たち, 人々 */
+  plural: boolean
+  /** the 助詞 that follows the noun, if there is one */
+  particle: string | null
+}
+
+/** both forms of a noun. most japanese nouns have only the one */
+export interface NounConjugation {
+  singular: string
+  plural: string
+}
+
+/** a view of the nouns in a document */
+export interface Nouns extends JaView {
+  /** each noun's bare form, its number, and the particle after it */
+  parse: (n?: number) => NounParse[]
+  /** json for each noun, with its grammar under `noun` */
+  json: (options?: number | string | object, n?: number) => any
+  /** both forms of each noun */
+  conjugate: (n?: number) => NounConjugation[]
+  /** only the nouns marked as plural - 子供たち */
+  isPlural: (n?: number) => Nouns
+  /** only the nouns without a plural marker */
+  isSingular: (n?: number) => Nouns
+  /** 子供 becomes 子供たち. only people take a plural - 本 is left alone */
+  toPlural: (n?: number) => Nouns
+  /** 子供たち becomes 子供 */
+  toSingular: (n?: number) => Nouns
 }
 
 /** a view of the numbers in a document */
