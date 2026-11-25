@@ -250,8 +250,9 @@ nlp('五十年').match('#Year').found     // false - fifty years, not the year 5
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ## 分かち書き - tokenizing
-Japanese isn't written with spaces, so the tokenizer segments by longest-match
-against the lexicon, then repairs what that gets wrong:
+Japanese isn't written with spaces, so the tokenizer weighs every way of cutting
+the text into lexicon words, and takes the cheapest. A run of kanji it can't
+fully account for stays whole:
 
 ```js
 nlp('本を読んでいる人').terms().out('array')
@@ -455,8 +456,8 @@ npm watch
 ### 制限 / Known gaps
 * kanji readings are per-character with a small override table, so romanization
   of unfamiliar compounds is often wrong
-* segmentation is greedy longest-match, with no way to weigh one reading of an
-  ambiguous kana string against another
+* segmentation costs are hand-set, not learned from a corpus, so an ambiguous
+  kana string (すもももももも) can still come out wrong
 * compound verbs (吐き出す) split at the first stem unless they're in the lexicon
 * personal names are found from an honorific suffix, not from a name-list
 

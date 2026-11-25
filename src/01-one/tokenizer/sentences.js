@@ -75,8 +75,8 @@ const resplit = function (str) {
 // 'Mr.' is not the end of a sentence, even with no space before it - '彼はMr. Smithです'
 const beforeLatin = new RegExp(`^.*[${kana}、。](?=[A-Za-z]+\\. *$)`, 'u')
 const wrapIsSentence = function (isSentence) {
-  return function (str, abbrevs, foundLetter) {
-    return isSentence(str.replace(beforeLatin, ' '), abbrevs, foundLetter)
+  return function (str, abbrevs, foundLetter, next) {
+    return isSentence(str.replace(beforeLatin, ' '), abbrevs, foundLetter, next)
   }
 }
 

@@ -16,15 +16,16 @@ test('nlp.tokenize() segments words:', function (t) {
 })
 
 test('a given lexicon changes the segmentation:', function (t) {
-  const str = '私はぐでたまが好き'
-  t.notOk(terms(nlp(str)).includes('ぐでたま'), here + 'unknown beforehand')
-  const doc = nlp(str, { ぐでたま: 'Person' })
-  t.deepEqual(terms(doc), ['私', 'は', 'ぐでたま', 'が', '好き'], here + 'nlp(txt, lex)')
-  t.equal(doc.match('#Person').text(), 'ぐでたま', here + 'lexicon tag')
+  // a name in two scripts
+  const str = '私はくまモンが好き'
+  t.notOk(terms(nlp(str)).includes('くまモン'), here + 'unknown beforehand')
+  const doc = nlp(str, { くまモン: 'Person' })
+  t.deepEqual(terms(doc), ['私', 'は', 'くまモン', 'が', '好き'], here + 'nlp(txt, lex)')
+  t.equal(doc.match('#Person').text(), 'くまモン', here + 'lexicon tag')
   // longer than the built-in lookahead
   nlp.addWords({ ながいながいなまえのキャラクター: 'Person' })
   t.deepEqual(terms(nlp('ながいながいなまえのキャラクターが好き')), ['ながいながいなまえのキャラクター', 'が', '好き'], here + 'addWords')
-  t.deepEqual(terms(nlp.tokenize('ぐでたまが好き')), ['ぐでたま', 'が', '好き'], here + 'tokenize sees it too')
+  t.deepEqual(terms(nlp.tokenize('くまモンが好き')), ['くまモン', 'が', '好き'], here + 'tokenize sees it too')
   t.end()
 })
 
