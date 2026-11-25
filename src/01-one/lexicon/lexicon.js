@@ -2,6 +2,7 @@ import lexData from './_data.js'
 import { unpack } from 'efrt'
 import { conjugateVerb, conjugateAdjective, conjugateNaAdjective } from '../conjugate/index.js'
 import { verbForms, adjForms, naAdjForms, desireForms, derivedForms } from '../conjugate/tags.js'
+import copula from '../conjugate/copula.js'
 import misc from './misc.js'
 
 // tags in _data.js that describe *how a word conjugates*, not what it is
@@ -154,6 +155,13 @@ Object.keys(unpacked).forEach(tag => {
 })
 
 // ---- 3. hand-written entries win over everything ----
+// the copula's forms are listed whole, each with its own root - だった → だ.
+// a generated form never gets a say - でない is not 出る, and だった is not a 〜った verb
+Object.keys(copula).forEach(w => {
+  lexicon[w] = copula[w].tags
+  roots[w] = copula[w].root
+  strong.add(w)
+})
 Object.keys(misc).forEach(w => {
   lexicon[w] = misc[w]
   strong.add(w)

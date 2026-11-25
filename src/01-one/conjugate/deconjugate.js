@@ -1,5 +1,6 @@
 import { aRow, iRow, eRow, oRow } from './kana.js'
 import conjugateVerb from './conjugate-verb.js'
+import copula from './copula.js'
 
 // reverse the vowel-row tables, so we can walk a conjugated form back to its dictionary-form
 const invert = (obj) => Object.keys(obj).reduce((h, k) => { h[obj[k]] = k; return h }, {})
@@ -136,6 +137,12 @@ const toDict = function (stem, base) {
  * `isKnown` lets the caller disambiguate 書いた (書く) from a hypothetical 書いる.
  */
 const deconjugate = function (str, isKnown) {
+  // the copula is irregular - だった is だ, not a godan だく.
+  // only a whole-word match counts, so 抱いた and 読んだ are untouched
+  if (str && copula.hasOwnProperty(str)) {
+    const { root, tags } = copula[str]
+    return { root, tags: ['Verb'].concat(tags), candidates: [root] }
+  }
   if (!str || str.length < 2) {
     return null
   }

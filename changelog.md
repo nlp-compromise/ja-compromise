@@ -12,6 +12,8 @@
 - **[new]** - `nlp.toNumber()` parses decimals - '一・五', '〇・二五', '一点五' - and `nlp.toKanji(1.5)` is '一・五' (was rounded to '二')
 - **[change]** - a single ・ between kanji numerals is read as a decimal point - '二・二六' is 2.26
 - **[fix]** - `.numbers().toLocaleString()` no longer rounds decimals to three places
+- **[fix]** - the copula has a paradigm of its own, and a real root - だった, だろう, ではない and じゃない are だ (was 'だく', 'ではる'), でしょう is です, であった is である - in `.compute('root')` and `nlp.deconjugate()`
+- **[change]** - である, であった, でない and だったら are each one `#Copula` term
 - **[fix]** - `.compute('root')` no longer throws on an unknown verb (missing lexicon import)
 - **[fix]** - lint findings - duplicate keys in the kanji-reading table, and some regex cleanups
 - **[update]** - `lexicon/` moved to `data/lexicon/`

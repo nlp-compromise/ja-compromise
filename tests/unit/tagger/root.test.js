@@ -78,6 +78,49 @@ test('adjective roots:', function (t) {
   t.end()
 })
 
+// the copula is a paradigm of its own - だった is not a godan だく
+test('copula roots:', function (t) {
+  t.equal(rootOf('部屋は静かだった', 'だった'), 'だ', here + 'だった → だ')
+  t.equal(rootOf('彼は元気ではない', 'ではない'), 'だ', here + 'ではない → だ')
+  t.equal(rootOf('学生でした', 'でした'), 'です', here + 'でした → です')
+  const arr = [
+    // plain
+    ['学生だ', 'だ', 'だ'], ['学生だった', 'だった', 'だ'], ['明日は雨だろう', 'だろう', 'だ'],
+    ['雨だったら', 'だったら', 'だ'], ['静かなら', 'なら', 'だ'],
+    // the negative is one term, whichever way it's said
+    ['学生ではない', 'ではない', 'だ'], ['学生じゃない', 'じゃない', 'だ'], ['学生でない', 'でない', 'だ'],
+    ['学生ではなかった', 'ではなかった', 'だ'], ['学生じゃなかった', 'じゃなかった', 'だ'],
+    // polite
+    ['学生です', 'です', 'です'], ['明日は雨でしょう', 'でしょう', 'です'],
+    ['学生ではありません', 'ではありません', 'です'], ['学生じゃありませんでした', 'じゃありませんでした', 'です'],
+    // written
+    ['吾輩は猫である', 'である', 'である'], ['彼は学生であった', 'であった', 'である'],
+    ['猫であって', 'であって', 'である'], ['猫であれば', 'であれば', 'である'],
+  ]
+  arr.forEach(([str, word, want]) => {
+    t.equal(rootOf(str, word), want, here + str + ' - ' + word + ' → ' + want)
+  })
+  t.equal(nlp('部屋は静かだった').compute('root').has('{だ}'), true, here + '{だ}')
+  t.equal(nlp('部屋は静かだった').compute('root').text('root'), '部屋は静かだ', here + `.text('root')`)
+  t.end()
+})
+
+test('nlp.deconjugate() knows the copula:', function (t) {
+  const arr = [
+    ['だった', 'だ'], ['だろう', 'だ'], ['ではない', 'だ'], ['じゃない', 'だ'], ['でない', 'だ'],
+    ['でした', 'です'], ['でしょう', 'です'], ['である', 'である'], ['であった', 'である'],
+    // ..and real verbs with the same endings are left alone
+    ['抱いた', '抱く'], ['泳いだ', '泳ぐ'], ['読んだ', '読む'], ['死んだ', '死ぬ'], ['待った', '待つ'],
+  ]
+  arr.forEach(([str, want]) => {
+    t.equal(nlp.deconjugate(str).root, want, here + str + ' → ' + want)
+  })
+  t.ok(nlp.deconjugate('だった').tags.includes('Copula'), here + 'tagged as a copula')
+  t.equal(rootOf('子供を抱いた', '抱いた'), '抱く', here + '抱いた in a sentence')
+  t.equal(rootOf('本を読んだ', '読んだ'), '読む', here + '読んだ in a sentence')
+  t.end()
+})
+
 test('an unknown verb is walked back by its endings:', function (t) {
   // none of these are in the lexicon - the deconjugator works from the okurigana
   const arr = [

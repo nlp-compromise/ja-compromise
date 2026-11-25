@@ -1,28 +1,6 @@
 // hand-written entries. these win over every generated form.
 const lex = {
-  // ---- copula (だ/です) ----
-  // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
-  'だ': ['Copula', 'PresentTense'],
-  'だった': ['Copula', 'PastTense'],
-  'じゃない': ['Copula', 'PresentTense', 'Negative'],
-  'ではない': ['Copula', 'PresentTense', 'Negative'],
-  'じゃなかった': ['Copula', 'PastTense', 'Negative'],
-  'ではなかった': ['Copula', 'PastTense', 'Negative'],
-  'だろう': ['Copula', 'Presumptive'],
-  'なら': ['Copula', 'ConditionalVerb'],
-  'ならば': ['Copula', 'ConditionalVerb'],
-  'であれば': ['Copula', 'ConditionalVerb'],
-  'であって': ['Copula', 'Gerund'],
-  // polite copula
-  'です': ['Copula', 'PresentTense', 'Polite'],
-  'でした': ['Copula', 'PastTense', 'Polite'],
-  'でしょう': ['Copula', 'Presumptive', 'Polite'],
-  'ではありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
-  'じゃありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
-  'ではありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
-  'じゃありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
-  'でありまして': ['Copula', 'Gerund', 'Polite'],
-  'でございます': ['Copula', 'PresentTense', 'Polite'],
+  // the copula (だ/です/である) has a paradigm of its own - ../conjugate/copula.js
 
   // ---- negation & other bound auxiliaries that stand as their own token ----
   'ない': ['Auxiliary', 'PresentTense', 'Negative'],

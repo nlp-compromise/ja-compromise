@@ -9445,6 +9445,66 @@ designate
     }
   };
 
+  // the copula - だ, です, である - is an irregular paradigm of its own.
+  // its forms look like verb-endings (だった could be a godan 〜った, ではない a
+  // negative 〜ない) but they never decompose that way, so they're listed whole.
+  // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
+  //
+  // each of these is a single token, and a single term - 「ではない」 is one
+  // word, not で + は + ない - and its root is the copula's own dictionary-form:
+  //  - plain forms go back to だ
+  //  - polite forms go back to です
+  //  - the written/formal forms go back to である
+  const paradigms$1 = {
+    'だ': {
+      'だ': ['PresentTense'],
+      'だった': ['PastTense'],
+      'だったら': ['ConditionalVerb'],
+      'だろう': ['Presumptive'],
+      'なら': ['ConditionalVerb'],
+      'ならば': ['ConditionalVerb'],
+      // the negative is で(は) + ない, and じゃ is a spoken では
+      'でない': ['PresentTense', 'Negative'],
+      'ではない': ['PresentTense', 'Negative'],
+      'じゃない': ['PresentTense', 'Negative'],
+      'でなかった': ['PastTense', 'Negative'],
+      'ではなかった': ['PastTense', 'Negative'],
+      'じゃなかった': ['PastTense', 'Negative'],
+    },
+    'です': {
+      'です': ['PresentTense', 'Polite'],
+      'でした': ['PastTense', 'Polite'],
+      'でしたら': ['ConditionalVerb', 'Polite'],
+      'でしょう': ['Presumptive', 'Polite'],
+      'ではありません': ['PresentTense', 'Polite', 'Negative'],
+      'じゃありません': ['PresentTense', 'Polite', 'Negative'],
+      'ではありませんでした': ['PastTense', 'Polite', 'Negative'],
+      'じゃありませんでした': ['PastTense', 'Polite', 'Negative'],
+    },
+    'である': {
+      'である': ['PresentTense'],
+      'であった': ['PastTense'],
+      'であろう': ['Presumptive'],
+      'であれば': ['ConditionalVerb'],
+      'であって': ['Gerund'],
+      'であります': ['PresentTense', 'Polite'],
+      'でありました': ['PastTense', 'Polite'],
+      'でありまして': ['Gerund', 'Polite'],
+    },
+    // the humble copula only turns up in this form
+    'でございます': {
+      'でございます': ['PresentTense', 'Polite'],
+    },
+  };
+
+  // surface-form → { root, tags }
+  const copula$1 = {};
+  Object.keys(paradigms$1).forEach(root => {
+    Object.keys(paradigms$1[root]).forEach(str => {
+      copula$1[str] = { root, tags: ['Copula'].concat(paradigms$1[root][str]) };
+    });
+  });
+
   // reverse the vowel-row tables, so we can walk a conjugated form back to its dictionary-form
   const invert = (obj) => Object.keys(obj).reduce((h, k) => { h[obj[k]] = k; return h }, {});
   const fromA = invert(aRow);
@@ -9575,6 +9635,12 @@ designate
    * `isKnown` lets the caller disambiguate 書いた (書く) from a hypothetical 書いる.
    */
   const deconjugate = function (str, isKnown) {
+    // the copula is irregular - だった is だ, not a godan だく.
+    // only a whole-word match counts, so 抱いた and 読んだ are untouched
+    if (str && copula$1.hasOwnProperty(str)) {
+      const { root, tags } = copula$1[str];
+      return { root, tags: ['Verb'].concat(tags), candidates: [root] }
+    }
     if (!str || str.length < 2) {
       return null
     }
@@ -9706,29 +9772,7 @@ designate
 
   // hand-written entries. these win over every generated form.
   const lex = {
-    // ---- copula (だ/です) ----
-    // https://www.japaneseprofessor.com/reference/grammar/conjugations-of-the-japanese-copula/
-    'だ': ['Copula', 'PresentTense'],
-    'だった': ['Copula', 'PastTense'],
-    'じゃない': ['Copula', 'PresentTense', 'Negative'],
-    'ではない': ['Copula', 'PresentTense', 'Negative'],
-    'じゃなかった': ['Copula', 'PastTense', 'Negative'],
-    'ではなかった': ['Copula', 'PastTense', 'Negative'],
-    'だろう': ['Copula', 'Presumptive'],
-    'なら': ['Copula', 'ConditionalVerb'],
-    'ならば': ['Copula', 'ConditionalVerb'],
-    'であれば': ['Copula', 'ConditionalVerb'],
-    'であって': ['Copula', 'Gerund'],
-    // polite copula
-    'です': ['Copula', 'PresentTense', 'Polite'],
-    'でした': ['Copula', 'PastTense', 'Polite'],
-    'でしょう': ['Copula', 'Presumptive', 'Polite'],
-    'ではありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
-    'じゃありません': ['Copula', 'PresentTense', 'Polite', 'Negative'],
-    'ではありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
-    'じゃありませんでした': ['Copula', 'PastTense', 'Polite', 'Negative'],
-    'でありまして': ['Copula', 'Gerund', 'Polite'],
-    'でございます': ['Copula', 'PresentTense', 'Polite'],
+    // the copula (だ/です/である) has a paradigm of its own - ../conjugate/copula.js
 
     // ---- negation & other bound auxiliaries that stand as their own token ----
     'ない': ['Auxiliary', 'PresentTense', 'Negative'],
@@ -9969,6 +10013,13 @@ designate
   });
 
   // ---- 3. hand-written entries win over everything ----
+  // the copula's forms are listed whole, each with its own root - だった → だ.
+  // a generated form never gets a say - でない is not 出る, and だった is not a 〜った verb
+  Object.keys(copula$1).forEach(w => {
+    lexicon$1[w] = copula$1[w].tags;
+    roots[w] = copula$1[w].root;
+    strong.add(w);
+  });
   Object.keys(lex).forEach(w => {
     lexicon$1[w] = lex[w];
     strong.add(w);
@@ -12042,6 +12093,11 @@ designate
         }
         if (roots[term.text] !== undefined) {
           term.root = roots[term.text];
+          return
+        }
+        // a word only the tagger knows is the copula - 静か [で] - is still だ
+        if (term.tags.has('Copula')) {
+          term.root = 'だ';
           return
         }
         // an unknown verb can still be walked back to its dictionary-form

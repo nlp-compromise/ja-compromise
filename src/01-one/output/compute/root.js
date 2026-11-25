@@ -14,6 +14,11 @@ const addRoot = function (view) {
         term.root = roots[term.text]
         return
       }
+      // a word only the tagger knows is the copula - 静か [で] - is still だ
+      if (term.tags.has('Copula')) {
+        term.root = 'だ'
+        return
+      }
       // an unknown verb can still be walked back to its dictionary-form
       if (term.tags.has('Verb')) {
         const found = deconjugate(term.text, isKnown)
