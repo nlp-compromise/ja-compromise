@@ -1,4 +1,4 @@
-import lexicon from '../../lexicon/lexicon.js'
+import ownLexicon from '../../lexicon/lexicon.js'
 import { getType, isKanji } from './lib.js'
 
 // suffixes that belong to the word in front of them
@@ -18,7 +18,7 @@ const MAX_RUN = 4
 const runLimit = (type) => (type === 'kanji' || type === 'hiragana' ? MAX_RUN : Infinity)
 
 /** glue neighbouring unknown characters into plausible words */
-const joinUp = function (arr) {
+const joinUp = function (arr, lexicon = ownLexicon) {
   const out = []
   for (let i = 0; i < arr.length; i += 1) {
     const c = arr[i]
@@ -37,7 +37,8 @@ const joinUp = function (arr) {
       i += 1
       continue
     }
-    if (c.length === 1 && !lexicon[c]) {
+    // 第 is the ordinal prefix - 第|三|回 stays apart, so the number can be read
+    if (c.length === 1 && !lexicon[c] && c !== '第') {
       const type = getType(c)
       let run = c
       // race ahead, joining same-script characters.

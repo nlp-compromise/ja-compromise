@@ -1,6 +1,5 @@
 import nlp from './_lib.js'
 import lexicon from './01-one/lexicon/plugin.js'
-import toTerms from './01-one/tokenizer/methods/whitespace.js'
 import romanji from './01-one/romanji/plugin.js'
 import tokenizer from './01-one/tokenizer/plugin.js'
 import output from './01-one/output/plugin.js'
@@ -24,31 +23,9 @@ nlp.plugin(numbers)
 nlp.plugin(nouns)
 nlp.plugin(verbs)
 
+// word-segmentation happens in the tokenizer plugin, so this is all there is
 const ja = function (txt, lex) {
-  // split sentences
-  const doc = nlp.tokenize(txt, lex)
-  // tokenize terms ourselves - compromise splits on whitespace, which japanese
-  // mostly doesn't use.  every whitespace-chunk still needs splitting, so run
-  // the tokenizer over each of them and keep their surrounding punctuation.
-  doc.document = doc.document.map(a => {
-    let out = []
-    // if the sentence has spaces in it, they're real word-boundaries
-    const spaced = a.length > 1
-    a.forEach(term => {
-      const terms = toTerms(term.text, spaced)
-      if (terms.length === 0) {
-        out.push(term)
-        return
-      }
-      terms[0].pre = (term.pre || '') + terms[0].pre
-      terms[terms.length - 1].post += term.post || ''
-      out = out.concat(terms)
-    })
-    return out
-  })
-  const world = nlp.world()
-  doc.compute(world.hooks)
-  return doc
+  return nlp(txt, lex)
 }
 
 // copy constructor methods over

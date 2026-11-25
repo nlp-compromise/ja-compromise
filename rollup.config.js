@@ -21,7 +21,7 @@ export default [
       nodeResolve(),
       terser(opts),
       sizeCheck({
-        expect: 186,
+        expect: 205,
         warn: 10, // acceptable (+/-)
         throw: 50 // unacceptable (+/-)
       })

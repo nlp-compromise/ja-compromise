@@ -1,12 +1,11 @@
-import buildIndex from './trie/build.js'
-import lexicon from '../../lexicon/lexicon.js'
+import ownLexicon from '../../lexicon/lexicon.js'
 import splitUp from './trie/split-up.js'
 import joinUp from './join-up.js'
 import attachOkurigana from './okurigana.js'
 import joinNumbers from './join-numbers.js'
 import { isPunctuation } from './lib.js'
 
-const { words, maxLen } = buildIndex(Object.keys(lexicon))
+const maxLen = Object.keys(ownLexicon).reduce((max, w) => Math.max(max, w.length), 1)
 // a very long 'word' is nearly always two words - cap the lookahead
 const LOOKAHEAD = Math.min(maxLen, 12)
 
@@ -87,7 +86,8 @@ const rejoinKana = function (arr) {
   return out
 }
 
-const tokenize = function (txt, isChunk) {
+// `lexicon` is the live one - ours, plus any words the user has added
+const tokenize = function (txt, isChunk, lexicon = ownLexicon, maxWord = 0) {
   // when the writer used a space, that chunk is one word - beginner japanese
   // is often written 「たろう は のりこ を…」, and 「のりこ」 must not be
   // greedily read as the particle の plus りこ
@@ -95,15 +95,15 @@ const tokenize = function (txt, isChunk) {
     return [txt]
   }
   // split by known-word segments
-  let arr = splitUp(txt, words, LOOKAHEAD)
+  let arr = splitUp(txt, lexicon, Math.max(LOOKAHEAD, maxWord))
   // a kana run that fell apart into loose characters is one unknown word
   arr = rejoinKana(arr)
   // join-up neighbouring unknown characters
-  arr = joinUp(arr)
+  arr = joinUp(arr, lexicon)
   // 二|十|三 is one number
   arr = joinNumbers(arr)
   // give an unknown kanji stem its inflectional tail - 含 + まれている
-  arr = attachOkurigana(arr)
+  arr = attachOkurigana(arr, lexicon)
   // punctuation is never its own term - it hangs off the word before it,
   // except an opening bracket, which hangs off the word after it - 彼は「はい」と
   const out = []
@@ -140,4 +140,3 @@ const tokenize = function (txt, isChunk) {
   return out
 }
 export default tokenize
-export { words }

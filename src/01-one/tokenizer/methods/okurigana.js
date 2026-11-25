@@ -1,4 +1,4 @@
-import lexicon from '../../lexicon/lexicon.js'
+import ownLexicon from '../../lexicon/lexicon.js'
 import deconjugate from '../../conjugate/deconjugate.js'
 import { isKanji, isHiragana } from './lib.js'
 
@@ -6,6 +6,11 @@ import { isKanji, isHiragana } from './lib.js'
 // is 木 + で + 作った, not 木で + 作った
 const particleStart = new Set(['は', 'が', 'を', 'に', 'へ', 'と', 'も', 'の', 'か', 'ね', 'よ', 'や', 'で', 'ば'])
 const MAX_TAIL = 6
+// …nor can the copula, or まで - 嘘じゃない and 大阪まで are not verbs
+const notOkurigana = /^(?:じゃ|だ|です|まで)/
+
+/** could this kana be the start of a verb's ending? */
+const canBeOkurigana = (str) => str !== '' && !particleStart.has(str[0]) && !notOkurigana.test(str)
 
 const isHiraganaWord = (str) => str.split('').every(isHiragana)
 
@@ -13,12 +18,14 @@ const isHiraganaWord = (str) => str.split('').every(isHiragana)
  * 含まれている is a verb even though 含む isn't in the lexicon.
  * glue an unknown kanji stem onto the inflectional tail that follows it.
  */
-const attachOkurigana = function (arr) {
+const attachOkurigana = function (arr, lexicon = ownLexicon) {
   const out = []
   for (let i = 0; i < arr.length; i += 1) {
     const head = arr[i]
-    // only an unknown kanji chunk can pick up okurigana
-    if (lexicon[head] || !head.split('').every(isKanji)) {
+    // only an unknown kanji can pick up okurigana.  a verb's stem is one
+    // kanji - a longer chunk is a compound noun, and 大学生じゃない or
+    // 大阪まで are not verbs
+    if (lexicon[head] || head.length !== 1 || !isKanji(head)) {
       out.push(head)
       continue
     }
@@ -32,7 +39,7 @@ const attachOkurigana = function (arr) {
       tail += arr[o]
       end = o
     }
-    if (tail === '' || particleStart.has(tail[0])) {
+    if (!canBeOkurigana(tail)) {
       out.push(head)
       continue
     }
@@ -56,3 +63,4 @@ const attachOkurigana = function (arr) {
   return out
 }
 export default attachOkurigana
+export { canBeOkurigana }
