@@ -15,9 +15,10 @@
 // kanji compounds are not weighed here.  ./kanji-run.js decides those.
 
 import kanjiRun from './kanji-run.js'
+import verbRule from './verb-rule.js'
 import deconjugate from '../../../conjugate/deconjugate.js'
 import { canBeOkurigana } from '../okurigana.js'
-import { isHiragana, isKanji, isAscii } from '../lib.js'
+import { isHiragana, isKanji, isAscii, isEmoji, isEmojiJoiner, charAt } from '../lib.js'
 
 const hasWord = Object.prototype.hasOwnProperty
 
@@ -33,6 +34,7 @@ const STRAY_KANA = 3 // one unknown hiragana - nearly always a wrong cut
 // they're probably two words and a particle - なまえ|は|たなか
 const UNKNOWN = [0, 0, 2.4, 3, 3.7, 4.8, 6, 7.2]
 const VERB = 1.3 // an unknown kanji and a verb-ending - 届きました
+const RULE = 1.1 // a known verb, with an ending the lexicon doesn't list - 行かなければ
 const LEAD = 1.2 // an unknown word with a particle on the front - 経験|に|つながる
 const TRAIL = 0.5 // …or on the end - ひらがな|と.  but names end this way too - たなか
 const MISPLACED = 1.5 // a particle that can't follow the one before it
@@ -80,6 +82,40 @@ const getKind = function (lexicon, str) {
 
 // is a hiragana run - ー may lengthen it, らーめん
 const isKana = (c, isFirst) => isHiragana(c) || (c === 'ー' && !isFirst)
+// …and so may a wave-dash, when there's more of the word to come - すご〜い
+const isWave = (txt, i) => (txt[i] === '〜' || txt[i] === '~') && isHiragana(txt[i - 1] || '') && isHiragana(txt[i + 1] || '')
+
+// things that are one word, whatever punctuation is inside them.
+// the text here is plain-width, so these are all ascii
+const patterns = [
+  /https?:\/\/[\w\-.~:/?#[\]@!$&'()*+,;=%]+/y, // a url
+  /www\.[\w-]+(?:\.[\w-]+)+[\w\-.~:/?#[\]@!$&'()*+,;=%]*/y,
+  /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/y, // an email
+  /\d{1,3}(?:,\d{3})+(?:\.\d+)?(?![\d,])/y, // 1,000,000
+  /\d{1,4}[/-]\d{1,2}[/-]\d{1,4}(?![\d/-])/y, // 2024/01/05
+  /\d{2,5}-\d{1,4}-\d{3,4}(?![\d-])/y, // 03-1234-5678
+  /\d{3}-\d{4}(?![\d-])/y, // 100-0001
+  /\d{1,2}:\d{2}(?::\d{2})?(?![\d:])/y, // 10:30
+  /[a-z](?:\+\+|#)(?![a-z0-9])/iy, // C++, C#
+  /[a-z]+(?:[-'’.&][a-z0-9]+)+/iy, // Wi-Fi, COVID-19, U.S.A, don't
+]
+// a url can't end in a full-stop or a bracket - that's the sentence's
+const urlEnd = /[.,;:!?)\]'"]+$/
+const startsPattern = /[a-z0-9]/i
+
+const findPattern = function (txt, i) {
+  if (!startsPattern.test(txt[i]) || startsPattern.test(txt[i - 1] || '')) {
+    return null
+  }
+  for (let k = 0; k < patterns.length; k += 1) {
+    patterns[k].lastIndex = i
+    const m = patterns[k].exec(txt)
+    if (m !== null) {
+      return k < 3 ? m[0].replace(urlEnd, '') : m[0]
+    }
+  }
+  return null
+}
 
 /** every word that could begin at i */
 const getEdges = function (txt, i, lexicon, maxLen) {
@@ -89,7 +125,24 @@ const getEdges = function (txt, i, lexicon, maxLen) {
     return [{ end: run.end, pieces: run.pieces, cost: run.pieces.length, kind: 'other' }]
   }
   const edges = []
-  const c = txt[i]
+  // one whole character - 𠮷 and 😀 are two units long
+  const c = charAt(txt, i)
+  const found = findPattern(txt, i)
+  if (found !== null) {
+    return [{ end: i + found.length, pieces: [found], cost: WORD, kind: 'other' }]
+  }
+  // an emoji, with any skin-tones and joiners it has - 👨‍👩‍👧 is one
+  if (isEmoji(c)) {
+    let end = i + c.length
+    while (end < txt.length) {
+      const next = charAt(txt, end)
+      if (!isEmoji(next) && !isEmojiJoiner(next)) {
+        break
+      }
+      end += next.length
+    }
+    return [{ end, pieces: [txt.slice(i, end)], cost: WORD, kind: 'other' }]
+  }
   // a latin word is one word.  compromise's lexicon has english abbreviations
   // in it - dec, al, ma - which are not to be found inside 'decimal'
   if (isAscii(c)) {
@@ -109,6 +162,13 @@ const getEdges = function (txt, i, lexicon, maxLen) {
     }
   }
   const anyWords = edges.length > 0
+  // a known verb, in a form we haven't listed
+  if (isKanji(c) || anyWords) {
+    const str = verbRule(txt, i, lexicon)
+    if (str !== null) {
+      edges.push({ end: i + str.length, pieces: [str], cost: RULE, kind: 'other' })
+    }
+  }
   // one character
   const known = hasWord.call(lexicon, c)
   let kind = known ? getKind(lexicon, c) : 'other'
@@ -122,7 +182,7 @@ const getEdges = function (txt, i, lexicon, maxLen) {
   if (c === 'な' && i + 1 < txt.length) {
     kind = 'other'
   }
-  edges.push({ end: i + 1, pieces: [c], cost, kind, single })
+  edges.push({ end: i + c.length, pieces: [c], cost, kind, single })
   // a stretch of kana that isn't in the lexicon - a name, or a word we're missing
   // (バズ|って - a loanword can take a verb-ending, which begins with っ)
   const afterLoan = c === 'っ' && i > 0 && !isHiragana(txt[i - 1])
@@ -130,7 +190,7 @@ const getEdges = function (txt, i, lexicon, maxLen) {
     for (let len = 2; len <= MAX_KANA && i + len <= txt.length; len += 1) {
       const last = txt[i + len - 1]
       // を is only ever a particle, so it's a hard word-boundary
-      if (!isKana(last, false) || last === 'を') {
+      if ((!isKana(last, false) && !isWave(txt, i + len - 1)) || last === 'を') {
         break
       }
       const str = txt.substr(i, len)
@@ -148,16 +208,16 @@ const getEdges = function (txt, i, lexicon, maxLen) {
   // an unknown kanji, and the verb-ending after it - 含 + まれている.
   // if we know any word that starts here - 読んで - then it isn't unknown
   if (isKanji(c) && !known && !anyWords) {
-    let stop = i + 1
+    let stop = i + c.length
     while (stop < txt.length && stop - i <= MAX_OKURI && isHiragana(txt[stop])) {
       stop += 1
     }
-    for (let j = stop; j >= i + 3; j -= 1) {
+    for (let j = stop; j >= i + c.length + 2; j -= 1) {
       const str = txt.slice(i, j)
       if (hasWord.call(lexicon, str) || cantFollow.has(txt[j])) {
         continue
       }
-      if (canBeOkurigana(txt.slice(i + 1, j)) && deconjugate(str)) {
+      if (canBeOkurigana(txt.slice(i + c.length, j)) && deconjugate(str)) {
         edges.push({ end: j, pieces: [str], cost: VERB, kind: 'other' })
         break
       }

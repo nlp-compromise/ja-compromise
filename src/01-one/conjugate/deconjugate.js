@@ -63,6 +63,27 @@ const defaultDict = function (stem, base) {
 // `base` says which of the five 活用形 the remaining stem is.
 const suffixes = [
   ['ませんでした', ['Verb', 'PastTense', 'Polite', 'Negative'], 'masu'],
+  // 食べたい inflects again, like an adjective
+  ['たくなかった', ['Verb', 'Desire', 'PastTense', 'Negative'], 'masu'],
+  ['たくない', ['Verb', 'Desire', 'PresentTense', 'Negative'], 'masu'],
+  ['たかった', ['Verb', 'Desire', 'PastTense'], 'masu'],
+  ['たくて', ['Verb', 'Desire', 'Gerund'], 'masu'],
+  ['たければ', ['Verb', 'Desire', 'ConditionalVerb'], 'masu'],
+  // spoken contractions - なければ → なきゃ,  てしまった → ちゃった,  ていた → てた
+  ['なくちゃ', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
+  ['なきゃ', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
+  ['ちゃった', ['Verb', 'PastTense'], 'ta'],
+  ['じゃった', ['Verb', 'PastTense'], 'ta'],
+  ['ちゃって', ['Verb', 'Gerund'], 'ta'],
+  ['じゃって', ['Verb', 'Gerund'], 'ta'],
+  ['ちゃう', ['Verb', 'PresentTense'], 'ta'],
+  ['じゃう', ['Verb', 'PresentTense'], 'ta'],
+  ['てます', ['Verb', 'Progressive', 'PresentTense', 'Polite'], 'te'],
+  ['でます', ['Verb', 'Progressive', 'PresentTense', 'Polite'], 'te'],
+  ['てない', ['Verb', 'Progressive', 'PresentTense', 'Negative'], 'te'],
+  ['でない', ['Verb', 'Progressive', 'PresentTense', 'Negative'], 'te'],
+  ['てた', ['Verb', 'Progressive', 'PastTense'], 'te'],
+  ['でた', ['Verb', 'Progressive', 'PastTense'], 'te'],
   ['なかったら', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
   ['なければ', ['Verb', 'ConditionalVerb', 'Negative'], 'neg'],
   ['ましょう', ['Verb', 'Volitional', 'Polite'], 'masu'],
@@ -153,7 +174,25 @@ const deconjugate = function (str, isKnown) {
     }
     const stem = str.slice(0, -suffix.length)
     // 'た'/'だ'/'て'/'で' hang off the 音便 kana, which belongs to the stem
-    const candidates = toDict(stem, base)
+    let candidates = toDict(stem, base)
+    if (base === 'te' || base === 'ta') {
+      // …and that kana decides the voicing - 読んで and 泳いで, but 書いて and
+      // 待って.  「うんて」 is not a form of 産む
+      const voiced = /^[でだじ]/.test(suffix)
+      const onbin = stem[stem.length - 1]
+      if ((onbin === 'ん' && !voiced) || ((onbin === 'っ' || onbin === 'し') && voiced)) {
+        continue
+      }
+      if (onbin === 'い') {
+        const want = voiced ? 'ぐ' : 'く'
+        const godan = candidates.filter(c => c.endsWith(want))
+        // an ichidan stem can end in い too - 用いて
+        candidates = voiced ? godan : godan.concat(candidates.filter(c => c.endsWith('る')))
+      } else if (voiced && onbin !== 'ん') {
+        // an ichidan verb never voices - 食べて
+        continue
+      }
+    }
     if (candidates.length === 0) {
       continue
     }

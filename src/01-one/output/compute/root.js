@@ -23,7 +23,8 @@ const addRoot = function (view) {
       if (term.tags.has('Verb')) {
         const found = deconjugate(term.text, isKnown)
         if (found) {
-          term.root = found.root
+          // 食べさせられたくなかった → 食べさせられる → 食べる
+          term.root = roots[found.root] || found.root
           return
         }
       }

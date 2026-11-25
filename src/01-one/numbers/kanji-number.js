@@ -84,18 +84,32 @@ const toNumber = function (str) {
   if (!str || typeof str !== 'string') {
     return null
   }
+  // 1,000 and １，０００ - the comma is only there to be read
+  str = str.replace(/([0-9０-９])[,，](?=[0-9０-９]{3})/g, '$1')
   // 一・五 - a whole number, one decimal point, then plain digits
   for (let i = 0; i < str.length; i += 1) {
     if (!isDecimalPoint(str[i])) {
       continue
     }
     const whole = toInteger(str.slice(0, i))
-    const decimals = str.slice(i + 1)
+    let decimals = str.slice(i + 1)
+    // 1.5万 is 15,000 - the 万 multiplies all of it
+    let end = decimals.length
+    while (end > 0 && large[decimals[end - 1]] !== undefined) {
+      end -= 1
+    }
+    const unit = decimals.slice(end)
+    decimals = decimals.slice(0, end)
     if (whole === null || !isDigits(decimals)) {
       return null
     }
     // build it from a string, so 〇・一 is 0.1 and not 0.1000000001
-    return Number(whole + '.' + decimals.split('').map(c => digits[c]).join(''))
+    const num = Number(whole + '.' + decimals.split('').map(c => digits[c]).join(''))
+    if (unit === '') {
+      return num
+    }
+    // ... and tidy the float - 1.1万 is 11000, not 11000.000000000002
+    return Number((num * toInteger(unit)).toPrecision(15))
   }
   return toInteger(str)
 }

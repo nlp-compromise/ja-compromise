@@ -255,12 +255,28 @@ the text into lexicon words, and takes the cheapest. A run of kanji it can't
 fully account for stays whole:
 
 ```js
-nlp('本を読んでいる人').terms().out('array')
-// [ '本', 'を', '読んでいる', '人' ]
+nlp('東京都知事は京都に行きます').terms().out('array')
+// [ '東京都知事', 'は', '京都', 'に', '行きます' ]
+```
 
-// an unknown verb is still one word - 含む isn't in the lexicon
-nlp('含まれている').terms().out('array')
-// [ '含まれている' ]
+One term is a word and its bound endings. A て-form and the helper verb after
+it are two terms - `.verbs()` puts them back together:
+
+```js
+nlp('行かなければならない').terms().out('array')
+// [ '行かなければ', 'ならない' ]
+
+let doc = nlp('本を読んでいる人')
+doc.terms().out('array')
+// [ '本', 'を', '読んで', 'いる', '人' ]
+doc.verbs().out('array')
+// [ '読んでいる' ]
+doc.text('root')
+// '本を読む人'
+
+// an unknown verb still keeps its endings - 含む isn't in the lexicon
+nlp('含まれました').terms().out('array')
+// [ '含まれました' ]
 ```
 
 

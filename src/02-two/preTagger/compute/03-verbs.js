@@ -1,5 +1,5 @@
 import { deconjugate, conjugateVerb } from '../../../01-one/conjugate/index.js'
-import lexicon from '../../../01-one/lexicon/lexicon.js'
+import lexicon, { roots } from '../../../01-one/lexicon/lexicon.js'
 
 const reason = 'verbSuffix'
 const isKnown = (w) => lexicon.hasOwnProperty(w)
@@ -23,7 +23,7 @@ const tagUnknownVerbs = function (terms, setTag, world) {
       return
     }
     found.tags.forEach(tag => setTag([term], tag, world, null, reason))
-    term.root = found.root
+    term.root = roots[found.root] || found.root
   })
 }
 
@@ -74,8 +74,9 @@ const tagCompoundVerbs = function (terms, setTag, world) {
     if (!isAspect.has(t.text) && !isHelper.has(t.text)) {
       continue
     }
+    // 読んで|いる is two terms, but one progressive verb - #Progressive finds both
     if (isAspect.has(t.text)) {
-      setTag([prev], 'Progressive', world, null, 'compoundVerb')
+      setTag([prev, t], 'Progressive', world, null, 'compoundVerb')
     }
     ;['PastTense', 'Negative', 'Polite'].forEach(tag => {
       if (t.tags.has(tag)) {

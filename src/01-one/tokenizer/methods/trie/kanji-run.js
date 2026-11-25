@@ -1,5 +1,6 @@
-import { isKanji, isHiragana } from '../lib.js'
+import { isKanji, isHiragana, isLowSurrogate, charAt } from '../lib.js'
 import { canBeOkurigana } from '../okurigana.js'
+import verbRule from './verb-rule.js'
 import deconjugate from '../../../conjugate/deconjugate.js'
 import { isNumeral } from '../../../numbers/kanji-number.js'
 
@@ -40,8 +41,13 @@ const startsNumber = (c) => isNumeral(c) && c !== '京'
 // where does the run of kanji beginning at i end?
 const runEnd = function (txt, i) {
   let end = i
-  while (end < txt.length && isKanji(txt[end])) {
-    end += 1
+  while (end < txt.length) {
+    // 𠮷 is two units long
+    const c = charAt(txt, end)
+    if (!isKanji(c)) {
+      break
+    }
+    end += c.length
   }
   return end
 }
@@ -62,6 +68,16 @@ const findTails = function (txt, start, end, lexicon, maxLen) {
         tails.push({ at: s, word: str })
         break
       }
+    }
+    // 勉強しなければ - a known verb, in a form the lexicon doesn't list
+    const last = tails[tails.length - 1]
+    const listed = last !== undefined && last.at === s ? s + last.word.length : end
+    const str = verbRule(txt, s, lexicon, listed)
+    if (str !== null) {
+      if (last !== undefined && last.at === s) {
+        tails.pop()
+      }
+      tails.push({ at: s, word: str })
     }
   }
   return tails
@@ -180,6 +196,9 @@ const MAX_OKURI = 6
 // is the last kanji of this run the stem of a verb we don't know?
 const isUnknownStem = function (txt, end, lexicon) {
   const stem = txt[end - 1]
+  if (isLowSurrogate(stem)) {
+    return false
+  }
   if (isWord(lexicon, stem) || cantStart.has(txt[end]) || !canBeOkurigana(txt.slice(end, end + 2))) {
     return false
   }

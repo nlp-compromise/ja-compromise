@@ -66,7 +66,7 @@ test('a verb at the end of a run keeps its stem:', function (t) {
     ['全部食べた', ['全部', '食べた']],
     // 届く isn't in the lexicon
     ['手紙届きました', ['手紙', '届きました']],
-    ['新型含まれている', ['新型', '含まれている']],
+    ['新型含まれている', ['新型', '含まれて', 'いる']],
   ]
   arr.forEach(([str, want]) => {
     t.deepEqual(terms(str), want, here + str)

@@ -1,4 +1,4 @@
-import { isNumeral, isDigits } from '../../numbers/kanji-number.js'
+import { isNumeral, isDigits, large } from '../../numbers/kanji-number.js'
 
 const allNumeral = function (str) {
   for (let i = 0; i < str.length; i += 1) {
@@ -7,6 +7,28 @@ const allNumeral = function (str) {
     }
   }
   return str.length > 0
+}
+
+// 2,000 and １，２３４．５ - the tokenizer has already made these one word
+const hasCommas = /^[0-9０-９]{1,3}(?:[,，][0-9０-９]{3})+(?:[.．][0-9０-９]+)?$/
+// anything that can sit in a run of numerals - 1億|2,000|万
+const isPart = (str) => allNumeral(str) || hasCommas.test(str)
+
+// the decimals of 1.5万 - plain digits, and then the 万 that multiplies them
+const isDecimals = function (str) {
+  let i = 0
+  while (i < str.length && isDigits(str[i])) {
+    i += 1
+  }
+  if (i === 0) {
+    return false
+  }
+  for (let k = i; k < str.length; k += 1) {
+    if (large[str[k]] === undefined) {
+      return false
+    }
+  }
+  return true
 }
 
 // 1.5, １．５ and 一・五.  「一点五」 is left alone here, because 点 is far more
@@ -29,7 +51,7 @@ const joinDecimals = function (arr) {
     }
     // how far does this number|point|digits|point|digits chain go?
     let end = i
-    while (isPoint(arr[end + 1] || '') && isDigits(arr[end + 2] || '')) {
+    while (isPoint(arr[end + 1] || '') && isDecimals(arr[end + 2] || '')) {
       end += 2
     }
     if (end === i + 2) {
@@ -51,12 +73,12 @@ const joinDecimals = function (arr) {
 const joinNumbers = function (arr) {
   const out = []
   for (let i = 0; i < arr.length; i += 1) {
-    if (!allNumeral(arr[i])) {
+    if (!isPart(arr[i])) {
       out.push(arr[i])
       continue
     }
     let run = arr[i]
-    while (arr[i + 1] !== undefined && allNumeral(arr[i + 1])) {
+    while (arr[i + 1] !== undefined && isPart(arr[i + 1])) {
       run += arr[i + 1]
       i += 1
     }

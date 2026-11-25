@@ -1,7 +1,11 @@
 import counters from '../../../../data/lexicon/counters.js'
 import toNumber, { isNumeral } from '../../../01-one/numbers/kanji-number.js'
+import { signOf } from '../../../01-one/numbers/sign.js'
 
 const reason = 'number'
+
+// ¥1,000 - the symbol is punctuation, in front of the number
+const moneySign = /[¥￥$＄€£]$/
 
 // 二十三, 23, and a decimal the tokenizer has already joined - 1.5, 一・五.
 // a number always starts with a numeral, so 「点」 on its own is never one
@@ -41,14 +45,31 @@ const tagNumbers = function (terms, setTag, world) {
     if (value === null && !isQuestion) {
       continue
     }
+    const next = terms[i + 1]
     if (value !== null) {
+      // -5, マイナス5, 氷点下5度
+      if (value > 0 && signOf(terms, i) !== null) {
+        value = -value
+      }
       setTag([t], 'Value', world, null, reason)
       setTag([t], 'Cardinal', world, null, reason)
       t.number = value
+      if (moneySign.test(t.pre)) {
+        setTag([t], 'Money', world, null, reason)
+      }
+      // 2分の1 is one-half - the denominator comes first
+      const top = terms[i + 3]
+      const isOver = Boolean(top) && next.text === '分' && terms[i + 2].text === 'の' && isNumber(top.text)
+      if (value !== 0 && isOver) {
+        setTag([t, top], 'Value', world, null, reason)
+        setTag([t, top], 'Fraction', world, null, reason)
+        t.number = toNumber(top.text) / value
+        i += 3
+        continue
+      }
     }
 
     // ---- is the next word its counter? ----
-    const next = terms[i + 1]
     if (!next || counters[next.text] === undefined) {
       continue
     }

@@ -1,6 +1,7 @@
 import toNumber from './kanji-number.js'
 import toKanji, { toDigits } from './to-kanji.js'
 import counters from '../../../data/lexicon/counters.js'
+import { signOf, minusSign } from './sign.js'
 
 const isWide = /[０-９]/
 const isKanjiNumeral = /[〇零一二三四五六七八九十百千万億兆壱弐参拾]/
@@ -20,7 +21,40 @@ const parse = function (view) {
     term,
     kanji: isKanjiNumeral.test(term.text),
     wide: isWide.test(term.text),
+    // 1,000 - thousands were grouped with a comma
+    grouped: /[,，]/.test(term.text),
   }
+}
+
+// 1234 → 1,234 - or １，２３４, if that is how it was typed
+const withCommas = function (num, wide) {
+  const str = num.toLocaleString('en-US', { maximumFractionDigits: 20 })
+  if (!wide) {
+    return str
+  }
+  return str.replace(/[0-9]/g, d => String.fromCharCode(d.charCodeAt(0) + 0xfee0)).replace('.', '．').replace(/,/g, '，')
+}
+
+// the new text brings its own sign, so remove the old one - '-|5' → '-4'
+// returns the number that is left to write
+const clearSign = function (view, term, num) {
+  const terms = view.document[view.fullPointer[0][0]]
+  const i = terms.indexOf(term)
+  const kind = signOf(terms, i)
+  if (kind === 'pre') {
+    term.pre = term.pre.replace(minusSign, '')
+  } else if (kind === 'post') {
+    terms[i - 1].post = terms[i - 1].post.replace(minusSign, '')
+  } else if (kind === 'word') {
+    // マイナス5 → マイナス4 - the word is already there
+    if (num < 0) {
+      return Math.abs(num)
+    }
+    // ... or has nothing left to say - マイナス5 → 3
+    terms[i - 1].text = ''
+    terms[i - 1].normal = ''
+  }
+  return num
 }
 
 // swap a term's text in place.  .replaceWith() would put a space between the
@@ -35,15 +69,19 @@ const setText = function (term, str, num) {
 
 // write a number back in the shape it was found in
 const write = function (view, num, form) {
-  const { term, kanji, wide } = parse(view)
-  if (!term || typeof num !== 'number') {
+  const { term, kanji, wide, grouped } = parse(view)
+  // there is no way to write 1.5 as 2分の1
+  if (!term || typeof num !== 'number' || view.has('#Fraction')) {
     return view
   }
+  const left = clearSign(view, term, num)
   let str
   if (form === 'kanji' || (form === undefined && kanji)) {
-    str = toKanji(num)
+    str = toKanji(left)
+  } else if (grouped && form === undefined) {
+    str = withCommas(left, wide)
   } else {
-    str = toDigits(num, form === undefined ? wide : false)
+    str = toDigits(left, form === undefined ? wide : false)
   }
   if (str === null) {
     return view
@@ -67,7 +105,7 @@ const addMethod = function (View) {
     get(n) {
       // the second .map is a plain Array.map - compromise's own .map() only
       // unwraps to an array when the callback returns strings or objects
-      return this.getNth(n).map(parse).map(o => o.num)
+      return this.getNth(n).map(parse, []).map(o => o.num)
     }
     json(n) {
       const opts = typeof n === 'object' ? n : {}
@@ -175,7 +213,8 @@ const addMethod = function (View) {
 
   /** every number in the document */
   View.prototype.numbers = function (n) {
-    let m = this.match('#Value+')
+    // 2分の1 is one number
+    let m = this.match('(#Fraction 分 の #Fraction|#Value+)')
     m = new Numbers(this.document, m.pointer)
     return typeof n === 'number' ? m.eq(n) : m
   }
@@ -189,7 +228,8 @@ const addMethod = function (View) {
   }
   /** every 円/ドル amount */
   View.prototype.money = function (n) {
-    const m = this.match('#Value+ #Currency')
+    // 1,000円, or ¥1,000
+    const m = this.match('(#Value+ #Currency|#Money)')
     return typeof n === 'number' ? m.eq(n) : m
   }
   /** every percentage */

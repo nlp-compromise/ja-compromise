@@ -4,6 +4,7 @@ import { conjugateVerb, conjugateAdjective, conjugateNaAdjective } from '../conj
 import { verbForms, adjForms, naAdjForms, desireForms, derivedForms } from '../conjugate/tags.js'
 import copula from '../conjugate/copula.js'
 import misc from './misc.js'
+import { properNouns } from 'compromise/shared'
 
 // tags in _data.js that describe *how a word conjugates*, not what it is
 // const verbHint = {
@@ -18,6 +19,12 @@ const lexicon = {}
 const roots = {}
 // weak entries (generated forms) never overwrite a strong one (a listed word)
 const strong = new Set()
+
+// one term is a word and its bound endings - 読みました, 読まなかった.
+// a て-form and the helper verb after it are two terms - 読んで|いる - whichever
+// helper it is.  (the tagger passes the helper's tense back, and .verbs() puts
+// them together again.)  so these forms are never single words:
+const twoTerms = new Set(['Progressive', 'ProgressivePolite', 'PastProgressive'])
 
 const add = function (word, tags, isStrong) {
   if (!word) {
@@ -50,7 +57,7 @@ const addDerived = function (base, baseTags, dict) {
   }
   Object.keys(derivedForms).forEach(form => {
     const str = forms[form]
-    if (str && str !== base) {
+    if (str && str !== base && !twoTerms.has(form)) {
       add(str, ['Verb'].concat(baseTags, derivedForms[form]))
       if (roots[str] === undefined) {
         roots[str] = dict || base
@@ -67,7 +74,7 @@ const addVerb = function (dict, hint) {
   }
   Object.keys(verbForms).forEach(form => {
     const str = forms[form]
-    if (!str || str === dict) {
+    if (!str || str === dict || twoTerms.has(form)) {
       return
     }
     // a bare kana masu-stem is a tokenizer hazard - のり (乗り) would eat
@@ -165,6 +172,13 @@ Object.keys(copula).forEach(w => {
 Object.keys(misc).forEach(w => {
   lexicon[w] = misc[w]
   strong.add(w)
+})
+
+// latin-script names of people and places, shared by every language - our own words win
+Object.keys(properNouns).forEach(tag => {
+  Object.keys(unpack(properNouns[tag])).forEach(w => {
+    lexicon[w] = lexicon[w] || tag
+  })
 })
 
 export default lexicon

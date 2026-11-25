@@ -1,18 +1,41 @@
-import { isHiragana, isKatakana, isKanji, isAscii, isNumber } from '../../../01-one/tokenizer/methods/lib.js'
+import { isHiragana, isKatakana, isKanji, isAscii, isNumber, isEmoji, isEmojiJoiner, charAt } from '../../../01-one/tokenizer/methods/lib.js'
 
 const every = function (str, fn) {
   for (let i = 0; i < str.length; i += 1) {
-    if (!fn(str[i])) {
+    const c = charAt(str, i)
+    if (!fn(c)) {
       return false
     }
+    i += c.length - 1
   }
   return str.length > 0
 }
 
+const isUrl = /^(?:https?:\/\/|www\.)\S+$/i
+const isEmail = /^[\w.+-]+@[\w-]+(?:\.[\w-]+)+$/
+const isPhone = /^\d{2,5}-\d{1,4}-\d{3,4}$/
+
 const tagScript = function (terms, setTag, world) {
   const reason = 'script'
   terms.forEach(term => {
-    const str = term.text
+    // the plain-width form - ｺﾝﾋﾟｭｰﾀ is katakana, and １２３ is a number
+    const str = term.normal || term.text
+    if (every(str, c => isEmoji(c) || isEmojiJoiner(c))) {
+      setTag([term], 'Emoji', world, null, reason)
+      return
+    }
+    if (isUrl.test(str)) {
+      setTag([term], 'Url', world, null, reason)
+      return
+    }
+    if (isEmail.test(str)) {
+      setTag([term], 'Email', world, null, reason)
+      return
+    }
+    if (isPhone.test(str)) {
+      setTag([term], 'PhoneNumber', world, null, reason)
+      return
+    }
     if (every(str, isHiragana)) {
       setTag([term], 'Hiragana', world, null, reason)
       return

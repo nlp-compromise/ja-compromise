@@ -35,7 +35,7 @@ test('tense and politeness:', function (t) {
   check(t, '映画を見た', [['見た', 'PastTense'], ['見た', 'Verb']])
   check(t, '映画を見ない', [['見ない', 'Negative'], ['見ない', 'PresentTense']])
   check(t, '映画を見ませんでした', [['見ませんでした', 'PastTense'], ['見ませんでした', 'Negative'], ['見ませんでした', 'Polite']])
-  check(t, '本を読んでいる', [['読んでいる', 'Progressive']])
+  check(t, '本を読んでいる', [['読んで', 'Progressive'], ['いる', 'Progressive']])
   check(t, '手紙を書きたい', [['書きたい', 'Desire']])
   check(t, '早く走れ', [['走れ', 'Imperative']])
   check(t, '一緒に行こう', [['行こう', 'Volitional']])
@@ -88,7 +88,7 @@ test('nouns:', function (t) {
 
 test('suru-verbs:', function (t) {
   check(t, '日本語を勉強します', [['勉強します', 'Verb'], ['勉強します', 'Polite']])
-  check(t, '毎日運動している', [['運動している', 'Progressive']])
+  check(t, '毎日運動している', [['運動して', 'Progressive'], ['いる', 'Progressive']])
   t.end()
 })
 

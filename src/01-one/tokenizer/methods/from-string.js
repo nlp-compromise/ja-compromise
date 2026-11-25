@@ -1,44 +1,66 @@
 import toTerms from './whitespace.js'
 
+const whitespace = /(\s+)/
+
 /**
  * turn a string into compromise's document format - [[term, term], [term]]
  *
  * this replaces compromise's own `fromString`, so that everything which parses
  * text - nlp(), nlp.tokenize(), .append(), .insertAfter(), .replaceWith() -
  * gets japanese word-segmentation, and not just a split on whitespace.
+ *
+ * only compromise's sentence-splitter is used.  its word-splitter has
+ * english rules for hyphens, slashes and apostrophes, and we have our own.
  */
 const fromString = function (input, world) {
   const { methods, model } = world
-  const { splitSentences, splitTerms, splitWhitespace } = methods.one.tokenize
+  const { splitSentences } = methods.one.tokenize
   const lexicon = model.one.lexicon
   // user-given words can be longer than our own lookahead
   const maxWord = model.one.maxWord || 0
   input ||= ''
   return splitSentences(input, world).map(txt => {
-    // compromise splits on whitespace, and peels the punctuation off each chunk
-    const chunks = splitTerms(txt, model).map(str => splitWhitespace(str, model))
+    // [word, space, word, space, word]
+    const parts = txt.split(whitespace)
     // if the sentence has spaces in it, they're real word-boundaries
-    const spaced = chunks.length > 1
-    let out = []
-    chunks.forEach(chunk => {
-      // japanese mostly doesn't use whitespace, so every chunk still needs splitting
-      const terms = toTerms(chunk.text, spaced, lexicon, maxWord)
-      if (terms.length === 0) {
-        // nothing but punctuation
-        out.push({
-          text: chunk.text,
-          normal: chunk.text.toLowerCase(),
-          pre: chunk.pre || '',
-          post: chunk.post || '',
-          tags: new Set()
-        })
+    const spaced = parts.filter((str, i) => i % 2 === 0 && str !== '').length > 1
+    const out = []
+    // punctuation, or whitespace, with no word before it yet
+    let carry = ''
+    parts.forEach((str, i) => {
+      if (str === '') {
         return
       }
-      // keep the chunk's surrounding punctuation and whitespace
-      terms[0].pre = (chunk.pre || '') + terms[0].pre
-      terms[terms.length - 1].post += chunk.post || ''
-      out = out.concat(terms)
+      const last = out[out.length - 1]
+      if (i % 2 === 1) {
+        // whitespace
+        if (last) {
+          last.post += str
+        } else {
+          carry += str
+        }
+        return
+      }
+      // japanese mostly doesn't use whitespace, so every chunk still needs splitting
+      const terms = toTerms(str, spaced, lexicon, maxWord)
+      if (terms.length === 0) {
+        // nothing but punctuation - ' - '
+        if (last) {
+          last.post += str
+        } else {
+          carry += str
+        }
+        return
+      }
+      terms[0].pre = carry + terms[0].pre
+      carry = ''
+      terms.forEach(term => out.push(term))
     })
+    // a sentence with no words in it at all
+    if (out.length === 0 && carry.trim() !== '') {
+      const [, pre, text, post] = carry.match(/^(\s*)([\s\S]*?)(\s*)$/)
+      out.push({ text, normal: text, pre, post, tags: new Set() })
+    }
     return out
   })
 }

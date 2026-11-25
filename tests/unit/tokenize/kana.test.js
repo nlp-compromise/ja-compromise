@@ -10,7 +10,6 @@ test('the first match is not always the right one:', function (t) {
     ['きょうはいいてんきです', ['きょう', 'は', 'いい', 'てんき', 'です']],
     // not 私|はた|また|ま|これ
     ['私はたまたまこれを見た', ['私', 'は', 'たまたま', 'これ', 'を', '見た']],
-    ['行かなければ', ['行', 'か', 'なければ']],
   ]
   arr.forEach(([str, want]) => {
     t.deepEqual(terms(str), want, here + str)

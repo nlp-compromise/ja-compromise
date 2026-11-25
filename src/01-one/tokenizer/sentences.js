@@ -11,11 +11,9 @@ const hasLetter = /\p{L}/u
 const boundary = new RegExp(
   [
     // 'うそ!信じられない' - ascii punctuation
-    `(?<=[${kana}])[!?]+[」』）]*(?=[${kana}「『])`,
+    `(?<=[${kana}])[!?]+(?=[${kana}「『])`,
     // 'そうですか．わかりました' - a fullwidth period (but not '３．１４')
     `(?<=[${kana}])[．.](?=[${kana}「『])`,
-    // '「行こう。」私は頷いた' - a closed quotation, with no particle after it
-    `。[」』]+(?=[${kana}「『])(?![とっのはがをにもでやかなよねだみ])`,
   ].join('|'),
   'gu'
 )
@@ -75,9 +73,25 @@ const resplit = function (str) {
 // 'Mr.' is not the end of a sentence, even with no space before it - '彼はMr. Smithです'
 const beforeLatin = new RegExp(`^.*[${kana}、。](?=[A-Za-z]+\\. *$)`, 'u')
 const wrapIsSentence = function (isSentence) {
-  return function (str, abbrevs, foundLetter, next) {
-    return isSentence(str.replace(beforeLatin, ' '), abbrevs, foundLetter, next)
+  return function (str, abbrevs, foundLetter) {
+    return isSentence(str.replace(beforeLatin, ' '), abbrevs, foundLetter)
   }
+}
+
+// a closing quote after the stop is not a new sentence - '「行く！」「だめ！」'
+// (but a new line is)
+const endsQuote = /[。！？｡!?．.][」』）】〕》〉”]+[^\S\n]*$/
+const closeMerge = function (arr) {
+  const out = []
+  arr.forEach(str => {
+    const last = out[out.length - 1]
+    if (last !== undefined && endsQuote.test(last)) {
+      out[out.length - 1] += str
+      return
+    }
+    out.push(str)
+  })
+  return out
 }
 
 /** add our own passes to the end of the english sentence-splitter */
@@ -86,6 +100,7 @@ const wrap = function (splitSentences) {
     let arr = splitSentences(text, world)
     arr = quoteMerge(arr)
     arr = arr.flatMap(resplit)
+    arr = closeMerge(arr)
     return arr
   }
 }

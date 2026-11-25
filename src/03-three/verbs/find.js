@@ -33,3 +33,4 @@ const find = function (view) {
   return pointers
 }
 export default find
+export { isAuxiliary }

@@ -3,7 +3,7 @@ import splitUp from './trie/split-up.js'
 import joinUp from './join-up.js'
 import attachOkurigana from './okurigana.js'
 import joinNumbers from './join-numbers.js'
-import { isPunctuation } from './lib.js'
+import { isPunctuation, isOpener, charAt } from './lib.js'
 
 const maxLen = Object.keys(ownLexicon).reduce((max, w) => Math.max(max, w.length), 1)
 // a very long 'word' is nearly always two words - cap the lookahead
@@ -11,8 +11,26 @@ const LOOKAHEAD = Math.min(maxLen, 12)
 
 const allHiragana = /^[぀-ゟ]+$/
 
-// 「『（(【〔《〈 at the end of a punctuation run
-const trailingOpen = /[「『（(【〔《〈]+$/
+// is this nothing but punctuation?
+const allPunctuation = function (str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const c = charAt(str, i)
+    if (!isPunctuation(c)) {
+      return false
+    }
+    i += c.length - 1
+  }
+  return str.length > 0
+}
+
+// where do the opening brackets on the end of a punctuation run begin? - 。「
+const openersAt = function (str) {
+  let at = str.length
+  while (at > 0 && isOpener(str[at - 1])) {
+    at -= 1
+  }
+  return at
+}
 
 // `lexicon` is the live one - ours, plus any words the user has added
 const tokenize = function (txt, isChunk, lexicon = ownLexicon, maxWord = 0) {
@@ -38,12 +56,10 @@ const tokenize = function (txt, isChunk, lexicon = ownLexicon, maxWord = 0) {
     if (str === '') {
       return
     }
-    if (str.split('').every(isPunctuation)) {
-      let open = ''
-      str = str.replace(trailingOpen, m => {
-        open = m
-        return ''
-      })
+    if (allPunctuation(str)) {
+      const at = openersAt(str)
+      const open = str.slice(at)
+      str = str.slice(0, at)
       if (str !== '' && out.length > 0) {
         out[out.length - 1] += str
       } else {

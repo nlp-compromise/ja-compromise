@@ -75,7 +75,7 @@ doc.match('#Noun #CaseParticle #Adverb #Adjective') // 同じ意味
 | `#Polite` | `#丁寧` | `読みます` |
 | `#Volitional` | `#意向形` | `読もう` |
 | `#Potential` | `#可能形` | `読める` |
-| `#Progressive` | `#進行形` | `読んでいる` |
+| `#Progressive` | `#進行形` | `読んで` `いる` (both terms), `読んでる` |
 | `#Desire` | `#願望` | `読みたい` |
 | `#Representative` | `#たり形` | `読んだり` |
 | `#Presumptive` | `#推量` | `読むだろう` |
