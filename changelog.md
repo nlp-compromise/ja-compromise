@@ -1,4 +1,4 @@
-### Unreleased
+### 0.3.0 [Nov 2026]
 
 - **[new]** - `.verbs()` returns a `Verbs` view - `.parse()`, `.json()`, `.conjugate()`, `.toPastTense()`, `.toPresentTense()`, `.toNegative()`, `.toPositive()`, `.toPolite()`, `.toPlain()`, `.isNegative()`, `.isPositive()`, `.isPolite()`, `.isPlain()`, `.isImperative()`
 - **[new]** - `.nouns()` returns a `Nouns` view - `.parse()`, `.json()`, `.conjugate()`, `.isPlural()`, `.isSingular()`, `.toPlural()`, `.toSingular()`

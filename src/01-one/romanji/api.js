@@ -11,6 +11,7 @@ export default function (View) {
     })
     // convert inter-bang
     out = out.replace(/・/, ' ')
-    return out
+    // the space after the last word isn't between anything
+    return out.trimEnd()
   }
 }

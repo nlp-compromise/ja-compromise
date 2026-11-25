@@ -12,6 +12,7 @@ import toKanji from './01-one/numbers/to-kanji.js'
 import numbers from './01-one/numbers/api.js'
 import nouns from './03-three/nouns/plugin.js'
 import verbs from './03-three/verbs/plugin.js'
+import { lazy } from 'compromise/shared'
 
 nlp.plugin(tokenizer)
 nlp.plugin(tagset)
@@ -22,6 +23,9 @@ nlp.plugin(preTagger)
 nlp.plugin(numbers)
 nlp.plugin(nouns)
 nlp.plugin(verbs)
+
+// language-neutral plugins, shared with compromise
+nlp.plugin(lazy) // nlp.lazy() - only tags the sentences that may match
 
 // word-segmentation happens in the tokenizer plugin, so this is all there is
 const ja = function (txt, lex) {

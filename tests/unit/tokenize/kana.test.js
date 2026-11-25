@@ -51,7 +51,7 @@ test('a long vowel stays in its word:', function (t) {
 test('latin words are left alone:', function (t) {
   const arr = [
     ['decimalを使う', ['decimal', 'を', '使う']],
-    ['Googleで検索する', ['Google', 'で', '検索', 'する']],
+    ['Googleで検索する', ['Google', 'で', '検索する']],
     ['iPhone15を買った', ['iPhone', '15', 'を', '買った']],
   ]
   arr.forEach(([str, want]) => {

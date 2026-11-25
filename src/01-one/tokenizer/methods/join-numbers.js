@@ -49,12 +49,22 @@ const joinDecimals = function (arr) {
       out.push(arr[i])
       continue
     }
+    // 一点五倍 is 1.5 times - but 点 is a counter far more often than a
+    // decimal point, so only when there's no second one - 一点二点 is
+    // 'one point, two points'
+    if (arr[i + 1] === '点' && isDecimals(arr[i + 2] || '') && arr[i + 3] !== '点' && out[out.length - 1] !== '点') {
+      out.push(arr[i] + arr[i + 1] + arr[i + 2])
+      i += 2
+      continue
+    }
     // how far does this number|point|digits|point|digits chain go?
     let end = i
     while (isPoint(arr[end + 1] || '') && isDecimals(arr[end + 2] || '')) {
       end += 2
     }
-    if (end === i + 2) {
+    // 二・二六事件 is the incident of february 26th - a date, not 2.26
+    const isDateName = arr[i + 1] === '・' && (arr[end + 1] || '').startsWith('事件')
+    if (end === i + 2 && !isDateName) {
       out.push(arr[i] + arr[i + 1] + arr[i + 2])
     } else {
       for (let k = i; k <= end; k += 1) {

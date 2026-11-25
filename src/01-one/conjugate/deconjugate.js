@@ -118,6 +118,8 @@ const suffixes = [
   ['でる', ['Verb', 'Progressive', 'PresentTense'], 'te'],
   ['た', ['Verb', 'PastTense'], 'ta'],
   ['だ', ['Verb', 'PastTense'], 'ta'],
+  // 知らん, わからん - a spoken ない
+  ['ん', ['Verb', 'PresentTense', 'Negative'], 'neg', 'strict'],
   ['て', ['Verb', 'Gerund'], 'te'],
   ['で', ['Verb', 'Gerund'], 'te'],
   ['ば', ['Verb', 'ConditionalVerb'], 'cond'],
@@ -173,6 +175,10 @@ const deconjugate = function (str, isKnown) {
       continue
     }
     const stem = str.slice(0, -suffix.length)
+    // plenty of nouns end in ん - みかん, やかん - so the stem has to be written in kanji
+    if (suffix === 'ん' && !/[一-龯]/.test(stem)) {
+      continue
+    }
     // 'た'/'だ'/'て'/'で' hang off the 音便 kana, which belongs to the stem
     let candidates = toDict(stem, base)
     if (base === 'te' || base === 'ta') {

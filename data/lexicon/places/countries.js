@@ -204,5 +204,7 @@ export default [
   'ルワンダ', //	Rwanda	Ruwanda
   'レソト', //	Lesotho	Resoto
   'レバノン', //	Lebanon	Rebanon
-  'ロシア', //	Russian Federation	Roshia
+  'ロシア', //	Russian Federation	Roshia,
+  // the kanji names
+  '米国', '英国',
 ]

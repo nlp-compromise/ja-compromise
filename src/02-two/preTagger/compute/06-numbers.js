@@ -20,6 +20,27 @@ const nativeValue = {
   むっつ: 6, ななつ: 7, やっつ: 8, ここのつ: 9, とお: 10,
 }
 
+// 1/2 and １／２ - and ½, which unicode spells out as 1⁄2
+const slashed = /^(\d+)[/⁄](\d+)$/
+// 1/5(金) and 1/5日 are the fifth of january
+const dateAfter = /^[(（]?[月火水木金土日]/
+
+// the value of a fraction written with a slash - or null
+const slashFraction = function (term, next) {
+  let str = term.normal || term.text
+  if (str.length === 1) {
+    str = str.normalize('NFKC')
+  }
+  const m = slashed.exec(str)
+  if (m === null || Number(m[2]) === 0) {
+    return null
+  }
+  if (next && dateAfter.test(term.post + next.pre + next.text)) {
+    return null
+  }
+  return Number(m[1]) / Number(m[2])
+}
+
 /**
  * tag numbers, and the counter that follows them.
  * 本 is a book far more often than it's a counter for long objects - the only
@@ -39,6 +60,11 @@ const tagNumbers = function (terms, setTag, world) {
     } else if (isNumber(str)) {
       value = toNumber(str)
     }
+    // 1/2, ½
+    const fraction = value === null ? slashFraction(t, terms[i + 1]) : null
+    if (fraction !== null) {
+      value = fraction
+    }
     // 何人, 何冊 - 'how many' takes a counter exactly like a number does,
     // but there's no value to record
     const isQuestion = str === '何' || str === 'なん' || str === '幾' || str === 'いく'
@@ -52,8 +78,13 @@ const tagNumbers = function (terms, setTag, world) {
         value = -value
       }
       setTag([t], 'Value', world, null, reason)
-      setTag([t], 'Cardinal', world, null, reason)
+      setTag([t], fraction === null ? 'Cardinal' : 'Fraction', world, null, reason)
       t.number = value
+      // 2½ is two-and-a-half - the whole number in front carries the total
+      const whole = terms[i - 1]
+      if (fraction !== null && str.length === 1 && whole && Number.isInteger(whole.number) && whole.post === '' && t.pre === '') {
+        whole.number += whole.number < 0 ? -fraction : fraction
+      }
       if (moneySign.test(t.pre)) {
         setTag([t], 'Money', world, null, reason)
       }

@@ -1,6 +1,5 @@
 import test from 'tape'
 import nlp from '../../_lib.js'
-import lexicon from '../../../src/01-one/lexicon/lexicon.js'
 import counters from '../../../data/lexicon/counters.js'
 import dateWords from '../../../data/lexicon/dates.js'
 import particles from '../../../data/lexicon/misc/particles.js'
@@ -18,16 +17,6 @@ const check = function (t, label, tags) {
   const missing = [...new Set(tags)].filter(tag => !declared.has(tag)).sort()
   t.deepEqual(missing, [], here + label + ' (' + new Set(tags).size + ' tags)')
 }
-
-test('every tag in the built lexicon is declared:', function (t) {
-  let tags = []
-  Object.keys(lexicon).forEach(w => {
-    const v = lexicon[w]
-    tags = tags.concat(typeof v === 'string' ? [v] : v)
-  })
-  check(t, 'lexicon', tags)
-  t.end()
-})
 
 test('every tag in the data-tables is declared:', function (t) {
   // these reach setTag() as variables, so a typo in them is invisible

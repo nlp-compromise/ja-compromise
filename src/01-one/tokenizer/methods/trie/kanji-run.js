@@ -32,6 +32,10 @@ const hasTag = function (lexicon, str, want) {
   return Array.isArray(tags) && tags.some(t => want.has(t))
 }
 const timeTags = new Set(['Date', 'Time', 'WeekDay', 'Season', 'AmPm', 'Duration'])
+const placeTags = new Set(['City', 'Country'])
+const negators = new Set('不無未非')
+// 東京 + 都, 大阪 + 府, 京都 + 市, 中国 + 人 - what a place-name can end in
+const placeSuffix = new Set('都府県市区町村駅港人語製産内')
 const pronoun = new Set(['Pronoun'])
 const honorific = new Set(['Honorific'])
 
@@ -109,6 +113,9 @@ const cover = function (txt, start, end, lexicon, first = 'start') {
         if (prev === 'number') {
           // 1|時間|半
           consider(str, 'counter')
+        } else if (j < end && placeSuffix.has(txt[j]) && hasTag(lexicon, str, placeTags)) {
+          consider(str + txt[j], 'word')
+          consider(str, 'word')
         } else {
           consider(str, hasTag(lexicon, str, timeTags) ? 'time' : 'word')
         }
@@ -244,6 +251,10 @@ const kanjiRun = function (txt, i, lexicon, maxLen) {
       return { pieces: splitBody(txt, i, end - 1, lexicon).concat(txt[end - 1]), end }
     }
     return { pieces: splitBody(txt, i, end, lexicon), end }
+  }
+  // 不適切に - 不 turns the word after it around, and can't be left on its own
+  if (tail.at === i + 1 && negators.has(txt[i])) {
+    return { pieces: [txt.slice(i, end)], end }
   }
   const pieces = splitBody(txt, i, tail.at, lexicon)
   pieces.push(tail.word)

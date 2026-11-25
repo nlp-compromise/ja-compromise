@@ -10,11 +10,11 @@ test('an unknown compound stays whole:', function (t) {
   const arr = [
     ['京都', ['京都']],
     ['本当ですか', ['本当', 'です', 'か']],
-    ['外国人参政権', ['外国人参政権']],
-    ['人工知能', ['人工知能']],
+    ['光合成反応', ['光合成反応']],
+    ['量子力学', ['量子力学']],
     ['大学生', ['大学生']],
     ['米国', ['米国']],
-    ['東京都知事は', ['東京都知事', 'は']],
+    ['国際宇宙基地は', ['国際宇宙基地', 'は']],
     ['東京から大阪まで行く', ['東京', 'から', '大阪', 'まで', '行く']],
     ['大学生じゃない', ['大学生', 'じゃない']],
   ]
@@ -75,8 +75,8 @@ test('a verb at the end of a run keeps its stem:', function (t) {
 })
 
 test('a user-given word splits a run:', function (t) {
-  t.deepEqual(terms('人工知能研究'), ['人工知能研究'], here + 'before')
-  nlp.addWords({ 人工知能: 'Noun', 研究: 'Noun' })
-  t.deepEqual(terms('人工知能研究'), ['人工知能', '研究'], here + 'after')
+  t.deepEqual(terms('量子力学'), ['量子力学'], here + 'before')
+  nlp.addWords({ 量子: 'Noun', 力学: 'Noun' })
+  t.deepEqual(terms('量子力学'), ['量子', '力学'], here + 'after')
   t.end()
 })

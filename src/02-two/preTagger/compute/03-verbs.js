@@ -1,9 +1,25 @@
 import { deconjugate, conjugateVerb } from '../../../01-one/conjugate/index.js'
+import { isSecondVerb } from '../../../01-one/conjugate/compound.js'
 import lexicon, { roots } from '../../../01-one/lexicon/lexicon.js'
 
 const reason = 'verbSuffix'
 const isKnown = (w) => lexicon.hasOwnProperty(w)
 const scriptOnly = new Set(['Kanji', 'Hiragana', 'Katakana', 'Ascii'])
+
+const hasTag = (word, tag) => isKnown(word) && [].concat(lexicon[word]).includes(tag)
+
+// 走り出した is 走り + 出した - a verb's stem, and a second verb.
+// it conjugates on its second half, so that's where its tags come from
+const compoundVerb = function (str) {
+  for (let i = str.length - 2; i >= 1; i -= 1) {
+    const stem = str.slice(0, i)
+    const second = str.slice(i)
+    if (hasTag(stem, 'VerbStem') && hasTag(second, 'Verb') && isSecondVerb(roots[second] || second)) {
+      return { tags: [].concat(lexicon[second]), root: stem + (roots[second] || second) }
+    }
+  }
+  return null
+}
 
 // a verb we've never seen can still be read off its ending.
 // 「散歩した」 is a verb even if 散歩する isn't in the lexicon.
@@ -16,6 +32,12 @@ const tagUnknownVerbs = function (terms, setTag, world) {
       return
     }
     if (term.text.length < 2) {
+      return
+    }
+    const compound = compoundVerb(term.text)
+    if (compound !== null) {
+      compound.tags.forEach(tag => setTag([term], tag, world, null, 'compoundVerb'))
+      term.root = compound.root
       return
     }
     const found = deconjugate(term.text, isKnown)

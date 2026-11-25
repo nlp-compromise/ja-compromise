@@ -378,6 +378,8 @@ declare function nlp(text?: string, lexicon?: Lexicon): JaView
 
 declare namespace nlp {
   // ---- constructor ----
+  /** tag only the sentences that may hold this match, and return the matches */
+  export function lazy(text: string, match: string | Net): JaView
   /** interpret text without tagging */
   export function tokenize(text: string, lexicon?: Lexicon): JaView
   /** mix-in a compromise plugin */

@@ -815,5 +815,8 @@ export default [
   '赤平市',//Akabira
   '三笠市',//Mikasa
   '夕張市',//Yūbari
-  '歌志内市',//Utashinai
+  '歌志内市',//Utashinai,
+  // as they are usually written - without 市
+  '東京', '京都', '大阪', '名古屋', '横浜', '神戸', '福岡', '札幌', '仙台', '広島', '奈良', '長崎',
+  '沖縄', '千葉', '埼玉', '川崎', '新宿', '渋谷',
 ]

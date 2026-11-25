@@ -76,3 +76,51 @@ test('the ending has to be one the verb takes:', function (t) {
   t.deepEqual(terms('くるまをうんてんする'), ['くるま', 'を', 'うんてん', 'する'], here + 'not 産んて')
   t.end()
 })
+
+test('a verb made of two verbs is one term:', function (t) {
+  const arr = [
+    // [text, terms, root-of-the-verb]
+    ['走り出した', ['走り出した'], '走り出す'],
+    ['食べ始める', ['食べ始める'], '食べ始める'],
+    ['雨が降り始めた', ['雨', 'が', '降り始めた'], '降り始める'],
+    ['飲みすぎた', ['飲みすぎた'], '飲みすぎる'],
+    ['書き直さなかった', ['書き直さなかった'], '書き直す'],
+  ]
+  arr.forEach(([str, want, root]) => {
+    const doc = nlp(str).compute('root')
+    t.deepEqual(terms(str), want, here + str)
+    t.equal(doc.match('#Verb').docs[0][0].root, root, here + 'root ' + str)
+  })
+  // …but not any two verbs
+  t.deepEqual(terms('勉強しなければなりません'), ['勉強しなければ', 'なりません'], here + 'not a compound')
+  t.end()
+})
+
+test('a dictionary-form is its own root:', function (t) {
+  const arr = ['忘れる', '入れる', 'くれる', '流れる', '別れる']
+  arr.forEach(str => {
+    t.equal(nlp(str).compute('root').docs[0][0].root, str, here + str)
+  })
+  // a passive still goes back to its verb
+  t.equal(nlp('食べられる').compute('root').docs[0][0].root, '食べる', here + '食べられる')
+  t.end()
+})
+
+test('a suffix stays on its word:', function (t) {
+  const arr = [
+    ['アメリカ人の友達', ['アメリカ人', 'の', '友達']],
+    ['フランス語を話す', ['フランス語', 'を', '話す']],
+    ['キャンプ用です', ['キャンプ用', 'です']],
+    ['東京都知事', ['東京都', '知事']],
+    ['大阪府に住む', ['大阪府', 'に', '住む']],
+    ['Tシャツを着る', ['Tシャツ', 'を', '着る']],
+    // 不 turns a word around, and can't be left on its own
+    ['不適切にしないでください', ['不適切', 'に', 'しないで', 'ください']],
+    // a spoken negative
+    ['知らんけど', ['知らん', 'けど']],
+  ]
+  arr.forEach(([str, want]) => {
+    t.deepEqual(terms(str), want, here + str)
+  })
+  t.end()
+})

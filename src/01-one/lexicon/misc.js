@@ -87,6 +87,8 @@ const lex = {
   // ---- irregular adnominals (連体詞) that look like adjectives but aren't ----
   '大きな': ['Adjective', 'Adnominal'],
   '小さな': ['Adjective', 'Adnominal'],
+  'おおきな': ['Adjective', 'Adnominal'],
+  'ちいさな': ['Adjective', 'Adnominal'],
   'おかしな': ['Adjective', 'Adnominal'],
   'いろんな': ['Adjective', 'Adnominal'],
 }

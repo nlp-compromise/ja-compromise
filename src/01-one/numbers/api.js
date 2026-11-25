@@ -99,7 +99,8 @@ const addMethod = function (View) {
     }
     /** the parsed number, plus how it was written */
     parse(n) {
-      return this.getNth(n).map(parse)
+      // an empty array when there's nothing - compromise's .map() would hand back a view
+      return this.getNth(n).map(parse, [])
     }
     /** the value of each number - 「二十三」 gives 23 */
     get(n) {
@@ -214,8 +215,22 @@ const addMethod = function (View) {
   /** every number in the document */
   View.prototype.numbers = function (n) {
     // 2分の1 is one number
-    let m = this.match('(#Fraction 分 の #Fraction|#Value+)')
-    m = new Numbers(this.document, m.pointer)
+    const found = this.match('(#Fraction 分 の #Fraction|#Value+)')
+    // punctuation between two numbers makes them two numbers - 1、2、3
+    const pointers = []
+    found.fullPointer.forEach(ptr => {
+      const [sentence, start, end] = ptr
+      const terms = this.document[sentence]
+      let from = start
+      for (let i = start; i < end - 1; i += 1) {
+        if (terms[i].post !== '' || terms[i + 1].pre !== '') {
+          pointers.push([sentence, from, i + 1])
+          from = i + 1
+        }
+      }
+      pointers.push([sentence, from, end])
+    })
+    const m = new Numbers(this.document, pointers)
     return typeof n === 'number' ? m.eq(n) : m
   }
   /** .numbers() alias, to match english compromise */

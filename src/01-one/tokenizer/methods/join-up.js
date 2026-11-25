@@ -1,10 +1,18 @@
 import ownLexicon from '../../lexicon/lexicon.js'
-import { getType, isKanji } from './lib.js'
+import { getType, isKanji, isKatakana } from './lib.js'
 
 // suffixes that belong to the word in front of them
 const suffixes = new Set(['たち', '達'])
 // honorific prefixes that belong to the word behind them
 const prefixes = new Set(['お', 'ご', '御'])
+
+// アメリカ + 人, フランス + 語
+const ofCountry = new Set(['人', '語', '製', '産'])
+const isCountry = function (lexicon, str) {
+  const tags = lexicon[str]
+  return tags === 'Country' || (Array.isArray(tags) && tags.includes('Country'))
+}
+const allKatakana = (str) => str.length > 1 && str.split('').every(c => isKatakana(c) || c === 'ー')
 
 // two unknown characters may only merge if they're the same script.
 // 'kanji then hiragana' used to merge too, which glued particles onto nouns.
@@ -28,6 +36,17 @@ const joinUp = function (arr, lexicon = ownLexicon) {
     const last = out[out.length - 1]
     // 私 + たち,  田中 + さん
     if (suffixes.has(c) && last && !lexicon[last + c]) {
+      out[out.length - 1] = last + c
+      continue
+    }
+    // アメリカ + 人
+    if (ofCountry.has(c) && last && isCountry(lexicon, last)) {
+      out[out.length - 1] = last + c
+      continue
+    }
+    // キャンプ + 用, テレビ + 局 - a lone kanji we don't know, after a loanword, is its suffix
+    const after = arr[i + 1]
+    if (c.length === 1 && isKanji(c) && !lexicon[c] && last && allKatakana(last) && !(after && isKanji(after[0]))) {
       out[out.length - 1] = last + c
       continue
     }

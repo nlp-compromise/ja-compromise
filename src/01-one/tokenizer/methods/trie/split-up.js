@@ -18,7 +18,9 @@ import kanjiRun from './kanji-run.js'
 import verbRule from './verb-rule.js'
 import deconjugate from '../../../conjugate/deconjugate.js'
 import { canBeOkurigana } from '../okurigana.js'
-import { isHiragana, isKanji, isAscii, isEmoji, isEmojiJoiner, charAt } from '../lib.js'
+import { roots } from '../../../lexicon/lexicon.js'
+import { isSecondVerb } from '../../../conjugate/compound.js'
+import { isHiragana, isKatakana, isKanji, isAscii, isEmoji, isEmojiJoiner, charAt } from '../lib.js'
 
 const hasWord = Object.prototype.hasOwnProperty
 
@@ -34,6 +36,7 @@ const STRAY_KANA = 3 // one unknown hiragana - nearly always a wrong cut
 // they're probably two words and a particle - なまえ|は|たなか
 const UNKNOWN = [0, 0, 2.4, 3, 3.7, 4.8, 6, 7.2]
 const VERB = 1.3 // an unknown kanji and a verb-ending - 届きました
+const GERUND = 0.95 // a て-form - 開けて|も, rather than 開け|ても
 const RULE = 1.1 // a known verb, with an ending the lexicon doesn't list - 行かなければ
 const LEAD = 1.2 // an unknown word with a particle on the front - 経験|に|つながる
 const TRAIL = 0.5 // …or on the end - ひらがな|と.  but names end this way too - たなか
@@ -95,6 +98,7 @@ const patterns = [
   /\d{1,4}[/-]\d{1,2}[/-]\d{1,4}(?![\d/-])/y, // 2024/01/05
   /\d{2,5}-\d{1,4}-\d{3,4}(?![\d-])/y, // 03-1234-5678
   /\d{3}-\d{4}(?![\d-])/y, // 100-0001
+  /\d+\/\d+(?![\d/])/y, // 1/2
   /\d{1,2}:\d{2}(?::\d{2})?(?![\d:])/y, // 10:30
   /[a-z](?:\+\+|#)(?![a-z0-9])/iy, // C++, C#
   /[a-z]+(?:[-'’.&][a-z0-9]+)+/iy, // Wi-Fi, COVID-19, U.S.A, don't
@@ -112,6 +116,18 @@ const findPattern = function (txt, i) {
     const m = patterns[k].exec(txt)
     if (m !== null) {
       return k < 3 ? m[0].replace(urlEnd, '') : m[0]
+    }
+  }
+  return null
+}
+
+// the verb beginning at i, if it's one that finishes off another verb's stem
+const secondVerb = function (txt, i, lexicon, maxLen) {
+  const max = Math.min(maxLen, txt.length - i)
+  for (let len = max; len > 1; len -= 1) {
+    const str = txt.substr(i, len)
+    if (hasWord.call(lexicon, str) && !cantFollow.has(txt[i + len]) && isSecondVerb(roots[str] || str)) {
+      return str
     }
   }
   return null
@@ -150,6 +166,12 @@ const getEdges = function (txt, i, lexicon, maxLen) {
     while (end < txt.length && isAscii(txt[end])) {
       end += 1
     }
+    // Tシャツ, Jリーグ - one letter, and the katakana it names
+    if (end === i + 1) {
+      while (end < txt.length && (isKatakana(txt[end]) || (txt[end] === 'ー' && end > i + 1))) {
+        end += 1
+      }
+    }
     return [{ end, pieces: [txt.slice(i, end)], cost: WORD, kind: 'other' }]
   }
   const max = Math.min(maxLen, txt.length - i)
@@ -157,8 +179,17 @@ const getEdges = function (txt, i, lexicon, maxLen) {
   for (let len = max; len > 1; len -= 1) {
     const str = txt.substr(i, len)
     if (hasWord.call(lexicon, str) && !cantFollow.has(txt[i + len])) {
-      const isExpression = tagsOf(lexicon, str).includes('Expression')
-      edges.push({ end: i + len, pieces: [str], cost: WORD, kind: getKind(lexicon, str), isExpression })
+      const tags = tagsOf(lexicon, str)
+      const isExpression = tags.includes('Expression')
+      const cost = tags.includes('Gerund') ? GERUND : WORD
+      edges.push({ end: i + len, pieces: [str], cost, kind: getKind(lexicon, str), isExpression })
+      // 走り + 出した - a verb's stem, and a second verb, are one verb
+      if (tags.includes('VerbStem')) {
+        const second = secondVerb(txt, i + len, lexicon, maxLen)
+        if (second !== null) {
+          edges.push({ end: i + len + second.length, pieces: [str + second], cost: WORD, kind: 'other' })
+        }
+      }
     }
   }
   const anyWords = edges.length > 0

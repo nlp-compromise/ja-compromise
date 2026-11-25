@@ -10,6 +10,11 @@ const addRoot = function (view) {
       if (term.root) {
         return
       }
+      // a dictionary-form is its own root - 入れる is a verb, and not only 'can enter'
+      if (term.tags.has('Infinitive')) {
+        term.root = term.text
+        return
+      }
       if (roots[term.text] !== undefined) {
         term.root = roots[term.text]
         return
